@@ -152,7 +152,7 @@ Bonus - Connect shared drive
 
 
 Test:
-![attachments/Pasted image 20261001164109.png]
+![[attachments/Pasted image 20261001164109.png]]
 
 
 [[VM]]

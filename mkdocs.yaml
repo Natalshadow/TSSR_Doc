@@ -19,9 +19,16 @@ plugins:
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
-  # Support des images collées depuis Obsidian
   - attr_list
   - md_in_html
+  # Obsidian callout boxes support (> [!NOTE])
+  - pymdownx.details
+  - pymdownx.superfences
+  # Native Obsidian Wikilink rendering for images and note links
+  - pymdownx.wiki_link:
+      base_url: ''
+      end_url: ''
+      html_template: '<img src="{url}" alt="{title}" />'
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
