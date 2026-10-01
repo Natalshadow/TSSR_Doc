@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "VM 101/TP5 - Modification de la VM Windows 11.md",
+                "file": "VM 101/VM.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TP5 - Modification de la VM Windows 11"
+              "title": "VM"
             }
           },
           {
@@ -226,8 +226,10 @@
   },
   "active": "6b09fe8cf55ac428",
   "lastOpenFiles": [
-    "Système d'information et système informatique.md",
+    "VM 101/Snapshots et clones de VM.md",
+    "VM 101/VM.md",
     "VM 101/TP5 - Modification de la VM Windows 11.md",
+    "Système d'information et système informatique.md",
     "VM 101/attachments/Pasted image 20261001155321.png",
     "VM 101/attachments/Pasted image 20261001155253.png",
     "VM 101/attachments/Pasted image 20261001154218.png",
@@ -238,7 +240,6 @@
     "Images/Pasted image 20261001142030.png",
     "Images/Pasted image 20261001141824.png",
     "Images/Pasted image 20261001141635.png",
-    "VM 101/Snapshots et clones de VM.md",
     "Images",
     "Images/Pasted image 20261001095318.png",
     "Images/Pasted image 20261001095251.png"

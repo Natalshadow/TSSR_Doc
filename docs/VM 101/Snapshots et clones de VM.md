@@ -1,16 +1,16 @@
 • [Snapshots] (Définition, avantages, limites). 
-• [Clone] de VM (types de clones, cas d'utilisation).
+• [Clone] de [VM] (types de clones, cas d'utilisation).
 
 ## Key Differences
 
-|**Feature**|**VM Snapshot**|**VM Clone**|
-|---|---|---|
-|**Primary Goal**|Short-term safety net (rollback point)|Long-term template or standalone copy|
-|**VM Power State**|Done **Live** (VM runs continuously while taken)|Best done **Shut Down** (or cold) to avoid state inconsistency|
-|**Storage Usage**|Very small initially; grows as delta/changes accumulate|**Doubles storage space** immediately (exact full duplicate)|
-|**Dependency**|Dependent on the parent base disk (deleting base breaks it)|**Fully independent** (has its own new MAC address, UUID, and disk)|
-|**Performance Impact**|Degrades VM performance if kept long-term|None (operates as a standard standalone VM)|
-|**Use Case**|Before applying updates, patches, or risky commands|Creating templates, dev environments, or staging servers|
+| **Feature**            | **VM Snapshot**                                             | **VM Clone**                                                        |
+| ---------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------- |
+| **Primary Goal**       | Short-term safety net (rollback point)                      | Long-term template or standalone copy                               |
+| **VM Power State**     | Done **Live** (VM runs continuously while taken)            | Best done **Shut Down** (or cold) to avoid state inconsistency      |
+| **Storage Usage**      | Very small initially; grows as delta/changes accumulate     | **Doubles storage space** immediately (exact full duplicate)        |
+| **Dependency**         | Dependent on the parent base disk (deleting base breaks it) | **Fully independent** (has its own new MAC address, UUID, and disk) |
+| **Performance Impact** | Degrades VM performance if kept long-term                   | None (operates as a standard standalone VM)                         |
+| **Use Case**           | Before applying updates, patches, or risky commands         | Creating templates, dev environments, or staging servers            |
 
 ## Quick Summary
 
