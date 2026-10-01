@@ -1,5 +1,6 @@
 site_name: TSSR Documentation & Lab Vault
 site_description: TSSR Lab Runbooks, Configs, and Notes
+site_url: https://natalshadow.github.io/TSSR_Doc/
 
 theme:
   name: material
@@ -15,5 +16,11 @@ theme:
 plugins:
   - search
 
-# Directs MkDocs to render everything in your docs folder
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
 docs_dir: docs

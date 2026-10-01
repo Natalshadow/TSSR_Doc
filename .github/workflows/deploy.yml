@@ -24,6 +24,21 @@ jobs:
         run: |
           pip install mkdocs-material
 
+      - name: Auto-create index.md if missing
+        run: |
+          if [ ! -f docs/index.md ]; then
+            echo "# TSSR Lab Vault" > docs/index.md
+            echo "Auto-generated documentation homepage." >> docs/index.md
+          fi
+
       - name: Build and Deploy to GitHub Pages
         run: |
           mkdocs gh-deploy --force
+
+      - name: Send Discord Notification
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{"content": "🚀 **TSSR Documentation Updated!**\nLive site: https://natalshadow.github.io/TSSR_Doc/"}' \
+               ${{ secrets.DISCORD_WEBHOOK }}
