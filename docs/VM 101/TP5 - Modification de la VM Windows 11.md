@@ -139,5 +139,6 @@ On Linux it would be a simple case of systemctl stop/start but I'm not familiar 
 
 # Bonus - Connect shared drive
 
-![[Pasted image 20261001154218.png]]
-![[Pasted image 20261001154136.png]]
+Bonus - Connect shared drive
+![Shared Drive Config](attachments/Pasted%20image%2020261001154218.png)
+![Shared Drive Drive Letter](attachments/Pasted%20image%2020261001154136.png)
