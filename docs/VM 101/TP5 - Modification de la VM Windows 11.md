@@ -126,12 +126,13 @@
 | Remarques            | RAS                | =               |
 |                      |                    |                 |
 |                      |                    |                 |
-Modification des différents paramètres VMWare
-![[Pasted image 20261001141635.png]]
+VM Ware config
+![[attachments/Pasted image 20261001155321.png]]
 
-Configuration Windows dans la VM
-![[Pasted image 20261001141824.png]]
-![[Pasted image 20261001142030.png]]
+Windows configuration
+
+
+![[attachments/Pasted image 20261001155253.png]]
 
 The current order of the partitions on the C disk does not allow expanding its size. I think we would need to potentially pause/stop the recovery system briefly and diskpart the expansion of the partition, then turn recovery back on. 
 On Linux it would be a simple case of systemctl stop/start but I'm not familiar with the commands for Windows in that case.
