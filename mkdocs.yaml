@@ -1,0 +1,19 @@
+site_name: TSSR Documentation & Lab Vault
+site_description: TSSR Lab Runbooks, Configs, and Notes
+
+theme:
+  name: material
+  palette:
+    scheme: slate # Dark theme
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+
+plugins:
+  - search
+
+# Directs MkDocs to render everything in your docs folder
+docs_dir: docs
