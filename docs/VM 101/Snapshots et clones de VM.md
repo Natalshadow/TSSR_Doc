@@ -1,5 +1,5 @@
 • [Snapshots] (Définition, avantages, limites). 
-• [Clone] de [VM] (types de clones, cas d'utilisation).
+• [Clone] de [[VM]] (types de clones, cas d'utilisation).
 
 ## Key Differences
 
