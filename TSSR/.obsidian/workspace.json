@@ -37,12 +37,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Test new doc.md",
+                "file": "Snapshots et clones de VM.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Test new doc"
+              "title": "Snapshots et clones de VM"
             }
           }
         ],
@@ -124,7 +124,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Test new doc.md",
+                "file": "Snapshots et clones de VM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -143,7 +143,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Test new doc.md",
+                "file": "Snapshots et clones de VM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -186,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Test new doc.md",
+                "file": "Snapshots et clones de VM.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -227,7 +227,10 @@
   "active": "b4fb709cad911342",
   "lastOpenFiles": [
     "Système d'information et système informatique.md",
-    "Test new doc.md",
+    "Snapshots et clones de VM.md",
+    "Images",
+    "Images/Pasted image 20261001095318.png",
+    "Images/Pasted image 20261001095251.png",
     "Welcome.md"
   ]
 }
