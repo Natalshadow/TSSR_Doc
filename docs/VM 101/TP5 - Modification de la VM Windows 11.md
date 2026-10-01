@@ -137,8 +137,8 @@ VM Ware config
 
 Windows configuration
 
-
 ![[attachments/Pasted image 20261001155253.png]]
+![VMWare settings](att)
 
 The current order of the partitions on the C disk does not allow expanding its size. I think we would need to potentially pause/stop the recovery system briefly and diskpart the expansion of the partition, then turn recovery back on. 
 On Linux it would be a simple case of systemctl stop/start but I'm not familiar with the commands for Windows in that case.
