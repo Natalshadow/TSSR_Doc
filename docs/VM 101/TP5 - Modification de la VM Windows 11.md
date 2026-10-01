@@ -1,3 +1,9 @@
+---
+tags:
+  - VM
+  - VMWare
+  - Virtualization
+---
 
 ## Pre-Flight Checklist
 

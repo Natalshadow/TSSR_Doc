@@ -18,34 +18,6 @@
             }
           },
           {
-            "id": "c4a6f957dd628d20",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Système d'information et système informatique.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Système d'information et système informatique"
-            }
-          },
-          {
-            "id": "b4fb709cad911342",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Snapshots et clones de VM.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Snapshots et clones de VM"
-            }
-          },
-          {
             "id": "6b09fe8cf55ac428",
             "type": "leaf",
             "state": {
@@ -74,7 +46,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -252,21 +224,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e83eb48c4ae203be",
+  "active": "6b09fe8cf55ac428",
   "lastOpenFiles": [
+    "Système d'information et système informatique.md",
+    "VM 101/TP5 - Modification de la VM Windows 11.md",
     "VM 101/attachments/Pasted image 20261001155321.png",
     "VM 101/attachments/Pasted image 20261001155253.png",
     "VM 101/attachments/Pasted image 20261001154218.png",
     "VM 101/attachments/Pasted image 20261001154136.png",
     "VM 101/attachments",
-    "VM 101/TP5 - Modification de la VM Windows 11.md",
     "index.md",
     "VM 101",
     "Images/Pasted image 20261001142030.png",
     "Images/Pasted image 20261001141824.png",
     "Images/Pasted image 20261001141635.png",
     "VM 101/Snapshots et clones de VM.md",
-    "Système d'information et système informatique.md",
     "Images",
     "Images/Pasted image 20261001095318.png",
     "Images/Pasted image 20261001095251.png"
