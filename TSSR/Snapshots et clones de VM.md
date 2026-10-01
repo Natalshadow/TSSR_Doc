@@ -17,6 +17,9 @@
 - **Snapshot = A "Save State" in a video game.** It records the exact disk state and RAM at a specific moment. It is **not a backup**—it relies on the original disk file and should be deleted once your changes or updates are confirmed working.
     
 - **Clone = A complete copy-paste of the entire VM.** It creates a whole new virtual machine with no links to the original. You can move it to another host, delete the source VM, or spin it up alongside the original without IP or MAC address collisions.
+- [Linked Clone] = a simlink copy of the original, this time it doesn't duplicate the disk and relies on the original one. However the deletion of the original renders all the Linked Clones useless.
+
+
 
 ## Notes to self
 Neither of them sound like actual archival backups or redundancies. One sounds short term roll-back, the other seems meant to be used for transfers and quick deploy.
