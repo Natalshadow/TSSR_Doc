@@ -51,7 +51,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "TP5 - Modification de la VM Windows 11.md",
+                "file": "VM 101/TP5 - Modification de la VM Windows 11.md",
                 "mode": "source",
                 "source": false
               },
@@ -238,15 +238,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6b09fe8cf55ac428",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
     "index.md",
-    "Test",
-    "TP5 - Modification de la VM Windows 11.md",
+    "VM 101",
+    "VM 101/TP5 - Modification de la VM Windows 11.md",
     "Images/Pasted image 20261001142030.png",
     "Images/Pasted image 20261001141824.png",
     "Images/Pasted image 20261001141635.png",
-    "Test/Snapshots et clones de VM.md",
+    "VM 101/Snapshots et clones de VM.md",
     "Système d'information et système informatique.md",
     "Images",
     "Images/Pasted image 20261001095318.png",
