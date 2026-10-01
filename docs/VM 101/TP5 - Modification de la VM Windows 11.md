@@ -151,6 +151,8 @@ Bonus - Connect shared drive
 ![Shared Drive Drive Letter](attachments/Pasted%20image%2020261001154136.png)
 
 
+Test:
+![[attachments/Pasted image 20261001164109.png]]
 
 
-[VM]
+[[VM]]
