@@ -234,8 +234,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3c3f595e7f8b0998",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "index.md",
+    "Glossary.md",
     "Recherche Windows Server.md",
     "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "VM 101/VM.md",
@@ -248,7 +250,6 @@
     "Système d'information et système informatique.md",
     "VM 101/attachments/Pasted image 20261001154136.png",
     "VM 101/attachments",
-    "index.md",
     "VM 101",
     "Images/Pasted image 20261001142030.png",
     "Images/Pasted image 20261001141824.png",
