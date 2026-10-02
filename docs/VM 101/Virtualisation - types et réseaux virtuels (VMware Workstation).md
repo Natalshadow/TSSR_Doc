@@ -140,12 +140,12 @@ Cette virtualisation peut elle-même se décliner selon la technique employée :
 - **Avantages** : démarrage en secondes, très léger, forte densité. **Limite** : isolation moins forte qu'une VM et noyau partagé (un conteneur Linux a besoin d'un noyau Linux).
 - **Exemples** : Docker, Podman, LXC/LXD, Kubernetes (orchestrateur de conteneurs).
 
-||Machine virtuelle|Conteneur|
-|---|---|---|
-|OS invité|Complet, noyau propre|Partage le noyau de l'hôte|
-|Poids|Lourd (Go)|Léger (Mo)|
-|Démarrage|Quelques dizaines de secondes|Quelques secondes|
-|Isolation|Forte|Plus faible|
+|           | Machine virtuelle             | Conteneur                  |
+| --------- | ----------------------------- | -------------------------- |
+| OS invité | Complet, noyau propre         | Partage le noyau de l'hôte |
+| Poids     | Lourd (Go)                    | Léger (Mo)                 |
+| Démarrage | Quelques dizaines de secondes | Quelques secondes          |
+| Isolation | Forte                         | Plus faible                |
 
 ### c) Virtualisation de postes de travail (VDI)
 
