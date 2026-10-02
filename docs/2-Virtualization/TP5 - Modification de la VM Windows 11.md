@@ -133,11 +133,11 @@ tags:
 |                      |                    |                 |
 |                      |                    |                 |
 VM Ware config
-![[attachments/Pasted image 20261001155321.png]]
+![[../2-Virtualization/attachments/Pasted image 20261001155321.png]]
 
 Windows configuration
 
-![[attachments/Pasted image 20261001155253.png]]
+![[../2-Virtualization/attachments/Pasted image 20261001155253.png]]
 ![VMWare settings](att)
 
 The current order of the partitions on the C disk does not allow expanding its size. I think we would need to potentially pause/stop the recovery system briefly and diskpart the expansion of the partition, then turn recovery back on. 
@@ -147,12 +147,12 @@ On Linux it would be a simple case of systemctl stop/start but I'm not familiar 
 # Bonus - Connect shared drive
 
 Bonus - Connect shared drive
-![Shared Drive Config](attachments/Pasted%20image%2020261001154218.png)
-![Shared Drive Drive Letter](attachments/Pasted%20image%2020261001154136.png)
+![Shared Drive Config](../2-Virtualization/attachments/Pasted%20image%2020261001154218.png)
+![Shared Drive Drive Letter](../2-Virtualization/attachments/Pasted%20image%2020261001154136.png)
 
 
 Test:
-![[attachments/Pasted image 20261001164109.png]]
+![[../2-Virtualization/attachments/Pasted image 20261001164109.png]]
 
 
 [[VM]]

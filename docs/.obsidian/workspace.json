@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
+                "file": "2-Virtualization/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
+                "file": "2-Virtualization/Snapshots et clones de VM.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation"
+              "title": "Snapshots et clones de VM"
             }
           }
         ],
@@ -258,31 +258,37 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e4e47495ebbe1a14",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "1-General",
+    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
+    "9-Labs and TP",
+    "6-Services and cloud",
+    "5-Networking and security",
+    "4-Linux admin",
+    "3-Windows Server",
+    "2-Virtualization",
+    "0-Meta",
     "attachments/Pasted image 20261002115139.png",
     "attachments/Pasted image 20261002115131.png",
     "attachments",
     "index.md",
-    "TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "Glossary.md",
-    "Recherche Windows Server.md",
-    "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
-    "VM 101/VM.md",
-    "VM 101/TP5 - Modification de la VM Windows 11.md",
-    "VM 101/attachments/Pasted image 20261001164109.png",
-    "VM 101/attachments/Pasted image 20261001154218.png",
-    "VM 101/attachments/Pasted image 20261001155253.png",
-    "VM 101/attachments/Pasted image 20261001155321.png",
-    "VM 101/Snapshots et clones de VM.md",
-    "Système d'information et système informatique.md",
-    "VM 101/attachments/Pasted image 20261001154136.png",
-    "VM 101/attachments",
+    "3-Windows Server/Recherche Windows Server.md",
+    "2-Virtualization/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
+    "2-Virtualization/VM.md",
+    "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
+    "2-Virtualization/attachments/Pasted image 20261001164109.png",
+    "2-Virtualization/attachments/Pasted image 20261001154218.png",
+    "2-Virtualization/attachments/Pasted image 20261001155253.png",
+    "2-Virtualization/attachments/Pasted image 20261001155321.png",
+    "2-Virtualization/Snapshots et clones de VM.md",
+    "1-General/Système d'information et système informatique.md",
+    "2-Virtualization/attachments/Pasted image 20261001154136.png",
+    "2-Virtualization/attachments",
     "VM 101",
     "Images/Pasted image 20261001142030.png",
     "Images/Pasted image 20261001141824.png",
-    "Images/Pasted image 20261001141635.png",
-    "Images",
-    "Images/Pasted image 20261001095318.png"
+    "Images/Pasted image 20261001141635.png"
   ]
 }
