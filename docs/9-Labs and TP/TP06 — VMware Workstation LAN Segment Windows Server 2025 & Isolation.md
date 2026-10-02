@@ -20,6 +20,10 @@
 > _[Insérer ici une capture d'écran des paramètres de la VM dans VMware Workstation]_
 ![](attachments/Pasted%20image%2020261002115131.png)
 ![](attachments/Pasted%20image%2020261002115139.png)
+
+Correction du nom, j'ai remarqué une typo par rapport au brief.
+![](attachments/Pasted%20image%2020261002124115.png)
+
 ### 2.2 Installation & Nommage du système
 
 - Installation de Windows Server 2025 effectuée.
