@@ -1,0 +1,1348 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="TSSR Lab Runbooks, Configs, and Notes">
+      
+      
+      
+        <link rel="canonical" href="https://natalshadow.github.io/TSSR_Doc/2-Virtualization/TP5%20-%20Modification%20de%20la%20VM%20Windows%2011/">
+      
+      
+        <link rel="prev" href="../Snapshots%20et%20clones%20de%20VM/">
+      
+      
+        <link rel="next" href="../VM/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>TP5 Modification de la VM Windows 11 - TSSR Documentation & Lab Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pre-flight-checklist" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-header__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TSSR Documentation & Lab Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TP5   Modification de la VM Windows 11
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-nav__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TSSR Documentation & Lab Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 General
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1 General
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Syst%C3%A8me%20d%27information%20et%20syst%C3%A8me%20informatique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information et système informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 Virtualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2 Virtualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Snapshots%20et%20clones%20de%20VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshots et clones de VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP5   Modification de la VM Windows 11
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP5   Modification de la VM Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-flight-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Flight Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-Flight Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mission-1-initial-resource-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 1 — Initial Resource Baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-2-3-vram-vcpu-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 2 &amp; 3 — vRAM &amp; vCPU Allocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-4-expand-system-disk-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 4 — Expand System Disk (C:)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mission 4 — Expand System Disk (C:)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a-vmware-disk-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: VMware Disk Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b-extend-volume-in-windows-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Extend Volume in Windows GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-5-6-dedicated-data-disk-data-2-gb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 5 &amp; 6 — Dedicated Data Disk (DATA - 2 GB)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mission 5 &amp; 6 — Dedicated Data Disk (DATA - 2 GB)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a-add-fixed-virtual-disk-in-vmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: Add Fixed Virtual Disk in VMware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b-initialize-and-format-in-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Initialize and Format in Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fiche-de-configuration-poste-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fiche de configuration — poste Windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonus-connect-shared-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bonus - Connect shared drive
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Virtualisation%20-%20types%20et%20r%C3%A9seaux%20virtuels%20%28VMware%20Workstation%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation   types et réseaux virtuels (VMware Workstation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 Windows Server
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3 Windows Server
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Recherche%20Windows%20Server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche Windows Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 Labs and TP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9 Labs and TP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/TP06%20%E2%80%94%20VMware%20Workstation%20LAN%20Segment%20Windows%20Server%202025%20%26%20Isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-flight-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Flight Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-Flight Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mission-1-initial-resource-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 1 — Initial Resource Baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-2-3-vram-vcpu-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 2 &amp; 3 — vRAM &amp; vCPU Allocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-4-expand-system-disk-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 4 — Expand System Disk (C:)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mission 4 — Expand System Disk (C:)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a-vmware-disk-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: VMware Disk Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b-extend-volume-in-windows-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Extend Volume in Windows GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mission-5-6-dedicated-data-disk-data-2-gb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mission 5 &amp; 6 — Dedicated Data Disk (DATA - 2 GB)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mission 5 &amp; 6 — Dedicated Data Disk (DATA - 2 GB)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a-add-fixed-virtual-disk-in-vmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: Add Fixed Virtual Disk in VMware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b-initialize-and-format-in-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Initialize and Format in Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fiche-de-configuration-poste-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fiche de configuration — poste Windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonus-connect-shared-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bonus - Connect shared drive
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h2 id="pre-flight-checklist">Pre-Flight Checklist</h2>
+<ul>
+<li>
+<p>[x] VM completely shut down before editing CPU and Disk sizes.</p>
+</li>
+<li>
+<p>[x] Host machine has sufficient available physical RAM (<span class="arithmatex">\(\ge 8\text{ GB}\)</span>) and free disk space (<span class="arithmatex">\(\ge 15\text{ GB}\)</span>).</p>
+</li>
+<li>
+<p>[x] VMware Workstation snapshot created prior to storage modifications.</p>
+</li>
+</ul>
+<h3 id="mission-1-initial-resource-baseline">Mission 1 — Initial Resource Baseline</h3>
+<ol>
+<li>
+<p>Open <strong>VMware Workstation</strong> <span class="arithmatex">\(\rightarrow\)</span> Select <code>CLI-WIN-MEN-01</code> <span class="arithmatex">\(\rightarrow\)</span> <strong>Edit virtual machine settings</strong>.</p>
+</li>
+<li>
+<p>Note baseline specs: <strong>2 vCPU</strong>, <strong>4 GB RAM</strong>, <strong>64 GB System Disk (SCSI)</strong>.</p>
+</li>
+</ol>
+<h3 id="mission-2-3-vram-vcpu-allocation">Mission 2 &amp; 3 — vRAM &amp; vCPU Allocation</h3>
+<ol>
+<li>
+<p>Shut down Windows cleanly if required: <code>Start</code> <span class="arithmatex">\(\rightarrow\)</span> <code>Power</code> <span class="arithmatex">\(\rightarrow\)</span> <code>Shut Down</code>.</p>
+</li>
+<li>
+<p>In VMware Workstation: <strong>VM Settings</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Hardware</strong>:</p>
+<ul>
+<li>
+<p><strong>Memory:</strong> Adjust slider/input to <strong><code>6144 MB</code></strong> (6 GB).</p>
+</li>
+<li>
+<p><strong>Processors:</strong> Set <em>Number of processors</em> / <em>cores</em> to total <strong><code>4 vCPU</code></strong>.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>OK</strong> and power on <code>CLI-WIN-MEN-01</code>.</p>
+</li>
+<li>
+<p><strong>Verification:</strong> Open <strong>Task Manager</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Performance</strong>:</p>
+<ul>
+<li>
+<p><strong>CPU:</strong> Verify <code>4 Virtual Processors</code> displayed.</p>
+</li>
+<li>
+<p><strong>Memory:</strong> Verify <code>6.0 GB</code> total RAM displayed.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="mission-4-expand-system-disk-c">Mission 4 — Expand System Disk (C:)</h3>
+<h4 id="part-a-vmware-disk-expansion">Part A: VMware Disk Expansion</h4>
+<ol>
+<li>
+<p>Power off <code>CLI-WIN-MEN-01</code>.</p>
+</li>
+<li>
+<p>Disable and remove snapshots to enable hard disk expansion</p>
+</li>
+<li>
+<p><strong>VM Settings</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Hard Disk (SCSI)</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Utilities</strong> dropdown <span class="arithmatex">\(\rightarrow\)</span> <strong>Expand...</strong></p>
+</li>
+<li>
+<p>Enter Maximum disk size: <strong><code>65 GB</code></strong> <span class="arithmatex">\(\rightarrow\)</span> Click <strong>Expand</strong> <span class="arithmatex">\(\rightarrow\)</span> Click <strong>OK</strong>.</p>
+</li>
+</ol>
+<h4 id="part-b-extend-volume-in-windows-gui">Part B: Extend Volume in Windows GUI</h4>
+<ol>
+<li>
+<p>Power on <code>CLI-WIN-MEN-01</code>.</p>
+</li>
+<li>
+<p>Right-click Start button <span class="arithmatex">\(\rightarrow\)</span> <strong>Disk Management</strong> (<code>diskmgmt.msc</code>).</p>
+</li>
+<li>
+<p>Locate <strong>Disk 0</strong>: Verify <strong><code>1.00 GB Unallocated</code></strong> space appears on the right.</p>
+</li>
+<li>
+<p><em>Conditional Execution:</em></p>
+<ul>
+<li>
+<p><strong>Adjacent Space:</strong> Right-click <strong><code>(C:)</code></strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Extend Volume...</strong> <span class="arithmatex">\(\rightarrow\)</span> Click <strong>Next</strong> <span class="arithmatex">\(\rightarrow\)</span> Accept maximum space <span class="arithmatex">\(\rightarrow\)</span> <strong>Finish</strong>.</p>
+</li>
+<li>
+<p><strong>Non-Adjacent Space (WinRE Block):</strong> Document blockers in inventory notes if recovery partition prevents immediate GUI extension.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Verification:</strong> Open <strong>File Explorer</strong> (<code>Win + E</code>) <span class="arithmatex">\(\rightarrow\)</span> <strong>This PC</strong> <span class="arithmatex">\(\rightarrow\)</span> Verify <code>C:</code> total capacity reflects extended volume size.</p>
+</li>
+</ol>
+<h3 id="mission-5-6-dedicated-data-disk-data-2-gb">Mission 5 &amp; 6 — Dedicated Data Disk (DATA - 2 GB)</h3>
+<h4 id="part-a-add-fixed-virtual-disk-in-vmware">Part A: Add Fixed Virtual Disk in VMware</h4>
+<ol>
+<li>
+<p><strong>VM Settings</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Add...</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Hard Disk</strong> <span class="arithmatex">\(\rightarrow\)</span> Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Select Disk Type: <strong>SCSI</strong> (Recommended).</p>
+</li>
+<li>
+<p>Select: <strong>Create a new virtual disk</strong>.</p>
+</li>
+<li>
+<p>Set Capacity: <strong><code>2 GB</code></strong>.</p>
+</li>
+<li>
+<p>Check option: <strong>Allocate all disk space now</strong> (Fixed/Thick Provisioned) <span class="arithmatex">\(\rightarrow\)</span> Save as single file.</p>
+</li>
+<li>
+<p>Complete wizard and confirm <strong>Hard Disk 2 (2 GB)</strong> appears in VM hardware list.</p>
+</li>
+</ol>
+<h4 id="part-b-initialize-and-format-in-windows">Part B: Initialize and Format in Windows</h4>
+<ol>
+<li>
+<p>Power on VM <span class="arithmatex">\(\rightarrow\)</span> Open <strong>Disk Management</strong> (<code>diskmgmt.msc</code>).</p>
+</li>
+<li>
+<p>Pop-up prompt: <strong>Initialize Disk</strong> for <strong>Disk 1</strong> <span class="arithmatex">\(\rightarrow\)</span> Select <strong>GPT (GUID Partition Table)</strong> <span class="arithmatex">\(\rightarrow\)</span> Click <strong>OK</strong>.</p>
+</li>
+<li>
+<p>Right-click the <strong>2 GB Unallocated</strong> area on Disk 1 <span class="arithmatex">\(\rightarrow\)</span> <strong>New Simple Volume...</strong></p>
+</li>
+<li>
+<p>Set parameters:</p>
+<ul>
+<li>
+<p><strong>Volume Size:</strong> Max size (entire 2 GB).</p>
+</li>
+<li>
+<p><strong>Drive Letter:</strong> Assign next available letter (e.g., <code>D:</code> or <code>E:</code>).</p>
+</li>
+<li>
+<p><strong>File System:</strong> <code>NTFS</code>.</p>
+</li>
+<li>
+<p><strong>Volume Label:</strong> <code>DATA</code>.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Complete wizard and format volume.</p>
+</li>
+<li>
+<p><strong>Verification:</strong> Open <strong>File Explorer</strong> <span class="arithmatex">\(\rightarrow\)</span> Confirm <strong><code>DATA</code></strong> drive appears under <strong>This PC</strong>.</p>
+</li>
+</ol>
+<h1 id="fiche-de-configuration-poste-windows">Fiche de configuration — poste Windows</h1>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Ancienne valeur</th>
+<th>Nouvelle valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nom de la VM</td>
+<td><code>CLI-WIN-MEN-01</code></td>
+<td>=</td>
+</tr>
+<tr>
+<td>Rôle</td>
+<td>Poste client</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Système</td>
+<td>Windows 11</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Édition</td>
+<td>Professionnel</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>26H2</td>
+<td>=</td>
+</tr>
+<tr>
+<td>vCPU</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>4 Go</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Disque virtuel</td>
+<td>64 Go</td>
+<td>65 + 2</td>
+</tr>
+<tr>
+<td>Réseau logique</td>
+<td><code>LAB-TSSR</code></td>
+<td>=</td>
+</tr>
+<tr>
+<td>Réseau VMware</td>
+<td><code>VMnet8</code></td>
+<td>=</td>
+</tr>
+<tr>
+<td>Mode réseau</td>
+<td>NAT</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Compte utilisé</td>
+<td>Compte local</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Date d'installation</td>
+<td>2026-09-30 14 h 18</td>
+<td>=</td>
+</tr>
+<tr>
+<td>État Windows Update</td>
+<td>À jour</td>
+<td>=</td>
+</tr>
+<tr>
+<td>État périphériques</td>
+<td>OK</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Accès Internet testé</td>
+<td>Oui</td>
+<td>=</td>
+</tr>
+<tr>
+<td>Remarques</td>
+<td>RAS</td>
+<td>=</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VM Ware config</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>![[../2-Virtualization/attachments/Pasted image 20261001155321.png]]</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Windows configuration</p>
+<p>![[../2-Virtualization/attachments/Pasted image 20261001155253.png]]
+<img alt="VMWare settings" src="att" /></p>
+<p>The current order of the partitions on the C disk does not allow expanding its size. I think we would need to potentially pause/stop the recovery system briefly and diskpart the expansion of the partition, then turn recovery back on. 
+On Linux it would be a simple case of systemctl stop/start but I'm not familiar with the commands for Windows in that case.</p>
+<h1 id="bonus-connect-shared-drive">Bonus - Connect shared drive</h1>
+<p>Bonus - Connect shared drive
+<img alt="Shared Drive Config" src="../attachments/Pasted%20image%2020261001154218.png" />
+<img alt="Shared Drive Drive Letter" src="../attachments/Pasted%20image%2020261001154136.png" /></p>
+<p>Test:
+![[../2-Virtualization/attachments/Pasted image 20261001164109.png]]</p>
+<p><a class="wikilink" href="VM">VM</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
