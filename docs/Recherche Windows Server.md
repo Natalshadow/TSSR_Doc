@@ -15,6 +15,11 @@ Différents rôles/fonctionnalités que l'on peut installer
 | Microsoft Management Console missing        | MMC installed                                                                                                                                                            |
 
 ## Comparatif des Éditions : Standard vs Datacenter
+| Edition                   | Standard                                                                     | Datacenter                                                     |
+| ------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Environments**          | Physical servers or environments with limited virtualization needs           | Highly virtualized environments and cloud scenarios            |
+| **Virtualization rights** | 2 virtual machines plus one Hyper-V host per license                         | Unlimited virtual machines plus one Hyper-V host per license   |
+| **Best for**              | Small to medium deployments, specific workloads, cost-conscious environments | Large datacenters, cloud deployments, extensive virtualization |
 
 | Fonctionnalité / Critère              | Windows Server Standard                            | Windows Server Datacenter                                  |
 | :------------------------------------ | :------------------------------------------------- | :--------------------------------------------------------- |
