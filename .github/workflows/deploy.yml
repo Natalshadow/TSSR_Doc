@@ -20,9 +20,9 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install MkDocs Material
+      - name: Install MkDocs Material and Extensions
         run: |
-          pip install mkdocs-material
+          pip install mkdocs-material pymdown-extensions
 
       - name: Auto-create index.md if missing
         run: |
