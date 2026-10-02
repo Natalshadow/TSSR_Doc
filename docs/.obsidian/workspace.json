@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "VM 101/TP5 - Modification de la VM Windows 11.md",
+                "file": "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TP5 - Modification de la VM Windows 11"
+              "title": "Virtualisation - types et réseaux virtuels (VMware Workstation)"
             }
           }
         ]
@@ -211,9 +211,10 @@
   },
   "active": "3259d81880469beb",
   "lastOpenFiles": [
-    "VM 101/attachments/Pasted image 20261001164109.png",
     "VM 101/VM.md",
+    "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "VM 101/TP5 - Modification de la VM Windows 11.md",
+    "VM 101/attachments/Pasted image 20261001164109.png",
     "VM 101/attachments/Pasted image 20261001154218.png",
     "VM 101/attachments/Pasted image 20261001155253.png",
     "VM 101/attachments/Pasted image 20261001155321.png",
