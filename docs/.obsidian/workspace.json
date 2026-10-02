@@ -30,8 +30,33 @@
               "icon": "lucide-file",
               "title": "Virtualisation - types et réseaux virtuels (VMware Workstation)"
             }
+          },
+          {
+            "id": "3c3f595e7f8b0998",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Recherche Windows Server.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Recherche Windows Server"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -209,10 +234,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3259d81880469beb",
+  "active": "3c3f595e7f8b0998",
   "lastOpenFiles": [
-    "VM 101/VM.md",
     "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
+    "Recherche Windows Server.md",
+    "VM 101/VM.md",
     "VM 101/TP5 - Modification de la VM Windows 11.md",
     "VM 101/attachments/Pasted image 20261001164109.png",
     "VM 101/attachments/Pasted image 20261001154218.png",
