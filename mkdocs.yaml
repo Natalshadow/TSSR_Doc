@@ -25,7 +25,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   # Native Obsidian Wikilink rendering for images and note links
-  - pymdownx.wiki_link:
+  - pymdownx.wikilinks:
       base_url: ''
       end_url: ''
       html_template: '<img src="{url}" alt="{title}" />'
