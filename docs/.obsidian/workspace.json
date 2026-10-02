@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Recherche Windows Server.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Recherche Windows Server"
+              "title": "index"
             }
           }
         ],
@@ -236,8 +236,8 @@
   },
   "active": "3c3f595e7f8b0998",
   "lastOpenFiles": [
-    "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "Recherche Windows Server.md",
+    "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "VM 101/VM.md",
     "VM 101/TP5 - Modification de la VM Windows 11.md",
     "VM 101/attachments/Pasted image 20261001164109.png",
