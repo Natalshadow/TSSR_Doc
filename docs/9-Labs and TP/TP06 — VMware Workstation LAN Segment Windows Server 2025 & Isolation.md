@@ -6,7 +6,7 @@
 | **Client**  | Windows 11          | `CLI-WIN-MEN-01`               | `192.168.100.100` | `255.255.255.0` |
 | **Réseau**  | LAN Segment VMware  | `LAB-TSSR-MEN`                 | _N/A (Non routé)_ | _N/A_           |
 
-## 🛠️ 2. Étape 1 : Création & Déploiement de Windows Server 2025
+## 2. Étape 1 : Création & Déploiement de Windows Server 2025
 
 ### 2.1 Configuration matérielle attribuée
 
@@ -37,7 +37,7 @@ Correction du nom, j'ai remarqué une typo par rapport au brief.
 
 
 ![](attachments/Pasted%20image%2020261002120511.png)
-## 🌐 3. Étape 2 : Création et association du LAN Segment
+## 3. Étape 2 : Création et association du LAN Segment
 
 1. Création du LAN Segment nommé `LAB-TSSR-MEN` dans les paramètres réseau de VMware Workstation.
     
@@ -52,7 +52,7 @@ SRV:
 ![](attachments/Pasted%20image%2020261002120619.png)
 CLI:
 ![](attachments/Pasted%20image%2020261002120638.png)
-## ⚙️ 4. Étape 3 : Configuration de l'adressage IPv4 statique
+## 4. Étape 3 : Configuration de l'adressage IPv4 statique
 
 Configuration manuelle des interfaces réseau (aucun service DHCP présent sur le LAN Segment) :
 
@@ -94,7 +94,7 @@ ipconfig /all
 ![](attachments/Pasted%20image%2020261002121921.png)
 
 
-## 🔓 5. Étape 4 : Configuration du Pare-feu & Validation de la connectivité
+## 5. Étape 4 : Configuration du Pare-feu & Validation de la connectivité
 
 ### 5.1 Action réalisée sur le Pare-feu Windows
 
@@ -133,7 +133,7 @@ ping 192.168.100.100
 
 ![](attachments/Pasted%20image%2020261002122846.png)
 
-## 🔍 6. Diagnostic & Conclusion
+## 6. Diagnostic & Conclusion
 
 - **Bilan :** Communication bidirectionnelle établie avec succès sur le LAN Segment isolé.
 
