@@ -54,9 +54,33 @@
               "icon": "lucide-file",
               "title": "index"
             }
+          },
+          {
+            "id": "e4e47495ebbe1a14",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -234,9 +258,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "e4e47495ebbe1a14",
   "lastOpenFiles": [
+    "attachments/Pasted image 20261002115139.png",
+    "attachments/Pasted image 20261002115131.png",
+    "attachments",
     "index.md",
+    "TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "Glossary.md",
     "Recherche Windows Server.md",
     "VM 101/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
@@ -255,7 +283,6 @@
     "Images/Pasted image 20261001141824.png",
     "Images/Pasted image 20261001141635.png",
     "Images",
-    "Images/Pasted image 20261001095318.png",
-    "Images/Pasted image 20261001095251.png"
+    "Images/Pasted image 20261001095318.png"
   ]
 }
