@@ -77,3 +77,7 @@ Active Directory est une marque d'annuaire, c'est le modèle Windows, il en exis
 
 ![](attachments/Pasted%20image%2020261005080020.png)
 
+
+OU = organizational unit
+CN = common name
+DC= domain controller
