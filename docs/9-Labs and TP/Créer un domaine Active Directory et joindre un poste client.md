@@ -281,6 +281,9 @@ Console enregistrée sous : `_[Nom de la console]_`
 > ![](attachments/Pasted%20image%2020261005155156.png)_
 
 La fonction DNS semble défectueuse. Troubleshooting.
+Correctif:
+Il faut cliquer sur DNS dans la console MMC, "établir une connexion", "l'ordinateur suivant: " et indiquer l'ip local 192.168 ou le hostname du server.
+![](attachments/Pasted%20image%2020261005160601.png)
 
 ---
 
@@ -299,8 +302,10 @@ La fonction DNS semble défectueuse. Troubleshooting.
 Activation du Bureau à distance sur le serveur et le client.
 
 > _[Insérer ici une capture des paramètres RDP activés sur `SRV-WIN-MEN-01`]_
+> ![](attachments/Pasted%20image%2020261005160703.png)
 
-> _[Insérer ici une capture des paramètres RDP activés sur `CLI-WIN-MEN-01`]_
+> _[Insérer ici une capture des paramètres RDP activés sur `CLI-WIN-MEN-01`]
+> ![](attachments/Pasted%20image%2020261005160730.png)_
 
 ### 6.2 Test RDP Client → Serveur
 
@@ -317,7 +322,8 @@ mstsc
 
 Connexion de `CLI-WIN-MEN-01` vers `SRV-WIN-MEN-01` (`192.168.100.10`).
 
-> _[Insérer ici une capture de la session RDP client → serveur établie]_
+> _[Insérer ici une capture de la session RDP client → serveur établie
+> ![](attachments/Pasted%20image%2020261005160900.png)]_
 
 ### 6.3 Test RDP Serveur → Client
 
@@ -325,20 +331,21 @@ Connexion de `CLI-WIN-MEN-01` vers `SRV-WIN-MEN-01` (`192.168.100.10`).
 
 Connexion de `SRV-WIN-MEN-01` vers `CLI-WIN-MEN-01` (`192.168.100.100`).
 
-> _[Insérer ici une capture de la session RDP serveur → client établie]_
+> _[Insérer ici une capture de la session RDP serveur → client établie]
+> ![](attachments/Pasted%20image%2020261005161213.png)_
 
 ---
 
 ## 7. Validation finale
 
-|**Critère de validation**|**Résultat**|
-|---|---|
-|Le domaine `TSSR-MEN.LAB` existe|✅ / ❌|
-|Le client est membre du domaine|✅ / ❌|
-|Le client utilise le DNS du serveur (`192.168.100.10`)|✅ / ❌|
-|Les consoles AD et DNS sont administrables depuis le client via RSAT|✅ / ❌|
-|La console MMC personnalisée fonctionne|✅ / ❌|
-|RDP fonctionnel dans les deux sens|✅ / ❌|
+| **Critère de validation**                                            | **Résultat** |
+| -------------------------------------------------------------------- | ------------ |
+| Le domaine `TSSR-MEN.LAB` existe                                     | ✅            |
+| Le client est membre du domaine                                      | ✅            |
+| Le client utilise le DNS du serveur (`192.168.100.10`)               | ✅            |
+| Les consoles AD et DNS sont administrables depuis le client via RSAT | ✅            |
+| La console MMC personnalisée fonctionne                              | ✅            |
+| RDP fonctionnel dans les deux sens                                   | ✅            |
 
 ---
 
