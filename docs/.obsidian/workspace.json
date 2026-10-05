@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "How to find Powershell commands.md",
+                "file": "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "How to find Powershell commands"
+              "title": "Créer un domaine Active Directory et joindre un poste client"
             }
           }
         ],
@@ -261,8 +261,9 @@
   },
   "active": "393cb65084fc1244",
   "lastOpenFiles": [
-    "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client.md",
+    "9-Labs and TP/attachments/Pasted image 20261005155156.png",
     "How to find Powershell commands.md",
+    "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client.md",
     "9-Labs and TP/attachments/Pasted image 20261005153210.png",
     "9-Labs and TP/attachments/Pasted image 20261005152820.png",
     "9-Labs and TP/attachments/Pasted image 20261005152743.png",

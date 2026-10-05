@@ -126,7 +126,7 @@ Lancement de l'assistant de promotion du serveur en contrôleur de domaine :
 | **Contrôle**                                          | **Résultat** |
 | ----------------------------------------------------- | ------------ |
 | Serveur contrôleur du domaine `TSSR-MEN.LAB`          | ✅            |
-| Console Utilisateurs et ordinateurs AD opérationnelle | ✅ / ❌        |
+| Console Utilisateurs et ordinateurs AD opérationnelle | ✅            |
 | Zone DNS correspondant au domaine présente            | ✅ / ❌        |
 
 > ![](attachments/Pasted%20image%2020261005150131.png)
@@ -277,7 +277,10 @@ Création d'une console MMC personnalisée contenant :
 
 Console enregistrée sous : `_[Nom de la console]_`
 
-> _[Insérer ici une capture de la console MMC personnalisée avec les deux composants logiciels enfichables]_
+> _[Insérer ici une capture de la console MMC personnalisée avec les deux composants logiciels enfichables]
+> ![](attachments/Pasted%20image%2020261005155156.png)_
+
+La fonction DNS semble défectueuse. Troubleshooting.
 
 ---
 
