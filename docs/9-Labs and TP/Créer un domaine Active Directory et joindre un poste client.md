@@ -197,10 +197,11 @@ Doing primary tests
 
 Sur `CLI-WIN-MEN-01`, configuration du DNS préféré sur `192.168.100.10`.
 
-> _[Insérer ici une capture des paramètres réseau du client avec le DNS configuré]_
+> _[Insérer ici une capture des paramètres réseau du client avec le DNS configuré]![](attachments/Pasted%20image%2020261005152225.png)_
 
-> _[Insérer ici une capture du résultat de `nslookup TSSR-MEN.LAB`]_
+> _[Insérer ici une capture du résultat de `nslookup TSSR-MEN.LAB`]![](attachments/Pasted%20image%2020261005152245.png)_
 
+Je ne sais pas encore pourquoi il y a du timeout et si c'est gênant pour finir la configuration, n'étant pas familié avec le Segment LAN et ne sachant pas si le fait que ADDS soit sur une VM puisse ralentir ses performances au point d'être visible dans le lookup.
 ### 4.2 Jonction au domaine
 
 > [!note] Guide étudiant **Deux méthodes possibles :**
@@ -220,10 +221,11 @@ Sur `CLI-WIN-MEN-01`, configuration du DNS préféré sur `192.168.100.10`.
 
 Jonction au domaine `TSSR-MEN.LAB` avec un compte autorisé.
 
-> _[Insérer ici une capture de la fenêtre de jonction au domaine]_
-
+> _[Insérer ici une capture de la fenêtre de jonction au domaine]![](attachments/Pasted%20image%2020261005152634.png)_
+![](attachments/Pasted%20image%2020261005152733.png)
 > _[Insérer ici une capture de la demande d'identifiants]_
-
+![](attachments/Pasted%20image%2020261005152743.png)
+> ![](attachments/Pasted%20image%2020261005152820.png)
 > _[Insérer ici une capture du message de confirmation de jonction au domaine]_
 
 ### 4.3 Redémarrage et ouverture de session domaine
