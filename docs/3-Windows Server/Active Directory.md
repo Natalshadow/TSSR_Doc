@@ -46,7 +46,7 @@
 * **Définition :** protocole standard ouvert permettant d'interroger et de modifier les données d'un annuaire (comme Active Directory ou OpenLDAP).
 * **Usage :** utilisé par les applications (ex. : VPN, Wi-Fi d'entreprise, outils tiers) pour vérifier si un utilisateur existe dans l'annuaire.
 * **Port par défaut :** TCP 389 (non sécurisé — données et mots de passe en clair sur le réseau).
-
+Active Directory est une marque d'annuaire, c'est le modèle Windows, il en existe d'autre.
 ### B. Protocole LDAPS (*LDAP over SSL/TLS*)
 * **Définition :** version sécurisée et chiffrée du protocole LDAP via un certificat numérique (TLS/SSL).
 * **Usage :** garantit la confidentialité et l'intégrité des échanges entre une application et le contrôleur de domaine.
