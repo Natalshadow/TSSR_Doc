@@ -329,7 +329,7 @@ Connexion de `CLI-WIN-MEN-01` vers `SRV-WIN-MEN-01` (`192.168.100.10`).
 
 > [!note] Guide étudiant Depuis `SRV-WIN-MEN-01`, même procédure avec l'IP `192.168.100.100`. S'assurer que le compte utilisé est membre du groupe **Utilisateurs du Bureau à distance** sur le client, ou un compte Administrateur du domaine.
 
-Connexion de `SRV-WIN-MEN-01` vers `CLI-WIN-MEN-01` (`192.168.100.100`).
+Connexion de `SRV-WIN-MEN-01` vers `CLI-WIN-MEN-01` (`192.168.100.100`). CLI-WIN-MEN-01.TSSR-MEN.LAB
 
 > _[Insérer ici une capture de la session RDP serveur → client établie]
 > ![](attachments/Pasted%20image%2020261005161213.png)_
