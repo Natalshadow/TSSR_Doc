@@ -279,13 +279,17 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "obisidian-note-linker:Note Linker": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "3bf06aec6f6c24e9",
   "lastOpenFiles": [
-    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
+    "GPO.md",
     "3-Windows Server/Active Directory.md",
+    "3-Windows Server/NTLM.md",
+    "3-Windows Server/Kerberos.md",
+    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/attachments/Pasted image 20261002124115.png",
     "9-Labs and TP/attachments/Pasted image 20261002122846.png",
     "9-Labs and TP/attachments/Pasted image 20261002122826.png",

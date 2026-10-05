@@ -113,7 +113,7 @@ tags:
 
 | Élément              | Ancienne valeur    | Nouvelle valeur |
 | -------------------- | ------------------ | --------------- |
-| Nom de la VM         | `CLI-WIN-MEN-01`   | =               |
+| Nom de la [VM](VM.md)         | `CLI-WIN-MEN-01`   | =               |
 | Rôle                 | Poste client       | =               |
 | Système              | Windows 11         | =               |
 | Édition              | Professionnel      | =               |
@@ -132,7 +132,7 @@ tags:
 | Remarques            | RAS                | =               |
 |                      |                    |                 |
 |                      |                    |                 |
-VM Ware config
+[VM](VM.md) Ware config
 ![[../2-Virtualization/attachments/Pasted image 20261001155321.png]]
 
 Windows configuration

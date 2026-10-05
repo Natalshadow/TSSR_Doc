@@ -137,7 +137,7 @@ ping 192.168.100.100
 
 - **Bilan :** Communication bidirectionnelle établie avec succès sur le LAN Segment isolé.
 
-Confirmé, les deux VM peuvent se ping mutuellement.
+Confirmé, les deux [VM](../2-Virtualization/VM.md) peuvent se ping mutuellement.
 
 - **Difficultés rencontrées / Remarques :** 
 J'oublie toujours où se trouve le panneau spécifique des règles de parefeu windows et je dois toujours rechercher à nouveau son nom exact.

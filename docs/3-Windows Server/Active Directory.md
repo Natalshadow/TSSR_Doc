@@ -1,8 +1,6 @@
-# Fiche de recherche : Active Directory et LDAP
+## Active Directory et LDAP
 
-**Nom / Apprenant :** [Ton Nom]  
-**Formation :** TSSR / Simplon  
-**Date :** 5 octobre 2026  
+
 
 ---
 
@@ -13,7 +11,7 @@
 * **Objets gérés :** utilisateurs, ordinateurs, groupes, imprimantes, dossiers partagés, etc.
 * **Bénéfices clés :**
   * **SSO (*Single Sign-On*) :** un seul identifiant pour accéder à toutes les ressources autorisées du domaine.
-  * **Gestion centralisée :** application de politiques de sécurité globales via les GPO (*Group Policy Objects*).
+  * **Gestion centralisée :** application de politiques de sécurité globales via les [[GPO]] (*Group Policy Objects*).
 
 ---
 
@@ -36,7 +34,7 @@
 * **Définition :** serveur (Windows Server) sur lequel le rôle AD DS (*Active Directory Domain Services*) est installé.
 * **À quoi sert-il ?**
   1. **Héberger la base de données AD :** stocke le fichier `ntds.dit` contenant tous les objets et identifiants.
-  2. **Authentifier les utilisateurs :** vérifie les mots de passe lors de la connexion (via le protocole Kerberos ou NTLM).
+  2. **Authentifier les utilisateurs :** vérifie les mots de passe lors de la connexion (via le protocole [Kerberos](Kerberos.md) ou [[NTLM]]).
   3. **Appliquer la sécurité :** distribue les GPO aux machines du domaine.
   4. **Réplication :** synchronise ses données avec les autres contrôleurs de domaine du même réseau.
 
