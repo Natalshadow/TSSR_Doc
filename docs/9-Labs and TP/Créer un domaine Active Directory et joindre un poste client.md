@@ -59,7 +59,11 @@ ipconfig /all
 Installation du rôle **Services de domaine Active Directory (AD DS)** via le Gestionnaire de serveur.
 
 > _[Insérer ici une capture de l'assistant d'ajout de rôles avec AD DS sélectionné]_
-
+![](attachments/Pasted%20image%2020261005142239.png)
+j J'ai pensé à vérifié dans l'installation ADDS si c'est aussi ici que se trouve RSAT pour le côté serveur et c'est effectivement le cas:
+![](attachments/Pasted%20image%2020261005142338.png)
+Installation en cours
+![](attachments/Pasted%20image%2020261005142434.png)
 > _[Insérer ici une capture de la fin d'installation du rôle]_
 
 ### 3.3 Promotion en contrôleur de domaine
