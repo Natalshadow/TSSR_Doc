@@ -54,8 +54,7 @@ Chaque domaine a son DNS
 
 
 
-
-
+![](attachments/Pasted%20image%2020261005114150.png)
 
 
 
@@ -118,6 +117,7 @@ Active Directory est une marque d'annuaire, c'est le modèle Windows, il en exis
 
 
 ![](attachments/Pasted%20image%2020261005080020.png)
+
 
 
 OU = organizational unit
