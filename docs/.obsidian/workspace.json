@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/Active Directory.md",
+                "file": "3-Windows Server/NTLM.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Active Directory"
+              "title": "NTLM"
             }
           }
         ],
@@ -285,6 +285,7 @@
   },
   "active": "3bf06aec6f6c24e9",
   "lastOpenFiles": [
+    "3-Windows Server/Active Directory.md",
     "3-Windows Server/attachments/Pasted image 20261005080020.png",
     "3-Windows Server/attachments/Pasted image 20261005080013.png",
     "3-Windows Server/attachments/Pasted image 20261005080004.png",
@@ -292,7 +293,6 @@
     "3-Windows Server/attachments",
     "3-Windows Server/Kerberos.md",
     "3-Windows Server/NTLM.md",
-    "3-Windows Server/Active Directory.md",
     "GPO.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/attachments/Pasted image 20261002124115.png",
@@ -301,7 +301,6 @@
     "9-Labs and TP/attachments/Pasted image 20261002122615.png",
     "9-Labs and TP/attachments/Pasted image 20261002121921.png",
     "9-Labs and TP/attachments/Pasted image 20261002121858.png",
-    "9-Labs and TP/attachments/Pasted image 20261002121520.png",
     "3-Windows Server/Recherche Windows Server.md",
     "2-Virtualization/Snapshots et clones de VM.md",
     "1-General",
