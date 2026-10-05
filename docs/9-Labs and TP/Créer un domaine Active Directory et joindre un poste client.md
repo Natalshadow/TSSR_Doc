@@ -235,8 +235,13 @@ Jonction au domaine `TSSR-MEN.LAB` avec un compte autorisé.
 Redémarrage du poste, puis ouverture de session avec un compte du domaine `TSSR-MEN.LAB`.
 
 > _[Insérer ici une capture de l'écran de connexion avec le compte domaine]_
+>
 
-> _[Insérer ici une capture du bureau confirmant la session domaine active]_
+`PS C:\WINDOWS\system32> whoami`
+`tssr-men\administrator`
+
+
+> _[Insérer ici une capture du bureau confirmant la session domaine active]![](attachments/Pasted%20image%2020261005153210.png)_
 
 ### 4.4 Réflexe de diagnostic
 
