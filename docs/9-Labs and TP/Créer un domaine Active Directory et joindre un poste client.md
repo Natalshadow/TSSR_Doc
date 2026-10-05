@@ -27,6 +27,8 @@ Depuis `CLI-WIN-MEN-01`, installation des outils RSAT nécessaires :
 
 ![](attachments/Pasted%20image%2020261005135857.png)
 
+RSAT s'affiche bien dans les fonctionnalités installées :
+![](attachments/Pasted%20image%2020261005142008.png)
 
 ---
 ## 3. Étape 2 : Création du domaine Active Directory
