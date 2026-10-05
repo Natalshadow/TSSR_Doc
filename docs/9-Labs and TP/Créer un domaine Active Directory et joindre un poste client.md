@@ -67,6 +67,15 @@ Installation en cours
 ![](attachments/Pasted%20image%2020261005142434.png)
 > _[Insérer ici une capture de la fin d'installation du rôle]_
 
+![](attachments/Pasted%20image%2020261005142847.png)
+
+![](attachments/Pasted%20image%2020261005142916.png)
+
+Une fois ADDS installé, une icone de notification s'affiche en haut du dashboard server:
+![](attachments/Pasted%20image%2020261005143004.png)
+
+
+
 ### 3.3 Promotion en contrôleur de domaine
 
 > [!note] Guide étudiant Une fois le rôle installé, une notification apparaît dans le Gestionnaire de serveur (icône drapeau en haut). Cliquer dessus > **Promouvoir ce serveur en contrôleur de domaine**.
@@ -93,6 +102,8 @@ Lancement de l'assistant de promotion du serveur en contrôleur de domaine :
 - Création d'une **nouvelle forêt**
 - Domaine : `TSSR-MEN.LAB`
 - Installation de **DNS** lors de l'assistant
+- Mot de passe DSRM: MEN_TSSR
+- Admin password: cX9h8!b4phMG4Y
 
 > _[Insérer ici une capture de l'assistant de promotion — étape nouvelle forêt]_
 
