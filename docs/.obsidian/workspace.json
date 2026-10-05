@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/Active Directory domain vs DNS domain.md",
+                "file": "3-Windows Server/Active Directory.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Active Directory domain vs DNS domain"
+              "title": "Active Directory"
             }
           }
         ],
@@ -235,10 +235,13 @@
       "obisidian-note-linker:Note Linker": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "51d60cea3b735add",
   "lastOpenFiles": [
-    "3-Windows Server/Active Directory.md",
+    "3-Windows Server/attachments/Pasted image 20261005114649.png",
+    "3-Windows Server/attachments/Pasted image 20261005114558.png",
+    "3-Windows Server/attachments/Pasted image 20261005114358.png",
     "3-Windows Server/Active Directory domain vs DNS domain.md",
+    "3-Windows Server/Active Directory.md",
     "3-Windows Server/attachments/Pasted image 20261005114150.png",
     "3-Windows Server/attachments/Pasted image 20261005114136.png",
     "3-Windows Server/GPO.md",
@@ -248,9 +251,7 @@
     "3-Windows Server/attachments/Pasted image 20261005113121.png",
     "3-Windows Server/attachments/Pasted image 20261005112750.png",
     "3-Windows Server/attachments/Pasted image 20261005112617.png",
-    "3-Windows Server/attachments/Pasted image 20261005092352.png",
     "3-Windows Server/Flexible Single Master Operations roles.md",
-    "3-Windows Server/attachments/Pasted image 20261005092315.png",
     "2-Virtualization/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "index.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",

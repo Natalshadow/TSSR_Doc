@@ -56,6 +56,13 @@ Chaque domaine a son DNS
 
 ![](attachments/Pasted%20image%2020261005114150.png)
 
+![](attachments/Pasted%20image%2020261005114358.png)
+
+![](attachments/Pasted%20image%2020261005114558.png)
+
+![](attachments/Pasted%20image%2020261005114649.png)
+
+
 
 
 ### C. Sous-domaine
