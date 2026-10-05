@@ -21,11 +21,27 @@
 * **Définition :** la brique de base administrative d'Active Directory.
 * **Rôle :** regroupe un ensemble d'objets (utilisateurs, machines) qui partagent la même base de données et les mêmes politiques de sécurité.
 * **Exemple :** `entreprise.local` ou `lab.tssr.fr`.
-
+Chaque domaine a son DNS
 ### B. Qu'est-ce qu'une forêt ?
 * **Définition :** le conteneur de plus haut niveau dans Active Directory.
 * **Structure :** regroupe un ou plusieurs domaines (organisés en un ou plusieurs « arbres ») qui partagent un schéma commun (la structure de la base de données) et un catalogue global.
-* **Relations :** les domaines d'une même forêt se font confiance mutuellement par défaut (relations approuvées et transitives).
+* **Relations :** les domaines d'une même forêt se font confiance mutuellement par défaut (relations approuvées et transitives).![](attachments/Pasted%20image%2020261005090114.png)
+
+
+![](attachments/Pasted%20image%2020261005090407.png)
+
+![](attachments/Pasted%20image%2020261005090547.png)
+
+
+### C. Sous-domaine
+On peut créer des sous-domaines comme nous avec alton.ovh et les services en sous-domaines, ça peut aussi séparer des bureaux ou des entités.
+Les sous-domaines héritent des stratégies du domaine principal.
+
+Forest
+└── Tree
+    ├── root domain
+    │   └── child domain
+    └── child domain
 
 ---
 
