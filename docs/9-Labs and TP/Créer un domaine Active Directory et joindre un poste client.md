@@ -123,15 +123,53 @@ Lancement de l'assistant de promotion du serveur en contrôleur de domaine :
 > - Gestionnaire de serveur > Outils > **DNS** — doit afficher une zone de recherche directe `TSSR-MEN.LAB`
 > - En ligne de commande : `dcdiag /test:services` pour vérifier l'état des services AD
 
-|**Contrôle**|**Résultat**|
-|---|---|
-|Serveur contrôleur du domaine `TSSR-MEN.LAB`|✅ / ❌|
-|Console Utilisateurs et ordinateurs AD opérationnelle|✅ / ❌|
-|Zone DNS correspondant au domaine présente|✅ / ❌|
+| **Contrôle**                                          | **Résultat** |
+| ----------------------------------------------------- | ------------ |
+| Serveur contrôleur du domaine `TSSR-MEN.LAB`          | ✅            |
+| Console Utilisateurs et ordinateurs AD opérationnelle | ✅ / ❌        |
+| Zone DNS correspondant au domaine présente            | ✅ / ❌        |
 
-> _[Insérer ici une capture de la console Utilisateurs et ordinateurs Active Directory]_
+> ![](attachments/Pasted%20image%2020261005150131.png)
+> ![](attachments/Pasted%20image%2020261005150240.png)
 
 > _[Insérer ici une capture de la console DNS avec la zone TSSR-MEN.LAB]_
+
+```
+ dcdiag /test:services
+
+Directory Server Diagnosis
+
+Performing initial setup:
+   Trying to find home server...
+   Home Server = SRV-WIN-MEN-01
+   * Identified AD Forest.
+   Done gathering initial info.
+
+Doing initial required tests
+
+   Testing server: Default-First-Site-Name\SRV-WIN-MEN-01
+      Starting test: Connectivity
+         ......................... SRV-WIN-MEN-01 passed test Connectivity
+
+Doing primary tests
+
+   Testing server: Default-First-Site-Name\SRV-WIN-MEN-01
+      Starting test: Services
+         ......................... SRV-WIN-MEN-01 passed test Services
+
+
+   Running partition tests on : ForestDnsZones
+
+   Running partition tests on : DomainDnsZones
+
+   Running partition tests on : Schema
+
+   Running partition tests on : Configuration
+
+   Running partition tests on : TSSR-MEN
+
+   Running enterprise tests on : TSSR-MEN.LAB
+```
 
 ---
 
