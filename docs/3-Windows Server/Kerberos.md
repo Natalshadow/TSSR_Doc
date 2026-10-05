@@ -3,3 +3,6 @@
 Kerberos builds on [symmetric-key cryptography](https://en.wikipedia.org/wiki/Symmetric-key_cryptography "Symmetric-key cryptography") and requires a [trusted third party](https://en.wikipedia.org/wiki/Trusted_third_party "Trusted third party"), and optionally may use [public-key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography "Public-key cryptography") during certain phases of authentication.[[2]](https://en.wikipedia.org/wiki/Kerberos_\(protocol\)#cite_note-rfc4556-2) Kerberos uses [UDP port](https://en.wikipedia.org/wiki/UDP_port "UDP port") 88 by default.
 
 The protocol was named after the character _[Cerberus](https://en.wikipedia.org/wiki/Cerberus "Cerberus")_, also spelled _Kerberos_, from [Greek mythology](https://en.wikipedia.org/wiki/Greek_mythology "Greek mythology"), the ferocious three-headed guard dog of [Hades](https://en.wikipedia.org/wiki/Hades "Hades").[[3]](https://en.wikipedia.org/wiki/Kerberos_\(protocol\)#cite_note-3)
+
+
+![](attachments/Pasted%20image%2020261005115013.png)

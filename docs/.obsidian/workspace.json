@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/Active Directory.md",
+                "file": "3-Windows Server/NTLM.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Active Directory"
+              "title": "NTLM"
             }
           }
         ],
@@ -237,27 +237,27 @@
   },
   "active": "51d60cea3b735add",
   "lastOpenFiles": [
+    "3-Windows Server/attachments/Pasted image 20261005115232.png",
+    "3-Windows Server/attachments/Pasted image 20261005115159.png",
+    "3-Windows Server/Kerberos.md",
+    "3-Windows Server/attachments/Pasted image 20261005115013.png",
+    "3-Windows Server/Active Directory.md",
     "3-Windows Server/attachments/Pasted image 20261005114649.png",
     "3-Windows Server/attachments/Pasted image 20261005114558.png",
     "3-Windows Server/attachments/Pasted image 20261005114358.png",
     "3-Windows Server/Active Directory domain vs DNS domain.md",
-    "3-Windows Server/Active Directory.md",
     "3-Windows Server/attachments/Pasted image 20261005114150.png",
     "3-Windows Server/attachments/Pasted image 20261005114136.png",
     "3-Windows Server/GPO.md",
     "3-Windows Server/attachments/Pasted image 20261005113445.png",
     "3-Windows Server/attachments/Pasted image 20261005113441.png",
     "3-Windows Server/attachments/Pasted image 20261005113313.png",
-    "3-Windows Server/attachments/Pasted image 20261005113121.png",
-    "3-Windows Server/attachments/Pasted image 20261005112750.png",
-    "3-Windows Server/attachments/Pasted image 20261005112617.png",
     "3-Windows Server/Flexible Single Master Operations roles.md",
     "2-Virtualization/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "index.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "3-Windows Server/NTLM.md",
     "3-Windows Server/attachments",
-    "3-Windows Server/Kerberos.md",
     "3-Windows Server/Recherche Windows Server.md",
     "2-Virtualization/Snapshots et clones de VM.md",
     "1-General",

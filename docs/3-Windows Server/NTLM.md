@@ -1,3 +1,10 @@
 In a [Windows](https://en.wikipedia.org/wiki/Microsoft_Windows "Microsoft Windows") network, **NT (New Technology) LAN Manager** (**NTLM**) is a suite of [Microsoft](https://en.wikipedia.org/wiki/Microsoft "Microsoft") security protocols intended to provide authentication, integrity, and confidentiality to users.[[1]](https://en.wikipedia.org/wiki/NTLM#cite_note-technet-ntlm-1)[[2]](https://en.wikipedia.org/wiki/NTLM#cite_note-2)[[3]](https://en.wikipedia.org/wiki/NTLM#cite_note-frequency-x-3) NTLM is the successor to the authentication protocol in Microsoft [LAN Manager](https://en.wikipedia.org/wiki/LAN_Manager "LAN Manager") (LANMAN), an older Microsoft product. The NTLM protocol suite is implemented in a [Security Support Provider](https://en.wikipedia.org/wiki/SSPI#Windows_SSPs "SSPI"), which combines the [LAN Manager](https://en.wikipedia.org/wiki/LAN_Manager "LAN Manager") authentication protocol, NTLMv1, NTLMv2 and NTLM2 Session protocols in a single package. Whether these protocols are used or can be used on a system, which is governed by [Group Policy](https://en.wikipedia.org/wiki/Group_Policy "Group Policy") settings, for which different versions of Windows have different default settings.
 
 NTLM passwords are considered weak because they can be [brute-forced](https://en.wikipedia.org/wiki/Brute-force_attack "Brute-force attack") very easily with modern hardware.[[4]](https://en.wikipedia.org/wiki/NTLM#cite_note-no-4)
+
+
+
+![](attachments/Pasted%20image%2020261005115159.png)
+
+![](attachments/Pasted%20image%2020261005115232.png)
+
