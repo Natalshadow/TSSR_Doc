@@ -18,7 +18,7 @@
 
 ---
 
-## 2. Architecture AD : Forêt et Domaine
+## 2. Architecture AD : forêt et domaine
 
 ### A. Qu'est-ce qu'un Domaine ?
 * **Définition :** La brique de base administrative d'Active Directory.
@@ -57,7 +57,7 @@
 
 ---
 
-## 💡 Résumé Visuel / Analogie rapide
+## Résumé Visuel / Analogie rapide
 
 | Élément | Analogie | Rôle dans le réseau |
 | :--- | :--- | :--- |
