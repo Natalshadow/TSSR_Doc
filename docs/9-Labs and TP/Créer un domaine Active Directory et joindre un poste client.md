@@ -376,4 +376,4 @@ Connexion de `SRV-WIN-MEN-01` vers `CLI-WIN-MEN-01` (`192.168.100.100`). CLI-WIN
 
 ## 9. Difficultés rencontrées / Remarques
 
-_[À compléter]_
+C'est loin d'être naturel pour le moment sans avoir une doc sous les yeux.
