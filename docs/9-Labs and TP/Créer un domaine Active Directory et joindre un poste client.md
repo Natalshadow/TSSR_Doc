@@ -130,7 +130,7 @@ Lancement de l'assistant de promotion du serveur en contrôleur de domaine :
 | Zone DNS correspondant au domaine présente            | ✅ / ❌        |
 
 > ![](attachments/Pasted%20image%2020261005150131.png)
-> ![](attachments/Pasted%20image%2020261005150240.png)
+> ![](attachments/Pasted%20image%2020261005150616.png)![](attachments/Pasted%20image%2020261005150240.png)
 
 > _[Insérer ici une capture de la console DNS avec la zone TSSR-MEN.LAB]_
 
