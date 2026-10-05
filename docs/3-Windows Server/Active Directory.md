@@ -47,7 +47,7 @@ Chaque domaine a son DNS
 
 ![](attachments/Pasted%20image%2020261005113121.png)
 
-
+![](attachments/Pasted%20image%2020261005113313.png)
 
 
 
