@@ -63,3 +63,17 @@
 | **Forêt** | La ville entière | Le regroupement de tous les domaines |
 | **Contrôleur de domaine (DC)** | Le gardien / réceptionniste | Le serveur qui vérifie les pièces d'identité |
 | **LDAP / LDAPS** | La langue parlée pour poser une question au gardien | Le protocole pour interroger l'annuaire (non chiffré / chiffré) |
+
+
+![](attachments/Pasted%20image%2020261005075958.png)
+
+
+![](attachments/Pasted%20image%2020261005080004.png)
+
+
+![](attachments/Pasted%20image%2020261005080013.png)
+
+
+
+![](attachments/Pasted%20image%2020261005080020.png)
+

@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/Kerberos.md",
+                "file": "3-Windows Server/Active Directory.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Kerberos"
+              "title": "Active Directory"
             }
           }
         ],
@@ -285,10 +285,15 @@
   },
   "active": "3bf06aec6f6c24e9",
   "lastOpenFiles": [
+    "3-Windows Server/attachments/Pasted image 20261005080020.png",
+    "3-Windows Server/attachments/Pasted image 20261005080013.png",
+    "3-Windows Server/attachments/Pasted image 20261005080004.png",
+    "3-Windows Server/attachments/Pasted image 20261005075958.png",
+    "3-Windows Server/attachments",
+    "3-Windows Server/Kerberos.md",
     "3-Windows Server/NTLM.md",
     "3-Windows Server/Active Directory.md",
     "GPO.md",
-    "3-Windows Server/Kerberos.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/attachments/Pasted image 20261002124115.png",
     "9-Labs and TP/attachments/Pasted image 20261002122846.png",
@@ -297,9 +302,6 @@
     "9-Labs and TP/attachments/Pasted image 20261002121921.png",
     "9-Labs and TP/attachments/Pasted image 20261002121858.png",
     "9-Labs and TP/attachments/Pasted image 20261002121520.png",
-    "9-Labs and TP/attachments/Pasted image 20261002121250.png",
-    "9-Labs and TP/attachments/Pasted image 20261002120638.png",
-    "9-Labs and TP/attachments/Pasted image 20261002120619.png",
     "3-Windows Server/Recherche Windows Server.md",
     "2-Virtualization/Snapshots et clones de VM.md",
     "1-General",
@@ -316,7 +318,6 @@
     "2-Virtualization/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "2-Virtualization/VM.md",
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
-    "1-General/Système d'information et système informatique.md",
-    "2-Virtualization/attachments"
+    "1-General/Système d'information et système informatique.md"
   ]
 }
