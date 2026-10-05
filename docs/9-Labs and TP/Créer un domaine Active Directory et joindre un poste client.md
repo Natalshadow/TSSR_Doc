@@ -21,7 +21,13 @@ Depuis `CLI-WIN-MEN-01`, installation des outils RSAT nécessaires :
 > _[Insérer ici une capture d'écran de l'installation des RSAT depuis Paramètres > Fonctionnalités facultatives ou via PowerShell]_
 ![](attachments/Pasted%20image%2020261005135349.png)
  Ajout d'une nouvelle carte réseau pour accès WAN.
- 
+![](attachments/Pasted%20image%2020261005135651.png)
+
+![](attachments/Pasted%20image%2020261005135849.png)
+
+![](attachments/Pasted%20image%2020261005135857.png)
+
+
 ---
 
 ## 3. Étape 2 : Création du domaine Active Directory
