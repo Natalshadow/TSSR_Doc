@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client.md",
+                "file": "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Créer un domaine Active Directory et joindre un poste client"
+              "title": "Créer un domaine Active Directory et joindre un poste client - Full"
             }
           },
           {
@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client.md",
+                "file": "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Créer un domaine Active Directory et joindre un poste client"
+              "title": "Créer un domaine Active Directory et joindre un poste client 1"
             }
           }
         ],
@@ -259,8 +259,11 @@
       "obisidian-note-linker:Note Linker": false
     }
   },
-  "active": "393cb65084fc1244",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "9-Labs and TP/Deliverable version",
+    "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
+    "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "9-Labs and TP/attachments/Pasted image 20261005161213.png",
     "9-Labs and TP/attachments/Pasted image 20261005161203.png",
     "9-Labs and TP/attachments/Pasted image 20261005160900.png",
@@ -269,11 +272,9 @@
     "9-Labs and TP/attachments/Pasted image 20261005160601.png",
     "9-Labs and TP/attachments/Pasted image 20261005155156.png",
     "How to find Powershell commands.md",
-    "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client.md",
     "9-Labs and TP/attachments/Pasted image 20261005153210.png",
     "9-Labs and TP/attachments/Pasted image 20261005152820.png",
     "9-Labs and TP/attachments/Pasted image 20261005152743.png",
-    "9-Labs and TP/attachments/Pasted image 20261005152733.png",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
     "3-Windows Server/NTLM.md",
