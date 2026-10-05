@@ -33,6 +33,14 @@ Chaque domaine a son DNS
 ![](attachments/Pasted%20image%2020261005090547.png)
 
 
+![](attachments/Pasted%20image%2020261005091532.png)
+
+![](attachments/Pasted%20image%2020261005091727.png)
+
+
+
+
+
 ### C. Sous-domaine
 On peut créer des sous-domaines comme nous avec alton.ovh et les services en sous-domaines, ça peut aussi séparer des bureaux ou des entités.
 Les sous-domaines héritent des stratégies du domaine principal.
@@ -97,3 +105,4 @@ Active Directory est une marque d'annuaire, c'est le modèle Windows, il en exis
 OU = organizational unit
 CN = common name
 DC= domain controller
+GC = global catalog
