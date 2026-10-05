@@ -78,9 +78,33 @@
               "icon": "lucide-file",
               "title": "TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation"
             }
+          },
+          {
+            "id": "3bf06aec6f6c24e9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "3-Windows Server/Active Directory.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Active Directory"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -258,8 +282,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e4e47495ebbe1a14",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
+    "3-Windows Server/Active Directory.md",
     "9-Labs and TP/attachments/Pasted image 20261002124115.png",
     "9-Labs and TP/attachments/Pasted image 20261002122846.png",
     "9-Labs and TP/attachments/Pasted image 20261002122826.png",
@@ -270,11 +296,9 @@
     "9-Labs and TP/attachments/Pasted image 20261002121250.png",
     "9-Labs and TP/attachments/Pasted image 20261002120638.png",
     "9-Labs and TP/attachments/Pasted image 20261002120619.png",
-    "9-Labs and TP/attachments/Pasted image 20261002120537.png",
     "3-Windows Server/Recherche Windows Server.md",
     "2-Virtualization/Snapshots et clones de VM.md",
     "1-General",
-    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP",
     "6-Services and cloud",
     "5-Networking and security",
