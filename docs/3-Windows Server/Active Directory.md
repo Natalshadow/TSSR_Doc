@@ -54,7 +54,7 @@
 
 ---
 
-## 💡 Résumé visuel / Analogie rapide
+## Résumé visuel / Analogie rapide
 
 | Élément | Analogie | Rôle dans le réseau |
 | :--- | :--- | :--- |
