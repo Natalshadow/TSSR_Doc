@@ -336,18 +336,17 @@ ipconfig /all
 
 **Tableau d'analyse**
 
-|Commande|Rôle / explication|Client (`ipconfig /all`)|Serveur (console DHCP)|
-|---|---|---|---|
-|`ipconfig /release`||||
-|`ipconfig /all` (1)||||
-|`ipconfig /renew`||||
-|`ipconfig /all` (2)||||
+| Commande            | Rôle / explication | Client (`ipconfig /all`)                                                | Serveur (console DHCP) |
+| ------------------- | ------------------ | ----------------------------------------------------------------------- | ---------------------- |
+| `ipconfig /release` |                    | Le masque est passé à 255.255.0.0 et l'ipv4 n'est plus bonne.           | Le bail a disparu      |
+| `ipconfig /all` (1) |                    |                                                                         |                        |
+| `ipconfig /renew`   |                    | Les paramètres sont revenus comme ils l'étaient avant de faire /release | Le bail est revenu     |
+| `ipconfig /all` (2) |                    |                                                                         |                        |
 
 **Captures**
 
-![[capture-3.4-release.png]] ![[capture-3.4-all-apres-release.png]] ![[capture-3.4-renew.png]] ![[capture-3.4-all-apres-renew.png]] ![[capture-3.4-bail-serveur.png]]
+![](attachments/Pasted%20image%2020261006115634.png) ![](attachments/Pasted%20image%2020261006115650.png) Le bail est revenu :![](attachments/Pasted%20image%2020261006115704.png)  
 
-**Observations**
 
 ---
 
@@ -355,13 +354,13 @@ ipconfig /all
 
 > [!check] À valider avant de rendre le TP Coche chaque point uniquement si tu peux le **prouver** par une capture ou une commande.
 
-|Vérification|Validé|Preuve|
-|---|---|---|
-|La résolution directe fonctionne|☐|[[capture-2.2-nslookup-direct.png]]|
-|La résolution inverse fonctionne|☐|[[capture-2.3-nslookup-inverse-apres.png]]|
-|Le serveur DHCP est autorisé|☐|[[capture-3.1-autorisation.png]]|
-|Le client obtient une adresse de la plage prévue|☐|[[capture-3.3-ipconfig-all.png]]|
-|Le DNS est correctement distribué|☐|[[capture-3.3-ipconfig-all.png]]|
+| Vérification                                     | Validé | Preuve                                     |
+| ------------------------------------------------ | ------ | ------------------------------------------ |
+| La résolution directe fonctionne                 | ☐      | [[capture-2.2-nslookup-direct.png]]        |
+| La résolution inverse fonctionne                 | ☐      | [[capture-2.3-nslookup-inverse-apres.png]] |
+| Le serveur DHCP est autorisé                     | ☐      | [[capture-3.1-autorisation.png]]           |
+| Le client obtient une adresse de la plage prévue | ☐      | [[capture-3.3-ipconfig-all.png]]           |
+| Le DNS est correctement distribué                | ☐      | [[capture-3.3-ipconfig-all.png]]           |
 
 Version à cocher :
 
