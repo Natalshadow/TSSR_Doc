@@ -8,78 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "38e321befc66287b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "1-General/DNS et DHCP.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "DNS et DHCP"
-            }
-          },
-          {
-            "id": "5d5ce2ad7b72c39f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "9-Labs and TP/DNS and DHCP.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "DNS and DHCP"
-            }
-          },
-          {
-            "id": "555e80a2b0e04c96",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "9-Labs and TP/DNS and DHCP.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "DNS and DHCP"
-            }
-          },
-          {
             "id": "1e4af57cab3b2cb1",
             "type": "leaf",
             "state": {
@@ -103,8 +31,7 @@
               "title": "DNS and DHCP"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -182,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TP5 - Modification de la VM Windows 11.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -201,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "TP5 - Modification de la VM Windows 11.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -244,7 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TP5 - Modification de la VM Windows 11.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -284,7 +211,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "1e4af57cab3b2cb1",
+  "active": "e1ec310cf6a459a9",
   "lastOpenFiles": [
     "9-Labs and TP/attachments/Pasted image 20261006101250.png",
     "9-Labs and TP/attachments/Pasted image 20261006101202.png",

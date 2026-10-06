@@ -269,15 +269,16 @@ Il faut créer une zone inversée ?
 
 **Relevés**
 
-|Élément|Valeur constatée|
-|---|---|
-|Adresse IPv4 obtenue||
-|Dans la plage prévue ?||
-|Serveur DHCP||
-|Serveur DNS||
-|Suffixe DNS||
-|Bail obtenu||
-|Bail expirant||
+
+| Élément                | Valeur constatée |
+| ---------------------- | ---------------- |
+| Adresse IPv4 obtenue   |                  |
+| Dans la plage prévue ? |                  |
+| Serveur DHCP           |                  |
+| Serveur DNS            |                  |
+| Suffixe DNS            |                  |
+| Bail obtenu            |                  |
+| Bail expirant          |                  |
 
 **Commentaires**
 
