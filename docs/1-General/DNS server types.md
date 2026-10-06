@@ -2,8 +2,17 @@
 - **Root nameserver** - The [root server](https://www.cloudflare.com/learning/dns/glossary/dns-root-server/) is the first step in translating (resolving) human readable host names into IP addresses. It can be thought of like an index in a library that points to different racks of books - typically it serves as a reference to other more specific locations.
 - **[TLD nameserver](https://www.cloudflare.com/learning/dns/dns-server-types/)** - The top level domain server ([TLD](https://www.cloudflare.com/learning/dns/top-level-domain/)) can be thought of as a specific rack of books in a library. This nameserver is the next step in the search for a specific IP address, and it hosts the last portion of a hostname (In example.com, the TLD server is “com”).
 - **[Authoritative nameserver](https://www.cloudflare.com/learning/dns/dns-server-types/)** - This final nameserver can be thought of as a dictionary on a rack of books, in which a specific name can be translated into its definition. The authoritative nameserver is the last stop in the nameserver query. If the authoritative name server has access to the requested record, it will return the IP address for the requested hostname back to the DNS Recursor (the librarian) that made the initial request.
+-
 
-[Drawing 2026-10-06 07.50.21.excalidraw](../Excalidraw/Drawing%202026-10-06%2007.50.21.excalidraw.md)
-:
-![[attachments/DNS server types 2026-10-06 07.58.04.excalidraw]]
+![](attachments/Pasted%20image%2020261006075949.png)
+
+
+
+
+
+
+
+
+![Drawing 2026-10-06 07.50.21.excalidraw](../Excalidraw/Drawing%202026-10-06%2007.50.21.excalidraw.md)
+
 [DNS et DHCP](1-General/DNS%20et%20DHCP.md)

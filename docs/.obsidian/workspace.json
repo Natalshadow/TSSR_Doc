@@ -32,24 +32,6 @@
             }
           }
         ]
-      },
-      {
-        "id": "4bf199709fc99747",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "e17ee67266557d8c",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "Drawing 2026-10-06 07.50.21.excalidraw"
-            }
-          }
-        ]
       }
     ],
     "direction": "vertical"
@@ -231,8 +213,10 @@
   },
   "active": "38e321befc66287b",
   "lastOpenFiles": [
-    "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md",
+    "1-General/attachments/Pasted image 20261006075949.png",
+    "1-General/attachments/DNS server types 2026-10-06 07.58.28.excalidraw.md",
     "1-General/DNS server types.md",
+    "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md",
     "1-General/attachments/DNS server types 2026-10-06 07.58.04.excalidraw.md",
     "1-General/attachments",
     "Excalidraw",
@@ -274,7 +258,6 @@
     "4-Linux admin",
     "3-Windows Server",
     "Glossary.md",
-    "2-Virtualization/VM.md",
-    "1-General/Système d'information et système informatique.md"
+    "2-Virtualization/VM.md"
   ]
 }
