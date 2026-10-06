@@ -265,20 +265,50 @@ Il faut créer une zone inversée ?
 
 **Captures**
 
-![[capture-3.3-config-auto-client.png]] ![[capture-3.3-ipconfig-all.png]] ![[capture-3.3-bail-console.png]]
+
+Avant: 
+![](attachments/Pasted%20image%2020261006114420.png)![](attachments/Pasted%20image%2020261006114005.png)`PS C:\WINDOWS\system32> ipconfig /all`
+
+`Configuration IP de Windows`
+
+   `Nom de l’hôte . . . . . . . . . . : CLI-WIN-MEN-01`
+   `Suffixe DNS principal . . . . . . : TSSR-MEN.LAB`
+   `Type de noeud. . . . . . . . . .  : Hybride`
+   `Routage IP activé . . . . . . . . : Non`
+   `Proxy WINS activé . . . . . . . . : Non`
+   `Liste de recherche du suffixe DNS.: TSSR-MEN.LAB`
+
+`Carte Ethernet Ethernet0 :`
+
+   `Suffixe DNS propre à la connexion. . . : TSSR-MEN.LAB`
+   `Description. . . . . . . . . . . . . . : Intel(R) 82574L Gigabit Network Connection`
+   `Adresse physique . . . . . . . . . . . : 00-0C-29-E4-BD-1D`
+   `DHCP activé. . . . . . . . . . . . . . : Oui`
+   `Configuration automatique activée. . . : Oui`
+   `Adresse IPv6 de liaison locale. . . . .: fe80::94ad:cbc5:9b96:ca9e%7(préféré)`
+   `Adresse IPv4. . . . . . . . . . . . . .: 192.168.100.150(préféré)`
+   `Masque de sous-réseau. . . . . . . . . : 255.255.255.0`
+   `Bail obtenu. . . . . . . . . . . . . . : mardi 6 octobre 2026 11:45:26`
+   `Bail expirant. . . . . . . . . . . . . : mercredi 14 octobre 2026 11:45:25`
+   `Passerelle par défaut. . . . . . . . . :`
+   `Serveur DHCP . . . . . . . . . . . . . : 192.168.100.10`
+   `IAID DHCPv6 . . . . . . . . . . . : 83889193`
+   `DUID de client DHCPv6. . . . . . . . : 00-01-00-01-32-50-07-B0-00-0C-29-E4-BD-1D`
+   `Serveurs DNS. . .  . . . . . . . . . . : 192.168.100.10`
+   `NetBIOS sur Tcpip. . . . . . . . . . . : Activé`  ![](attachments/Pasted%20image%2020261006115150.png)
 
 **Relevés**
 
 
-| Élément                | Valeur constatée |
-| ---------------------- | ---------------- |
-| Adresse IPv4 obtenue   |                  |
-| Dans la plage prévue ? |                  |
-| Serveur DHCP           |                  |
-| Serveur DNS            |                  |
-| Suffixe DNS            |                  |
-| Bail obtenu            |                  |
-| Bail expirant          |                  |
+| Élément                | Valeur constatée                                                                 |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| Adresse IPv4 obtenue   | 192.168.100.150                                                                  |
+| Dans la plage prévue ? | Oui                                                                              |
+| Serveur DHCP           | 192.168.100.10                                                                   |
+| Serveur DNS            | 192.168.100.10                                                                   |
+| Suffixe DNS            | TSSR-MEN.LAB                                                                     |
+| Bail obtenu            | 6 Oct 11:45 → 14 Oct 11:45, 8 jours, conforme à ce qui a été vu dans le serveur. |
+| Bail expirant          | 14 Oct 11:45                                                                     |
 
 **Commentaires**
 
