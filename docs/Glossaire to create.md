@@ -12,3 +12,4 @@
 | Plage                      | Range                   |
 | Passerelle                 | Gateway                 |
 | Exclusion / Réservation    | Exclusion / Reservation |
+

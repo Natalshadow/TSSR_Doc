@@ -236,7 +236,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Glossaire.base",
+                "file": "Glossaire to create.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -255,7 +255,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Glossaire.base",
+                "file": "Glossaire to create.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -298,7 +298,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Glossaire.base",
+                "file": "Glossaire to create.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -338,8 +338,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "693f350f844f44a8",
+  "active": "2dbf1a443aa0c266",
   "lastOpenFiles": [
+    "Glossaire.base",
+    "Glossaire/Index.md",
     "Glossaire/gateway.md",
     "Glossaire/A record.md",
     "Glossaire/reverse lookup zone.md",
@@ -362,7 +364,6 @@
     "9-Labs and TP/attachments/Pasted image 20261006115150.png",
     "9-Labs and TP/attachments/Pasted image 20261006114420.png",
     "9-Labs and TP/attachments/Pasted image 20261006114005.png",
-    "Glossaire.base",
     "PTR.md",
     "Glossary.md",
     "Glossaire",
@@ -379,8 +380,6 @@
     "Excalidraw",
     "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
-    "3-Windows Server/Kerberos.md",
-    "att.md",
     "9-Labs and TP/Deliverable version",
     "3-Windows Server/attachments",
     "1-General",
