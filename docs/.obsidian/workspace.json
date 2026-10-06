@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "gateway"
+              "title": "DNS and DHCP"
             }
           },
           {
@@ -168,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -187,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -230,7 +230,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -272,6 +272,7 @@
   },
   "active": "2dbf1a443aa0c266",
   "lastOpenFiles": [
+    "9-Labs and TP/DNS and DHCP.md",
     "Glossaire/Index.md",
     "Glossaire/gateway.md",
     "Glossaire/Glossary entry.md",
@@ -288,7 +289,6 @@
     "1-General/How to find Powershell commands.md",
     "1-General/DNS server types.md",
     "1-General/DNS et DHCP.md",
-    "9-Labs and TP/DNS and DHCP.md",
     "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
     "9-Labs and TP/attachments/Pasted image 20261006115704.png",
     "9-Labs and TP/attachments/Pasted image 20261006115650.png",
