@@ -11,24 +11,10 @@
             "id": "46158f65a9bc8d05",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3-Windows Server/Active Directory.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "Active Directory"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           },
           {
@@ -102,33 +88,8 @@
               "icon": "lucide-file",
               "title": "DNS et DHCP"
             }
-          },
-          {
-            "id": "83aff6b85f2ab233",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Types de serveurs DNS.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "Types de serveurs DNS"
-            }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -307,10 +268,13 @@
       "obisidian-note-linker:Note Linker": false
     }
   },
-  "active": "83aff6b85f2ab233",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "att.md",
+    "3-Windows Server/Active Directory.md",
     "1-General/DNS et DHCP.md",
-    "Types de serveurs DNS.md",
+    "1.md",
+    "1-General/Types de serveurs DNS.md",
     "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "9-Labs and TP/Deliverable version",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
@@ -329,7 +293,6 @@
     "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
     "3-Windows Server/NTLM.md",
     "3-Windows Server/Kerberos.md",
-    "3-Windows Server/Active Directory.md",
     "3-Windows Server/Active Directory domain vs DNS domain.md",
     "3-Windows Server/GPO.md",
     "3-Windows Server/Flexible Single Master Operations roles.md",
