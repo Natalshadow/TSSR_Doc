@@ -4,7 +4,7 @@
 |---|---|---|
 | A record | enregistrement A |  |
 | forward lookup zone | zone de recherche directe |  |
-| gateway |  |  |
+| gateway | passerelle |  |
 | Glossary entry | traduction |  |
 | lease | bail |  |
 | reverse lookup zone | zone de recherche inversée |  |

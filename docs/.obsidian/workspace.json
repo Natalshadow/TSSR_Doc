@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "Glossaire/Index.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "gateway"
+              "title": "Index"
             }
           },
           {
@@ -168,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "Glossaire/Index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -187,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "Glossaire/Index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -230,7 +230,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Glossaire/gateway.md",
+                "file": "Glossaire/Index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -272,13 +272,13 @@
   },
   "active": "2dbf1a443aa0c266",
   "lastOpenFiles": [
+    "Glossaire/gateway.md",
     "Glossaire/Index.md",
+    "Glossaire/Glossary entry.md",
     "Glossaire.base",
     "Glossaire to create.md",
-    "Glossaire/gateway.md",
     "Glossaire/A record.md",
     "Glossaire/reverse lookup zone.md",
-    "Glossaire/Glossary entry.md",
     "Glossaire/forward lookup zone.md",
     "Templates",
     "Glossaire/scope.md",
