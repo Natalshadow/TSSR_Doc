@@ -8,7 +8,7 @@
 
 > [!info] Comment utiliser ce document
 > 
-> - Remplace `[MEN]` par ton trigramme partout (zone : `TSSR-[MEN].LAB`).
+> - Remplace `MEN` par ton trigramme partout (zone : `TSSR-MEN.LAB`).
 > - Chaque section contient un espace **Réponse / Captures** à compléter.
 > - Les blocs `> [!tip]` sont des pistes de guidage : supprime-les dans la version rendue.
 > - Place les captures dans un dossier `attachments/` et insère-les avec `![[nom-capture.png]]`.
@@ -30,7 +30,7 @@
 
 |Élément|Valeur|
 |---|---|
-|Domaine|`TSSR-[MEN].LAB`|
+|Domaine|`TSSR-MEN.LAB`|
 |Serveur AD / DNS / DHCP|`192.168.100.10`|
 |Nom du serveur||
 |Nom du poste client||
@@ -56,10 +56,15 @@
 
 1. Ouvrir la console DNS.
 2. Développer **Zones de recherche directes**.
-3. Identifier la zone `TSSR-[MEN].LAB`.
+3. Identifier la zone `TSSR-MEN.LAB`.
 4. Observer les enregistrements créés automatiquement par Active Directory.
 
+
 > [!question] Question À quoi correspondent ces enregistrements ?
+> Ils correspondent aux IP du serveur et du client pour les Hosts A records.
+> ![](attachments/Pasted%20image%2020261006092229.png)
+> NameServer est le nom résolu qui correspond à l'IP du serveur 
+> Je ne connais pas Start of Authority
 
 > [!tip] Guidage
 > 
@@ -67,11 +72,11 @@
 > - Distingue les enregistrements de type **A**, **NS**, **SOA** et **SRV**.
 > - Pose-toi la question : comment un client trouve-t-il un contrôleur de domaine ou un service Kerberos / LDAP ?
 
-**Capture(s)**
+**Capture(s)![](attachments/Pasted%20image%2020261006092001.png)**
 
-![[capture-2.1-zone-directe.png]]
 
-**Réponse**
+
+
 
 ---
 
@@ -86,7 +91,7 @@
 **Test depuis le client**
 
 ```powershell
-nslookup test.TSSR-[MEN].LAB
+nslookup test.TSSR-MEN.LAB
 ```
 
 > [!question] Question Expliquez le résultat obtenu.
@@ -99,9 +104,11 @@ nslookup test.TSSR-[MEN].LAB
 
 **Capture(s)**
 
-![[capture-2.2-creation-A.png]] ![[capture-2.2-nslookup-direct.png]]
+![](attachments/Pasted%20image%2020261006092555.png) ![](attachments/Pasted%20image%2020261006092609.png)
+Première tentative en échec, typo.
+![](attachments/Pasted%20image%2020261006092946.png)
+Le A record est trouvé.
 
-**Réponse**
 
 ---
 
@@ -119,7 +126,7 @@ nslookup test.TSSR-[MEN].LAB
     
 3. Créer une zone de recherche inversée correspondant au réseau `192.168.100.0/24`.
     
-4. Créer le PTR correspondant à `test.TSSR-[MEN].LAB`.
+4. Créer le PTR correspondant à `test.TSSR-MEN.LAB`.
     
 5. Relancer le test.
     
@@ -133,31 +140,41 @@ nslookup test.TSSR-[MEN].LAB
 
 **Test initial (avant zone inversée)**
 
-![[capture-2.3-nslookup-inverse-avant.png]]
+![](attachments/Pasted%20image%2020261006093437.png)
 
 **Explication : pourquoi le résultat n'est pas exploitable ?**
-
+Il faut créer une zone inversée ?
 **Création de la zone inversée**
 
-|Paramètre|Valeur choisie|
-|---|---|
-|Type de zone||
-|Réplication||
-|ID réseau||
-|Nom de la zone obtenue||
-|Mises à jour dynamiques||
+| Paramètre               | Valeur choisie           |
+| ----------------------- | ------------------------ |
+| Type de zone            | Primary                  |
+| Réplication             | To all DNS on domain     |
+| ID réseau               | 192.168.100              |
+| Nom de la zone obtenue  | 100.168.192.in-addr.arpa |
+| Mises à jour dynamiques |                          |
+|                         |                          |
 
-![[capture-2.3-zone-inverse.png]]
-
+![](attachments/Pasted%20image%2020261006093528.png)
+![](attachments/Pasted%20image%2020261006093647.png)
+![](attachments/Pasted%20image%2020261006093944.png)
 **Création du PTR**
 
-![[capture-2.3-ptr.png]]
+![](attachments/Pasted%20image%2020261006094039.png)
 
 **Test final (après PTR)**
 
-![[capture-2.3-nslookup-inverse-apres.png]]
+![](attachments/Pasted%20image%2020261006094058.png)
 
-**Analyse**
+>[!tip] C'est quoi PTR
+>Le PTR est le traducteur du DNS de l'IP vers l'hostname.
+>Le PTR record ne génère pas de A record associé automatiquement.
+> [PTR](../PTR.md)
+
+>[!tip] Reverse zone
+>La zone inversée (`100.168.192.in-addr.arpa`) est le conteneur des PTR. Un serveur DNS ne répond de façon autoritaire que pour les zones qu'il héberge : créer la zone inversée le rend responsable de la plage IP `192.168.100.x`. Sans elle, il n'a aucune autorité sur ces adresses (→ timeout). Zone créée mais vide → `Non-existent domain`. Zone + PTR → le nom est renvoyé.
+
+
 
 ---
 
@@ -179,7 +196,7 @@ nslookup test.TSSR-[MEN].LAB
 
 **Captures**
 
-![[capture-3.1-installation-role.png]] ![[capture-3.1-post-deploiement.png]] ![[capture-3.1-autorisation.png]]
+![](attachments/Pasted%20image%2020261006094436.png) ![](attachments/Pasted%20image%2020261006095239.png) ![](attachments/Pasted%20image%2020261006095305.png)
 
 **Commentaires**
 
@@ -195,7 +212,7 @@ nslookup test.TSSR-[MEN].LAB
 |Réseau|`192.168.100.0/24`||
 |Plage|`192.168.100.150` à `192.168.100.200`||
 |DNS|`192.168.100.10`||
-|Suffixe DNS|`TSSR-[MEN].LAB`||
+|Suffixe DNS|`TSSR-MEN.LAB`||
 
 > [!tip] Guidage
 > 
@@ -349,7 +366,7 @@ ipconfig /renew
 
 > [!note] Rendu
 > 
-> - [ ] Placeholders `[MEN]` remplacés
+> - [ ] Placeholders `MEN` remplacés
 > - [ ] Toutes les captures insérées
 > - [ ] Tous les blocs `[!tip]` supprimés
 > - [ ] Export PDF réalisé (si demandé)

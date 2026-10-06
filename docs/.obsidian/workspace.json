@@ -54,9 +54,33 @@
               "icon": "lucide-file",
               "title": "DNS and DHCP"
             }
+          },
+          {
+            "id": "555e80a2b0e04c96",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "9-Labs and TP/DNS and DHCP.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "DNS and DHCP"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -236,13 +260,25 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "5d5ce2ad7b72c39f",
+  "active": "555e80a2b0e04c96",
   "lastOpenFiles": [
-    "DORA steps.md",
+    "PTR.md",
     "9-Labs and TP/DNS and DHCP.md",
+    "9-Labs and TP/attachments/Pasted image 20261006095305.png",
+    "9-Labs and TP/attachments/Pasted image 20261006095239.png",
+    "9-Labs and TP/attachments/Pasted image 20261006094436.png",
+    "9-Labs and TP/attachments/Pasted image 20261006094058.png",
+    "9-Labs and TP/attachments/Pasted image 20261006094039.png",
+    "9-Labs and TP/attachments/Pasted image 20261006093944.png",
+    "9-Labs and TP/attachments/Pasted image 20261006093647.png",
+    "9-Labs and TP/attachments/Pasted image 20261006093528.png",
+    "9-Labs and TP/attachments/Pasted image 20261006093437.png",
+    "9-Labs and TP/attachments/Pasted image 20261006092946.png",
+    "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
+    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
+    "DORA steps.md",
     "1-General/DNS et DHCP.md",
     "1-General/DNS server types.md",
-    "1-General/attachments/Pasted image 20261006075949.png",
     "1-General/attachments/DNS server types 2026-10-06 07.58.28.excalidraw.md",
     "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md",
     "1-General/attachments/DNS server types 2026-10-06 07.58.04.excalidraw.md",
@@ -252,21 +288,10 @@
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
     "3-Windows Server/Kerberos.md",
     "att.md",
-    "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "3-Windows Server/Active Directory.md",
     "1.md",
     "9-Labs and TP/Deliverable version",
-    "9-Labs and TP/attachments/Pasted image 20261005161213.png",
-    "9-Labs and TP/attachments/Pasted image 20261005161203.png",
-    "9-Labs and TP/attachments/Pasted image 20261005160900.png",
-    "9-Labs and TP/attachments/Pasted image 20261005160730.png",
-    "9-Labs and TP/attachments/Pasted image 20261005160703.png",
-    "9-Labs and TP/attachments/Pasted image 20261005160601.png",
-    "9-Labs and TP/attachments/Pasted image 20261005155156.png",
     "1-General/How to find Powershell commands.md",
-    "9-Labs and TP/attachments/Pasted image 20261005153210.png",
-    "9-Labs and TP/attachments/Pasted image 20261005152820.png",
-    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
     "3-Windows Server/NTLM.md",
     "3-Windows Server/Active Directory domain vs DNS domain.md",
@@ -276,13 +301,11 @@
     "index.md",
     "3-Windows Server/attachments",
     "3-Windows Server/Recherche Windows Server.md",
-    "2-Virtualization/Snapshots et clones de VM.md",
     "1-General",
     "9-Labs and TP",
     "6-Services and cloud",
     "5-Networking and security",
     "4-Linux admin",
-    "3-Windows Server",
-    "Glossary.md"
+    "3-Windows Server"
   ]
 }
