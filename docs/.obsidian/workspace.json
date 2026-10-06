@@ -78,9 +78,33 @@
               "icon": "lucide-file",
               "title": "Créer un domaine Active Directory et joindre un poste client 1"
             }
+          },
+          {
+            "id": "38e321befc66287b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "DNS et DHCP.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "DNS et DHCP"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -259,11 +283,12 @@
       "obisidian-note-linker:Note Linker": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "38e321befc66287b",
   "lastOpenFiles": [
+    "DNS et DHCP.md",
+    "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "9-Labs and TP/Deliverable version",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
-    "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "9-Labs and TP/attachments/Pasted image 20261005161213.png",
     "9-Labs and TP/attachments/Pasted image 20261005161203.png",
     "9-Labs and TP/attachments/Pasted image 20261005160900.png",
@@ -296,7 +321,6 @@
     "3-Windows Server",
     "2-Virtualization",
     "0-Meta",
-    "9-Labs and TP/attachments",
     "Glossary.md",
     "2-Virtualization/VM.md",
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
