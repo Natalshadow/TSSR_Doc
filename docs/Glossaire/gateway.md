@@ -1,5 +1,5 @@
 ---
-aliases:
+definition:
   - passerelle
 tags:
   - glossaire

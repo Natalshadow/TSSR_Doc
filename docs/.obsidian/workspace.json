@@ -59,13 +59,24 @@
             "id": "2dbf1a443aa0c266",
             "type": "leaf",
             "state": {
-              "type": "bases",
+              "type": "markdown",
               "state": {
-                "file": "Glossaire.base",
-                "viewName": "Table"
+                "file": "Glossaire/gateway.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
-              "icon": "lucide-table",
-              "title": "Glossaire"
+              "icon": "lucide-file",
+              "title": "gateway"
             }
           },
           {
@@ -157,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Glossaire.base",
+                "file": "Glossaire/gateway.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -176,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Glossaire.base",
+                "file": "Glossaire/gateway.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -219,7 +230,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Glossaire.base",
+                "file": "Glossaire/gateway.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -261,9 +272,9 @@
   },
   "active": "2dbf1a443aa0c266",
   "lastOpenFiles": [
-    "Glossaire to create.md",
-    "Glossaire.base",
     "Glossaire/Index.md",
+    "Glossaire.base",
+    "Glossaire to create.md",
     "Glossaire/gateway.md",
     "Glossaire/A record.md",
     "Glossaire/reverse lookup zone.md",
