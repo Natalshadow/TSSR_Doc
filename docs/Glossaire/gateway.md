@@ -6,3 +6,4 @@ tags:
 aliases:
   - passerelle
 ---
+Routeur qui redirige vers d'autres réseaux

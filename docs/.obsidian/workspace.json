@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Glossaire/Index.md",
+                "file": "Glossaire/gateway.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Index"
+              "title": "gateway"
             }
           },
           {
@@ -168,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Glossaire/Index.md",
+                "file": "Glossaire/gateway.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -187,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Glossaire/Index.md",
+                "file": "Glossaire/gateway.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -230,7 +230,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Glossaire/Index.md",
+                "file": "Glossaire/gateway.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -272,8 +272,8 @@
   },
   "active": "2dbf1a443aa0c266",
   "lastOpenFiles": [
-    "Glossaire/gateway.md",
     "Glossaire/Index.md",
+    "Glossaire/gateway.md",
     "Glossaire/Glossary entry.md",
     "Glossaire.base",
     "Glossaire to create.md",
