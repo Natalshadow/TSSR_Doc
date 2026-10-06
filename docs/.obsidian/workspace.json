@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/DNS and DHCP.md",
+                "file": "Glossaire to create.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,11 +100,65 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "DNS and DHCP"
+              "title": "Glossaire to create"
+            }
+          },
+          {
+            "id": "b83f9c35f8fb12ff",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ],
         "currentTab": 3
+      },
+      {
+        "id": "8c44849986555381",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f467f16f9379945b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Glossaire/A record.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "A record"
+            }
+          },
+          {
+            "id": "693f350f844f44a8",
+            "type": "leaf",
+            "state": {
+              "type": "bases",
+              "state": {
+                "file": "Glossaire.base",
+                "viewName": "Table"
+              },
+              "icon": "lucide-table",
+              "title": "Glossaire"
+            }
+          }
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -182,7 +236,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "9-Labs and TP/DNS and DHCP.md",
+                "file": "Glossaire.base",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -201,7 +255,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "9-Labs and TP/DNS and DHCP.md",
+                "file": "Glossaire.base",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -244,7 +298,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "9-Labs and TP/DNS and DHCP.md",
+                "file": "Glossaire.base",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -284,32 +338,40 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "2dbf1a443aa0c266",
+  "active": "693f350f844f44a8",
   "lastOpenFiles": [
-    "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
+    "Glossaire/gateway.md",
+    "Glossaire/A record.md",
+    "Glossaire/reverse lookup zone.md",
+    "Glossaire to create.md",
+    "Glossaire/Glossary entry.md",
+    "Glossaire/forward lookup zone.md",
+    "Templates",
+    "Glossaire/scope.md",
+    "Glossaire/lease.md",
+    "DORA steps.md",
+    "1-General/Système d'information et système informatique.md",
+    "1-General/How to find Powershell commands.md",
+    "1-General/DNS server types.md",
+    "1-General/DNS et DHCP.md",
     "9-Labs and TP/DNS and DHCP.md",
+    "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
     "9-Labs and TP/attachments/Pasted image 20261006115704.png",
     "9-Labs and TP/attachments/Pasted image 20261006115650.png",
     "9-Labs and TP/attachments/Pasted image 20261006115634.png",
     "9-Labs and TP/attachments/Pasted image 20261006115150.png",
     "9-Labs and TP/attachments/Pasted image 20261006114420.png",
     "9-Labs and TP/attachments/Pasted image 20261006114005.png",
-    "Glossaire to create.md",
     "Glossaire.base",
     "PTR.md",
-    "Glossaire/Scope.md",
     "Glossary.md",
     "Glossaire",
-    "Untitled.md",
     "9-Labs and TP/attachments/Pasted image 20261006101250.png",
     "9-Labs and TP/attachments/Pasted image 20261006101202.png",
     "9-Labs and TP/attachments/Pasted image 20261006100540.png",
     "9-Labs and TP/attachments/Pasted image 20261006100416.png",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
-    "DORA steps.md",
-    "1-General/DNS et DHCP.md",
-    "1-General/DNS server types.md",
     "1-General/attachments/DNS server types 2026-10-06 07.58.28.excalidraw.md",
     "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md",
     "1-General/attachments/DNS server types 2026-10-06 07.58.04.excalidraw.md",
@@ -319,18 +381,10 @@
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
     "3-Windows Server/Kerberos.md",
     "att.md",
-    "3-Windows Server/Active Directory.md",
-    "1.md",
     "9-Labs and TP/Deliverable version",
-    "1-General/How to find Powershell commands.md",
-    "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
-    "3-Windows Server/NTLM.md",
-    "3-Windows Server/Active Directory domain vs DNS domain.md",
-    "3-Windows Server/GPO.md",
     "3-Windows Server/attachments",
     "1-General",
     "9-Labs and TP",
-    "6-Services and cloud",
-    "5-Networking and security"
+    "6-Services and cloud"
   ]
 }

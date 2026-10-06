@@ -1,0 +1,6 @@
+---
+aliases:
+  - passerelle
+tags:
+  - glossaire
+---

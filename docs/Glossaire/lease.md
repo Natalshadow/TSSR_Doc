@@ -1,0 +1,6 @@
+---
+aliases:
+  - bail
+tags:
+  - glossaire
+---

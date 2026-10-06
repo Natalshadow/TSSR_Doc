@@ -1,3 +1,7 @@
+---
+tags:
+  - tutorial
+---
 ## 1. PowerShell was designed for discovery: The "Verb-Noun" rule
 
 Unlike Linux, where command names are arbitrary historical abbreviations (`ls`, `grep`, `awk`, `tar`, `chmod`), PowerShell follows a strict **Verb-Noun** naming convention:

@@ -1,0 +1,6 @@
+---
+aliases:
+  - traduction
+tags:
+  - glossaire
+---

@@ -1,3 +1,7 @@
+---
+tags:
+  - definition
+---
 Recherches en autonomie :
 
 - DNS (Rôle, Port, Fonctionnement)
