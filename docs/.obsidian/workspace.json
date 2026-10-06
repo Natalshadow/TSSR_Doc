@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-General/DNS et DHCP.md",
+                "file": "1-General/Types de serveurs DNS.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "DNS et DHCP"
+              "title": "Types de serveurs DNS"
             }
           }
         ]
@@ -212,8 +212,8 @@
   },
   "active": "38e321befc66287b",
   "lastOpenFiles": [
-    "1-General/Types de serveurs DNS.md",
     "1-General/DNS et DHCP.md",
+    "1-General/Types de serveurs DNS.md",
     "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
     "3-Windows Server/Kerberos.md",
