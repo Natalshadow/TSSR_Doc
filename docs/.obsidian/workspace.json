@@ -30,8 +30,33 @@
               "icon": "lucide-file",
               "title": "DNS et DHCP"
             }
+          },
+          {
+            "id": "5d5ce2ad7b72c39f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "9-Labs and TP/DNS and DHCP.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "DNS and DHCP"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -211,8 +236,11 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "38e321befc66287b",
+  "active": "5d5ce2ad7b72c39f",
   "lastOpenFiles": [
+    "DORA steps.md",
+    "9-Labs and TP/DNS and DHCP.md",
+    "1-General/DNS et DHCP.md",
     "1-General/DNS server types.md",
     "1-General/attachments/Pasted image 20261006075949.png",
     "1-General/attachments/DNS server types 2026-10-06 07.58.28.excalidraw.md",
@@ -220,7 +248,6 @@
     "1-General/attachments/DNS server types 2026-10-06 07.58.04.excalidraw.md",
     "1-General/attachments",
     "Excalidraw",
-    "1-General/DNS et DHCP.md",
     "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
     "3-Windows Server/Kerberos.md",
@@ -236,7 +263,7 @@
     "9-Labs and TP/attachments/Pasted image 20261005160703.png",
     "9-Labs and TP/attachments/Pasted image 20261005160601.png",
     "9-Labs and TP/attachments/Pasted image 20261005155156.png",
-    "How to find Powershell commands.md",
+    "1-General/How to find Powershell commands.md",
     "9-Labs and TP/attachments/Pasted image 20261005153210.png",
     "9-Labs and TP/attachments/Pasted image 20261005152820.png",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
@@ -256,7 +283,6 @@
     "5-Networking and security",
     "4-Linux admin",
     "3-Windows Server",
-    "Glossary.md",
-    "2-Virtualization/VM.md"
+    "Glossary.md"
   ]
 }
