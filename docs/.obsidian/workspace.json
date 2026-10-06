@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "DNS and DHCP workshop.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "DNS and DHCP workshop"
+              "title": "DNS and DHCP"
             }
           }
         ],
@@ -182,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "DNS and DHCP workshop.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -201,7 +201,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "DNS and DHCP workshop.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -244,7 +244,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "DNS and DHCP workshop.md",
+                "file": "9-Labs and TP/DNS and DHCP.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -268,7 +268,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 302.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -286,8 +286,8 @@
   },
   "active": "2dbf1a443aa0c266",
   "lastOpenFiles": [
+    "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
     "9-Labs and TP/DNS and DHCP.md",
-    "DNS and DHCP workshop.md",
     "9-Labs and TP/attachments/Pasted image 20261006115704.png",
     "9-Labs and TP/attachments/Pasted image 20261006115650.png",
     "9-Labs and TP/attachments/Pasted image 20261006115634.png",

@@ -384,6 +384,9 @@ Version à cocher :
 
 ### Ce que j'ai retenu
 
+Le DHCP distribue son idendité aux appareils du réseau et leur indique l'adresse du DNS.
+Le DNS indique aux clients l'adresse que les clients requierent, il ne donne pas le chemin, juste l'adresse. 
+
 ### Commandes utiles (aide-mémoire)
 
 ```powershell

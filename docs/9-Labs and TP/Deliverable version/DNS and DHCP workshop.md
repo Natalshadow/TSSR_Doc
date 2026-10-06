@@ -31,7 +31,7 @@
 
 **Question :** à quoi correspondent les enregistrements créés automatiquement par Active Directory ?
 
-**Réponse :** Les enregistrements de type Host (A) correspondent aux adresses IP du serveur et du client. L'enregistrement NameServer (NS) indique le nom du serveur DNS, résolu vers l'IP du serveur. ==Start of Authority (SOA) : à compléter==
+**Réponse :** Les enregistrements de type Host (A) correspondent aux adresses IP du serveur et du client. L'enregistrement NameServer (NS) indique le nom du serveur DNS, résolu vers l'IP du serveur. 
 
 **Captures**
 
