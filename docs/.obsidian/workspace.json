@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-General/Types de serveurs DNS.md",
+                "file": "1-General/DNS server types.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,25 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Types de serveurs DNS"
+              "title": "DNS server types"
+            }
+          }
+        ]
+      },
+      {
+        "id": "4bf199709fc99747",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e17ee67266557d8c",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Drawing 2026-10-06 07.50.21.excalidraw"
             }
           }
         ]
@@ -207,13 +225,16 @@
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
       "obsidian-git:Open Git source control": false,
-      "obisidian-note-linker:Note Linker": false
+      "obisidian-note-linker:Note Linker": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "38e321befc66287b",
+  "active": "e17ee67266557d8c",
   "lastOpenFiles": [
+    "1-General/DNS server types.md",
+    "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md",
+    "Excalidraw",
     "1-General/DNS et DHCP.md",
-    "1-General/Types de serveurs DNS.md",
     "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "2-Virtualization/TP5 - Modification de la VM Windows 11.md",
     "3-Windows Server/Kerberos.md",
@@ -251,7 +272,6 @@
     "4-Linux admin",
     "3-Windows Server",
     "2-Virtualization",
-    "0-Meta",
     "Glossary.md",
     "2-Virtualization/VM.md",
     "1-General/Système d'information et système informatique.md"
