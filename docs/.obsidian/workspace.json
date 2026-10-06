@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-General/DNS server types.md",
+                "file": "1-General/DNS et DHCP.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "DNS server types"
+              "title": "DNS et DHCP"
             }
           }
         ]
@@ -213,9 +213,9 @@
   },
   "active": "38e321befc66287b",
   "lastOpenFiles": [
+    "1-General/DNS server types.md",
     "1-General/attachments/Pasted image 20261006075949.png",
     "1-General/attachments/DNS server types 2026-10-06 07.58.28.excalidraw.md",
-    "1-General/DNS server types.md",
     "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md",
     "1-General/attachments/DNS server types 2026-10-06 07.58.04.excalidraw.md",
     "1-General/attachments",
@@ -239,7 +239,6 @@
     "How to find Powershell commands.md",
     "9-Labs and TP/attachments/Pasted image 20261005153210.png",
     "9-Labs and TP/attachments/Pasted image 20261005152820.png",
-    "9-Labs and TP/attachments/Pasted image 20261005152743.png",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
     "3-Windows Server/NTLM.md",
