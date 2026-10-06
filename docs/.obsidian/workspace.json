@@ -78,9 +78,33 @@
               "icon": "lucide-file",
               "title": "DNS and DHCP"
             }
+          },
+          {
+            "id": "1e4af57cab3b2cb1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "9-Labs and TP/DNS and DHCP.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "DNS and DHCP"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -260,10 +284,15 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "555e80a2b0e04c96",
+  "active": "1e4af57cab3b2cb1",
   "lastOpenFiles": [
-    "PTR.md",
+    "9-Labs and TP/attachments/Pasted image 20261006101250.png",
+    "9-Labs and TP/attachments/Pasted image 20261006101202.png",
+    "Glossary.md",
     "9-Labs and TP/DNS and DHCP.md",
+    "9-Labs and TP/attachments/Pasted image 20261006100540.png",
+    "9-Labs and TP/attachments/Pasted image 20261006100416.png",
+    "PTR.md",
     "9-Labs and TP/attachments/Pasted image 20261006095305.png",
     "9-Labs and TP/attachments/Pasted image 20261006095239.png",
     "9-Labs and TP/attachments/Pasted image 20261006094436.png",
@@ -271,9 +300,6 @@
     "9-Labs and TP/attachments/Pasted image 20261006094039.png",
     "9-Labs and TP/attachments/Pasted image 20261006093944.png",
     "9-Labs and TP/attachments/Pasted image 20261006093647.png",
-    "9-Labs and TP/attachments/Pasted image 20261006093528.png",
-    "9-Labs and TP/attachments/Pasted image 20261006093437.png",
-    "9-Labs and TP/attachments/Pasted image 20261006092946.png",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "DORA steps.md",
@@ -300,7 +326,6 @@
     "2-Virtualization/Virtualisation - types et réseaux virtuels (VMware Workstation).md",
     "index.md",
     "3-Windows Server/attachments",
-    "3-Windows Server/Recherche Windows Server.md",
     "1-General",
     "9-Labs and TP",
     "6-Services and cloud",

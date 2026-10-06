@@ -206,13 +206,13 @@ Il faut créer une zone inversée ?
 
 **Paramètres demandés**
 
-|Paramètre|Valeur proposée|Valeur configurée|
-|---|---|---|
-|Nom|`LAN-TSSR`||
-|Réseau|`192.168.100.0/24`||
-|Plage|`192.168.100.150` à `192.168.100.200`||
-|DNS|`192.168.100.10`||
-|Suffixe DNS|`TSSR-MEN.LAB`||
+| Paramètre   | Valeur proposée                       | Valeur configurée                     |
+| ----------- | ------------------------------------- | ------------------------------------- |
+| Nom         | `LAN-TSSR`                            | `LAN-TSSR`                            |
+| Réseau      | `192.168.100.0/24`                    | `192.168.100.0/24`                    |
+| Plage       | `192.168.100.150` à `192.168.100.200` | `192.168.100.150` à `192.168.100.200` |
+| DNS         | `192.168.100.10`                      | `192.168.100.10`                      |
+| Suffixe DNS | `TSSR-MEN.LAB`                        | `TSSR-MEN.LAB`                        |
 
 > [!tip] Guidage
 > 
@@ -223,7 +223,13 @@ Il faut créer une zone inversée ?
 
 **Captures**
 
-![[capture-3.2-assistant-etendue.png]] ![[capture-3.2-options-etendue.png]]
+![](attachments/Pasted%20image%2020261006100416.png) 
+![](attachments/Pasted%20image%2020261006100540.png)
+>Gateway non nécessaire puisqu'on est sur un réseau LAN Segment, les deux machines se parlent directement et n'ont pas besoin d'un routeur en intermédiaire.
+![](attachments/Pasted%20image%2020261006101202.png)
+> Je ne pense pas que le WINS serveur soit nécessaire donc je laisse vierge.
+> 
+![](attachments/Pasted%20image%2020261006101250.png)
 
 **Commentaires**
 
