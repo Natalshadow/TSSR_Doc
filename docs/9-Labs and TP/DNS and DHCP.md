@@ -1,18 +1,7 @@
----
 
-## title: TP - Exploiter DHCP et DNS tags: [tssr, windows-server, active-directory, dns, dhcp, tp] date: auteur: trigramme: statut: en-cours
+> [!abstract] Contexte
+> Le domaine Active Directory est opérationnel. Vous devez maintenant exploiter DNS, puis mettre en place DHCP pour automatiser la configuration réseau du poste client.
 
-# TP - Exploiter DHCP et DNS
-
-> [!abstract] Contexte Le domaine Active Directory est opérationnel. Vous devez maintenant exploiter DNS, puis mettre en place DHCP pour automatiser la configuration réseau du poste client.
-
-> [!info] Comment utiliser ce document
-> 
-> - Remplace `MEN` par ton trigramme partout (zone : `TSSR-MEN.LAB`).
-> - Chaque section contient un espace **Réponse / Captures** à compléter.
-> - Les blocs `> [!tip]` sont des pistes de guidage : supprime-les dans la version rendue.
-> - Place les captures dans un dossier `attachments/` et insère-les avec `![[nom-capture.png]]`.
-> - Pour chaque capture, vérifie que le **nom de la machine** et l'**heure** sont visibles si possible.
 
 ---
 
