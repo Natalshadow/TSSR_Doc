@@ -101,15 +101,19 @@ A partir de là ça fonctionne.
 
 ## 2. Créer les utilisateurs
 
-|Nom|Login|OU|Créé|
-|---|---|---|---|
-|Tony STARK|`t.stark`|ADMINISTRATIF|☐|
-|Steve ROGERS|`s.rogers`|DIRECTION|☐|
-|Natasha ROMANOFF|`n.romanoff`|COMPTABILITE|☐|
-|Bruce BANNER|`b.banner`|INFORMATIQUE|☐|
-|Thor ODINSON|`t.odinson`|RH|☐|
-|Clint BARTON|`c.barton`|PRODUCTION|☐|
+> [!note] Le mot de passe des utilisateurs dans cet exercice sera `Tssr2026`
 
+| Nom              | Login        | OU            | Créé |
+| ---------------- | ------------ | ------------- | ---- |
+| Tony STARK       | `t.stark`    | ADMINISTRATIF | ☐    |
+| Steve ROGERS     | `s.rogers`   | DIRECTION     | ☐    |
+| Natasha ROMANOFF | `n.romanoff` | COMPTABILITE  | ☐    |
+| Bruce BANNER     | `b.banner`   | INFORMATIQUE  | ☐    |
+| Thor ODINSON     | `t.odinson`  | RH            | ☐    |
+| Clint BARTON     | `c.barton`   | PRODUCTION    | ☐    |
+|                  |              |               |      |
+|                  |              |               |      |
+T
 > [!tip] Guidage
 > 
 > - Dans l'assistant, distingue le **nom complet**, le **nom d'ouverture de session** (login) et le suffixe de domaine affiché à côté. Quel est le suffixe UPN proposé ?
@@ -119,16 +123,18 @@ A partir de là ça fonctionne.
 
 **Options de mot de passe choisies**
 
-|Option|Choix|
-|---|---|
-|Changement obligatoire à la prochaine session||
-|L'utilisateur ne peut pas changer le mot de passe||
-|Le mot de passe n'expire jamais||
-|Compte désactivé||
+| Option                                            | Choix     |
+| ------------------------------------------------- | --------- |
+| Changement obligatoire à la prochaine session     | Non (Lab) |
+| L'utilisateur ne peut pas changer le mot de passe | Non (Lab) |
+| Le mot de passe n'expire jamais                   | Oui (Lab) |
+| Compte désactivé                                  | Non       |
 
 **Capture(s)**
 
-![[capture-2-assistant-utilisateur.png]] ![[capture-2-utilisateurs-par-ou.png]]
+![](attachments/Pasted%20image%2020261007094610.png)
+![](attachments/Pasted%20image%2020261007094627.png)
+![[capture-2-utilisateurs-par-ou.png]]
 
 **Commentaires**
 
