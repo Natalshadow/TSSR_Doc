@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
+                "file": "3-Windows Server/Tiering AD.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Organiser les utilisateurs, groupes et ordinateurs Active Directory"
+              "title": "Tiering AD"
             }
           },
           {
@@ -296,6 +296,9 @@
   },
   "active": "490cc5d0051a0a39",
   "lastOpenFiles": [
+    "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
+    "3-Windows Server/Tiering AD.md",
+    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "9-Labs and TP/attachments/Pasted image 20261007105309.png",
     "9-Labs and TP/attachments/Pasted image 20261007105246.png",
     "9-Labs and TP/attachments/Pasted image 20261007105239.png",
@@ -306,8 +309,6 @@
     "9-Labs and TP/attachments/Pasted image 20261007103509.png",
     "9-Labs and TP/attachments/Pasted image 20261007103052.png",
     "9-Labs and TP/attachments/Pasted image 20261007102847.png",
-    "9-Labs and TP/attachments/Pasted image 20261007102835.png",
-    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "9-Labs and TP/DNS and DHCP.md",
     "Glossaire/Index.md",
     "Glossaire/gateway.md",
@@ -336,7 +337,6 @@
     "1-General/attachments/DNS server types 2026-10-06 07.58.04.excalidraw.md",
     "1-General/attachments",
     "Excalidraw",
-    "9-Labs and TP/Deliverable version/Créer un domaine Active Directory et joindre un poste client 1.md",
     "9-Labs and TP/Deliverable version",
     "3-Windows Server/attachments",
     "1-General",
