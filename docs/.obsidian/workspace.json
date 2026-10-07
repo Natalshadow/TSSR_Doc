@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
+                "file": "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Organiser les utilisateurs, groupes et ordinateurs Active Directory 1"
+              "title": "Organiser les utilisateurs, groupes et ordinateurs Active Directory"
             }
           }
         ],
@@ -238,8 +238,8 @@
   },
   "active": "b83f9c35f8fb12ff",
   "lastOpenFiles": [
-    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
+    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "3-Windows Server/Tiering AD.md",
     "9-Labs and TP/DNS and DHCP.md",
     "9-Labs and TP/attachments/Pasted image 20261007105309.png",

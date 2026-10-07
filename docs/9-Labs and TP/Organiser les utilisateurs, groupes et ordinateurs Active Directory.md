@@ -1,17 +1,8 @@
----
 
-## title: TP - Organiser les utilisateurs, groupes et ordinateurs Active Directory tags: [tssr, windows-server, active-directory, ou, gpo, imprimante, tp] date: auteur: trigramme: MEN statut: en-cours
 
-# TP - Organiser les utilisateurs, groupes et ordinateurs Active Directory
 
-> [!abstract] Contexte Le domaine Active Directory est opérationnel. Il faut maintenant l'organiser : arborescence d'OU, utilisateurs, groupes, classement de l'ordinateur du domaine, puis gérer le cycle de vie des comptes (mot de passe oublié, départ, arrivée) et publier une imprimante partagée.
-
-> [!info] Comment utiliser ce document
-> 
-> - Chaque section contient un espace **Réponse / Captures** à compléter.
-> - Les blocs `> [!tip]` sont des pistes de guidage : à supprimer dans la version rendue (les `> [!warning]` aussi).
-> - Place les captures dans `attachments/` et insère-les avec `![[nom-capture.png]]`.
-> - **Ne mets jamais de mot de passe en clair** dans ce document ni dans une capture visible. Écris seulement « mot de passe défini » ou « mot de passe temporaire conforme à la consigne ».
+> [!abstract] Contexte 
+> Le domaine Active Directory est opérationnel. Il faut maintenant l'organiser : arborescence d'OU, utilisateurs, groupes, classement de l'ordinateur du domaine, puis gérer le cycle de vie des comptes (mot de passe oublié, départ, arrivée) et publier une imprimante partagée.
 
 ---
 
