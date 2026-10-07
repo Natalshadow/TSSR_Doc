@@ -350,14 +350,14 @@ PS C:\WINDOWS\system32>
 > - Pour l'instant `adm.n.furry` n'a de droits que ceux de son groupe : note que **créer le groupe ne donne encore aucun privilège** (c'est une autre étape).
 > - Vérifie les deux comptes à la fin : OU, groupes, et que les deux n'ont pas le même mot de passe.
 
-|Compte|OU|Groupe|Créé|
-|---|---|---|---|
-|`n.furry`|`INFORMATIQUE`|`GG-INFORMATIQUE`|☐|
-|`adm.n.furry`|`COMPTES-ADMIN`|`GG-ADMIN-IT`|☐|
+| Compte        | OU              | Groupe            | Créé |
+| ------------- | --------------- | ----------------- | ---- |
+| `n.furry`     | `INFORMATIQUE`  | `GG-INFORMATIQUE` | Oui  |
+| `adm.n.furry` | `COMPTES-ADMIN` | `GG-ADMIN-IT`     | ☐    |
 
 **Capture(s)**
 
-![[capture-6-3-n-furry.png]] ![[capture-6-3-ou-comptes-admin.png]] ![[capture-6-3-adm-n-furry.png]] ![[capture-6-3-groupes.png]]
+![](attachments/Pasted%20image%2020261007103052.png) ![](attachments/Pasted%20image%2020261007103509.png) ![](attachments/Pasted%20image%2020261007103518.png) 
 
 **Choix d'emplacement et justification**
 
