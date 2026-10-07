@@ -353,7 +353,7 @@ PS C:\Users\Administrator>
 ![](attachments/Pasted%20image%2020261007154954.png)
 ![](attachments/Pasted%20image%2020261007155448.png)
 ![](attachments/Pasted%20image%2020261007155707.png)
-**Comportement du serveur / du client**
+
 
 ---
 
@@ -361,23 +361,10 @@ PS C:\Users\Administrator>
 
 **Consigne :** supprimer les fichiers de test, refaire la manipulation avec des quotas **souples** et observer la différence.
 
-> [!tip] Guidage
-> 
-> - Tu peux **modifier** les quotas existants (propriétés du quota → option _Quota souple_) plutôt que de les recréer.
-> - Refais exactement le même scénario (mêmes paliers) pour comparer à armes égales.
-> - Question centrale : qu'est-ce qui change **pour l'utilisateur** et **pour l'administrateur** ? Un quota souple empêche-t-il d'écrire ? À quoi sert-il alors ? (Indice : supervision, rapports, notifications.)
-> - Compare dans une table : même dépôt, résultat strict vs souple.
-
-|Situation|Quota strict|Quota souple|
-|---|---|---|
-|Écriture au-delà de la limite|||
-|Message côté client|||
-|Trace côté serveur|||
-|Cas d'usage|||
-
 **Capture(s)**
+![](attachments/Pasted%20image%2020261007160410.png)
+![](attachments/Pasted%20image%2020261007160354.png)
 
-**Commentaires**
 
 ---
 
@@ -393,16 +380,9 @@ PS C:\Users\Administrator>
 > - Bonus (optionnel) : créer ton propre groupe de fichiers avec une extension de ton choix.
 > - À la fin, supprime tes fichiers de test.
 
-|Élément|Valeur|
-|---|---|
-|Dossier protégé||
-|Groupe de fichiers utilisé||
-|Type d'écran (actif / passif)||
-|Fichier bloqué (extension)||
-|Fichier accepté (extension)||
 
 **Capture(s)**
-
+![](attachments/Pasted%20image%2020261007160733.png)
 **Commentaires**
 
 ---
@@ -411,7 +391,8 @@ PS C:\Users\Administrator>
 
 ### Difficultés / erreurs rencontrées
 
-> [!tip] Guidage Décris le symptôme, la cause identifiée et la correction appliquée. Un incident bien documenté vaut mieux qu'un TP « sans problème ».
+> [!tip] Guidage 
+> Décris le symptôme, la cause identifiée et la correction appliquée. Un incident bien documenté vaut mieux qu'un TP « sans problème ».
 
 |Problème|Cause|Solution|
 |---|---|---|
