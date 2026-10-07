@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-General/AGDLP.md",
+                "file": "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "AGDLP"
+              "title": "Mettre en place des partages réseau avec la méthode AGDLP"
             }
           }
         ],
@@ -238,12 +238,13 @@
   },
   "active": "b83f9c35f8fb12ff",
   "lastOpenFiles": [
-    "1-General/Droits de partage et droits NTFS.md",
+    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
+    "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "1-General/AGDLP.md",
+    "1-General/Droits de partage et droits NTFS.md",
     "1-General/Permissions NTFS.md",
     "1-General/Protocol SMB.md",
     "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
-    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
@@ -275,7 +276,6 @@
     "1-General/How to find Powershell commands.md",
     "1-General/DNS server types.md",
     "1-General/DNS et DHCP.md",
-    "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
     "Glossaire",
     "1-General/attachments",
     "Excalidraw",
