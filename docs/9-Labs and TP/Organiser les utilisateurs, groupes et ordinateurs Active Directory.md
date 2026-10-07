@@ -69,7 +69,7 @@ TSSR-MEN.LAB
 
 **Capture(s)**
 
-![[capture-1-arborescence.png]]
+![](attachments/Pasted%20image%2020261007093652.png)
 
 ### OU temporaire `PROD`
 
@@ -84,9 +84,18 @@ TSSR-MEN.LAB
 
 **Capture(s)**
 
-![[capture-1-prod-creation.png]] ![[capture-1-prod-erreur-suppression.png]] ![[capture-1-prod-protection.png]] ![[capture-1-prod-supprimee.png]]
+![](attachments/Pasted%20image%2020261007093735.png) ![](attachments/Pasted%20image%2020261007093729.png) ![](attachments/Pasted%20image%2020261007093745.png) ![[capture-1-prod-supprimee.png]]
 
 **Réponse (message d'erreur, option identifiée, raison d'être de la protection)**
+>[!note] 
+>Je vais dans propriétés de PROD pour voir s'il y a un bouton d'escalation admin, mais il n'y a pas.
+>Petite recherche internet et visiblement il faut activer les features avancées dans les menus de la console.
+>
+
+![](attachments/Pasted%20image%2020261007094259.png)
+![](attachments/Pasted%20image%2020261007094247.png)
+
+A partir de là ça fonctionne.
 
 ---
 
