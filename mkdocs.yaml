@@ -15,19 +15,20 @@ theme:
 
 plugins:
   - search
+  - roamlinks
+  - callouts
 
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - attr_list
   - md_in_html
-  # Obsidian callout boxes support (> [!NOTE])
+  - admonition
   - pymdownx.details
   - pymdownx.superfences
-  # Native Obsidian Wikilink rendering for images and note links
-  - wikilinks:
-      base_url: ''
-      end_url: ''
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.mark
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
