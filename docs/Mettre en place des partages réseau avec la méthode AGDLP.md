@@ -199,20 +199,75 @@ foreach ($s in $services) {
 > - Certains groupes `-RO` n'ont aucun membre d'après la matrice : c'est normal, note-le.
 > - **Lis la matrice à la lettre.** Par exemple, DIRECTION n'a pas de lecture sur INFORMATIQUE. Si tu penses que c'est un oubli, tranche et justifie dans les commentaires.
 
-|Groupe de domaine local|Groupes globaux membres|Fait|
-|---|---|---|
-|`GDL-ADMINISTRATIF-RW`||☐|
-|`GDL-ADMINISTRATIF-RO`||☐|
-|`GDL-DIRECTION-RW`||☐|
-|`GDL-DIRECTION-RO`||☐|
-|`GDL-COMPTABILITE-RW`||☐|
-|`GDL-COMPTABILITE-RO`||☐|
-|`GDL-INFORMATIQUE-RW`||☐|
-|`GDL-INFORMATIQUE-RO`||☐|
-|`GDL-RH-RW`||☐|
-|`GDL-RH-RO`||☐|
-|`GDL-PRODUCTION-RW`||☐|
-|`GDL-PRODUCTION-RO`||☐|
+``` powershell
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-COMPTABILITE-RO" -Members "GG-ADMINISTRATIF","GG-DIRECTION"
+PS C:\Users\Administrator> Get-ADGroupMember "GDL-COMPTABILITE-RO" | Select Name
+
+Name
+----
+GG-DIRECTION
+GG-ADMINISTRATIF
+
+
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-RH-RO" -Members "GG-ADMINISTRATIF","GG-DIRECTION"
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-ADMINISTRATIF-RO" -Members "GG-DIRECTION"
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-PRODUCTION-RO" -Members "GG-DIRECTION","GG-INFORMATIQUE"
+PS C:\Users\Administrator> Get-ADGroupMember "GDL-COMPTABILITE-RO" | Select Name
+
+Name
+----
+GG-DIRECTION
+GG-ADMINISTRATIF
+
+
+PS C:\Users\Administrator> Get-ADGroupMember "GDL-PRODUCTION-RO" | Select Name
+
+Name
+----
+GG-INFORMATIQUE
+GG-DIRECTION
+
+
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-ADMINISTRATIF-RW" -Members "GG-ADMINISTRATIF"
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-DIRECTION-RW"     -Members "GG-DIRECTION"
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-COMPTABILITE-RW"  -Members "GG-COMPTABILITE"
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-INFORMATIQUE-RW"  -Members "GG-INFORMATIQUE"
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-RH-RW"            -Members "GG-RH"
+PS C:\Users\Administrator> Add-ADGroupMember -Identity "GDL-PRODUCTION-RW"    -Members "GG-PRODUCTION"
+PS C:\Users\Administrator> Get-ADGroup -Filter 'Name -like "GDL-*"' | Sort Name | ForEach-Object {
+>>     $m = (Get-ADGroupMember $_ | Select -Expand Name) -join ", "
+>>     "{0,-24} {1}" -f $_.Name, $m
+>> }
+GDL-ADMINISTRATIF-RO     GG-DIRECTION
+GDL-ADMINISTRATIF-RW     GG-ADMINISTRATIF
+GDL-COMPTABILITE-RO      GG-DIRECTION, GG-ADMINISTRATIF
+GDL-COMPTABILITE-RW      GG-COMPTABILITE
+GDL-DIRECTION-RO
+GDL-DIRECTION-RW         GG-DIRECTION
+GDL-INFORMATIQUE-RO
+GDL-INFORMATIQUE-RW      GG-INFORMATIQUE
+GDL-PRODUCTION-RO        GG-INFORMATIQUE, GG-DIRECTION
+GDL-PRODUCTION-RW        GG-PRODUCTION
+GDL-RH-RO                GG-DIRECTION, GG-ADMINISTRATIF
+GDL-RH-RW                GG-RH
+PS C:\Users\Administrator>
+
+```
+
+| Groupe de domaine local | Groupes globaux membres        | Fait |
+| ----------------------- | ------------------------------ | ---- |
+| `GDL-ADMINISTRATIF-RW`  | GG-ADMINISTRATIF               | OUI  |
+| `GDL-ADMINISTRATIF-RO`  | GG-DIRECTION                   | OUI  |
+| `GDL-DIRECTION-RW`      | GG-DIRECTION                   | OUI  |
+| `GDL-DIRECTION-RO`      |                                |      |
+| `GDL-COMPTABILITE-RW`   | GG-COMPTABILITE                | OUI  |
+| `GDL-COMPTABILITE-RO`   | GG-ADMINISTRATIF, GG-DIRECTION | OUI  |
+| `GDL-INFORMATIQUE-RW`   | GG-INFORMATIQUE                | OUI  |
+| `GDL-INFORMATIQUE-RO`   |                                |      |
+| `GDL-RH-RW`             | GG-RH                          | Oui  |
+| `GDL-RH-RO`             | GG-ADMINISTRATIF, GG-DIRECTION | Oui  |
+| `GDL-PRODUCTION-RW`     | GG-PRODUCTION                  | Oui  |
+| `GDL-PRODUCTION-RO`     | GG-ADMINISTRATIF, GG-DIRECTION | Oui  |
 
 **Capture(s)**
 
