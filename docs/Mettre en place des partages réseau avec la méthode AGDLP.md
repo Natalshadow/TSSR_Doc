@@ -298,14 +298,14 @@ PS C:\Users\Administrator>
     
 - `\\srv-win-men-01\PRODUCTION`
 
-| Utilisateur (groupe)        | ADMIN | DIRECTION | COMPTA | INFO | RH  | PROD |
-| --------------------------- | ----- | --------- | ------ | ---- | --- | ---- |
-| ADMINISTRATIF               |       |           |        |      |     |      |
-| DIRECTION (`s.rogers`)      | RO    |           |        |      |     |      |
-| COMPTABILITE (`n.romanoff`) |       |           |        |      |     |      |
-| INFORMATIQUE (`b.banner`)   |       |           |        |      |     |      |
-| RH (`t.odinson`)            |       |           |        |      |     |      |
-| PRODUCTION (`c.barton`)     |       |           |        |      |     |      |
+| Utilisateur (groupe)        | ADMIN | DIRECTION | COMPTA | INFO      | RH  | PROD |
+| --------------------------- | ----- | --------- | ------ | --------- | --- | ---- |
+| ADMINISTRATIF               |       |           |        |           |     |      |
+| DIRECTION (`s.rogers`)      | RO    | RW        | RO     | no access | RO  | RO   |
+| COMPTABILITE (`n.romanoff`) |       |           |        |           |     |      |
+| INFORMATIQUE (`b.banner`)   |       |           |        |           |     |      |
+| RH (`t.odinson`)            |       |           |        |           |     |      |
+| PRODUCTION (`c.barton`)     |       |           |        |           |     |      |
 
 **Choix pour tester ADMINISTRATIF (compte désactivé)**
 
