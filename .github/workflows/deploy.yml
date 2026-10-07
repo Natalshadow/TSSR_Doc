@@ -22,7 +22,7 @@ jobs:
 
       - name: Install MkDocs Material and Extensions
         run: |
-          pip install mkdocs-material pymdown-extensions
+          pip install "mkdocs<2" mkdocs-material pymdown-extensions mkdocs-roamlinks-plugin mkdocs-callouts
 
       - name: Auto-create index.md if missing
         run: |
@@ -32,6 +32,8 @@ jobs:
           fi
 
       - name: Build and Deploy to GitHub Pages
+        env:
+          NO_MKDOCS_2_WARNING: "1"
         run: |
           mkdocs gh-deploy --force
 
