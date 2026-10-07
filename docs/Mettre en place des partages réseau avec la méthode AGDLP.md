@@ -307,12 +307,6 @@ PS C:\Users\Administrator>
 | RH (`t.odinson`)            |       |           |        |           |     |      |
 | PRODUCTION (`c.barton`)     |       |           |        |           |     |      |
 
-**Choix pour tester ADMINISTRATIF (compte désactivé)**
-
-**Capture(s)** (au moins un accès autorisé en écriture, un en lecture seule et un refusé)
-
-**Commentaires**
-
 > [!note] Snapshot après la partie 6
 
 ---
@@ -342,26 +336,23 @@ PS C:\Users\Administrator>
 > - Ne teste pas les six quotas en détail : un test complet sur un dossier suffit, vérifie les autres par la console.
 > - **Supprime les fichiers de test** à la fin (étape 7 de l'énoncé).
 
-|Quota créé|Strict|Fait|
-|---|---|---|
-|ADMINISTRATIF 150 Mo|☐|☐|
-|COMPTABILITE 50 Mo|☐|☐|
-|DIRECTION 20 Mo|☐|☐|
-|INFORMATIQUE 100 Mo|☐|☐|
-|PRODUCTION 200 Mo|☐|☐|
-|RH 150 Mo|☐|☐|
+| Quota créé           | Strict | Fait |
+| -------------------- | ------ | ---- |
+| ADMINISTRATIF 150 Mo | Oui    | Oui  |
+| COMPTABILITE 50 Mo   | Oui    | Oui  |
+| DIRECTION 20 Mo      | Oui    | Oui  |
+| INFORMATIQUE 100 Mo  | Oui    | Oui  |
+| PRODUCTION 200 Mo    | Oui    | Oui  |
+| RH 150 Mo            | Oui    | Oui  |
 
-**Journal du test (dossier : …)**
+**Journal du test (dossier : comptabilité)**
 
-|Palier|Taille déposée|Utilisation FSRM|Observation|
-|---|---|---|---|
-|~50 %||||
-|~90 %||||
-|100 %||||
-|Dépassement||||
+![](attachments/Pasted%20image%2020261007160153.png)
 
 **Capture(s)**
-
+![](attachments/Pasted%20image%2020261007154954.png)
+![](attachments/Pasted%20image%2020261007155448.png)
+![](attachments/Pasted%20image%2020261007155707.png)
 **Comportement du serveur / du client**
 
 ---
