@@ -380,12 +380,12 @@ PS C:\WINDOWS\system32>
 
 **Paramètres de l'imprimante**
 
-|Paramètre|Valeur|
-|---|---|
-|Nom|`IMP-MEN-01`|
-|Type|Imprimante locale|
-|Pilote|Generic / Text Only|
-|Port|Paramètres par défaut|
+| Paramètre | Valeur                |
+| --------- | --------------------- |
+| Nom       | `IMP-MEN-01`          |
+| Type      | Imprimante locale     |
+| Pilote    | Generic / Text Only   |
+| Port      | Paramètres par défaut |
 
 **Étapes**
 
@@ -407,39 +407,15 @@ PS C:\WINDOWS\system32>
 
 **Capture(s)**
 
-![[capture-7-creation.png]] ![[capture-7-proprietes-avant-partage.png]] ![[capture-7-partage-publication.png]] ![[capture-7-ou-imprimantes.png]] ![[capture-7-client.png]]
+![](attachments/Pasted%20image%2020261007103928.png) ![](attachments/Pasted%20image%2020261007104023.png)  ![](attachments/Pasted%20image%2020261007104919.png) ![](attachments/Pasted%20image%2020261007105246.png)
+
+![](attachments/Pasted%20image%2020261007105309.png)
 
 **Commentaires (machine utilisée, emplacement de l'objet dans l'annuaire, méthode côté client)**
 
 ---
 
-## 8. Récapitulatif
-
-> [!check] À valider avant de rendre le TP Coche chaque point uniquement si tu peux le **prouver** par une capture ou une commande.
-
-|Vérification|Validé|Preuve|
-|---|---|---|
-|Arborescence d'OU conforme|☐|[[#1. Construire l'arborescence d'OU]]|
-|OU `PROD` créée puis supprimée, protection retirée uniquement sur cette OU|☐|[[#1. Construire l'arborescence d'OU]]|
-|Six utilisateurs créés dans les bonnes OU|☐|[[#2. Créer les utilisateurs]]|
-|Six groupes `GG-` créés dans `GROUPES/GG` avec leurs membres|☐|[[#3. Créer les groupes globaux de sécurité]]|
-|`CLI-WIN-MEN-01` déplacé dans `ORDINATEURS`|☐|[[#4. Classer l'ordinateur du domaine]]|
-|Session ouverte avec un compte du domaine, groupe vérifié|☐|[[#5. Valider avec une ouverture de session]]|
-|Mot de passe de Thor ODINSON réinitialisé, changement forcé|☐|[[#6.1 Mot de passe oublié (Thor ODINSON)]]|
-|Départ de Tony STARK traité (désactivé, groupes, OU, description)|☐|[[#6.2 Départ collaborateur (Tony STARK)]]|
-|Deux comptes Nick FURRY créés (OU et groupes)|☐|[[#6.3 Arrivée collaborateur Informatique (Nick FURRY)]]|
-|Synthèse sur le Tiering AD rédigée|☐|[[#6.3 Arrivée collaborateur Informatique (Nick FURRY)]]|
-|Imprimante créée, partagée, publiée, déplacée dans `IMPRIMANTES` et utilisable sur le client|☐|[[#7. Partage d'imprimante]]|
-
-### Arborescence finale
-
-Capture de l'arborescence complète en fin de TP (OU supplémentaires incluses : `Utilisateurs Désactivés`, `COMPTES-ADMIN`, `IMPRIMANTES`).
-
-![[capture-8-arborescence-finale.png]]
-
----
-
-## 9. Conclusion et difficultés rencontrées
+## 8. Conclusion et difficultés rencontrées
 
 ### Difficultés / erreurs rencontrées
 
