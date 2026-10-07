@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Mettre en place des partages réseau avec la méthode AGDLP.md",
+                "file": "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Mettre en place des partages réseau avec la méthode AGDLP"
+              "title": "Mettre en place des partages réseau avec la méthode AGDLP 1"
             }
           }
         ],
@@ -236,8 +236,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "b83f9c35f8fb12ff",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
+    "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "attachments/Pasted image 20261007160733.png",
     "attachments/Pasted image 20261007160410.png",
     "attachments/Pasted image 20261007160354.png",
@@ -245,12 +247,10 @@
     "attachments/Pasted image 20261007160153.png",
     "attachments/Pasted image 20261007160146.png",
     "3-Windows Server/Tiering AD.md",
-    "Mettre en place des partages réseau avec la méthode AGDLP.md",
     "attachments/Pasted image 20261007155707.png",
     "attachments/Pasted image 20261007155448.png",
     "attachments/Pasted image 20261007154954.png",
     "attachments/Pasted image 20261007145653.png",
-    "attachments/Pasted image 20261007145006.png",
     "attachments",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "1-General/Permissions NTFS.md",
