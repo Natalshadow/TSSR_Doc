@@ -205,12 +205,12 @@ Je l'ai placé dans POSTES CLIENT parce que c'est ce qui serait logique.
 3. Vérifier que le domaine authentifie correctement l'utilisateur.
 4. Vérifier l'appartenance au bon groupe.
 
-|Élément|Valeur|
-|---|---|
-|Utilisateur testé||
-|Identifiant saisi (format)||
-|Session ouverte ?||
-|Groupe attendu||
+| Élément                    | Valeur           |
+| -------------------------- | ---------------- |
+| Utilisateur testé          | t.stark          |
+| Identifiant saisi (format) | TSSR-MEN\t.stark |
+| Session ouverte ?          | Oui              |
+| Groupe attendu             | Oui              |
 
 > [!tip] Guidage
 > 
@@ -227,8 +227,31 @@ whoami /groups
 ```
 
 **Capture(s)**
+``` powershell
+PS C:\WINDOWS\system32> whoami
+tssr-men\t.stark
+PS C:\WINDOWS\system32> echo %LOGONSERVER%
+%LOGONSERVER%
+PS C:\WINDOWS\system32> whoami /groups
 
-![[capture-5-ecran-connexion.png]] ![[capture-5-whoami.png]] ![[capture-5-whoami-groups.png]]
+Informations de groupe
+----------------------
+
+Nom du groupe                                         Type              SID                                            Attributs
+===================================================== ================= ============================================== ====================================================
+Tout le monde                                         Groupe bien connu S-1-1-0                                        Groupe obligatoire, Activé par défaut, Groupe activé
+BUILTIN\Utilisateurs                                  Alias             S-1-5-32-545                                   Groupe obligatoire, Activé par défaut, Groupe activé
+AUTORITE NT\INTERACTIF                                Groupe bien connu S-1-5-4                                        Groupe obligatoire, Activé par défaut, Groupe activé
+OUVERTURE DE SESSION DE CONSOLE                       Groupe bien connu S-1-2-1                                        Groupe obligatoire, Activé par défaut, Groupe activé
+AUTORITE NT\Utilisateurs authentifiés                 Groupe bien connu S-1-5-11                                       Groupe obligatoire, Activé par défaut, Groupe activé
+AUTORITE NT\Cette organisation                        Groupe bien connu S-1-5-15                                       Groupe obligatoire, Activé par défaut, Groupe activé
+LOCAL                                                 Groupe bien connu S-1-2-0                                        Groupe obligatoire, Activé par défaut, Groupe activé
+TSSR-MEN\GG-ADMINISTRATIF                             Groupe            S-1-5-21-3751794092-3013587998-2465217153-1113 Groupe obligatoire, Activé par défaut, Groupe activé
+Identité déclarée par une autorité d’authentification Groupe bien connu S-1-18-1                                       Groupe obligatoire, Activé par défaut, Groupe activé
+Étiquette obligatoire\Niveau obligatoire moyen        Nom               S-1-16-8192                                     
+PS C:\WINDOWS\system32>
+```
+![](attachments/Pasted%20image%2020261007101642.png)  
 
 **Commentaires**
 
@@ -256,7 +279,7 @@ whoami /groups
 
 **Capture(s)**
 
-![[capture-6-1-recherche.png]] ![[capture-6-1-reinitialisation.png]] ![[capture-6-1-changement-obligatoire.png]] ![[capture-6-1-connexion-test.png]]
+![](attachments/Pasted%20image%2020261007102149.png) ![](attachments/Pasted%20image%2020261007102209.png)  
 
 **Commentaires**
 
