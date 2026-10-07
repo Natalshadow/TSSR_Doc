@@ -291,7 +291,7 @@ PS C:\WINDOWS\system32>
 
 > [!warning] Incohérence apparente de l'énoncé L'énoncé le présente comme « membre du service RH », alors que dans la partie 2 il est créé dans l'OU `ADMINISTRATIF` et sera membre de `GG-ADMINISTRATIF` (le groupe `GG-RH` contient Thor ODINSON). Décide comment tu traites cette différence (suivre les groupes réellement attribués, ou demander au formateur) et **écris-le** ici.
 
-**Décision / hypothèse retenue :**
+**Décision / hypothèse retenue :** Il reste dans le service admin
 
 **Étapes**
 
@@ -312,19 +312,20 @@ PS C:\WINDOWS\system32>
 > - Remplace `[DATE]` par la date réelle. Quel format as-tu choisi ?
 > - Pour l'étape 7, capture le **message exact** affiché sur l'écran de connexion du client. Décris la différence avec un mot de passe incorrect.
 
-|Étape|Fait|Preuve|
-|---|---|---|
-|Recherche du compte|☐||
-|Compte désactivé|☐||
-|Groupes retirés|☐||
-|OU `Utilisateurs Désactivés` créée|☐||
-|Compte déplacé|☐||
-|Description renseignée|☐||
-|Connexion refusée|☐||
+| Étape                              | Fait | Preuve |
+| ---------------------------------- | ---- | ------ |
+| Recherche du compte                | Oui  |        |
+| Compte désactivé                   | Oui  |        |
+| Groupes retirés                    | Oui  |        |
+| OU `Utilisateurs Désactivés` créée | Oui  |        |
+| Compte déplacé                     | Oui  |        |
+| Description renseignée             | Oui  |        |
+| Connexion refusée                  | ☐    |        |
+>[!note] Le groupe "everyone" est toujours actif
 
 **Capture(s)**
 
-![[capture-6-2-avant.png]] ![[capture-6-2-desactivation.png]] ![[capture-6-2-groupes.png]] ![[capture-6-2-ou-desactives.png]] ![[capture-6-2-description.png]] ![[capture-6-2-connexion-refusee.png]]
+![](attachments/Pasted%20image%2020261007102444.png)    ![](attachments/Pasted%20image%2020261007102847.png) ![](attachments/Pasted%20image%2020261007102835.png)
 
 **Commentaires**
 
