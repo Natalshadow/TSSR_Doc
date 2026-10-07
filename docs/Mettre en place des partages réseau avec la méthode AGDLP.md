@@ -302,7 +302,7 @@ PS C:\Users\Administrator>
 | --------------------------- | ----- | --------- | ------ | --------- | --- | ---- |
 | ADMINISTRATIF               |       |           |        |           |     |      |
 | DIRECTION (`s.rogers`)      | RO    | RW        | RO     | no access | RO  | RO   |
-| COMPTABILITE (`n.romanoff`) |       |           |        |           |     |      |
+| COMPTABILITE (`n.romanoff`) | NA    | RW        | NA     | NA        | NA  | NA   |
 | INFORMATIQUE (`b.banner`)   |       |           |        |           |     |      |
 | RH (`t.odinson`)            |       |           |        |           |     |      |
 | PRODUCTION (`c.barton`)     |       |           |        |           |     |      |
