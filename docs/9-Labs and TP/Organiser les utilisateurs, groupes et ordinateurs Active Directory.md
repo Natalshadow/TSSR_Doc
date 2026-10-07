@@ -363,16 +363,19 @@ PS C:\WINDOWS\system32>
 
 #### Tiering AD — notes personnelles
 
-> [!tip] Guidage L'énoncé renvoie à un article « Sécuriser Active Directory : comprendre le Tiering Model ». Rédige ta synthèse **avec tes mots**, sans copier le texte. Quelques questions pour structurer :
-> 
-> - Qu'est-ce qu'un **Tier 0**, un **Tier 1**, un **Tier 2** ? Que contient chacun (exemples concrets dans ton lab) ?
-> - Quelle règle empêche un compte d'un niveau élevé de se connecter à un niveau inférieur, et quel risque cela évite-t-il (vol d'identifiants, mouvement latéral) ?
-> - Où se situent, dans ton lab, le contrôleur de domaine, le poste client `CLI-WIN-MEN-01` et le compte `adm.n.furry` ?
-> - Pourquoi Nick a-t-il besoin de **deux** comptes ? Quel lien avec le tiering ?
-
 **Synthèse**
+Le tiering consiste à cloisonner les comptes admins en fonction de besoins précis pour limiter la propagation d'une intrusion.
+On définit une limite de scope et de droits par compte, des accès temporaires et une mise en place d'audit de l'activité des comptes admin.
+
+Il existe trois tiers, Tier 0, 1 et 2. Chaque tier correspond à un niveau de risque en cours de compromission. 
+Tier 0 correspond simplement à l'Active Directory et à la couche IT de base critique. C'est la partie ultra sensible.
+Tier 1 correspond aux autres servers, les bases de données métier, les fichiers, etc.
+Tier 2 correspond aux appareils et périphériques utilisateurs.
+
+Chaque tier a ses admins et les admins de chaque tier ne peuvent pas agir sur un autre tier que le leur pour éviter une contamination.
 
 **Source(s) consultée(s)**
+> https://www.it-connect.fr/wp-content-itc/uploads/2025/02/Active-Directory-sans-cloisonnement-des-privileges-Compromission.png.webp
 
 ---
 
