@@ -184,13 +184,15 @@ A partir de là ça fonctionne.
 
 **Avant**
 
-![[capture-4-avant.png]]
+![](attachments/Pasted%20image%2020261007101304.png)
 
 **Après**
 
-![[capture-4-apres.png]]
+![](attachments/Pasted%20image%2020261007101316.png)
 
 **Commentaires**
+
+Je l'ai placé dans POSTES CLIENT parce que c'est ce qui serait logique.
 
 ---
 
