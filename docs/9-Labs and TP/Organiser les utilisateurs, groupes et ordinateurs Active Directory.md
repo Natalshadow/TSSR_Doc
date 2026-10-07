@@ -105,15 +105,16 @@ A partir de là ça fonctionne.
 
 | Nom              | Login        | OU            | Créé |
 | ---------------- | ------------ | ------------- | ---- |
-| Tony STARK       | `t.stark`    | ADMINISTRATIF | ☐    |
-| Steve ROGERS     | `s.rogers`   | DIRECTION     | ☐    |
-| Natasha ROMANOFF | `n.romanoff` | COMPTABILITE  | ☐    |
-| Bruce BANNER     | `b.banner`   | INFORMATIQUE  | ☐    |
-| Thor ODINSON     | `t.odinson`  | RH            | ☐    |
-| Clint BARTON     | `c.barton`   | PRODUCTION    | ☐    |
-|                  |              |               |      |
-|                  |              |               |      |
-T
+| Tony STARK       | `t.stark`    | ADMINISTRATIF | Oui  |
+| Steve ROGERS     | `s.rogers`   | DIRECTION     | Oui  |
+| Natasha ROMANOFF | `n.romanoff` | COMPTABILITE  | Oui  |
+| Bruce BANNER     | `b.banner`   | INFORMATIQUE  | Oui  |
+| Thor ODINSON     | `t.odinson`  | RH            | Oui  |
+| Clint BARTON     | `c.barton`   | PRODUCTION    | Oui  |
+
+
+
+
 > [!tip] Guidage
 > 
 > - Dans l'assistant, distingue le **nom complet**, le **nom d'ouverture de session** (login) et le suffixe de domaine affiché à côté. Quel est le suffixe UPN proposé ?
@@ -134,7 +135,7 @@ T
 
 ![](attachments/Pasted%20image%2020261007094610.png)
 ![](attachments/Pasted%20image%2020261007094627.png)
-![[capture-2-utilisateurs-par-ou.png]]
+![](attachments/Pasted%20image%2020261007095217.png)
 
 **Commentaires**
 
@@ -142,14 +143,14 @@ T
 
 ## 3. Créer les groupes globaux de sécurité
 
-|Groupe|Membre attendu|Créé|Membre ajouté|
-|---|---|---|---|
-|`GG-ADMINISTRATIF`|Tony STARK|☐|☐|
-|`GG-DIRECTION`|Steve ROGERS|☐|☐|
-|`GG-COMPTABILITE`|Natasha ROMANOFF|☐|☐|
-|`GG-INFORMATIQUE`|Bruce BANNER|☐|☐|
-|`GG-RH`|Thor ODINSON|☐|☐|
-|`GG-PRODUCTION`|Clint BARTON|☐|☐|
+| Groupe             | Membre attendu   | Créé | Membre ajouté |
+| ------------------ | ---------------- | ---- | ------------- |
+| `GG-ADMINISTRATIF` | Tony STARK       | Oui  | Oui           |
+| `GG-DIRECTION`     | Steve ROGERS     | Oui  | Oui           |
+| `GG-COMPTABILITE`  | Natasha ROMANOFF | Oui  | Oui           |
+| `GG-INFORMATIQUE`  | Bruce BANNER     | Oui  | Oui           |
+| `GG-RH`            | Thor ODINSON     | Oui  | Oui           |
+| `GG-PRODUCTION`    | Clint BARTON     | Oui  | Oui           |
 
 **Consigne :** stocker les groupes dans l'OU `GROUPES/GG`.
 
@@ -162,9 +163,11 @@ T
 
 **Capture(s)**
 
-![[capture-3-groupes-gg.png]] ![[capture-3-membres.png]]
+![](attachments/Pasted%20image%2020261007101028.png) ![](attachments/Pasted%20image%2020261007100731.png)
 
 **Commentaires (étendue et type choisis, rôle de GG et GDL)**
+
+>[!note] snapshot part 3 done
 
 ---
 
