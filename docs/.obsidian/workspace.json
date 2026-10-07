@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
+                "file": "1-General/AGDLP.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Organiser les utilisateurs, groupes et ordinateurs Active Directory"
+              "title": "AGDLP"
             }
           }
         ],
@@ -238,12 +238,16 @@
   },
   "active": "b83f9c35f8fb12ff",
   "lastOpenFiles": [
-    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
+    "1-General/Droits de partage et droits NTFS.md",
+    "1-General/AGDLP.md",
+    "1-General/Permissions NTFS.md",
+    "1-General/Protocol SMB.md",
+    "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
+    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/DNS and DHCP.md",
-    "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
     "3-Windows Server/Tiering AD.md",
     "9-Labs and TP/attachments/Pasted image 20261007105309.png",
     "9-Labs and TP/attachments/Pasted image 20261007105246.png",
@@ -272,11 +276,7 @@
     "1-General/DNS server types.md",
     "1-General/DNS et DHCP.md",
     "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
-    "PTR.md",
-    "Glossary.md",
     "Glossaire",
-    "1-General/attachments/DNS server types 2026-10-06 07.58.28.excalidraw.md",
-    "Excalidraw/Drawing 2026-10-06 07.50.21.excalidraw.md",
     "1-General/attachments",
     "Excalidraw",
     "9-Labs and TP/Deliverable version",
