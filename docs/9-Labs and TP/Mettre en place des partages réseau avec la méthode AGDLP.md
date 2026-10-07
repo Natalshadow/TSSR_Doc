@@ -61,16 +61,18 @@ Dans chaque dossier, créer un fichier `FICHIER-NOM_SERVICE.txt` (ex. `FICHIER-R
 > - `NOM_SERVICE` : respecte le nom du dossier, sans accents (`COMPTABILITE`).
 > - Pourquoi une racine commune `PARTAGE` plutôt que six dossiers à la racine de `C:\` ?
 
-|Dossier|Fichier créé|
-|---|---|
-|ADMINISTRATIF|☐|
-|DIRECTION|☐|
-|COMPTABILITE|☐|
-|INFORMATIQUE|☐|
-|RH|☐|
-|PRODUCTION|☐|
+| Dossier       | Fichier créé |
+| ------------- | ------------ |
+| ADMINISTRATIF | Oui          |
+| DIRECTION     | Oui          |
+| COMPTABILITE  | Oui          |
+| INFORMATIQUE  | Oui          |
+| RH            | Oui          |
+| PRODUCTION    | Oui          |
 
 **Capture(s)**
+![](attachments/Pasted%20image%2020261007142618.png)
+![](attachments/Pasted%20image%2020261007142627.png)
 
 **Commentaires**
 
