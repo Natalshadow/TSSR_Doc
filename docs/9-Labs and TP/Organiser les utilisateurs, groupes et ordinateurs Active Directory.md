@@ -39,7 +39,7 @@
 |Console utilisée|_Utilisateurs et ordinateurs Active Directory_ (ADUC)|
 
 ---
-
+> [!note] Création d'une snapshot initiale
 ## 1. Construire l'arborescence d'OU
 
 **Structure à créer**
@@ -434,3 +434,7 @@ Move-ADObject -Identity "<DN du compte>" -TargetPath "<DN de l'OU cible>"
 > - [ ] Tous les blocs `[!tip]` et `[!warning]` supprimés
 > - [ ] Incohérences de l'énoncé (Tony STARK, nom `COMPTES-ADMIN`) tranchées et notées
 > - [ ] Export PDF réalisé (si demandé)
+
+> [!note] penser à supprimer les snapshots
+
+
