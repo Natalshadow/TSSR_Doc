@@ -148,17 +148,33 @@ Dans chaque dossier, créer un fichier `FICHIER-NOM_SERVICE.txt` (ex. `FICHIER-R
 > - Distingue **Modification** et **Contrôle total** : que peut faire le second en plus ?
 > - Cette étape peut se faire à la main (12 fois) ou via `icacls` en boucle. Précise la méthode.
 
-|Dossier|Héritage coupé|RW = Modification|RO = Lecture/exéc.|
-|---|---|---|---|
-|ADMINISTRATIF|☐|☐|☐|
-|DIRECTION|☐|☐|☐|
-|COMPTABILITE|☐|☐|☐|
-|INFORMATIQUE|☐|☐|☐|
-|RH|☐|☐|☐|
-|PRODUCTION|☐|☐|☐|
+| Dossier       | Héritage coupé | RW = Modification | RO = Lecture/exéc. |
+| ------------- | -------------- | ----------------- | ------------------ |
+| ADMINISTRATIF | Oui            | Oui               | Oui                |
+| DIRECTION     | ☐              | ☐                 | ☐                  |
+| COMPTABILITE  | ☐              | ☐                 | ☐                  |
+| INFORMATIQUE  | ☐              | ☐                 | ☐                  |
+| RH            | ☐              | ☐                 | ☐                  |
+| PRODUCTION    | ☐              | ☐                 | ☐                  |
 
-**Capture(s)** (onglet Sécurité d'au moins un dossier, avant/après coupure de l'héritage)
+>[!note] Snapshot préalable au powershell
+> Relecture plusieurs fois du code, il me semble correct, mais par précaution il vaut mieux avoir un back-up.
 
+``` powershell
+$services = "ADMINISTRATIF","DIRECTION","COMPTABILITE","INFORMATIQUE","RH","PRODUCTION"
+
+foreach ($s in $services) {
+    $p = "C:\PARTAGE\$s"
+    icacls $p /inheritance:r
+    icacls $p /grant "SYSTEM:(OI)(CI)F" "BUILTIN\Administrators:(OI)(CI)F"
+    icacls $p /grant "TSSR-MEN\GDL-$s-RW:(OI)(CI)M"
+    icacls $p /grant "TSSR-MEN\GDL-$s-RO:(OI)(CI)RX"
+}
+```
+
+
+**Capture(s)**
+![](attachments/Pasted%20image%2020261007145653.png)
 **Commentaires**
 
 ---
