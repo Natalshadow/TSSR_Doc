@@ -98,7 +98,8 @@ Dans chaque dossier, créer un fichier `FICHIER-NOM_SERVICE.txt` (ex. `FICHIER-R
 |PRODUCTION|`\\srv-win-men-01\PRODUCTION`|☐|
 
 **Capture(s)**
-
+![](attachments/Pasted%20image%2020261007142754.png)
+![](attachments/Pasted%20image%2020261007142758.png)
 **Commentaires**
 
 ---
@@ -115,18 +116,18 @@ Dans chaque dossier, créer un fichier `FICHIER-NOM_SERVICE.txt` (ex. `FICHIER-R
 > - Que veut dire `RW` / `RO` ? Qu'est-ce que le groupe représente : une **personne**, un **service**, ou un **droit sur une ressource** ?
 > - Rappel du principe **AGDLP** : _Account → Global group → Domain Local group → Permission_. Écris-le avec tes mots : pourquoi ne pas mettre directement les utilisateurs sur les dossiers ?
 
-|Groupe|Créé|
-|---|---|
-|`GDL-ADMINISTRATIF-RW` / `-RO`|☐|
-|`GDL-DIRECTION-RW` / `-RO`|☐|
-|`GDL-COMPTABILITE-RW` / `-RO`|☐|
-|`GDL-INFORMATIQUE-RW` / `-RO`|☐|
-|`GDL-RH-RW` / `-RO`|☐|
-|`GDL-PRODUCTION-RW` / `-RO`|☐|
+| Groupe                         | Créé |
+| ------------------------------ | ---- |
+| `GDL-ADMINISTRATIF-RW` / `-RO` | Oui  |
+| `GDL-DIRECTION-RW` / `-RO`     | Oui  |
+| `GDL-COMPTABILITE-RW` / `-RO`  | Oui  |
+| `GDL-INFORMATIQUE-RW` / `-RO`  | Oui  |
+| `GDL-RH-RW` / `-RO`            | Oui  |
+| `GDL-PRODUCTION-RW` / `-RO`    | Oui  |
 
 **Capture(s)**
+![](attachments/Pasted%20image%2020261007145006.png)
 
-**Commentaires (étendue et type choisis, sens de RW/RO, principe AGDLP)**
 
 > [!note] Snapshot après la partie 3
 

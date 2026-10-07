@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
+                "file": "Mettre en place des partages réseau avec la méthode AGDLP.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -238,13 +238,17 @@
   },
   "active": "b83f9c35f8fb12ff",
   "lastOpenFiles": [
+    "attachments/Pasted image 20261007145006.png",
+    "attachments",
+    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
+    "1-General/Permissions NTFS.md",
+    "Mettre en place des partages réseau avec la méthode AGDLP.md",
+    "9-Labs and TP/attachments/Pasted image 20261007142758.png",
+    "9-Labs and TP/attachments/Pasted image 20261007142754.png",
     "9-Labs and TP/attachments/Pasted image 20261007142627.png",
     "9-Labs and TP/attachments/Pasted image 20261007142618.png",
-    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
-    "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "1-General/AGDLP.md",
     "1-General/Droits de partage et droits NTFS.md",
-    "1-General/Permissions NTFS.md",
     "1-General/Protocol SMB.md",
     "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
@@ -258,9 +262,6 @@
     "9-Labs and TP/attachments/Pasted image 20261007104919.png",
     "9-Labs and TP/attachments/Pasted image 20261007104023.png",
     "9-Labs and TP/attachments/Pasted image 20261007103928.png",
-    "9-Labs and TP/attachments/Pasted image 20261007103518.png",
-    "9-Labs and TP/attachments/Pasted image 20261007103509.png",
-    "9-Labs and TP/attachments/Pasted image 20261007103052.png",
     "Glossaire/Index.md",
     "Glossaire/gateway.md",
     "Glossaire/Glossary entry.md",
@@ -282,7 +283,6 @@
     "9-Labs and TP/Deliverable version",
     "3-Windows Server/attachments",
     "1-General",
-    "9-Labs and TP",
-    "6-Services and cloud"
+    "9-Labs and TP"
   ]
 }
