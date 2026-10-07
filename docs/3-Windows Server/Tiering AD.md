@@ -34,15 +34,12 @@ Commençons par évoquer l'administration dite traditionnelle d'un domaine Activ
 
 Dans le meilleur des mondes, quand tout se passe bien, il dispose donc d'un seul compte pour administrer le système d'information. C'est diablement pratique, mais tout aussi dangereux...
 
-[![](https://www.it-connect.fr/wp-content-itc/uploads/2025/02/Administration-traditionnelle-dun-Active-Directory.png.webp)](https://www.it-connect.fr/wp-content-itc/uploads/2025/02/Administration-traditionnelle-dun-Active-Directory.png.webp)
-
 Être membre du groupe "**Admins du domaine**" dans un environnement sans cloisonnement des privilèges, cela revient à **disposer des clés du royaume** (du SI). Ainsi, si l'**administrateur système**, alias l'**admin du domaine**, alias le **roi**, se fait compromettre son compte, l'attaquant hérite d'un niveau de privilèges équivalent.
 
 Cela peut arriver plus vite qu'on le croit, surtout sur une infrastructure où des protocoles obsolètes sont actifs et l'infection du poste de travail par un malware peut suffire. L'attaquant n'a qu'à attendre la prochaine intervention de l'administrateur sur le poste de travail (qu'il pourrait provoquer...). Les identifiants sont présents en mémoire et dans la base de Registre (suivant le type d'accès), l'attaquant peut retrouver le compte et le compromettre sans bruit ; il peut aussi capturer le compte lors de la prochaine connexion.
 
 La **compromission du compte est alors dramatique** puisque l'attaquant peut accéder, sans restriction, à l'ensemble des ressources. Il peut effectuer des déplacements latéraux sur l'infrastructure, déployer des logiciels malveillants et même se créer son propre compte administrateur du domaine.
 
-[![](https://www.it-connect.fr/wp-content-itc/uploads/2025/02/Active-Directory-sans-cloisonnement-des-privileges-Compromission.png.webp)](https://www.it-connect.fr/wp-content-itc/uploads/2025/02/Active-Directory-sans-cloisonnement-des-privileges-Compromission.png.webp)
 
 Face à cette problématique, il est donc indispensable de s'orienter vers la **gestion des accès à privilèges** et le **cloisonnement des identités**. Autrement dit de revoir sa stratégie d'administration du SI.
 
