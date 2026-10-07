@@ -269,9 +269,7 @@ PS C:\Users\Administrator>
 | `GDL-PRODUCTION-RW`     | GG-PRODUCTION                  | Oui  |
 | `GDL-PRODUCTION-RO`     | GG-ADMINISTRATIF, GG-DIRECTION | Oui  |
 
-**Capture(s)**
 
-**Commentaires**
 
 ---
 
@@ -288,15 +286,26 @@ PS C:\Users\Administrator>
 > - Remplis le tableau en écrivant `RW`, `R` ou `✖` dans chaque case.
 
 **Attendu (déduit de la matrice) / observé**
+- `\\srv-win-men-01\ADMINISTRATIF`
+    
+- `\\srv-win-men-01\DIRECTION`
+    
+- `\\srv-win-men-01\COMPTABILITE`
+    
+- `\\srv-win-men-01\INFORMATIQUE`
+    
+- `\\srv-win-men-01\RH`
+    
+- `\\srv-win-men-01\PRODUCTION`
 
-|Utilisateur (groupe)|ADMIN|DIRECTION|COMPTA|INFO|RH|PROD|
-|---|---|---|---|---|---|---|
-|ADMINISTRATIF|||||||
-|DIRECTION (`s.rogers`)|||||||
-|COMPTABILITE (`n.romanoff`)|||||||
-|INFORMATIQUE (`b.banner`)|||||||
-|RH (`t.odinson`)|||||||
-|PRODUCTION (`c.barton`)|||||||
+| Utilisateur (groupe)        | ADMIN | DIRECTION | COMPTA | INFO | RH  | PROD |
+| --------------------------- | ----- | --------- | ------ | ---- | --- | ---- |
+| ADMINISTRATIF               |       |           |        |      |     |      |
+| DIRECTION (`s.rogers`)      | RO    |           |        |      |     |      |
+| COMPTABILITE (`n.romanoff`) |       |           |        |      |     |      |
+| INFORMATIQUE (`b.banner`)   |       |           |        |      |     |      |
+| RH (`t.odinson`)            |       |           |        |      |     |      |
+| PRODUCTION (`c.barton`)     |       |           |        |      |     |      |
 
 **Choix pour tester ADMINISTRATIF (compte désactivé)**
 
