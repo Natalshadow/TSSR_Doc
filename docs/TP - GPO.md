@@ -72,14 +72,14 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 
 ### Comptes de test
 
-|**Service**|**Compte de test**|**Remarque**|
-|---|---|---|
-|ADMINISTRATIF|`a.dupont`|Réactivé ou créé pour remplacer `t.stark`|
-|DIRECTION|`d.boss`|Compte dans l'OU DIRECTION|
-|COMPTABILITE|`c.compta`|Compte dans l'OU COMPTABILITE|
-|INFORMATIQUE|`i.admin`|Compte dans l'OU INFORMATIQUE|
-|RH|`r.humain`|Compte dans l'OU RH|
-|PRODUCTION|`p.usine`|Compte dans l'OU PRODUCTION|
+| **Service**   | **Compte de test** | **Remarque**                              |
+| ------------- | ------------------ | ----------------------------------------- |
+| ADMINISTRATIF |                    | Réactivé ou créé pour remplacer `t.stark` |
+| DIRECTION     |                    | Compte dans l'OU DIRECTION                |
+| COMPTABILITE  |                    | Compte dans l'OU COMPTABILITE             |
+| INFORMATIQUE  |                    | Compte dans l'OU INFORMATIQUE             |
+| RH            |                    | Compte dans l'OU RH                       |
+| PRODUCTION    |                    | Compte dans l'OU PRODUCTION               |
 
 **Capture(s) :**
 
@@ -126,8 +126,8 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Lien et filtrage|Lié sur `OU=UTILISATEURS`, Refus "Appliquer la GPO" pour `GG-INFORMATIQUE`|
 
 **Capture(s) :**
-
-`capture-1-1-gpo.png` `capture-1-1-lien-filtrage.png` `capture-1-1-test-non-it.png` `capture-1-1-test-it.png`
+![](attachments/Pasted%20image%2020261008124049.png)
+![](attachments/Pasted%20image%2020261008124341.png)
 
 ### 1.2 Autoriser le Bureau à distance et créer la règle de pare-feu
 
@@ -177,7 +177,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Profils|Domaine, Privé|
 
 **Capture(s) :**
-
+![](attachments/Pasted%20image%2020261008124714.png)
 `capture-1-2-parametre-rdp.png` `capture-1-2-regle-pare-feu.png` `capture-1-2-test-connexion.png`
 
 ### 1.3 Mettre en place un fond d'écran commun
