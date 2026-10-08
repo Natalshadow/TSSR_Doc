@@ -405,9 +405,8 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Emplacement des ADMX|`C:\Windows\PolicyDefinitions`|
 
 **Capture(s) :**
-
-`capture-2-2-admx.png` `capture-2-2-gpo.png` `capture-2-2-chrome-policy.png`
-
+![](attachments/Pasted%20image%2020261008144236.png)
+![](attachments/Pasted%20image%2020261008144259.png)
 ### 2.3 COMPTABILITE : interdire le Gestionnaire des tâches
 
 > [!info] **Pas-à-pas : Restriction Ctrl+Alt+Suppr**
@@ -427,7 +426,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Lien et filtrage|Lié sur `OU=COMPTABILITE`|
 
 **Capture(s) :**
-
+![](attachments/Pasted%20image%2020261008144539.png)
 `capture-2-3-gpo.png` `capture-2-3-test.png`
 
 ### 2.4 INFORMATIQUE : déployer mRemoteNG
@@ -453,6 +452,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Lien et filtrage|Lié sur `OU=INFORMATIQUE`|
 
 **Capture(s) :**
+
 
 `capture-2-4-gpo.png` `capture-2-4-test-it.png` `capture-2-4-test-autre.png`
 
