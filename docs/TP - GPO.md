@@ -349,8 +349,8 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Lien et filtrage|Lié sur `OU=UTILISATEURS`|
 
 **Capture(s) :**
-
-`capture-1-6-dossiers-partages.png` `capture-1-6-permissions.png` `capture-1-6-gpo-mappages.png` `capture-1-6-net-use.png` `capture-1-6-test-ecriture.png`
+![](attachments/Pasted%20image%2020261008142931.png)
+![](attachments/Pasted%20image%2020261008143131.png)
 
 ## 2. GPO par service
 
@@ -380,6 +380,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 
 **Capture(s) :**
 
+![](attachments/Pasted%20image%2020261008143349.png)
 `capture-2-1-gpo.png` `capture-2-1-test.png`
 
 ### 2.2 DIRECTION : page d'accueil de Chrome
