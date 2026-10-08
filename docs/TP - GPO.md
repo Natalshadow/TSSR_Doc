@@ -40,11 +40,11 @@
 
 > [!warning] Avant de commencer Certaines GPO de ce TP peuvent te verrouiller l'accès (Panneau de configuration, gestionnaire des tâches, lecteurs, date et heure…). **Fais un snapshot des deux VM** et garde un compte administrateur qui n'est visé par aucune restriction.
 
-- [ ] Snapshot du serveur et du client
-- [ ] Arborescence d'OU et comptes du TP précédent présents (capture ci-dessous)
-- [ ] Installateurs `.msi` récupérés : Google Chrome, 7-Zip, mRemoteNG
-- [ ] Modèles d'administration (ADMX) de Chrome récupérés
-- [ ] Image de fond d'écran choisie
+- [x] Snapshot du serveur et du client
+- [x] Arborescence d'OU et comptes du TP précédent présents (capture ci-dessous)
+- [x] Installateurs `.msi` récupérés : Google Chrome, 7-Zip, mRemoteNG
+- [x] Modèles d'administration (ADMX) de Chrome récupérés
+- [x] Image de fond d'écran choisie
 - [ ] Convention de nommage des GPO décidée
 
 > [!tip] Guidage
@@ -66,7 +66,8 @@
 |RH|||
 |PRODUCTION|||
 
-> [!tip] Guidage Dans le TP précédent, le compte `t.stark` a été désactivé et déplacé dans `Utilisateurs Désactivés` (départ de l'entreprise). Pour tester les GPO d'ADMINISTRATIF, soit tu utilises un autre compte, soit tu réactives et replaces celui-ci : note ce que tu choisis.
+> [!tip] Guidage 
+> Dans le TP précédent, le compte `t.stark` a été désactivé et déplacé dans `Utilisateurs Désactivés` (départ de l'entreprise). Pour tester les GPO d'ADMINISTRATIF, soit tu utilises un autre compte, soit tu réactives et replaces celui-ci : note ce que tu choisis.
 
 **Capture(s)**
 
