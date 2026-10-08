@@ -219,8 +219,9 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Permissions NTFS|Utilisateurs du domaine (Lecture & Exécution)|
 
 **Capture(s) :**
+![](attachments/Pasted%20image%2020261008133614.png)
+![](attachments/Pasted%20image%2020261008140527.png)
 
-`capture-1-3-gpo.png` `capture-1-3-partage.png` `capture-1-3-resultat.png`
 
 ### 1.4 Déployer l'imprimante IMP-MEN-01
 
@@ -252,7 +253,8 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 
 **Capture(s) :**
 
-`capture-1-4-deploiement.png` `capture-1-4-client-avant.png` `capture-1-4-client-apres.png`
+![](attachments/Pasted%20image%2020261008140745.png)
+
 
 ### 1.5 Déployer Google Chrome et 7-Zip
 
@@ -293,7 +295,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 
 **Capture(s) :**
 
-`capture-1-5-gpo-logiciels.png` `capture-1-5-partage.png` `capture-1-5-installe.png`
+![](attachments/Pasted%20image%2020261008141319.png)
 
 ### 1.6 Lecteurs réseau par service
 
