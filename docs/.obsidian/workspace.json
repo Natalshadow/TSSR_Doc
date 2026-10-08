@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GPO.md",
+                "file": "3-Windows Server/GPO.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -260,10 +260,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "b0a79dfce6d1b643",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
     "3-Windows Server/GPO.md",
-    "GPO.md",
+    "3-Windows Server/GPO.md",
     "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "attachments/Pasted image 20261007160733.png",
