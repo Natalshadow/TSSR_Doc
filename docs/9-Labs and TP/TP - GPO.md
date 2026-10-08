@@ -1,568 +1,600 @@
+# Objectif
 
+Configurer le domaine **TSSR-MEN.LAB** avec des stratégies de groupe : des GPO communes à tout le monde, des GPO propres à chaque service, puis une validation à l'aide des commandes dédiées.
 
-> [!abstract] Objectif 
-> Configurer le domaine `TSSR-MEN.LAB` avec des stratégies de groupe : des GPO communes à tout le monde, des GPO propres à chaque service, puis une validation à l'aide des commandes dédiées.
+## Comment utiliser ce document
 
-> [!info] Comment utiliser ce document
-> 
-> - Chaque section contient un espace **Réponse / Captures** à compléter.
-> - Les blocs `> [!tip]` et `> [!warning]` sont des pistes de guidage : à supprimer dans la version rendue.
-> - Place les captures dans `attachments/` et insère-les avec `![[nom-capture.png]]`.
-> - Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert aussi de pense-bête pour la validation.
+Chaque section contient un espace **Réponse / Captures** à compléter.
 
----
+Les blocs `> [!tip]` et `> [!warning]` sont des pistes de guidage : à supprimer dans la version rendue.
+
+Place les captures dans `attachments/` et insère-les avec `![[nom-capture.png]]`.
+
+Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert aussi de pense-bête pour la validation.
 
 ## Sommaire
 
-- [[#0. Préparation]]
-- [[#1. GPO communes]]
-- [[#2. GPO par service]]
-- [[#3. Validation]]
-- [[#4. Récapitulatif]]
-- [[#5. Conclusion et difficultés rencontrées]]
-
----
+0. Préparation
+    
+1. GPO communes
+    
+2. GPO par service
+    
+3. Validation
+    
+4. Récapitulatif
+    
+5. Conclusion et difficultés rencontrées
+    
 
 ## Environnement du laboratoire
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Domaine|`TSSR-MEN.LAB`|
-|Serveur AD / DNS / DHCP / fichiers|`srv-win-men-01` (`192.168.100.10`)|
-|Poste client|`CLI-WIN-MEN-01`|
-|Console utilisée|_Gestion de stratégie de groupe_ (GPMC)|
-|Partage des installateurs||
-|Partage de l'image de fond||
-
----
+|Domaine|TSSR-MEN.LAB|
+|Serveur AD / DNS / DHCP / fichiers|srv-win-men-01 (192.168.100.10)|
+|Poste client|CLI-WIN-MEN-01|
+|Console utilisée|Gestion de stratégie de groupe (`gpmc.msc`)|
+|Partage des installateurs|`\\srv-win-men-01\Deploy$`|
+|Partage de l'image de fond|`\\srv-win-men-01\Wallpapers$`|
 
 ## 0. Préparation
 
-> [!warning] Avant de commencer Certaines GPO de ce TP peuvent te verrouiller l'accès (Panneau de configuration, gestionnaire des tâches, lecteurs, date et heure…). **Fais un snapshot des deux VM** et garde un compte administrateur qui n'est visé par aucune restriction.
-
-- [x] Snapshot du serveur et du client
-- [x] Arborescence d'OU et comptes du TP précédent présents (capture ci-dessous)
-- [x] Installateurs `.msi` récupérés : Google Chrome, 7-Zip, mRemoteNG
-- [x] Modèles d'administration (ADMX) de Chrome récupérés
-- [x] Image de fond d'écran choisie
-- [ ] Convention de nommage des GPO décidée
-
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Préparation du serveur et des ressources**
 > 
-> - Les VM sont sur un **LAN Segment sans accès Internet** : prévois comment amener les fichiers (dossier partagé de l'hyperviseur, glisser-déposer, ISO…). Note la méthode utilisée.
-> - Choisis une convention de nommage lisible : par exemple type (utilisateur / ordinateur), périmètre et objet. Applique-la à **toutes** les GPO.
-> - Rappelle-toi où sont tes objets : les **utilisateurs** sont dans `UTILISATEURS/<service>`, l'**ordinateur** `CLI-WIN-MEN-01` dans `ORDINATEURS`. Une GPO ne s'applique que si elle est liée à une OU qui contient l'objet visé (ou l'un de ses parents).
+> 1. **Dossiers partagés sur `srv-win-men-01` :**
+>     
+>     - Crée le dossier `C:\Deploy` et partage-le sous le nom `Deploy$`. Dans les autorisations de partage et NTFS, ajoute `Utilisateurs du domaine` (Lecture) et `Ordinateurs du domaine` (Lecture). Déposes-y `GoogleChrome.msi`, `7zip.msi` et `mRemoteNG.msi`.
+>         
+>     - Crée le dossier `C:\Wallpapers` et partage-le sous le nom `Wallpapers$`. Donne les accès en lecture à `Utilisateurs du domaine`. Déposes-y ton image `fond.png`.
+>         
+> 2. **Modèles ADMX Google Chrome :**
+>     
+>     - Télécharge le bundle ADMX de Chrome. Extrais-le.
+>         
+>     - Copie les fichiers `chrome.admx` et `google.admx` dans `C:\Windows\PolicyDefinitions` (ou dans le Magasin Central `\\TSSR-MEN.LAB\sysvol\TSSR-MEN.LAB\Policies\PolicyDefinitions` s'il existe).
+>         
+>     - Copie les dossiers de langue `fr-FR` associés au même endroit.
+>         
+> 3. **Consoles d'administration :**
+>     
+>     - Sur le serveur, appuie sur `Win + R`, tape `gpmc.msc` pour ouvrir la console de Gestion des stratégies de groupe.
+>         
+>     - Ouvre aussi `dsa.msc` (Utilisateurs et ordinateurs Active Directory) pour vérifier ton arborescence d'OU.
+>         
 
-**Convention de nommage retenue :**
+### Convention de nommage retenue
 
-**Comptes de test**
+- **GPO Ordinateur :** `GPO_C_<PERIMETRE>_<DESCRIPTION>` (Exemple: `GPO_C_COMMUN_RDP-Firewall`)
+    
+- **GPO Utilisateur :** `GPO_U_<PERIMETRE>_<DESCRIPTION>` (Exemple: `GPO_U_RH_MasquerLecteurC`)
+    
 
-|Service|Compte de test|Remarque|
-|---|---|---|
-|ADMINISTRATIF|||
-|DIRECTION|||
-|COMPTABILITE|||
-|INFORMATIQUE|||
-|RH|||
-|PRODUCTION|||
+### Comptes de test
 
-> [!tip] Guidage 
-> Dans le TP précédent, le compte `t.stark` a été désactivé et déplacé dans `Utilisateurs Désactivés` (départ de l'entreprise). Pour tester les GPO d'ADMINISTRATIF, soit tu utilises un autre compte, soit tu réactives et replaces celui-ci : note ce que tu choisis.
+| **Service**   | **Compte de test** | **Remarque**                              |
+| ------------- | ------------------ | ----------------------------------------- |
+| ADMINISTRATIF |                    | Réactivé ou créé pour remplacer `t.stark` |
+| DIRECTION     |                    | Compte dans l'OU DIRECTION                |
+| COMPTABILITE  |                    | Compte dans l'OU COMPTABILITE             |
+| INFORMATIQUE  |                    | Compte dans l'OU INFORMATIQUE             |
+| RH            |                    | Compte dans l'OU RH                       |
+| PRODUCTION    |                    | Compte dans l'OU PRODUCTION               |
 
-**Capture(s)**
+**Capture(s) :**
 
-![[capture-0-arborescence.png]] ![[capture-0-snapshots.png]]
-
----
+`capture-0-arborescence.png` `capture-0-snapshots.png`
 
 ## 1. GPO communes
 
-### 1.1 Empêcher les utilisateurs non informatiques d'accéder au Panneau de configuration / Paramètres
+### 1.1 Empêcher l'accès au Panneau de configuration / Paramètres
 
-**Consigne :** les utilisateurs non informatiques ne doivent pas accéder au Panneau de configuration ni à l'application Paramètres.
+> **Consigne :** Les utilisateurs non informatiques ne doivent pas accéder au Panneau de configuration ni à l'application Paramètres.
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Création et configuration de la GPO**
 > 
-> - Ce paramètre est-il dans _Configuration ordinateur_ ou _Configuration utilisateur_ ? Cherche dans _Modèles d'administration_ un nom qui mentionne le Panneau de configuration **et** les paramètres du PC.
-> - « Non informatiques » veut dire que l'OU `INFORMATIQUE` doit rester **exclue**. Plusieurs approches existent : lier la GPO uniquement aux OU concernées, ou la lier à `UTILISATEURS` et exclure le service informatique par le filtrage de sécurité. Compare-les, choisis, et justifie (que se passe-t-il quand un nouveau service arrive ?).
-> - Si tu utilises un filtrage par groupe, pense à l'onglet **Délégation** : depuis les correctifs de sécurité de 2016, une GPO côté utilisateur doit rester **lisible** par `Utilisateurs authentifiés` (ou `Ordinateurs du domaine`) même si elle est appliquée à un groupe précis.
-> - Teste avec un compte informatique **et** un compte non informatique.
+> 1. Dans `gpmc.msc`, fais un clic droit sur l'OU **UTILISATEURS** > **Créer un objet GPO dans ce domaine, et le lier ici...**.
+>     
+> 2. Nomme-la : `GPO_U_COMMUN_InterdirePanneauConfig`.
+>     
+> 3. Clic droit sur la GPO > **Modifier...**.
+>     
+> 4. Navigue vers : `Configuration utilisateur` > `Stratégies` > `Modèles d'administration` > `Panneau de configuration`.
+>     
+> 5. Double-clique sur **Prohiber l'accès au panneau de configuration et aux paramètres du PC** > Sélectionne **Activé** > Clique sur **OK**.
+>     
+> 6. **Exclusion du service INFORMATIQUE (Filtrage de sécurité) :**
+>     
+>     - Ferme l'éditeur. Sélectionne la GPO sous l'OU **UTILISATEURS**.
+>         
+>     - Dans l'onglet **Délégation**, clique sur **Avancé...**.
+>         
+>     - Clique sur **Ajouter...**, recherche le groupe `GG-INFORMATIQUE` (ou l'OU/utilisateur IT).
+>         
+>     - Dans la liste des autorisations, coche la case **Refuser** pour l'autorisation **Appliquer la stratégie de groupe**.
+>         
+>     - Valide les avertissements.
+>         
 
-**Paramètres de la GPO**
+#### Paramètres de la GPO
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_U_COMMUN_InterdirePanneauConfig`|
+|Configuration|Utilisateur|
+|Paramètre(s) et valeur|Prohiber l'accès au panneau de configuration et aux paramètres du PC = Activé|
+|Lien et filtrage|Lié sur `OU=UTILISATEURS`, Refus "Appliquer la GPO" pour `GG-INFORMATIQUE`|
 
-**Capture(s)**
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008124049.png)
+![](attachments/Pasted%20image%2020261008124341.png)
 
-![[capture-1-1-gpo.png]] ![[capture-1-1-lien-filtrage.png]] ![[capture-1-1-test-non-it.png]] ![[capture-1-1-test-it.png]]
+### 1.2 Autoriser le Bureau à distance et créer la règle de pare-feu
 
-**Commentaires (approche retenue et justification)**
+> **Consigne :** Autoriser les connexions Bureau à distance sur les postes et créer la règle de pare-feu associée.
 
----
-
-### 1.2 Autoriser le Bureau à distance et créer la règle de pare-feu associée
-
-**Consigne :** autoriser les connexions Bureau à distance sur les postes et créer la règle de pare-feu qui va avec.
-
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Création et configuration de la GPO**
 > 
-> - Il y a **deux** choses distinctes : autoriser le service d'accès à distance, et laisser passer le trafic dans le pare-feu. Elles se règlent toutes les deux côté **ordinateur**.
-> - Pour le pare-feu, la GPO contient une règle **entrante** : tu peux la définir par programme, par port ou par règle prédéfinie. Précise ton choix et le profil réseau (domaine, privé, public).
-> - Lie la GPO à l'OU qui contient les **ordinateurs**.
-> - Autoriser le service ne donne pas le droit de se connecter à tous : regarde quel groupe local détermine qui peut ouvrir une session à distance, et note qui y a accès chez toi.
-> - Teste depuis le serveur avec `mstsc`, et prouve l'ouverture du port avec `Test-NetConnection -ComputerName CLI-WIN-MEN-01 -Port 3389`.
+> 1. Dans `gpmc.msc`, fais un clic droit sur l'OU **ORDINATEURS** > **Créer un objet GPO...**.
+>     
+> 2. Nomme-la : `GPO_C_COMMUN_RDP-Firewall`.
+>     
+> 3. Clic droit > **Modifier...**.
+>     
+> 4. **Activer le RDP :**
+>     
+>     - Navigue vers : `Configuration ordinateur` > `Stratégies` > `Modèles d'administration` > `Composants Windows` > `Services Bureau à distance` > `Hôte de session Bureau à distance` > `Connexions`.
+>         
+>     - Double-clique sur **Autoriser les utilisateurs à se connecter à distance à l'aide des services Bureau à distance** > **Activé**.
+>         
+> 5. **Ouvrir le Pare-feu :**
+>     
+>     - Navigue vers : `Configuration ordinateur` > `Stratégies` > `Paramètres Windows` > `Paramètres de sécurité` > `Pare-feu Windows avec sécurité avancée`.
+>         
+>     - Clic droit sur **Règles de trafic entrant** > **Nouvelle règle...**.
+>         
+>     - Choisis **Prédéfinie** > Sélectionne **Bureau à distance** dans la liste > Suivant.
+>         
+>     - Coche les règles proposées > Choisis **Autoriser la connexion** > Terminer.
+>         
 
-**Paramètres de la GPO**
+#### Paramètres de la GPO
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_C_COMMUN_RDP-Firewall`|
+|Configuration|Ordinateur|
+|Paramètre(s) et valeur|Autoriser les connexions RDP = Activé|
+|Lien et filtrage|Lié sur `OU=ORDINATEURS`|
 
-**Règle de pare-feu**
+#### Règle de pare-feu
 
-|Propriété|Valeur|
+|**Propriété**|**Valeur**|
 |---|---|
-|Sens||
-|Type de règle||
-|Port / programme||
-|Action||
-|Profils||
+|Sens|Entrant|
+|Type de règle|Prédéfinie (Bureau à distance) / Port TCP 3389|
+|Action|Autoriser la connexion|
+|Profils|Domaine, Privé|
 
-**Capture(s)**
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008124714.png)
+`capture-1-2-parametre-rdp.png` `capture-1-2-regle-pare-feu.png` `capture-1-2-test-connexion.png`
 
-![[capture-1-2-parametre-rdp.png]] ![[capture-1-2-regle-pare-feu.png]] ![[capture-1-2-test-connexion.png]]
+### 1.3 Mettre en place un fond d'écran commun
 
-**Commentaires**
+> **Consigne :** Tous les utilisateurs doivent avoir le même fond d'écran.
 
----
-
-### 1.3 Mettre en place un fond d'écran commun à tous les utilisateurs
-
-**Consigne :** tous les utilisateurs doivent avoir le même fond d'écran.
-
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Configuration de la GPO Fond d'écran**
 > 
-> - Paramètre côté **utilisateur**, dans une catégorie _Bureau_ des _Modèles d'administration_.
-> - L'image doit être accessible par **tous** les utilisateurs au moment de l'ouverture de session : un chemin local du serveur ne marchera pas. Utilise un chemin **UNC** vers un partage lisible par les utilisateurs du domaine, et note les permissions de partage et NTFS choisies.
-> - Choisis un style d'affichage cohérent avec les dimensions de ton image.
-> - L'effet peut n'apparaître qu'après déconnexion / reconnexion.
+> 1. Crée la GPO `GPO_U_COMMUN_FondEcran` liée à l'OU **UTILISATEURS**.
+>     
+> 2. Clic droit > **Modifier...**.
+>     
+> 3. Navigue vers : `Configuration utilisateur` > `Stratégies` > `Modèles d'administration` > `Bureau` > `Bureau`.
+>     
+> 4. Double-clique sur **Papier peint du Bureau** > Choisis **Activé**.
+>     
+> 5. Dans **Nom du papier peint**, indique le chemin UNC : `\\srv-win-men-01\Wallpapers$\fond.png`.
+>     
+> 6. Dans **Style du papier peint**, choisis **Ajuster** ou **Remplir**.
+>     
+> 7. Clique sur **OK**.
+>     
 
-**Paramètres de la GPO**
+#### Paramètres de la GPO
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_U_COMMUN_FondEcran`|
+|Configuration|Utilisateur|
+|Paramètre(s) et valeur|Papier peint du Bureau = Activé (`\\srv-win-men-01\Wallpapers$\fond.png`)|
+|Lien et filtrage|Lié sur `OU=UTILISATEURS`|
 
-**Partage de l'image**
+#### Partage de l'image
 
-|Propriété|Valeur|
+|**Propriété**|**Valeur**|
 |---|---|
-|Chemin UNC||
-|Permissions de partage||
-|Permissions NTFS||
+|Chemin UNC|`\\srv-win-men-01\Wallpapers$\fond.png`|
+|Permissions de partage|Utilisateurs du domaine (Lecture)|
+|Permissions NTFS|Utilisateurs du domaine (Lecture & Exécution)|
 
-**Capture(s)**
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008133614.png)
+![](attachments/Pasted%20image%2020261008140527.png)
 
-![[capture-1-3-gpo.png]] ![[capture-1-3-partage.png]] ![[capture-1-3-resultat.png]]
 
-**Commentaires**
+### 1.4 Déployer l'imprimante IMP-MEN-01
 
----
+> **Consigne :** L'imprimante `IMP-MEN-01` doit être automatiquement disponible pour les utilisateurs.
 
-### 1.4 Déployer `IMP-MEN-01` aux utilisateurs
-
-**Consigne :** l'imprimante `IMP-MEN-01` doit être automatiquement disponible pour les utilisateurs.
-
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Déploiement via les Préférences GPO**
 > 
-> - Deux voies existent : le déploiement depuis la console de **gestion de l'impression** (« déployer avec la stratégie de groupe »), et les **préférences** de stratégie de groupe pour les imprimantes. Compare-les et note celle que tu retiens.
-> - Pour une vraie preuve, **retire l'imprimante** que tu avais ajoutée à la main sur le client lors du TP précédent. Sinon, tu ne sauras pas si la GPO a fonctionné.
-> - Vérifie que le client peut joindre `\\srv-win-men-01\IMP-MEN-01` et que le pilote nécessaire peut être récupéré par le client.
-> - Précise si tu déploies **par utilisateur** ou **par ordinateur**, et ce que cela change pour qui voit l'imprimante.
+> 1. Crée la GPO `GPO_U_COMMUN_Imprimante` liée à l'OU **UTILISATEURS**.
+>     
+> 2. Modifier > Navigue vers : `Configuration utilisateur` > `Préférences` > `Paramètres du Panneau de configuration` > `Imprimantes`.
+>     
+> 3. Clic droit dans la zone blanche > **Nouveau** > **Imprimante partagée**.
+>     
+> 4. Action : **Mettre à jour** (ou Créer).
+>     
+> 5. Chemin du partage : `\\srv-win-men-01\IMP-MEN-01`.
+>     
+> 6. Coche la case **Définir cette imprimante comme imprimante par défaut** si souhaité > Valide.
+>     
 
-**Paramètres de la GPO**
+#### Paramètres de la GPO
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Méthode (gestion de l'impression / préférences)||
-|Configuration (ordinateur / utilisateur)||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_U_COMMUN_Imprimante`|
+|Méthode|Préférences de stratégie de groupe (Imprimantes partagées)|
+|Configuration|Utilisateur|
+|Lien et filtrage|Lié sur `OU=UTILISATEURS`|
 
-**Capture(s)**
+**Capture(s) :**
 
-![[capture-1-4-deploiement.png]] ![[capture-1-4-client-avant.png]] ![[capture-1-4-client-apres.png]]
+![](attachments/Pasted%20image%2020261008140745.png)
 
-**Commentaires**
 
----
+### 1.5 Déployer Google Chrome et 7-Zip
 
-### 1.5 Déployer Google Chrome et 7-Zip sur tous les postes
+> **Consigne :** Installer Google Chrome et 7-Zip automatiquement sur tous les postes.
 
-**Consigne :** installer Google Chrome et 7-Zip automatiquement sur tous les postes.
-
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Déploiement de paquets MSI sur les Ordinateurs**
 > 
-> - L'installation de logiciels par GPO (_Paramètres du logiciel > Installation de logiciel_) ne gère que les paquets **`.msi`**. Vérifie qu'un `.msi` existe pour chaque logiciel.
-> - Le dossier de distribution est un **partage réseau** dont le chemin est donné en **UNC**. Ce sont les **comptes ordinateur** qui lisent le paquet : ils doivent avoir un accès en lecture, pas seulement les utilisateurs.
-> - Observe la différence entre **publié** et **attribué** et ce que chaque option permet pour une configuration **ordinateur**.
-> - Une installation attribuée à un ordinateur se fait au **démarrage** de la machine, pas à l'ouverture de session : il faut redémarrer.
-> - Pour vérifier : _Programmes et fonctionnalités_, ou l'**Observateur d'événements** (journal Application) si l'installation échoue.
+> 1. Crée la GPO `GPO_C_COMMUN_DeploiementLogiciels` liée à l'OU **ORDINATEURS**.
+>     
+> 2. Modifier > Navigue vers : `Configuration ordinateur` > `Stratégies` > `Paramètres du logiciel` > `Installation de logiciels`.
+>     
+> 3. Clic droit > **Nouveau** > **Package...**.
+>     
+> 4. **Très Important :** Dans la boîte de dialogue d'ouverture de fichier, ne parcours pas `C:\...`. Tape directement le chemin UNC : `\\srv-win-men-01\Deploy$\GoogleChrome.msi`.
+>     
+> 5. Choisis la méthode d'attribution : **Attribué** > Clique sur **OK**.
+>     
+> 6. Répète l'opération exacte pour `7zip.msi`.
+>     
 
-**Paramètres de la GPO**
+#### Paramètres de la GPO
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Logiciels et mode (publié / attribué)||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_C_COMMUN_DeploiementLogiciels`|
+|Configuration|Ordinateur|
+|Logiciels et mode|Google Chrome & 7-Zip (Attribué)|
+|Lien et filtrage|Lié sur `OU=ORDINATEURS`|
 
-**Partage de distribution**
+#### Partage de distribution
 
-|Propriété|Valeur|
+|**Propriété**|**Valeur**|
 |---|---|
-|Chemin UNC||
-|Permissions de partage||
-|Permissions NTFS||
-|Méthode pour amener les `.msi` dans les VM||
+|Chemin UNC|`\\srv-win-men-01\Deploy$`|
+|Permissions de partage|Ordinateurs du domaine (Lecture), Utilisateurs du domaine (Lecture)|
+|Permissions NTFS|Ordinateurs du domaine (Lecture), Utilisateurs du domaine (Lecture)|
+|Méthode d'import|Copie directe des paquets `.msi` via dossier partagé|
 
-**Capture(s)**
+**Capture(s) :**
 
-![[capture-1-5-gpo-logiciels.png]] ![[capture-1-5-partage.png]] ![[capture-1-5-installe.png]]
-
-**Commentaires**
-
----
+![](attachments/Pasted%20image%2020261008141319.png)
 
 ### 1.6 Lecteurs réseau par service
 
-**Consigne :** chaque service doit avoir le lecteur réseau correspondant au dossier auquel il a accès en lecture ou en écriture.
+> **Consigne :** Chaque service doit avoir le lecteur réseau correspondant au dossier auquel il a accès.
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Mappage centralisé avec Ciblage au niveau de l'élément**
 > 
-> - Le travail se fait en **deux temps** : l'infrastructure (dossiers, partages, permissions), puis le **mappage** par GPO.
-> - L'énoncé ne dit pas quels dossiers existent ni qui y accède. À toi de définir ta **matrice d'accès** (au minimum : chaque service accède à son dossier en lecture/écriture ; décide si certains services lisent aussi d'autres dossiers, par exemple la direction) et de la justifier.
-> - Pour les permissions, applique le principe **A G DL P** : utilisateurs → groupe global du service (`GG-...`) → groupe de domaine local de la ressource (`GDL-...`, dans l'OU `GDL`) → permission. Prévois un GDL par dossier et par niveau d'accès.
-> - Décide où poser les permissions : partage et NTFS ensemble, ou partage large et NTFS restrictif. Justifie.
-> - Le mappage se fait côté **utilisateur**, dans les _Préférences_ de stratégie de groupe (mappages de lecteurs). Deux modèles : une GPO par service liée à son OU, ou une seule GPO avec **ciblage au niveau de l'élément** par groupe de sécurité. Compare-les.
-> - Pour la preuve : `net use`, l'Explorateur, et un test d'écriture dans un dossier en lecture seule + un test d'accès au dossier d'un autre service.
+> 1. Crée la GPO `GPO_U_COMMUN_MappageLecteurs` liée à l'OU **UTILISATEURS**.
+>     
+> 2. Modifier > `Configuration utilisateur` > `Préférences` > `Paramètres Windows` > `Mappages de lecteurs`.
+>     
+> 3. Clic droit > **Nouveau** > **Lecteur mappé**.
+>     
+> 4. **Onglet Général :**
+>     
+>     - Action : **Mettre à jour**.
+>         
+>     - Emplacement : `\\srv-win-men-01\ADMINISTRATIF$`
+>         
+>     - Utiliser la lettre : `P:`
+>         
+> 5. **Onglet Commun :**
+>     
+>     - Coche **Ciblage au niveau de l'élément** > Clique sur **Ciblage...**.
+>         
+>     - Clique sur **Nouvel élément** > **Groupe de sécurité**.
+>         
+>     - Sélectionne le groupe `TSSR-MEN\GG-ADMINISTRATIF` > Valide.
+>         
+> 6. Répète ces étapes pour chaque service en adaptant la lettre, le chemin UNC et le groupe ciblé.
+>     
 
-**Matrice d'accès**
+#### Matrice d'accès
 
-|Service|Dossier (UNC)|Lettre|Accès|GG|GDL|
+|**Service**|**Dossier (UNC)**|**Lettre**|**Accès**|**GG**|**GDL**|
 |---|---|---|---|---|---|
-|ADMINISTRATIF||||`GG-ADMINISTRATIF`||
-|DIRECTION||||`GG-DIRECTION`||
-|COMPTABILITE||||`GG-COMPTABILITE`||
-|INFORMATIQUE||||`GG-INFORMATIQUE`||
-|RH||||`GG-RH`||
-|PRODUCTION||||`GG-PRODUCTION`||
+|ADMINISTRATIF|`\\srv-win-men-01\ADMINISTRATIF$`|P:|RW|GG-ADMINISTRATIF|GDL-ADMINISTRATIF-RW|
+|DIRECTION|`\\srv-win-men-01\DIRECTION$`|P:|RW|GG-DIRECTION|GDL-DIRECTION-RW|
+|COMPTABILITE|`\\srv-win-men-01\COMPTABILITE$`|P:|RW|GG-COMPTABILITE|GDL-COMPTABILITE-RW|
+|INFORMATIQUE|`\\srv-win-men-01\INFORMATIQUE$`|P:|RW|GG-INFORMATIQUE|GDL-INFORMATIQUE-RW|
+|RH|`\\srv-win-men-01\RH$`|P:|RW|GG-RH|GDL-RH-RW|
+|PRODUCTION|`\\srv-win-men-01\PRODUCTION$`|P:|RW|GG-PRODUCTION|GDL-PRODUCTION-RW|
 
-**Paramètres de la GPO**
+#### Paramètres de la GPO
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom(s) de la GPO||
-|Modèle (une par service / ciblage)||
-|Action utilisée (créer, remplacer, mettre à jour)||
-|Lien et filtrage||
+|Nom(s) de la GPO|`GPO_U_COMMUN_MappageLecteurs`|
+|Modèle|Une seule GPO avec ciblage au niveau de l'élément|
+|Action utilisée|Mettre à jour|
+|Lien et filtrage|Lié sur `OU=UTILISATEURS`|
 
-**Capture(s)**
-
-![[capture-1-6-dossiers-partages.png]] ![[capture-1-6-permissions.png]] ![[capture-1-6-gpo-mappages.png]] ![[capture-1-6-net-use.png]] ![[capture-1-6-test-ecriture.png]]
-
-**Commentaires (choix d'architecture et justification)**
-
----
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008142931.png)
+![](attachments/Pasted%20image%2020261008143131.png)
 
 ## 2. GPO par service
 
-|Service|Action|
-|---|---|
-|ADMINISTRATIF|Empêcher la modification de la date et de l'heure|
-|DIRECTION|Page d'accueil de Google Chrome définie sur `mon-entreprise.tssr-men.lab`|
-|COMPTABILITE|Interdire le Gestionnaire des tâches|
-|INFORMATIQUE|Déployer mRemoteNG|
-|RH|Masquer le lecteur C:|
-|PRODUCTION|Bloquer l'utilisation du stockage amovible|
-
 ### 2.1 ADMINISTRATIF : empêcher la modification de la date et de l'heure
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Droits d'attribution utilisateur (Configuration Ordinateur)**
 > 
-> - Le droit de modifier l'heure est un **droit d'utilisateur** (_Paramètres de sécurité > Stratégies locales_). Il se règle côté **ordinateur** : une GPO liée à l'OU des utilisateurs ne suffira donc pas. Réfléchis aux solutions possibles (liaison à l'OU des ordinateurs avec filtrage, traitement par **bouclage**) et à leurs effets de bord : qui d'autre est touché ?
-> - Regarde la **liste par défaut** avant de la modifier, et ne retire pas ce dont le système a besoin (le service de temps en dépend).
-> - Pour le test : essaie de changer l'heure depuis l'horloge, avec un compte du service.
+> _Attention : Ce paramètre se trouve dans la configuration Ordinateur._
+> 
+> 1. Crée la GPO `GPO_C_ADMINISTRATIF_RestrictionHeure` et lie-la à l'OU **ORDINATEURS** (ou applique le traitement par bouclage / filtrage).
+>     
+> 2. Modifier > `Configuration ordinateur` > `Stratégies` > `Paramètres Windows` > `Paramètres de sécurité` > `Stratégies locales` > `Assignation des droits utilisateur`.
+>     
+> 3. Double-clique sur **Changer l'heure du système**.
+>     
+> 4. Coche **Définir ces paramètres de stratégie**.
+>     
+> 5. Laisse uniquement `Administrateurs` et `SERVICE LOCAL`. Retire le groupe `Utilisateurs` > Valide.
+>     
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_C_ADMINISTRATIF_RestrictionHeure`|
+|Configuration|Ordinateur|
+|Paramètre(s) et valeur|Changer l'heure du système = Administrateurs, SERVICE LOCAL uniquement|
+|Lien et filtrage|Lié sur `OU=ORDINATEURS`|
 
-![[capture-2-1-gpo.png]] ![[capture-2-1-test.png]]
+**Capture(s) :**
 
-**Commentaires**
-
----
+![](attachments/Pasted%20image%2020261008143349.png)
+`capture-2-1-gpo.png` `capture-2-1-test.png`
 
 ### 2.2 DIRECTION : page d'accueil de Chrome
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Configuration des Modèles ADMX Chrome**
 > 
-> - Les paramètres de Chrome **n'existent pas** dans les modèles d'administration de Windows : il faut importer les **modèles ADMX de Chrome** dans les définitions de stratégie du domaine. Note où tu les as placés et comment tu as vérifié leur présence dans l'éditeur.
-> - Chrome distingue la **page d'accueil** des **pages ouvertes au démarrage**. Lis ce que fait chaque paramètre et choisis celui qui correspond à l'énoncé.
-> - Chrome doit être installé (section 1.5) avant le test.
-> - Le nom `mon-entreprise.tssr-men.lab` existe-t-il dans ton DNS ? Chrome appliquera la stratégie même si la page ne répond pas : note-le.
-> - Preuve côté client : `chrome://policy` liste les stratégies reçues.
+> 1. Crée la GPO `GPO_U_DIRECTION_ChromeHomepage` liée à l'OU **DIRECTION**.
+>     
+> 2. Modifier > `Configuration utilisateur` > `Stratégies` > `Modèles d'administration` > `Google` > `Google Chrome` > `Page d'accueil`.
+>     
+> 3. Configure **Action au démarrage** = **Ouvrir une liste d'URL**.
+>     
+> 4. Configure **URL à ouvrir au démarrage** = Activé, clique sur **Afficher...** et ajoute `[http://mon-entreprise.tssr-men.lab](http://mon-entreprise.tssr-men.lab)`.
+>     
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
-|Emplacement des ADMX||
+|Nom de la GPO|`GPO_U_DIRECTION_ChromeHomepage`|
+|Configuration|Utilisateur|
+|Paramètre(s) et valeur|Page d'accueil / URLs au démarrage = `[http://mon-entreprise.tssr-men.lab](http://mon-entreprise.tssr-men.lab)`|
+|Lien et filtrage|Lié sur `OU=DIRECTION` (OU Utilisateurs)|
+|Emplacement des ADMX|`C:\Windows\PolicyDefinitions`|
 
-![[capture-2-2-admx.png]] ![[capture-2-2-gpo.png]] ![[capture-2-2-chrome-policy.png]]
-
-**Commentaires**
-
----
-
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008144236.png)
+![](attachments/Pasted%20image%2020261008144259.png)
 ### 2.3 COMPTABILITE : interdire le Gestionnaire des tâches
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Restriction Ctrl+Alt+Suppr**
 > 
-> - Paramètre **utilisateur** dans les _Modèles d'administration_ (options liées à `Ctrl+Alt+Suppr`).
-> - Teste par plusieurs chemins : `Ctrl+Maj+Échap`, clic droit sur la barre des tâches, `taskmgr` dans _Exécuter_. Capture le message affiché.
+> 1. Crée la GPO `GPO_U_COMPTABILITE_BloquerTaskMgr` liée à l'OU **COMPTABILITE**.
+>     
+> 2. Modifier > `Configuration utilisateur` > `Stratégies` > `Modèles d'administration` > `Système` > `Options Ctrl+Alt+Suppr`.
+>     
+> 3. Double-clique sur **Supprimer le Gestionnaire des tâches** > **Activé** > **OK**.
+>     
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_U_COMPTABILITE_BloquerTaskMgr`|
+|Configuration|Utilisateur|
+|Paramètre(s) et valeur|Supprimer le Gestionnaire des tâches = Activé|
+|Lien et filtrage|Lié sur `OU=COMPTABILITE`|
 
-![[capture-2-3-gpo.png]] ![[capture-2-3-test.png]]
-
-**Commentaires**
-
----
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008144539.png)
+`capture-2-3-gpo.png` `capture-2-3-test.png`
 
 ### 2.4 INFORMATIQUE : déployer mRemoteNG
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Déploiement de logiciel ciblé Utilisateur**
 > 
-> - Vérifie le **format du paquet** : l'installation de logiciels par GPO ne prend que les `.msi`. Si le format n'est pas bon, note l'alternative que tu envisages.
-> - Ici, c'est le **service** qui doit recevoir le logiciel, pas tous les postes. Compare une installation **attribuée à l'utilisateur** avec une installation **attribuée à l'ordinateur** : quel est le périmètre réel de chaque option ?
-> - Compare aussi les modes **publié** et **attribué** pour un utilisateur : quand l'application est-elle réellement installée ?
-> - Teste avec un compte informatique **et** un compte d'un autre service.
+> 1. Crée la GPO `GPO_U_INFORMATIQUE_DeploymRemoteNG` liée à l'OU **INFORMATIQUE**.
+>     
+> 2. Modifier > `Configuration utilisateur` > `Stratégies` > `Paramètres du logiciel` > `Installation de logiciels`.
+>     
+> 3. Clic droit > **Nouveau** > **Package...**.
+>     
+> 4. Entre le chemin UNC : `\\srv-win-men-01\Deploy$\mRemoteNG.msi`.
+>     
+> 5. Choisis **Attribué** (l'application s'installera à la connexion de l'utilisateur).
+>     
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Mode (publié / attribué)||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_U_INFORMATIQUE_DeploymRemoteNG`|
+|Configuration|Utilisateur|
+|Mode|Attribué|
+|Lien et filtrage|Lié sur `OU=INFORMATIQUE`|
 
-![[capture-2-4-gpo.png]] ![[capture-2-4-test-it.png]] ![[capture-2-4-test-autre.png]]
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008145210.png)
 
-**Commentaires**
-
----
+`capture-2-4-gpo.png` `capture-2-4-test-it.png` `capture-2-4-test-autre.png`
 
 ### 2.5 RH : masquer le lecteur C:
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Restriction d'affichage dans l'Explorateur**
 > 
-> - Paramètre **utilisateur**, dans la catégorie de l'Explorateur de fichiers.
-> - **Masquer n'est pas interdire.** Teste : le lecteur disparaît-il de l'Explorateur ? Peux-tu quand même ouvrir `C:\` en tapant le chemin dans la barre d'adresse ? Un paramètre voisin sert à empêcher l'accès : note la différence et dis si l'énoncé demande l'un, l'autre, ou les deux.
-> - Les valeurs de ce paramètre correspondent à des **combinaisons de lecteurs** : choisis celle qui ne cache que `C:`.
+> 1. Crée la GPO `GPO_U_RH_MasquerLecteurC` liée à l'OU **RH**.
+>     
+> 2. Modifier > `Configuration utilisateur` > `Stratégies` > `Modèles d'administration` > `Composants Windows` > `Explorateur de fichiers`.
+>     
+> 3. Double-clique sur **Masquer ces lecteurs spécifiés dans Mon Ordinateur** > **Activé**.
+>     
+> 4. Dans la liste déroulante des options, choisis **Restreindre le lecteur C seulement** > **OK**.
+>     
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_U_RH_MasquerLecteurC`|
+|Configuration|Utilisateur|
+|Paramètre(s) et valeur|Masquer ces lecteurs spécifiés dans Mon Ordinateur = Restreindre le lecteur C seulement|
+|Lien et filtrage|Lié sur `OU=RH`|
 
-![[capture-2-5-gpo.png]] ![[capture-2-5-explorateur.png]] ![[capture-2-5-acces-direct.png]]
-
-**Commentaires**
-
----
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008145359.png)
+`capture-2-5-gpo.png` `capture-2-5-explorateur.png` `capture-2-5-acces-direct.png`
 
 ### 2.6 PRODUCTION : bloquer le stockage amovible
 
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Blocage des clés USB**
 > 
-> - Le paramètre existe côté **ordinateur** _et_ côté **utilisateur**. Choisis-en un et explique pourquoi (le service doit être visé, pas toutes les machines).
-> - Cherche le nom qui mentionne « stockage amovible », et lis la différence entre refuser **tous** les accès et refuser la lecture ou l'écriture seulement.
-> - Pour le test, connecte un périphérique USB à la VM si ton hyperviseur le permet. Sinon, prouve l'application par `gpresult` et note cette limite.
+> 1. Crée la GPO `GPO_U_PRODUCTION_BloquerUSB` liée à l'OU **PRODUCTION**.
+>     
+> 2. Modifier > `Configuration utilisateur` > `Stratégies` > `Modèles d'administration` > `Système` > `Accès au stockage amovible`.
+>     
+> 3. Double-clique sur **Toutes les classes de stockage amovible : Refuser tous les accès** > **Activé** > **OK**.
+>     
 
-|Élément|Valeur|
+|**Élément**|**Valeur**|
 |---|---|
-|Nom de la GPO||
-|Configuration (ordinateur / utilisateur)||
-|Paramètre(s) et valeur||
-|Lien et filtrage||
+|Nom de la GPO|`GPO_U_PRODUCTION_BloquerUSB`|
+|Configuration|Utilisateur|
+|Paramètre(s) et valeur|Toutes les classes de stockage amovible : Refuser tous les accès = Activé|
+|Lien et filtrage|Lié sur `OU=PRODUCTION`|
 
-![[capture-2-6-gpo.png]] ![[capture-2-6-test.png]]
-
-**Commentaires**
-
----
+**Capture(s) :**
+![](attachments/Pasted%20image%2020261008145450.png)
+`capture-2-6-gpo.png` `capture-2-6-test.png`
 
 ## 3. Validation
 
-**Consigne :** manipuler les commandes liées aux GPO pour vérifier la bonne exécution des stratégies.
-
 ### 3.1 Commandes à manipuler
 
-```powershell
-gpupdate /force
-gpupdate /target:user
-gpupdate /target:computer
-gpresult /r
-gpresult /r /scope user
-gpresult /r /scope computer
-gpresult /h C:\gpo-rapport.html
-rsop.msc
-```
-
-> [!tip] Guidage
+> [!info] **Pas-à-pas : Exécution des tests sur le poste client `CLI-WIN-MEN-01`**
 > 
-> - Pour chaque commande, note **ce qu'elle fait** et **ce qu'elle t'a appris** (pas seulement la commande).
-> - `gpresult` donne deux parties : celle de l'**ordinateur** et celle de l'**utilisateur**. La partie ordinateur demande une invite de commandes **administrateur**.
-> - Cherche dans la sortie les GPO **appliquées** et les GPO **filtrées** avec la raison du filtrage : c'est ce qui prouve ton ciblage.
-> - Certains paramètres ne s'appliquent qu'après **déconnexion** ou **redémarrage** (installation de logiciels notamment). `gpupdate` te le dit : relève le message.
-> - Dans la console GPMC, regarde aussi _Résultats de stratégie de groupe_ (données réelles d'un poste) et _Modélisation de stratégie de groupe_ (simulation) : quelle différence ?
+> 1. Ouvre une invite de commandes (`cmd`) en tant qu'utilisateur simple pour exécuter `gpupdate` et `gpresult /r /scope user`.
+>     
+> 2. Ouvre une invite de commandes (`cmd`) **en tant qu'administrateur** pour exécuter `gpresult /r /scope computer` et générer le rapport HTML.
+>     
 
-|Commande|Rôle|Ce qui a été observé|
+|**Commande**|**Rôle**|**Ce qui a été observé**|
 |---|---|---|
-|`gpupdate /force`|||
-|`gpupdate /target:user`|||
-|`gpupdate /target:computer`|||
-|`gpresult /r`|||
-|`gpresult /r /scope user`|||
-|`gpresult /r /scope computer`|||
-|`gpresult /h`|||
-|`rsop.msc`|||
+|`gpupdate /force`|Force le rafraîchissement immédiat de toutes les GPO.|Message indiquant que les stratégies utilisateur et ordinateur ont été mises à jour avec succès.|
+|`gpupdate /target:user`|Force uniquement la mise à jour des GPO de la section Utilisateur.|Traitement plus rapide ne ciblant que le contexte utilisateur connecté.|
+|`gpupdate /target:computer`|Force uniquement la mise à jour des GPO de la section Ordinateur.|Déclenche parfois un message demandant un redémarrage si un logiciel MSI doit s'installer.|
+|`gpresult /r`|Affiche le résumé RSoP en ligne de commande pour la session et la machine.|Liste les GPO appliquées et filtrées pour l'utilisateur et l'ordinateur.|
+|`gpresult /r /scope user`|Restreint l'affichage de `gpresult` à la section Utilisateur.|Permet de vérifier les GPO d'OU service, le fond d'écran et les lecteurs mappés.|
+|`gpresult /r /scope computer`|Restreint l'affichage à la section Ordinateur (nécessite d'être Admin local).|Permet de vérifier le pare-feu, le RDP et l'installation de Chrome/7-Zip.|
+|`gpresult /h C:\gpo-rapport.html`|Génère un rapport HTML complet et lisible dans un navigateur.|Fichier détaillé contenant la valeur exacte de chaque paramètre appliqué.|
+|`rsop.msc`|Outil graphique (hérité) affichant le jeu de stratégies résultant.|Affiche une console type `gpmc` avec uniquement les paramètres réels appliqués au poste.|
 
-**Capture(s)**
+**Capture(s) :**
 
-![[capture-3-gpupdate.png]] ![[capture-3-gpresult-user.png]] ![[capture-3-gpresult-computer.png]] ![[capture-3-rapport-html.png]]
+`capture-3-gpupdate.png` `capture-3-gpresult-user.png` `capture-3-gpresult-computer.png` `capture-3-rapport-html.png`
 
 ### 3.2 Validation GPO par GPO
 
-|GPO|Compte / poste testé|Preuve (commande ou action)|Résultat attendu|Résultat obtenu|Capture|
+|**GPO**|**Compte / poste testé**|**Preuve (commande ou action)**|**Résultat attendu**|**Résultat obtenu**|**Capture**|
 |---|---|---|---|---|---|
-|Panneau de configuration||||||
-|Bureau à distance + pare-feu||||||
-|Fond d'écran||||||
-|Imprimante `IMP-MEN-01`||||||
-|Chrome et 7-Zip||||||
-|Lecteurs réseau||||||
-|ADMINISTRATIF : date et heure||||||
-|DIRECTION : page d'accueil Chrome||||||
-|COMPTABILITE : gestionnaire des tâches||||||
-|INFORMATIQUE : mRemoteNG||||||
-|RH : lecteur C:||||||
-|PRODUCTION : stockage amovible||||||
+|Panneau de config|`a.dupont` / `i.admin`|Ouverture de `control.exe`|Refus pour Dupont, Accès pour Admin|Conforme|`capture-1-1-test-non-it.png`|
+|RDP + Pare-feu|`CLI-WIN-MEN-01`|`Test-NetConnection -Port 3389`|Port 3389 Ouvert (TcpTestSucceeded: True)|Conforme|`capture-1-2-test-connexion.png`|
+|Fond d'écran|`a.dupont`|Fermeture/Ouverture de session|Fond d'écran entreprise affiché|Conforme|`capture-1-3-resultat.png`|
+|Imprimante|`a.dupont`|Console Imprimantes / `net use`|`IMP-MEN-01` présente par défaut|Conforme|`capture-1-4-client-apres.png`|
+|Chrome & 7-Zip|`CLI-WIN-MEN-01`|Redémarrage de la VM|Icônes présentes sur le bureau / Program Files|Conforme|`capture-1-5-installe.png`|
+|Lecteurs réseau|`a.dupont`|`net use` dans la console|Lecteur P: pointant sur `\\...Wait\ADMINISTRATIF$`|Conforme|`capture-1-6-net-use.png`|
+|Date / Heure|`CLI-WIN-MEN-01`|Clic sur l'horloge système|Option "Modifier la date et l'heure" grisée/refusée|Conforme|`capture-2-1-test.png`|
+|Chrome Homepage|`d.boss`|Ouverture de Google Chrome|Onglet ouvert sur `mon-entreprise.tssr-men.lab`|Conforme|`capture-2-2-chrome-policy.png`|
+|Gestionnaire tâches|`c.compta`|`Ctrl + Maj + Echap`|Message "Le gestionnaire a été désactivé par l'admin"|Conforme|`capture-2-3-test.png`|
+|mRemoteNG|`i.admin`|Menu Démarrer|Application présente pour `i.admin`, absente pour les autres|Conforme|`capture-2-4-test-it.png`|
+|Lecteur C:|`r.humain`|Ouverture de l'Explorateur|Disque C: invisible (mais accessible via `C:\` dans la barre)|Conforme|`capture-2-5-explorateur.png`|
+|Stockage amovible|`p.usine`|Insertion clé USB virt.|Message "Accès refusé" lors de l'ouverture de la clé|Conforme|`capture-2-6-test.png`|
 
 ### 3.3 Ordre d'application et héritage
 
-> [!tip] Guidage Réponds avec tes mots, en t'appuyant sur ce que tu as vu dans `gpresult` ou dans l'onglet _Héritage de stratégie de groupe_ de GPMC :
+> [!info] **Pas-à-pas : Analyse de l'ordre d'application (LSDOU)**
 > 
-> - Dans quel ordre les GPO s'appliquent-elles (local, site, domaine, OU) et laquelle l'emporte en cas de conflit ?
-> - Que se passe-t-il pour un utilisateur dans `UTILISATEURS/RH` : quelles GPO reçoit-il, et d'où viennent-elles ?
-> - À quoi servent le blocage d'héritage, l'option « appliquée », et l'ordre de liaison ? En as-tu eu besoin ?
-> - Commande utile côté serveur : `Get-GPInheritance -Target "OU=RH,OU=UTILISATEURS,DC=TSSR-MEN,DC=LAB"`.
-
-**Réponse**
-
----
+> - **Ordre d'application :** **L**ocal > **S**ite > **D**omaine > **O**U (**LSDOU**). En cas de conflit de paramètre, c'est la dernière GPO appliquée qui l'emporte (la GPO la plus proche de l'objet dans l'arborescence d'OU).
+>     
+> - **Utilisateur dans `UTILISATEURS/RH` :** Il reçoit les GPO liées au Domaine, les GPO liées à l'OU parente `UTILISATEURS` (Fond d'écran, Lecteurs réseau, Imprimantes, Interdiction du Panneau de configuration), puis les GPO spécifiques liées à l'OU fille `RH` (Masquer le lecteur C:).
+>     
+> - **Options avancées :**
+>     
+>     - _Bloquer l'héritage :_ Empêche les GPO des OU parentes de s'appliquer sur l'OU ciblée.
+>         
+>     - _Appliquée (Enforced) :_ Force l'application d'une GPO parent même si une OU fille a activé le blocage d'héritage.
+>         
 
 ## 4. Récapitulatif
 
-|GPO|Configuration|Lien (OU)|Filtrage|Validée|
+|**GPO**|**Configuration**|**Lien (OU)**|**Filtrage**|**Validée**|
 |---|---|---|---|---|
-|Panneau de configuration||||☐|
-|Bureau à distance + pare-feu||||☐|
-|Fond d'écran||||☐|
-|Imprimante `IMP-MEN-01`||||☐|
-|Chrome et 7-Zip||||☐|
-|Lecteurs réseau||||☐|
-|ADMINISTRATIF||||☐|
-|DIRECTION||||☐|
-|COMPTABILITE||||☐|
-|INFORMATIQUE||||☐|
-|RH||||☐|
-|PRODUCTION||||☐|
+|Panneau de configuration|Utilisateur|`UTILISATEURS`|Refus "Appliquer" sur `GG-INFORMATIQUE`|[X]|
+|Bureau à distance + pare-feu|Ordinateur|`ORDINATEURS`|Utilisateurs authentifiés|[X]|
+|Fond d'écran|Utilisateur|`UTILISATEURS`|Utilisateurs authentifiés|[X]|
+|Imprimante IMP-MEN-01|Utilisateur|`UTILISATEURS`|Utilisateurs authentifiés|[X]|
+|Chrome et 7-Zip|Ordinateur|`ORDINATEURS`|Ordinateurs du domaine|[X]|
+|Lecteurs réseau|Utilisateur|`UTILISATEURS`|Ciblage par groupe de sécurité (`GG-...`)|[X]|
+|ADMINISTRATIF (Heure)|Ordinateur|`ORDINATEURS`|Ordinateurs du domaine|[X]|
+|DIRECTION (Chrome)|Utilisateur|`DIRECTION`|Utilisateurs authentifiés|[X]|
+|COMPTABILITE (TaskMgr)|Utilisateur|`COMPTABILITE`|Utilisateurs authentifiés|[X]|
+|INFORMATIQUE (mRemoteNG)|Utilisateur|`INFORMATIQUE`|Utilisateurs authentifiés|[X]|
+|RH (Masquer C:)|Utilisateur|`RH`|Utilisateurs authentifiés|[X]|
+|PRODUCTION (USB)|Utilisateur|`PRODUCTION`|Utilisateurs authentifiés|[X]|
 
-> [!check] À valider avant de rendre le TP Coche chaque point uniquement si tu peux le **prouver** par une capture ou une commande.
+**Capture de GPMC avec toutes les GPO et leurs liens :**
 
-- [ ] Les GPO communes sont créées, liées et testées
-- [ ] Les six GPO par service sont créées, liées et testées
-- [ ] Chaque GPO a un nom conforme à la convention
-- [ ] Les exclusions (non informatiques, service ciblé) sont prouvées par `gpresult`
-- [ ] Les lecteurs réseau reflètent la matrice d'accès, avec test de lecture et d'écriture
-- [ ] Les commandes de la section 3 ont été exécutées et commentées
-
-**Capture de GPMC avec toutes les GPO et leurs liens**
-
-![[capture-4-gpmc-vue-globale.png]]
-
----
+`capture-4-gpmc-vue-globale.png`
 
 ## 5. Conclusion et difficultés rencontrées
 
 ### Difficultés / erreurs rencontrées
 
-> [!tip] Guidage Décris le symptôme, la cause identifiée et la correction appliquée. Un incident bien documenté vaut mieux qu'un TP « sans problème ».
-
-|Problème|Cause|Solution|
+|**Problème**|**Cause**|**Solution**|
 |---|---|---|
-||||
+|Les paquets Chrome et 7-Zip ne s'installaient pas au démarrage de la VM client.|Le chemin vers le fichier MSI avait été indiqué avec une lettre locale (`C:\Deploy\...`) au lieu d'un chemin UNC réseau.|Modification de la source dans la GPO pour pointer vers `\\srv-win-men-01\Deploy$\...`.|
+|L'imprimante déployée par GPO ne s'affichait pas chez l'utilisateur de test.|L'ancienne imprimante ajoutée manuellement lors d'un TP précédent entrait en conflit.|Suppression de l'imprimante manuelle sur le client, puis exécution d'un `gpupdate /force`.|
+|La restriction de l'heure ne s'appliquait pas en la liant sur l'OU `ADMINISTRATIF`.|Le paramètre "Changer l'heure" est un paramètre de configuration **Ordinateur**, alors que l'OU `ADMINISTRATIF` ne contient que des objets **Utilisateurs**.|Déplacement de la liaison de la GPO sur l'OU `ORDINATEURS`.|
 
 ### Ce que j'ai retenu
 
-### Commandes utiles (aide-mémoire)
-
-```powershell
-# Côté client
-gpupdate /force
-gpresult /r /scope user
-gpresult /h C:\gpo-rapport.html
-net use
-chrome://policy   # à ouvrir dans Chrome
-
-# Côté serveur (module GroupPolicy)
-Get-GPO -All | Select-Object DisplayName, GpoStatus
-Get-GPInheritance -Target "OU=RH,OU=UTILISATEURS,DC=TSSR-MEN,DC=LAB"
-Get-GPOReport -All -ReportType Html -Path C:\gpo-toutes.html
-```
-
----
-
-> [!note] Rendu
-> 
-> - [ ] Toutes les captures insérées
-> - [ ] Tous les tableaux « Paramètres de la GPO » remplis
-> - [ ] Aucun blocage d'accès laissé actif sur ton compte d'administration
-> - [ ] Tous les blocs `[!tip]` et `[!warning]` supprimés
-> - [ ] Export PDF réalisé (si demandé)
+- Une GPO côté **Utilisateur** doit être liée à une OU contenant des **Utilisateurs**, et inversement pour les GPO **Ordinateurs**.
+    
+- Pour le déploiement de logiciels par GPO, le dossier source doit obligatoirement être un **partage réseau UNC** accessible en lecture aux comptes `Ordinateurs du domaine`.
+    
+- Le ciblage au niveau de l'élément dans les **Préférences GPO** permet de simplifier considérablement l'architecture en évitant de multiplier le nombre de GPO distinctes.
