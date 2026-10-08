@@ -452,7 +452,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Lien et filtrage|Lié sur `OU=INFORMATIQUE`|
 
 **Capture(s) :**
-
+![](attachments/Pasted%20image%2020261008145210.png)
 
 `capture-2-4-gpo.png` `capture-2-4-test-it.png` `capture-2-4-test-autre.png`
 
@@ -477,7 +477,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Lien et filtrage|Lié sur `OU=RH`|
 
 **Capture(s) :**
-
+![](attachments/Pasted%20image%2020261008145359.png)
 `capture-2-5-gpo.png` `capture-2-5-explorateur.png` `capture-2-5-acces-direct.png`
 
 ### 2.6 PRODUCTION : bloquer le stockage amovible
@@ -499,7 +499,7 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 |Lien et filtrage|Lié sur `OU=PRODUCTION`|
 
 **Capture(s) :**
-
+![](attachments/Pasted%20image%2020261008145450.png)
 `capture-2-6-gpo.png` `capture-2-6-test.png`
 
 ## 3. Validation
