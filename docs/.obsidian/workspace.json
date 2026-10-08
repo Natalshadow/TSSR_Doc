@@ -78,9 +78,33 @@
               "icon": "lucide-file",
               "title": "GPO"
             }
+          },
+          {
+            "id": "b9424570b7b6c6f3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "TP - GPO.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "TP - GPO"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -260,10 +284,11 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "b9424570b7b6c6f3",
   "lastOpenFiles": [
     "3-Windows Server/GPO.md",
-    "3-Windows Server/GPO.md",
+    "TP - GPO.md",
+    "3-Windows Server/Active Directory.md",
     "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "attachments/Pasted image 20261007160733.png",
@@ -299,8 +324,6 @@
     "Templates",
     "Glossaire/scope.md",
     "Glossaire/lease.md",
-    "DORA steps.md",
-    "1-General/Système d'information et système informatique.md",
     "Glossaire",
     "1-General/attachments",
     "Excalidraw",
