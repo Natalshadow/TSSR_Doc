@@ -169,17 +169,23 @@ Pour chaque GPO, remplis le petit tableau « Paramètres de la GPO » : il sert 
 
 #### Règle de pare-feu
 
-|**Propriété**|**Valeur**|
-|---|---|
-|Sens|Entrant|
-|Type de règle|Prédéfinie (Bureau à distance) / Port TCP 3389|
-|Action|Autoriser la connexion|
-|Profils|Domaine, Privé|
+| **Propriété** | **Valeur**             |
+| ------------- | ---------------------- |
+| Sens          | Entrant                |
+| Type de règle | Manuel: Port TCP 3389  |
+| Action        | Autoriser la connexion |
+| Profils       | Domaine                |
+
 
 **Capture(s) :**
+>[!warning] Mauvaise configuration 
 ![](attachments/Pasted%20image%2020261008124714.png)
-`capture-1-2-parametre-rdp.png` `capture-1-2-regle-pare-feu.png` `capture-1-2-test-connexion.png`
 
+
+>[!note] Correction
+>![](attachments/Pasted%20image%2020261009094052.png)
+>1. `Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Inbound Rules`: delete the three predefined rules.
+>2. New Rule → **Port** → TCP, specific local port `3389` → Allow the connection → **Domain** only → name `Autoriser RDP 3389`
 ### 1.3 Mettre en place un fond d'écran commun
 
 > **Consigne :** Tous les utilisateurs doivent avoir le même fond d'écran.

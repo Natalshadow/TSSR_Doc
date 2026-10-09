@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Deliverable version/TP - GPO 1.md",
+                "file": "9-Labs and TP/TP - GPO.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TP - GPO 1"
+              "title": "TP - GPO"
             }
           }
         ],
@@ -286,10 +286,12 @@
   },
   "active": "75fb45e493bab20c",
   "lastOpenFiles": [
+    "9-Labs and TP/attachments/Pasted image 20261009094052.png",
+    "9-Labs and TP/Deliverable version/TP - GPO 1.md",
+    "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261008145909.png",
     "9-Labs and TP/Deliverable version/attachments",
     "9-Labs and TP/TP - GPO.md",
-    "9-Labs and TP/Deliverable version/TP - GPO 1.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "attachments/Pasted image 20261008145450.png",
     "attachments/Pasted image 20261008145359.png",
@@ -300,10 +302,8 @@
     "attachments/Pasted image 20261008144236.png",
     "attachments/Pasted image 20261008143349.png",
     "attachments/Pasted image 20261008143131.png",
-    "attachments/Pasted image 20261008142931.png",
     "3-Windows Server/GPO.md",
     "3-Windows Server/Active Directory.md",
-    "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "3-Windows Server/Tiering AD.md",
     "attachments",
