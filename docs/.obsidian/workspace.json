@@ -109,7 +109,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
+                "file": "9-Labs and TP/TP - GPO.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -124,7 +124,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "GPO — Sauvegarde, Rapports et Exécution à distance"
+              "title": "TP - GPO"
             }
           }
         ],
@@ -308,10 +308,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "482f8088b8a2e0e6",
   "lastOpenFiles": [
-    "3-Windows Server/PTR.md",
     "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
+    "3-Windows Server/PTR.md",
     "index.md",
     "Glossaire.base",
     "DORA steps.md",
