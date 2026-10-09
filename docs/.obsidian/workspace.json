@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/TP - GPO.md",
+                "file": "10-Scripts/Export GPOs - Powershell.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TP - GPO"
+              "title": "Export GPOs - Powershell"
             }
           }
         ],
@@ -286,12 +286,14 @@
   },
   "active": "75fb45e493bab20c",
   "lastOpenFiles": [
+    "9-Labs and TP/TP - GPO.md",
+    "10-Scripts/Export GPOs - Powershell.md",
+    "10-Scripts",
     "9-Labs and TP/attachments/Pasted image 20261009094052.png",
     "9-Labs and TP/Deliverable version/TP - GPO 1.md",
     "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261008145909.png",
     "9-Labs and TP/Deliverable version/attachments",
-    "9-Labs and TP/TP - GPO.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "attachments/Pasted image 20261008145450.png",
     "attachments/Pasted image 20261008145359.png",
@@ -301,7 +303,6 @@
     "attachments/Pasted image 20261008144259.png",
     "attachments/Pasted image 20261008144236.png",
     "attachments/Pasted image 20261008143349.png",
-    "attachments/Pasted image 20261008143131.png",
     "3-Windows Server/GPO.md",
     "3-Windows Server/Active Directory.md",
     "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
@@ -330,7 +331,6 @@
     "1-General/attachments",
     "Excalidraw",
     "9-Labs and TP/Deliverable version",
-    "3-Windows Server/attachments",
-    "1-General"
+    "3-Windows Server/attachments"
   ]
 }
