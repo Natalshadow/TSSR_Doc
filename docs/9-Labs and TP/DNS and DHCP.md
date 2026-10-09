@@ -158,7 +158,7 @@ Il faut créer une zone inversée ?
 >[!tip] C'est quoi PTR
 >Le PTR est le traducteur du DNS de l'IP vers l'hostname.
 >Le PTR record ne génère pas de A record associé automatiquement.
-> [PTR](../PTR.md)
+> [PTR](../3-Windows%20Server/PTR.md)
 
 >[!tip] Reverse zone
 >La zone inversée (`100.168.192.in-addr.arpa`) est le conteneur des PTR. Un serveur DNS ne répond de façon autoritaire que pour les zones qu'il héberge : créer la zone inversée le rend responsable de la plage IP `192.168.100.x`. Sans elle, il n'a aucune autorité sur ces adresses (→ timeout). Zone créée mais vide → `Non-existent domain`. Zone + PTR → le nom est renvoyé.

@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/Flexible Single Master Operations roles.md",
+                "file": "3-Windows Server/PTR.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Flexible Single Master Operations roles"
+              "title": "PTR"
             }
           }
         ],
@@ -284,11 +284,17 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "75fb45e493bab20c",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "index.md",
+    "Glossaire.base",
+    "DORA steps.md",
+    "9-Labs and TP/attachments/Pasted image 20261001095251.png",
+    "9-Labs and TP/attachments/Pasted image 20261001141635.png",
+    "9-Labs and TP/attachments/Pasted image 20261001095318.png",
+    "3-Windows Server/Flexible Single Master Operations roles.md",
     "3-Windows Server/Active Directory domain vs DNS domain.md",
     "3-Windows Server/Active Directory et LDAP.md",
-    "3-Windows Server/Flexible Single Master Operations roles.md",
     "3-Windows Server/GPO.md",
     "3-Windows Server/Kerberos.md",
     "3-Windows Server/NTLM.md",
@@ -309,9 +315,6 @@
     "attachments/Pasted image 20261008145210.png",
     "attachments/Pasted image 20261008144857.png",
     "attachments/Pasted image 20261008144539.png",
-    "attachments/Pasted image 20261008144259.png",
-    "attachments/Pasted image 20261008144236.png",
-    "attachments/Pasted image 20261008143349.png",
     "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "attachments",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
@@ -323,9 +326,6 @@
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "9-Labs and TP/DNS and DHCP.md",
-    "Glossaire/Index.md",
-    "Glossaire/gateway.md",
-    "Glossaire.base",
     "Templates",
     "Glossaire",
     "1-General/attachments",

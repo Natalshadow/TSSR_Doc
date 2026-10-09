@@ -25,5 +25,5 @@
 Neither of them sound like actual archival backups or redundancies. One sounds short term roll-back, the other seems meant to be used for transfers and quick deploy.
 
 Screenshots de confirmation:
-![[Pasted image 20261001095251.png]]
-![[Pasted image 20261001095318.png]]
+![[../9-Labs and TP/attachments/Pasted image 20261001095251.png]]
+![[../9-Labs and TP/attachments/Pasted image 20261001095318.png]]
