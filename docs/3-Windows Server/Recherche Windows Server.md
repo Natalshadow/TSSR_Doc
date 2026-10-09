@@ -39,7 +39,7 @@ Différents rôles/fonctionnalités que l'on peut installer
 
 | Rôle / Fonctionnalité | Supporté sur Server Core ? | Supporté sur Expérience de bureau ? | Remarques / Limitations sur Core |
 | --- | --- | --- | --- |
-| **[Active Directory](Active%20Directory.md) Domain Services (AD DS)** | Oui | Oui | Promotion du domaine exécutée via PowerShell (`Install-AdnsDomainController`). |
+| **[Active Directory et LDAP](Active%20Directory%20et%20LDAP.md) Domain Services (AD DS)** | Oui | Oui | Promotion du domaine exécutée via PowerShell (`Install-AdnsDomainController`). |
 | **DHCP Server & DNS Server** | Oui | Oui | Administration distante effectuée via RSAT ou PowerShell. |
 | **Hyper-V** | Oui | Oui | Mode recommandé sur Core pour réserver les ressources matérielles aux VMs. |
 | **File and Storage Services** | Oui | Oui | SMB, NFS, Quotas et Déduplication entièrement gérés en ligne de commande. |
@@ -47,6 +47,6 @@ Différents rôles/fonctionnalités que l'on peut installer
 | **Failover Clustering** | Oui | Oui | Idéal sur Core pour maintenir des clusters hautement disponibles. |
 | **Windows Admin Center (WAC)** | Oui | Oui | Agent et service administrables à distance depuis une interface web. |
 | **Remote Desktop Services (RDS / Session Host)** | Non (Sauf Licensing) | Oui | Incompatible : Le rôle d'hôte de session exige l'environnement graphique. |
-| **[Active Directory](Active%20Directory.md) Federation Services (AD FS)** | Non | Oui | Exige des composants graphiques et d'authentification utilisateur. |
+| **[Active Directory et LDAP](Active%20Directory%20et%20LDAP.md) Federation Services (AD FS)** | Non | Oui | Exige des composants graphiques et d'authentification utilisateur. |
 | **Fax Server / Print Server (Avancé)** | Limité | Oui | Les outils de gestion d'impression locaux nécessitent la console MMC. |
 | **Outils de diagnostic graphique (DirectX / MMC)** | Non | Oui | Absent sur Core (`mmc.exe` et exécutables Win32 GUI indisponibles). |

@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "10-Scripts/Export GPOs - Powershell.md",
+                "file": "3-Windows Server/Flexible Single Master Operations roles.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -100,7 +100,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Export GPOs - Powershell"
+              "title": "Flexible Single Master Operations roles"
             }
           }
         ],
@@ -286,8 +286,17 @@
   },
   "active": "75fb45e493bab20c",
   "lastOpenFiles": [
-    "9-Labs and TP/TP - GPO.md",
+    "3-Windows Server/Active Directory domain vs DNS domain.md",
+    "3-Windows Server/Active Directory et LDAP.md",
+    "3-Windows Server/Flexible Single Master Operations roles.md",
+    "3-Windows Server/GPO.md",
+    "3-Windows Server/Kerberos.md",
+    "3-Windows Server/NTLM.md",
+    "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
+    "3-Windows Server/Recherche Windows Server.md",
+    "3-Windows Server/Tiering AD.md",
     "10-Scripts/Export GPOs - Powershell.md",
+    "9-Labs and TP/TP - GPO.md",
     "10-Scripts",
     "9-Labs and TP/attachments/Pasted image 20261009094052.png",
     "9-Labs and TP/Deliverable version/TP - GPO 1.md",
@@ -303,10 +312,7 @@
     "attachments/Pasted image 20261008144259.png",
     "attachments/Pasted image 20261008144236.png",
     "attachments/Pasted image 20261008143349.png",
-    "3-Windows Server/GPO.md",
-    "3-Windows Server/Active Directory.md",
     "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
-    "3-Windows Server/Tiering AD.md",
     "attachments",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "1-General/Permissions NTFS.md",
@@ -319,14 +325,8 @@
     "9-Labs and TP/DNS and DHCP.md",
     "Glossaire/Index.md",
     "Glossaire/gateway.md",
-    "Glossaire/Glossary entry.md",
     "Glossaire.base",
-    "Glossaire to create.md",
-    "Glossaire/A record.md",
-    "Glossaire/reverse lookup zone.md",
-    "Glossaire/forward lookup zone.md",
     "Templates",
-    "Glossaire/scope.md",
     "Glossaire",
     "1-General/attachments",
     "Excalidraw",

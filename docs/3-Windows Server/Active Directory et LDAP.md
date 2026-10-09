@@ -1,8 +1,3 @@
-## Active Directory et LDAP
-
-
-
----
 
 ## 1. Qu'est-ce qu'Active Directory (AD DS) ?
 

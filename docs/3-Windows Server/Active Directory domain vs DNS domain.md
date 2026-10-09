@@ -1,10 +1,10 @@
-|**Feature**|**Active Directory Domain**|**AD DS Integrated DNS Zone**|
-|---|---|---|
-|**Primary Purpose**|**Identity & Access Management** (Who are you, and what are you allowed to access?)|**Name Resolution** (Where is server X located on the network?)|
-|**Analogy**|A gated community with security guards, user profiles, and keycards.|The directory at the front gate showing house numbers and directions.|
-|**What It Stores**|Users, computers, passwords, Group Policies, security groups.|Hostnames mapped to IP addresses (`A` records) and service pointers (`SRV` records).|
-|**Underlying Protocol**|LDAP, Kerberos, NTLM.|DNS (UDP/TCP Port 53).|
-|**Storage Location**|Main AD Database (`ntds.dit`).|Application Directory Partitions within AD (`DomainDnsZones` / `ForestDnsZones`).|
+| **Feature**             | **Active Directory Domain**                                                         | **AD DS Integrated DNS Zone**                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Primary Purpose**     | **Identity & Access Management** (Who are you, and what are you allowed to access?) | **Name Resolution** (Where is server X located on the network?)                      |
+| **Analogy**             | A gated community with security guards, user profiles, and keycards.                | The directory at the front gate showing house numbers and directions.                |
+| **What It Stores**      | Users, computers, passwords, Group Policies, security groups.                       | Hostnames mapped to IP addresses (`A` records) and service pointers (`SRV` records). |
+| **Underlying Protocol** | LDAP, Kerberos, NTLM.                                                               | DNS (UDP/TCP Port 53).                                                               |
+| **Storage Location**    | Main AD Database (`ntds.dit`).                                                      | Application Directory Partitions within AD (`DomainDnsZones` / `ForestDnsZones`).    |
 
 ### 1. Active Directory Domain
 
