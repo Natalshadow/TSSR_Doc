@@ -109,7 +109,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/TP - GPO.md",
+                "file": "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -124,7 +124,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TP - GPO"
+              "title": "Analyse réflexive 261009"
             }
           }
         ],
@@ -308,8 +308,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "482f8088b8a2e0e6",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "9-Labs and TP/TP - GPO.md",
+    "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
     "3-Windows Server/PTR.md",
     "index.md",
@@ -328,7 +330,6 @@
     "3-Windows Server/Recherche Windows Server.md",
     "3-Windows Server/Tiering AD.md",
     "10-Scripts/Export GPOs - Powershell.md",
-    "9-Labs and TP/TP - GPO.md",
     "10-Scripts",
     "9-Labs and TP/attachments/Pasted image 20261009094052.png",
     "9-Labs and TP/Deliverable version/TP - GPO 1.md",
@@ -349,7 +350,6 @@
     "1-General/Droits de partage et droits NTFS.md",
     "1-General/Protocol SMB.md",
     "9-Labs and TP/Deliverable version/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
-    "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory 1.md",
     "Templates",
     "Glossaire",
     "1-General/attachments",
