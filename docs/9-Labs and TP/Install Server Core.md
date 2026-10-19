@@ -287,7 +287,7 @@ Resolve-DnsName www.microsoft.com
 
 ![](attachments/Pasted%20image%2020261019145033.png)
 
-![](attachments/capture-3.2-outil-mises-a-jour.png)
+![](attachments/Pasted%20image%2020261019151743.png)
 
 ![](attachments/capture-3.2-etat-final-mises-a-jour.png)
 
