@@ -320,7 +320,7 @@ Resolve-DnsName www.microsoft.com
 
 **Captures**
 
-![](attachments/capture-4.1-lan-segment-vmware.png)
+![](attachments/Pasted%20image%2020261019153009.png)
 
 ![](attachments/capture-4.1-interface-apres-redemarrage.png)
 
