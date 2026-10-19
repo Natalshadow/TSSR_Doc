@@ -151,22 +151,22 @@ Get-NetIPConfiguration
 
 **Relevés**
 
-| Élément | Valeur constatée |
-|---|---|
-| Nom de l’ordinateur | |
-| Édition Windows | |
-| Version / build | |
-| Processeur | |
-| Mémoire installée | |
-| Interface réseau | |
-| État de l’interface | |
-| Adresse IPv4 actuelle | |
+| Élément               | Valeur constatée       |
+| --------------------- | ---------------------- |
+| Nom de l’ordinateur   | WIN-66PKHJ51NC6        |
+| Édition Windows       | Server 2025 Datacenter |
+| Version / build       | 2009/24H2              |
+| Processeur            | 1 cpu 4 cores          |
+| Mémoire installée     | 6Go                    |
+| Interface réseau      | NAT                    |
+| État de l’interface   | OK                     |
+| Adresse IPv4 actuelle | 10.0.2.15              |
 
 **Captures**
+![](attachments/Pasted%20image%2020261019143758.png)
+![](attachments/Pasted%20image%2020261019143851.png)
 
-![](attachments/capture-2.2-get-computerinfo.png)
-
-![](attachments/capture-2.2-get-netadapter.png)
+![](attachments/Pasted%20image%2020261019144131.png)
 
 **Commentaires**
 
@@ -222,7 +222,7 @@ Get-Service *VMware*
 
 **Captures**
 
-![](attachments/capture-3.1-media-vmware-tools.png)
+![](attachments/Pasted%20image%2020261019144842.png)
 
 ![](attachments/capture-3.1-installation-vmware-tools.png)
 
