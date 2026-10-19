@@ -460,11 +460,24 @@ Restart-Computer
 | ---------------------- | ---------------- |
 | Nom avant modification | WIN-66PKHJ61NC6  |
 | Nom demandé            | `SRV-WIN-MEN-02` |
-| Nom après redémarrage  |                  |
+| Nom après redémarrage  | SRV-WIN-MEN-02   |
 | Redémarrage effectué   | Oui              |
 ```powershell
 PS C:\Users\Administrator> Rename-Computer -NewName "SRV-WIN-MEN-02"
 WARNING: The changes will take effect after you restart the computer WIN-66PKHJ61NC6.
+
+Microsoft Windows [Version 10.0.26100.33650]
+(c) Microsoft Corporation. All rights reserved.
+
+administrator@SRV-WIN-MEN-02 C:\Users\Administrator>$env:COMPUTERNAME
+The filename, directory name, or volume label syntax is incorrect.
+
+administrator@SRV-WIN-MEN-02 C:\Users\Administrator>powershell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\Administrator> $env:COMPUTERNAME
+SRV-WIN-MEN-02
 ```
 **Captures**
 
@@ -494,16 +507,17 @@ Get-LocalUser
 
 # Créer un mot de passe sécurisé
 $Password = Read-Host "Mot de passe du compte local" -AsSecureString
+Sunshine12-
 
 # Créer le compte local
-New-LocalUser -Name "<nom_du_compte>" -Password $Password
+New-LocalUser -Name "TestUser" -Password $Password
 
 # Ajouter le compte au groupe Administrateurs
-Add-LocalGroupMember -Group "Administrateurs" -Member "<nom_du_compte>"
+Add-LocalGroupMember -Group "Administrators" -Member "TestUser"
 
 # Vérifier le compte et les membres du groupe
-Get-LocalUser -Name "<nom_du_compte>"
-Get-LocalGroupMember -Group "Administrateurs"
+Get-LocalUser -Name "TestUser"
+Get-LocalGroupMember -Group "Administrators"
 ```
 
 > [!question] Questions
@@ -527,6 +541,54 @@ Get-LocalGroupMember -Group "Administrateurs"
 | Compte activé | |
 | Groupe local | |
 | Appartenance au groupe Administrateurs confirmée | |
+
+```powershell
+PS C:\Users\Administrator> Get-LocalUser
+
+Name               Enabled Description
+----               ------- -----------
+Administrator      True    Built-in account for administering the computer/domain
+DefaultAccount     False   A user account managed by the system.
+Guest              False   Built-in account for guest access to the computer/domain
+WDAGUtilityAccount False   A user account managed and used by the system for Windows Defender Application Guard scenarios.
+
+
+PS C:\Users\Administrator> $Password = Read-Host "Mot de passe du compte local" -AsSecureString
+Mot de passe du compte local: ***********
+PS C:\Users\Administrator> New-LocalUser -Name "TestUser" -Password $Password
+
+Name     Enabled Description
+----     ------- -----------
+TestUser True
+
+
+PS C:\Users\Administrator> Add-LocalGroupMember -Group "Administrateurs" -Member "TestUser"
+Add-LocalGroupMember : Group Administrateurs was not found.
+At line:1 char:1
++ Add-LocalGroupMember -Group "Administrateurs" -Member "TestUser"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Administrateurs:String) [Add-LocalGroupMember], GroupNotFoundException
+    + FullyQualifiedErrorId : GroupNotFound,Microsoft.PowerShell.Commands.AddLocalGroupMemberCommand
+
+PS C:\Users\Administrator> Add-LocalGroupMember -Group "Administrators" -Member "TestUser"
+PS C:\Users\Administrator> Get-LocalUser -Name "TestUser"
+
+Name     Enabled Description
+----     ------- -----------
+TestUser True
+
+
+PS C:\Users\Administrator> Get-LocalGroupMember -Group "Administrators"
+
+ObjectClass Name                         PrincipalSource
+----------- ----                         ---------------
+User        SRV-WIN-MEN-02\Administrator Local
+User        SRV-WIN-MEN-02\TestUser      Local
+
+
+PS C:\Users\Administrator>
+```
+
 
 **Captures**
 
