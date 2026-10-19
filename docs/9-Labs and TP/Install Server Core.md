@@ -344,8 +344,8 @@ Resolve-DnsName www.microsoft.com
 | Adresse IPv4          | `192.168.100.11`                | PS C:\Users\Administrator> Set-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.100.11 -PrefixLength 24 |
 | Préfixe réseau        | `/24`                           | Oui                                                                                                               |
 | Masque de sous-réseau | `255.255.255.0`                 |                                                                                                                   |
-| Passerelle par défaut | Aucune                          |                                                                                                                   |
-| DNS préféré           | `192.168.100.10`                |                                                                                                                   |
+| Passerelle par défaut | Aucune                          | Aucune                                                                                                            |
+| DNS préféré           | `192.168.100.10`                | Oui                                                                                                               |
 
 **Étapes**
 
@@ -439,7 +439,7 @@ hostname
 $env:COMPUTERNAME
 
 # Renommer le serveur
-Rename-Computer -NewName "SRV-WIN-[TRI]-02"
+Rename-Computer -NewName "SRV-WIN-MEN-02"
 
 # Redémarrer le serveur
 Restart-Computer
@@ -456,13 +456,16 @@ Restart-Computer
 
 **Relevés**
 
-| Élément | Valeur |
-|---|---|
-| Nom avant modification | |
-| Nom demandé | `SRV-WIN-[TRI]-02` |
-| Nom après redémarrage | |
-| Redémarrage effectué | |
-
+| Élément                | Valeur           |
+| ---------------------- | ---------------- |
+| Nom avant modification | WIN-66PKHJ61NC6  |
+| Nom demandé            | `SRV-WIN-MEN-02` |
+| Nom après redémarrage  |                  |
+| Redémarrage effectué   | Oui              |
+```powershell
+PS C:\Users\Administrator> Rename-Computer -NewName "SRV-WIN-MEN-02"
+WARNING: The changes will take effect after you restart the computer WIN-66PKHJ61NC6.
+```
 **Captures**
 
 ![](attachments/capture-5.1-nom-avant.png)
