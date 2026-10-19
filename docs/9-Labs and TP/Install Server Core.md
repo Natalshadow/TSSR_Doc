@@ -100,7 +100,7 @@
 
 ![[Pasted image 20261019135634.png]]
 
-![](attachments/capture-2.1-premiere-session-core.png)
+![](attachments/Pasted%20image%2020261019142224.png)
 
 **Commentaires**
 

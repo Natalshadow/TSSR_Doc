@@ -109,7 +109,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Server Core lite doc.md",
+                "file": "9-Labs and TP/Install Server Core.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -124,7 +124,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Server Core lite doc"
+              "title": "Install Server Core"
             }
           }
         ],
@@ -310,8 +310,9 @@
   },
   "active": "482f8088b8a2e0e6",
   "lastOpenFiles": [
-    "9-Labs and TP/Server Core.md",
+    "9-Labs and TP/attachments/Pasted image 20261019142224.png",
     "9-Labs and TP/Server Core lite doc.md",
+    "9-Labs and TP/Server Core.md",
     "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "9-Labs and TP/TP - GPO.md",
     "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
@@ -349,7 +350,6 @@
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "1-General/Permissions NTFS.md",
     "1-General/AGDLP.md",
-    "1-General/Droits de partage et droits NTFS.md",
     "Templates",
     "Glossaire",
     "1-General/attachments",
