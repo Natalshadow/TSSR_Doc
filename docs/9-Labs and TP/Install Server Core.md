@@ -650,16 +650,91 @@ Get-NetFirewallRule -DisplayName "Autoriser ICMPv4 entrant - Laboratoire"
 
 **Relevés**
 
-| Élément | Valeur constatée |
-|---|---|
-| Profil réseau actif | |
-| Pare-feu activé | |
-| Nom de la règle ICMPv4 | |
-| Règle activée | |
-| Direction | |
-| Action | |
+| Élément                | Valeur constatée |
+| ---------------------- | ---------------- |
+| Profil réseau actif    |                  |
+| Pare-feu activé        |                  |
+| Nom de la règle ICMPv4 |                  |
+| Règle activée          |                  |
+| Direction              |                  |
+| Action                 |                  |
+|                        |                  |
 
 **Captures**
+
+```powershell
+PS C:\Users\Administrator> ping google.com
+PS C:\Users\Administrator> New-NetFirewallRule -DisplayName "Autoriser ICMPv4 entrant - Laboratoire" `
+>>   -Protocol ICMPv4 `
+>>   -IcmpType 8 `
+>>   -Direction Inbound `
+>>   -Action Allow `
+>>   -Enabled True
+
+
+Name                          : {26e50091-d4ca-43a5-95ad-604c6febb703}
+DisplayName                   : Autoriser ICMPv4 entrant - Laboratoire
+Description                   :
+DisplayGroup                  :
+Group                         :
+Enabled                       : True
+Profile                       : Any
+Platform                      : {}
+Direction                     : Inbound
+Action                        : Allow
+EdgeTraversalPolicy           : Block
+LooseSourceMapping            : False
+LocalOnlyMapping              : False
+Owner                         :
+PrimaryStatus                 : OK
+Status                        : The rule was parsed successfully from the store. (65536)
+EnforcementStatus             : NotApplicable
+PolicyStoreSource             : PersistentStore
+PolicyStoreSourceType         : Local
+RemoteDynamicKeywordAddresses : {}
+PolicyAppId                   :
+PackageFamilyName             :
+
+
+
+PS C:\Users\Administrator> ping google.com
+
+Pinging google.com [2a00:1450:4007:81a::200e] with 32 bytes of data:
+Reply from 2a00:1450:4007:81a::200e: time=9ms
+Reply from 2a00:1450:4007:81a::200e: time=10ms
+Reply from 2a00:1450:4007:81a::200e: time=11ms
+Reply from 2a00:1450:4007:81a::200e: time=9ms
+
+Ping statistics for 2a00:1450:4007:81a::200e:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 9ms, Maximum = 11ms, Average = 9ms
+PS C:\Users\Administrator> Get-NetFirewallRule -DisplayName "Autoriser ICMPv4 entrant - Laboratoire"
+
+
+Name                          : {26e50091-d4ca-43a5-95ad-604c6febb703}
+DisplayName                   : Autoriser ICMPv4 entrant - Laboratoire
+Description                   :
+DisplayGroup                  :
+Group                         :
+Enabled                       : True
+Profile                       : Any
+Platform                      : {}
+Direction                     : Inbound
+Action                        : Allow
+EdgeTraversalPolicy           : Block
+LooseSourceMapping            : False
+LocalOnlyMapping              : False
+Owner                         :
+PrimaryStatus                 : OK
+Status                        : The rule was parsed successfully from the store. (65536)
+EnforcementStatus             : NotApplicable
+PolicyStoreSource             : PersistentStore
+PolicyStoreSourceType         : Local
+RemoteDynamicKeywordAddresses : {}
+PolicyAppId                   :
+PackageFamilyName             :
+```
 
 ![](attachments/capture-6.1-profil-reseau.png)
 
