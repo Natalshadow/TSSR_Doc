@@ -327,19 +327,25 @@ Resolve-DnsName www.microsoft.com
 **Commentaires**
 
 ---
+### 4.2a Préparer SSHD pour controler le serveur depuis mon terminal
+1) Installation the open ssh
+2) Configuration de open ssh , auto start du service, ouverture firewall
+3) Connection via SSH depuis linux, confirmer fingerprints
+4) ![](attachments/Pasted%20image%2020261019161318.png)
 
+![](attachments/Pasted%20image%2020261019161333.png)
 ### 4.2 Configurer l’adresse IPv4 statique avec PowerShell
 
 **Paramètres demandés**
 
-| Paramètre | Valeur attendue | Valeur configurée |
-|---|---|---|
-| Interface réseau | Interface du LAN du laboratoire | |
-| Adresse IPv4 | `192.168.100.11` | |
-| Préfixe réseau | `/24` | |
-| Masque de sous-réseau | `255.255.255.0` | |
-| Passerelle par défaut | Aucune | |
-| DNS préféré | `192.168.100.10` | |
+| Paramètre             | Valeur attendue                 | Valeur configurée                                                                                                 |
+| --------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Interface réseau      | Interface du LAN du laboratoire |                                                                                                                   |
+| Adresse IPv4          | `192.168.100.11`                | PS C:\Users\Administrator> Set-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.100.11 -PrefixLength 24 |
+| Préfixe réseau        | `/24`                           | Oui                                                                                                               |
+| Masque de sous-réseau | `255.255.255.0`                 |                                                                                                                   |
+| Passerelle par défaut | Aucune                          |                                                                                                                   |
+| DNS préféré           | `192.168.100.10`                |                                                                                                                   |
 
 **Étapes**
 
@@ -369,7 +375,7 @@ New-NetIPAddress -InterfaceAlias "Ethernet" `
   -PrefixLength 24
 
 # Configurer le serveur DNS
-Set-DnsClientServerAddress -InterfaceAlias "<nom_interface>" `
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" `
   -ServerAddresses 192.168.100.10
 
 # Vérifier la configuration finale
