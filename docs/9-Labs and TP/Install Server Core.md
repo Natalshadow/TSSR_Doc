@@ -322,7 +322,7 @@ Resolve-DnsName www.microsoft.com
 
 ![](attachments/Pasted%20image%2020261019153009.png)
 
-![](attachments/capture-4.1-interface-apres-redemarrage.png)
+![](attachments/Pasted%20image%2020261019153413.png)
 
 **Commentaires**
 
@@ -364,7 +364,7 @@ Get-NetIPAddress -AddressFamily IPv4
 Get-NetIPInterface -AddressFamily IPv4
 
 # Configurer une adresse IPv4 statique
-New-NetIPAddress -InterfaceAlias "<nom_interface>" `
+New-NetIPAddress -InterfaceAlias "Ethernet" `
   -IPAddress 192.168.100.11 `
   -PrefixLength 24
 
