@@ -3,7 +3,7 @@ site_description: TSSR Lab Deliverable
 site_url: https://natalshadow.github.io/TSSR_Doc/
 
 # Change the target directory to only build files inside docs/exports
-docs_dir: docs/exports
+docs_dir: docs
 
 theme:
   name: material
