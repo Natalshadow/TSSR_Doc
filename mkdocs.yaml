@@ -18,7 +18,6 @@ theme:
 
 plugins:
   - search
-  - single-page
   - with-pdf:
       author: "Natal"
       cover_title: "TSSR Lab Evaluation"
