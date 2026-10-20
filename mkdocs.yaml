@@ -1,6 +1,9 @@
-site_name: TSSR Documentation & Lab Vault
-site_description: TSSR Lab Runbooks, Configs, and Notes
+site_name: TSSR Evaluation Export
+site_description: TSSR Lab Deliverable
 site_url: https://natalshadow.github.io/TSSR_Doc/
+
+# Change the target directory to only build files inside docs/exports
+docs_dir: docs/exports
 
 theme:
   name: material
@@ -15,8 +18,14 @@ theme:
 
 plugins:
   - search
-  - roamlinks
-  - callouts
+  - with-pdf:
+      author: "Natal"
+      cover_title: "TSSR Lab Evaluation"
+      cover_subtitle: "Single Note Deliverable"
+      toc_title: "Table of Contents"
+      heading_shift: true
+      toc_level: 3
+      output_path: "pdf/single-note.pdf"
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -32,5 +41,3 @@ markdown_extensions:
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-docs_dir: docs

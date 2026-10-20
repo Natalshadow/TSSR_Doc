@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
+                "file": "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -213,9 +213,10 @@
   },
   "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "exports",
     "3-Windows Server/labs",
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
-    "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
+    "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
     "9-Labs and TP/attachments/Pasted image 20261020153521.png",
     "3-Windows Server/labs/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "3-Windows Server/labs/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
@@ -257,7 +258,6 @@
     "Glossaire",
     "1-General/attachments",
     "Excalidraw",
-    "9-Labs and TP/Deliverable version",
-    "3-Windows Server/attachments"
+    "9-Labs and TP/Deliverable version"
   ]
 }
