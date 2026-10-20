@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "490cc5d0051a0a39",
+            "id": "40412b6dd4f90c8a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/Tiering AD.md",
+                "file": "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,107 +28,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Tiering AD"
-            }
-          },
-          {
-            "id": "b83f9c35f8fb12ff",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "Mettre en place des partages réseau avec la méthode AGDLP 1"
-            }
-          },
-          {
-            "id": "b0a79dfce6d1b643",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3-Windows Server/GPO.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "GPO"
-            }
-          },
-          {
-            "id": "75fb45e493bab20c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3-Windows Server/PTR.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "PTR"
-            }
-          },
-          {
-            "id": "482f8088b8a2e0e6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "9-Labs and TP/Install Server Core.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "Install Server Core"
+              "title": "Déployer un contrôleur de domaine supplémentaire avec PowerShell"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -268,7 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "9-Labs and TP/Install Server Core.md",
+                "file": "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -308,12 +211,13 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "482f8088b8a2e0e6",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
-    "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
-    "9-Labs and TP/Install Server Core.md",
-    "9-Labs and TP/Server Core.md",
     "9-Labs and TP/Deliverable version/Install Server Core 1.md",
+    "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
+    "9-Labs and TP/Install Server Core.md",
+    "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
+    "9-Labs and TP/Server Core.md",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "9-Labs and TP/DNS and DHCP.md",
     "Fiches techniques.md",
@@ -347,7 +251,6 @@
     "10-Scripts/Export GPOs - Powershell.md",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/TP - GPO 1.md",
-    "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
     "Templates",
