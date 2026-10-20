@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
+                "file": "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Créer un domaine Active Directory et joindre un poste client - Full"
+              "title": "Déployer un contrôleur de domaine supplémentaire avec PowerShell"
             }
           }
         ]
@@ -65,7 +65,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "password",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -89,8 +89,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -214,6 +213,7 @@
   },
   "active": "40412b6dd4f90c8a",
   "lastOpenFiles": [
+    "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
     "9-Labs and TP/attachments/Pasted image 20261020122713.png",
@@ -250,7 +250,6 @@
     "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
     "3-Windows Server/Recherche Windows Server.md",
     "3-Windows Server/Tiering AD.md",
-    "10-Scripts/Export GPOs - Powershell.md",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
