@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
+                "file": "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Déployer un contrôleur de domaine supplémentaire avec PowerShell"
+              "title": "Créer un domaine Active Directory et joindre un poste client - Full"
             }
           }
         ]
@@ -65,7 +65,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "password",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -89,7 +89,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -171,7 +172,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
+                "file": "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -195,7 +196,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 302.5
+    "width": 295.1953125
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -211,10 +212,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "40412b6dd4f90c8a",
   "lastOpenFiles": [
-    "9-Labs and TP/Deliverable version/Install Server Core 1.md",
+    "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
+    "9-Labs and TP/attachments/Pasted image 20261020122713.png",
+    "9-Labs and TP/Deliverable version/Install Server Core 1.md",
     "9-Labs and TP/Install Server Core.md",
     "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "9-Labs and TP/Server Core.md",
@@ -230,7 +233,6 @@
     "9-Labs and TP/attachments/Pasted image 20261019144842.png",
     "9-Labs and TP/attachments/Pasted image 20261019144131.png",
     "9-Labs and TP/attachments/Pasted image 20261019143851.png",
-    "9-Labs and TP/attachments/Pasted image 20261019143758.png",
     "9-Labs and TP/Server Core lite doc.md",
     "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "9-Labs and TP/TP - GPO.md",
@@ -250,7 +252,6 @@
     "3-Windows Server/Tiering AD.md",
     "10-Scripts/Export GPOs - Powershell.md",
     "10-Scripts",
-    "9-Labs and TP/Deliverable version/TP - GPO 1.md",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
     "Templates",

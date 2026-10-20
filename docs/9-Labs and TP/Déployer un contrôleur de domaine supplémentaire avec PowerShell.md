@@ -24,6 +24,51 @@
 - [[#6. Validation finale]]
 - [[#7. Conclusion et difficultés rencontrées]]
 
+
+_______________
+## 0. Prérequis
+
+ Suite à une migration de VMWare sur Windows 10 vers Virtual Box sur Linux CachyOS, les machines virtuelles doivent être converties et réimportées.
+
+**Convert the disk image to VDI**:
+```bash
+/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01
+❯ qemu-img convert -f qcow2 -O vdi \
+        "/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01/SRV-WIN-MEN-01.qcow2" \
+        "/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01/SRV-WIN-MEN-01.vdi"
+
+/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01 6m 20s
+```
+
+
+
+ **Detach the QCOW2 image**:
+
+```bash
+/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01 6m 20s
+❯ VBoxManage storageattach "SRV_WIN_MEN_1" \
+        --storagectl "SATA" --port 0 --device 0 --type hdd --medium none
+```
+
+**Attach the new VDI image**
+
+```bash
+/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01
+❯ VBoxManage storageattach "SRV_WIN_MEN_1" \
+        --storagectl "SATA" --port 0 --device 0 --type hdd \
+        --medium "/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01/SRV-WIN-MEN-01.vdi"
+```
+
+**The conversion seems successful**
+
+```bash
+/mnt/WAREHOUSE/Work/TSSR/VMs/SRV-WIN-01
+❯ VBoxManage startvm "SRV_WIN_MEN_1"
+Waiting for VM "SRV_WIN_MEN_1" to power on...
+VM "SRV_WIN_MEN_1" has been successfully started.
+```
+
+![](attachments/Pasted%20image%2020261020122713.png)
 ---
 
 ## 1. Objectifs
