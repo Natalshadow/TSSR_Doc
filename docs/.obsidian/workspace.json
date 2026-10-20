@@ -109,7 +109,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Install Server Core.md",
+                "file": "9-Labs and TP/Deliverable version/Install Server Core 1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -124,7 +124,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Install Server Core"
+              "title": "Install Server Core 1"
             }
           }
         ],
@@ -268,7 +268,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "9-Labs and TP/Install Server Core.md",
+                "file": "9-Labs and TP/Deliverable version/Install Server Core 1.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -308,11 +308,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e1ec310cf6a459a9",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
+    "9-Labs and TP/Install Server Core.md",
+    "9-Labs and TP/Deliverable version/Install Server Core 1.md",
     "9-Labs and TP/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "9-Labs and TP/DNS and DHCP.md",
-    "9-Labs and TP/Install Server Core.md",
     "Fiches techniques.md",
     "9-Labs and TP/attachments/Pasted image 20261019161333.png",
     "9-Labs and TP/attachments/Pasted image 20261019161318.png",
@@ -348,7 +349,6 @@
     "9-Labs and TP/Deliverable version/Mettre en place des partages réseau avec la méthode AGDLP 1.md",
     "9-Labs and TP/Deliverable version/attachments",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
-    "9-Labs and TP/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "attachments",
     "Templates",
     "Glossaire",
