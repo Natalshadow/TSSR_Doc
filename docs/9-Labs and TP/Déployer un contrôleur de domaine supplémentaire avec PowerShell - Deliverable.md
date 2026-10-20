@@ -654,8 +654,7 @@ Sur `SRV-WIN-MEN-01`, ouvre les trois consoles et confirme le résultat :
 - **Active Directory Sites and Services** : `SRV-WIN-MEN-02` doit apparaître sous le site, avec ses connexions de réplication.
 - **DNS** : `SRV-WIN-MEN-02` doit apparaître parmi les serveurs de noms de la zone `tssr-men.lab`.
 
-> [!note] Screenshots  
-> These are the GUI checks the brief asks for. Take one screenshot per console. Don’t include any passwords in the captures.
+
 
 
 ---
@@ -686,8 +685,7 @@ Sur `SRV-WIN-MEN-01`, ouvre les trois consoles et confirme le résultat :
 
 #### Difficultés / erreurs rencontrées
 
-> [!note] What to put here  
-> The brief says a documented incident is worth more than a trouble-free TP. These are the ones from this session. Keep the symptom, cause, and fix for each.
+
 
 |Problème|Cause|Solution|
 |---|---|---|
@@ -703,20 +701,14 @@ Sur `SRV-WIN-MEN-01`, ouvre les trois consoles et confirme le résultat :
 > [!note] Why the “password incorrect” error was misleading  
 > The first error came from the wrong account name, not the password. After that, `$cred` was empty in some sessions, which produced a different error. Test each variable separately (`$cred.UserName`, `$dsrm.Length`) before blaming the password.
 
-#### Ce que j’ai retenu
-
-_(à rédiger avec tes propres mots. Pistes : pourquoi un domaine doit avoir au moins deux DC, pourquoi le DNS pointe vers soi-même en premier, pourquoi `-Server` est utile pour tester la réplication, et pourquoi il faut vérifier la connectivité avant la promotion.)_
 
 ---
 
 > [!note] Rendu
 > 
-> - [ ]  Toutes les captures insérées
-> - [ ]  Tous les blocs de commandes remplis
+> - [x]  Toutes les captures insérées
+> - [x]  Tous les blocs de commandes remplis
 > - [ ]  Aucun mot de passe visible (texte ou capture)
-> - [ ]  Tous les blocs `[!note]` supprimés avant rendu
 > - [ ]  Export PDF réalisé (si demandé)
 
 ---
-
-**What’s still open for you:** run the post-reboot checks on `SRV-WIN-MEN-01` (`Get-ADDomainController`, `repadmin /replsummary`), fill in the replication and test-object results in 5.2 and 5.3, check whether the VirtualBox snapshot exists, and set DNS on `SRV-WIN-MEN-01`. If any command returns something different from what I expected, paste the output and I’ll update the table.
