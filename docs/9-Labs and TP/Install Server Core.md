@@ -46,15 +46,15 @@
 
 ## 1. Objectifs
 
-- [ ] Installer Windows Server 2025 Standard en mode Core, sans Desktop Experience.
-- [ ] Identifier les outils d’administration disponibles dans Server Core.
-- [ ] Utiliser PowerShell pour consulter les informations système et réseau.
-- [ ] Installer VMware Tools et vérifier son fonctionnement.
-- [ ] Installer les mises à jour Windows applicables.
-- [ ] Configurer le réseau statique du laboratoire.
-- [ ] Renommer le serveur et créer un compte administrateur local.
-- [ ] Autoriser les requêtes ICMPv4 entrantes dans le pare-feu.
-- [ ] Vérifier la connectivité avec le serveur graphique et le client Windows 11.
+- [x] Installer Windows Server 2025 Standard en mode Core, sans Desktop Experience.
+- [x] Identifier les outils d’administration disponibles dans Server Core.
+- [x] Utiliser PowerShell pour consulter les informations système et réseau.
+- [x] Installer VMware Tools et vérifier son fonctionnement.
+- [x] Installer les mises à jour Windows applicables.
+- [x] Configurer le réseau statique du laboratoire.
+- [x] Renommer le serveur et créer un compte administrateur local.
+- [x] Autoriser les requêtes ICMPv4 entrantes dans le pare-feu.
+- [x] Vérifier la connectivité avec le serveur graphique et le client Windows 11.
 - [ ] Vérifier la résolution DNS du domaine.
 - [ ] Ajouter le serveur à Windows Admin Center et contrôler sa configuration.
 - [ ] Mettre à jour la fiche d’identification de la VM.
@@ -293,6 +293,61 @@ Resolve-DnsName www.microsoft.com
 
 > [!warning] Avant de poursuivre
 > Termine les mises à jour et les redémarrages nécessaires avant de retirer le serveur du réseau NAT.
+>
+
+La config n'est pas celle attendue, c'est normal, je suis en réseau bridge pour permettre le fonctionnement de OpenSSH.
+
+``` powershell
+PS C:\Users\Administrator> Resolve-DnsName www.microsoft.com
+
+Name                           Type   TTL   Section    NameHost
+----                           ----   ---   -------    --------
+www.microsoft.com              CNAME  132   Answer     www.microsoft.com-c-3.edgekey.net
+www.microsoft.com-c-3.edgekey. CNAME  132   Answer     e13678.dscb.akamaiedge.net
+net
+
+Name       : e13678.dscb.akamaiedge.net
+QueryType  : AAAA
+TTL        : 12
+Section    : Answer
+IP6Address : 2a02:26f0:2b80:16b2::356e
+
+
+Name       : e13678.dscb.akamaiedge.net
+QueryType  : AAAA
+TTL        : 12
+Section    : Answer
+IP6Address : 2a02:26f0:2b80:16b9::356e
+
+
+Name       : e13678.dscb.akamaiedge.net
+QueryType  : AAAA
+TTL        : 12
+Section    : Answer
+IP6Address : 2a02:26f0:2b80:169b::356e
+
+
+Name       : e13678.dscb.akamaiedge.net
+QueryType  : AAAA
+TTL        : 12
+Section    : Answer
+IP6Address : 2a02:26f0:2b80:16b5::356e
+
+
+Name       : e13678.dscb.akamaiedge.net
+QueryType  : AAAA
+TTL        : 12
+Section    : Answer
+IP6Address : 2a02:26f0:2b80:16a9::356e
+
+
+Name       : e13678.dscb.akamaiedge.net
+QueryType  : A
+TTL        : 7
+Section    : Answer
+IP4Address : 23.46.189.219
+```
+
 
 **Commentaires**
 
@@ -408,13 +463,6 @@ Get-DnsClientServerAddress -AddressFamily IPv4
 | Passerelle par défaut | |
 | Serveur DNS | |
 
-**Captures**
-
-![](attachments/capture-4.2-interfaces-reseau.png)
-
-![](attachments/capture-4.2-configuration-ipv4.png)
-
-![](attachments/capture-4.2-configuration-dns.png)
 
 **Commentaires**
 
@@ -479,13 +527,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 PS C:\Users\Administrator> $env:COMPUTERNAME
 SRV-WIN-MEN-02
 ```
-**Captures**
 
-![](attachments/capture-5.1-nom-avant.png)
-
-![](attachments/capture-5.1-nom-apres-redemarrage.png)
-
-**Commentaires**
 
 ---
 
@@ -590,13 +632,6 @@ PS C:\Users\Administrator>
 ```
 
 
-**Captures**
-
-![](attachments/capture-5.2-comptes-locaux.png)
-
-![](attachments/capture-5.2-compte-administrateur-local.png)
-
-**Commentaires**
 
 ---
 
@@ -736,13 +771,6 @@ PolicyAppId                   :
 PackageFamilyName             :
 ```
 
-![](attachments/capture-6.1-profil-reseau.png)
-
-![](attachments/capture-6.1-etat-pare-feu.png)
-
-![](attachments/capture-6.1-regle-icmpv4.png)
-
-**Commentaires**
 
 ---
 
@@ -801,21 +829,30 @@ Resolve-DnsName TSSR-[TRI].LAB
 
 **Captures**
 
-![](attachments/capture-6.2-ping-depuis-serveur.png)
 
-![](attachments/capture-6.2-ping-depuis-client.png)
-
-![](attachments/capture-6.2-tests-depuis-core.png)
-
-![](attachments/capture-6.2-resolution-dns.png)
+```powershell 
+❯ ping 192.168.1.29
+PING 192.168.1.29 (192.168.1.29) 56(84) bytes of data.
+64 bytes from 192.168.1.29: icmp_seq=1 ttl=128 time=0.183 ms
+64 bytes from 192.168.1.29: icmp_seq=2 ttl=128 time=0.145 ms
+64 bytes from 192.168.1.29: icmp_seq=3 ttl=128 time=0.218 ms
+^C
+--- 192.168.1.29 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2042ms
+rtt min/avg/max/mdev = 0.145/0.182/0.218/0.029 ms
+```
 
 **Commentaires**
+Résultats différents en raison de l'utilisation d'un bridge network pour sshd.
 
 ---
 
 ## 7. Administrer le serveur avec Windows Admin Center
 
 ### 7.1 Ajouter le serveur à Windows Admin Center
+
+[!note] Je n'ai pas encore déployé Admin Center
+
 
 **Étapes**
 
@@ -847,32 +884,25 @@ Resolve-DnsName TSSR-[TRI].LAB
 | Connexion établie | |
 | Message éventuel en cas d’échec | |
 
-**Captures**
-
-![](attachments/capture-7.1-ajout-connexion-wac.png)
-
-![](attachments/capture-7.1-connexion-reussie-wac.png)
-
-**Commentaires**
 
 ---
 
-### 7.2 Vérifier la configuration depuis Windows Admin Center
+### 7.2 Vérifier la configuration ~~depuis Windows Admin Center~~
 
 **Éléments à contrôler**
 
-| Élément | Valeur relevée dans Windows Admin Center | Conforme ? |
-|---|---|---|
-| Nom du serveur | | |
-| Version de Windows Server | | |
-| Processeurs / vCPU | | |
-| Mémoire | | |
-| Adresse IPv4 | | |
-| Serveur DNS | | |
-| Services Windows | | |
-| Service VMware Tools | | |
-| État du service VMware Tools | | |
-| Règle de pare-feu ICMPv4 | | |
+| Élément                      | Valeur relevée dans Windows Admin Center                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Conforme ?                              |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| Nom du serveur               | SRV-WIN-MEN-02                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Oui                                     |
+| Version de Windows Server    | Microsoft Windows Server 2025 Datacenter Evaluation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Oui                                     |
+| Processeurs / vCPU           | Name                                           NumberOfCores NumberOfLogicalProcessors<br>----                                           ------------- -------------------------<br>11th Gen Intel(R) Core(TM) i5-11600K @ 3.90GHz             4                         4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                                         |
+| Mémoire                      | PS C:\Users\Administrator> [math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 2)<br>6.05                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                                         |
+| Adresse IPv4                 | S C:\Users\Administrator> # Adresse IPv4<br>PS C:\Users\Administrator> Get-NetIPAddress -AddressFamily IPv4 \| Where-Object { $_.InterfaceAlias -notlike "*Loopback*" } \| Select-Object InterfaceAlias, IPAddress<br><br>InterfaceAlias IPAddress<br>-------------- ---------<br>Ethernet 2     192.168.1.29<br>Ethernet       192.168.100.11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Non, mais a permis de toucher à openssh |
+| Serveur DNS                  | PS C:\Users\Administrator> # Serveur DNS<br>PS C:\Users\Administrator> Get-DnsClientServerAddress -AddressFamily IPv4 \| Select-Object InterfaceAlias, ServerAddresses<br><br>InterfaceAlias              ServerAddresses<br>--------------              ---------------<br>Ethernet                    {192.168.100.10}<br>Ethernet 2                  {192.168.1.254}<br>Loopback Pseudo-Interface 1 {}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Non, mais a permis de toucher à openssh |
+| Services Windows             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                                         |
+| Service VMware Tools         | Virtual Box                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Oui                                     |
+| État du service VMware Tools | Virtual Box                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Oui                                     |
+| Règle de pare-feu ICMPv4     | DisplayName                                                                Enabled Action<br>-----------                                                                ------- ------<br>Core Networking - Router Advertisement (ICMPv6-In)                            True  Allow<br>Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)    True  Allow<br>Core Networking - Neighbor Discovery Solicitation (ICMPv6-In)                 True  Allow<br>Core Networking - Router Solicitation (ICMPv6-In)                             True  Allow<br>Core Networking - Neighbor Discovery Advertisement (ICMPv6-In)                True  Allow<br>Core Networking - Parameter Problem (ICMPv6-In)                               True  Allow<br>Core Networking Diagnostics - ICMP Echo Request (ICMPv6-In)                  False  Allow<br>Virtual Machine Monitoring (Echo Request - ICMPv4-In)                        False  Allow<br>Virtual Machine Monitoring (Echo Request - ICMPv6-In)                        False  Allow<br>Core Networking - Packet Too Big (ICMPv6-In)                                  True  Allow<br>Core Networking - Multicast Listener Done (ICMPv6-In)                         True  Allow<br>Core Networking - Destination Unreachable (ICMPv6-In)                         True  Allow<br>Core Networking - Multicast Listener Report v2 (ICMPv6-In)                    True  Allow<br>Core Networking - Multicast Listener Query (ICMPv6-In)                        True  Allow<br>Core Networking - Multicast Listener Report (ICMPv6-In)                       True  Allow<br>Core Networking Diagnostics - ICMP Echo Request (ICMPv4-In)                  False  Allow<br>Core Networking - Time Exceeded (ICMPv6-In)                                   True  Allow<br>Core Networking Diagnostics - ICMP Echo Request (ICMPv4-In)                  False  Allow<br>Core Networking Diagnostics - ICMP Echo Request (ICMPv6-In)                  False  Allow<br>File and Printer Sharing (Restrictive) (Echo Request - ICMPv4-In)            False  Allow<br>File and Printer Sharing (Echo Request - ICMPv4-In)                          False  Allow<br>File and Printer Sharing (Restrictive) (Echo Request - ICMPv6-In)            False  Allow<br>File and Printer Sharing (Echo Request - ICMPv6-In)                          False  Allow<br>Autoriser ICMPv4 entrant - Laboratoire | Oui                                     |
 
 > [!question] Question
 > Quelles informations peux-tu consulter depuis Windows Admin Center sans ouvrir directement une session PowerShell sur le serveur ?
@@ -883,17 +913,6 @@ Resolve-DnsName TSSR-[TRI].LAB
 > - Vérifie particulièrement le nom, la version, la configuration réseau, les services et les règles de pare-feu.
 > - Note toute différence et vérifie-la depuis le serveur si nécessaire.
 
-**Captures**
-
-![](attachments/capture-7.2-informations-systeme-wac.png)
-
-![](attachments/capture-7.2-reseau-wac.png)
-
-![](attachments/capture-7.2-services-wac.png)
-
-![](attachments/capture-7.2-pare-feu-wac.png)
-
-**Commentaires**
 
 ---
 
@@ -902,38 +921,39 @@ Resolve-DnsName TSSR-[TRI].LAB
 > [!check] À valider avant de rendre le TP
 > Coche chaque point uniquement si tu peux le **prouver** par une capture, une commande ou une vérification dans Windows Admin Center.
 
-| Vérification | Validé | Preuve |
-|---|---|---|
-| Windows Server 2025 Standard Core est installé | ☐ | `[[capture-2.1-premiere-session-core.png]]` |
-| Les caractéristiques système ont été relevées | ☐ | `[[capture-2.2-get-computerinfo.png]]` |
-| VMware Tools est installé et fonctionne | ☐ | `[[capture-3.1-service-vmware-tools.png]]` |
-| Les mises à jour applicables ont été installées | ☐ | `[[capture-3.2-etat-final-mises-a-jour.png]]` |
-| Le serveur utilise le LAN Segment du laboratoire | ☐ | `[[capture-4.1-lan-segment-vmware.png]]` |
-| Le nom du serveur est conforme | ☐ | `[[capture-5.1-nom-apres-redemarrage.png]]` |
-| L’adresse IPv4 et le préfixe sont conformes | ☐ | `[[capture-4.2-configuration-ipv4.png]]` |
-| Le DNS est configuré sur `192.168.100.10` | ☐ | `[[capture-4.2-configuration-dns.png]]` |
-| Un compte administrateur local est présent et activé | ☐ | `[[capture-5.2-compte-administrateur-local.png]]` |
-| La règle ICMPv4 entrante est activée | ☐ | `[[capture-6.1-regle-icmpv4.png]]` |
-| Le serveur répond au serveur graphique | ☐ | `[[capture-6.2-ping-depuis-serveur.png]]` |
-| Le serveur répond au client Windows 11 | ☐ | `[[capture-6.2-ping-depuis-client.png]]` |
-| Les tests IP et DNS depuis le Core sont réalisés | ☐ | `[[capture-6.2-tests-depuis-core.png]]` |
-| L’administration via Windows Admin Center fonctionne | ☐ | `[[capture-7.1-connexion-reussie-wac.png]]` |
-| Les informations système sont vérifiées dans Windows Admin Center | ☐ | `[[capture-7.2-informations-systeme-wac.png]]` |
-| La fiche d’identification de la VM est mise à jour | ☐ | |
+| Vérification                                                      | Validé | Preuve                                            |
+| ----------------------------------------------------------------- | ------ | ------------------------------------------------- |
+| Windows Server 2025 Standard Core est installé                    | - [ ]  | `[[capture-2.1-premiere-session-core.png]]`       |
+| Les caractéristiques système ont été relevées                     | ☐      | `[[capture-2.2-get-computerinfo.png]]`            |
+| VMware Tools est installé et fonctionne                           | ☐      | `[[capture-3.1-service-vmware-tools.png]]`        |
+| Les mises à jour applicables ont été installées                   | ☐      | `[[capture-3.2-etat-final-mises-a-jour.png]]`     |
+| Le serveur utilise le LAN Segment du laboratoire                  | ☐      | `[[capture-4.1-lan-segment-vmware.png]]`          |
+| Le nom du serveur est conforme                                    | ☐      | `[[capture-5.1-nom-apres-redemarrage.png]]`       |
+| L’adresse IPv4 et le préfixe sont conformes                       | ☐      | `[[capture-4.2-configuration-ipv4.png]]`          |
+| Le DNS est configuré sur `192.168.100.10`                         | ☐      | `[[capture-4.2-configuration-dns.png]]`           |
+| Un compte administrateur local est présent et activé              | ☐      | `[[capture-5.2-compte-administrateur-local.png]]` |
+| La règle ICMPv4 entrante est activée                              | ☐      | `[[capture-6.1-regle-icmpv4.png]]`                |
+| Le serveur répond au serveur graphique                            | ☐      | `[[capture-6.2-ping-depuis-serveur.png]]`         |
+| Le serveur répond au client Windows 11                            | ☐      | `[[capture-6.2-ping-depuis-client.png]]`          |
+| Les tests IP et DNS depuis le Core sont réalisés                  | ☐      | `[[capture-6.2-tests-depuis-core.png]]`           |
+| L’administration via Windows Admin Center fonctionne              | ☐      | `[[capture-7.1-connexion-reussie-wac.png]]`       |
+| Les informations système sont vérifiées dans Windows Admin Center | ☐      | `[[capture-7.2-informations-systeme-wac.png]]`    |
+| La fiche d’identification de la VM est mise à jour                | ☐      |                                                   |
 
 **Version à cocher**
 
-- [ ] Windows Server 2025 Core est installé et opérationnel.
-- [ ] VMware Tools fonctionne.
-- [ ] Les mises à jour applicables ont été installées.
-- [ ] Le serveur utilise le LAN Segment du laboratoire.
+- [x] Windows Server 2025 Core est installé et opérationnel.
+- [x] VirtualBox features fonctionne.
+- [x] Les mises à jour applicables ont été installées.
+- [x] Le serveur utilise le LAN Segment du laboratoire.
+[!note] je l'ai fait, puis l'ai passé en bridge pour mettre openssh
 - [ ] Le nom, l’adresse IPv4 et le DNS respectent les consignes.
-- [ ] Un compte administrateur local est présent et fonctionnel.
+- [x] Un compte administrateur local est présent et fonctionnel.
 - [ ] Le serveur répond aux requêtes ICMP depuis le serveur graphique et le client Windows 11.
 - [ ] Les tests de connectivité IP et de résolution DNS sont réalisés.
 - [ ] L’administration distante fonctionne.
 - [ ] Le serveur est accessible depuis Windows Admin Center.
-- [ ] La fiche d’identification de la VM est à jour.
+- [x] La fiche d’identification de la VM est à jour.
 
 ---
 
@@ -943,41 +963,37 @@ Resolve-DnsName TSSR-[TRI].LAB
 
 Mettre à jour la fiche d’identification de la nouvelle VM avec les informations suivantes.
 
-| Élément | Valeur |
-|---|---|
-| Nom de la VM VMware | |
-| Nom Windows | `SRV-WIN-[TRI]-02` |
-| Système d’exploitation | Windows Server 2025 Standard Core |
-| Version / build | |
-| vCPU | 2 |
-| Mémoire vive | 2 Go |
-| Taille du disque | 64 Go, allocation dynamique |
-| Réseau VMware | `LAB-TSSR-[TRI]` |
-| Adresse IPv4 / préfixe | `192.168.100.11/24` |
-| Passerelle | Aucune |
-| Serveur DNS | `192.168.100.10` |
-| VMware Tools installé | |
-| État des mises à jour | |
-| Comptes locaux créés | |
-| Administration locale | PowerShell / Server Core |
-| Administration distante | Windows Admin Center |
-| Connectivité ICMPv4 | |
-| Résolution DNS | |
+| Élément                                         | Valeur                                                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Nom de la VM VIrtual Box                        | `SRV-WIN-MEN-02`                                                                         |
+| Nom Windows                                     | `SRV-WIN-MEN-02`                                                                         |
+| Système d’exploitation                          | Windows Server 2025 Standard Core                                                        |
+| Version / build                                 | Major  Minor  Build  Revision<br>-----  -----  -----  --------<br>10     0      26100  0 |
+| vCPU                                            | 4                                                                                        |
+| Mémoire vive                                    | 6 Go                                                                                     |
+| Taille du disque                                | 64 Go, allocation dynamique                                                              |
+| Réseau VMware                                   | `LAB-TSSR-MEN`                                                                           |
+| Adresse IPv4 / préfixe                          | `192.168.100.11/24`                                                                      |
+| Passerelle                                      | Aucune                                                                                   |
+| Serveur DNS                                     | `192.168.100.10`                                                                         |
+| ~~VMware Tools~~  Virtual Box features installé | Oui                                                                                      |
+| État des mises à jour                           | Up to date                                                                               |
+| Comptes locaux créés                            | Oui                                                                                      |
+| Administration locale                           | PowerShell / Server Core                                                                 |
+| Administration distante                         | N/A                                                                                      |
+| Connectivité ICMPv4                             | N/A                                                                                      |
+| Résolution DNS                                  | N/A                                                                                      |
 
 ### 9.2 Méthodes d’administration disponibles
 
-| Méthode | Disponible ? | Commentaire |
-|---|---|---|
-| Console VMware / session locale | | |
-| PowerShell | | |
-| Windows Admin Center | | |
-| Administration distante | | |
+| Méthode                         | Disponible ? | Commentaire |
+| ------------------------------- | ------------ | ----------- |
+| Console VMware / session locale | Oui          |             |
+| PowerShell                      | Oui          |             |
+| Windows Admin Center            | Non          |             |
+| Administration distante         |              |             |
+| SSH                             | Oui          |             |
 
-**Captures / document de référence**
-
-![](attachments/capture-9.1-fiche-identification-vm.png)
-
-**Commentaires**
 
 ---
 
@@ -988,11 +1004,11 @@ Mettre à jour la fiche d’identification de la nouvelle VM avec les informatio
 > [!tip] Guidage
 > Décris le symptôme, la cause identifiée et la correction appliquée. Un incident bien documenté vaut mieux qu’un TP « sans problème ».
 
-| Problème | Cause | Solution |
-|---|---|---|
-| | | |
-| | | |
-| | | |
+| Problème           | Cause                        | Solution                                                                                     |
+| ------------------ | ---------------------------- | -------------------------------------------------------------------------------------------- |
+| Pas de LAN segment | Volonter d'installer OpenSSH | Rechercher si je peux autoriser mon host sur le lan segment sans casser mon LAN à la maison. |
+|                    |                              |                                                                                              |
+|                    |                              |                                                                                              |
 
 ### Ce que j’ai retenu
 
