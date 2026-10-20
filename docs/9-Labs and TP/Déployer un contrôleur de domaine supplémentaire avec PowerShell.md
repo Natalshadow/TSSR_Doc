@@ -500,7 +500,182 @@ Remove-ADOrganizationalUnit -Identity "OU=TEST-REPLICATION-CORE,DC=TSSR-MEN,DC=L
 > 
 > The OU is protected from accidental deletion by default, which is why the delete steps need to remove the user first, then turn off that protection, then delete the OU.
 
-![[capture-5-3-creation-ou.png]] ![[capture-5-3-lecture-core.png]] ![[capture-5-3-creation-utilisateur.png]] ![[capture-5-3-lecture-graphique.png]] ![[capture-5-3-suppression.png]]
+![](attachments/Pasted%20image%2020261020153521.png)
+
+SRV-WIN1:
+```powershell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Administrator> Get-DnsServerResourceRecord -ZoneName "tssr-men.lab" -RRType A | Where-Object HostName -like "*MEN-02*"
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+SRV-WIN-MEN-02            A          1          0                    01:00:00        192.168.100.11
+SRV-WIN-MEN-02            A          1          0                    01:00:00        192.168.56.101
+
+
+PS C:\Users\Administrator> Get-DnsServerResourceRecord -ZoneName "tssr-men.lab" -RRType AAAA | Where-Object HostName -like "*MEN-02*"
+PS C:\Users\Administrator> Resolve-DnsName SRV-WIN-MEN-02.tssr-men.lab -Server 127.0.0.1
+                                                                                                              Name                                           Type   TTL   Section    IPAddress                              ----                                           ----   ---   -------    ---------                              SRV-WIN-MEN-02.tssr-men.lab                    A      3600  Answer     192.168.100.11                         SRV-WIN-MEN-02.tssr-men.lab                    A      3600  Answer     192.168.56.101                           
+PS C:\Users\Administrator> Remove-DnsServerResourceRecord -ZoneName tssr-men.lab -Name SRV-WIN-MEN-02 -RRType A -RecordData 192.168.56.101 -Force
+PS C:\Users\Administrator> Get-DnsServerResourceRecord -ZoneName tssr-men.lab -Name SRV-WIN-MEN-02 -RRType A
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+SRV-WIN-MEN-02            A          1          0                    01:00:00        192.168.100.11
+
+
+PS C:\Users\Administrator>    Get-NetAdapter
+
+Name                      InterfaceDescription                    ifIndex Status       MacAddress        Link
+                                                                                                         Spee
+                                                                                                            d
+----                      --------------------                    ------- ------       ----------        ----
+Ethernet 2                Intel(R) PRO/1000 MT Desktop Adapter         10 Up           08-00-27-1D-D0-19 ...s
+
+
+PS C:\Users\Administrator>    Set-DnsClientServerAddress -InterfaceAlias "Ethernet 2" -ServerAddresses 192.168.100.10,192.168.100.11
+PS C:\Users\Administrator>    Get-DhcpServerv4Scope
+
+ScopeId         SubnetMask      Name           State    StartRange      EndRange        LeaseDuration
+-------         ----------      ----           -----    ----------      --------        -------------
+192.168.100.0   255.255.255.0   LAN-TSSR       Active   192.168.100.150 192.168.100.200 8.00:00:00
+
+
+PS C:\Users\Administrator>
+```
+
+SRVWIN2
+```powershell
+PS C:\Users\administrator.TSSR-MEN> ipconfig /registerdns
+
+Windows IP Configuration
+
+Registration of the DNS resource records for all adapters of this computer has been initiated. Any errors will be reported in the Event Viewer in 15 minutes.
+PS C:\Users\administrator.TSSR-MEN> Clear-DnsClientCache
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName SRV-WIN-MEN-02.tssr-men.lab
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    AAAA   1200  Question   fe80::308:c6c7:cd4:cb4b
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.56.101
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.100.11
+
+
+PS C:\Users\administrator.TSSR-MEN>    Get-Volume | Where-Object DriveType -eq 'CD-ROM'
+
+DriveLetter FriendlyName    FileSystemType DriveType HealthStatus OperationalStatus SizeRemaining     Size
+----------- ------------    -------------- --------- ------------ ----------------- -------------     ----
+D           VBox_GAs_7.2.20 Unknown        CD-ROM    Healthy      OK                          0 B 50.69 MB
+
+
+PS C:\Users\administrator.TSSR-MEN>    D:\VBoxWindowsAdditions.exe /S
+PS C:\Users\administrator.TSSR-MEN>    Restart-Computer
+PS C:\Users\administrator.TSSR-MEN> Read from remote host 192.168.56.101: Connection reset by peer
+Connection to 192.168.56.101 closed.
+client_loop: send disconnect: Broken pipe
+
+~ 23m
+❯ ssh Administrator@192.168.56.101
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+Administrator@192.168.56.101's password:
+Permission denied, please try again.
+Administrator@192.168.56.101's password:
+Microsoft Windows [Version 10.0.26100.33650]
+(c) Microsoft Corporation. All rights reserved.
+
+tssr-men\administrator@SRV-WIN-MEN-02 C:\Users\administrator.TSSR-MEN>powershell
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\administrator.TSSR-MEN> ipconfig /registerdns
+
+Windows IP Configuration
+
+Registration of the DNS resource records for all adapters of this computer has been initiated. Any errors will be reported in the Event Viewer in 15 minutes.
+PS C:\Users\administrator.TSSR-MEN> Clear-DnsClientCache
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName SRV-WIN-MEN-02.tssr-men.lab
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    AAAA   1200  Question   fe80::308:c6c7:cd4:cb4b
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.56.101
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.100.11
+
+
+PS C:\Users\administrator.TSSR-MEN> repadmin /syncall SRV-WIN-MEN-02 /AdeP
+Syncing all NC's held on SRV-WIN-MEN-02.
+Syncing partition: DC=ForestDnsZones,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: DC=DomainDnsZones,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: CN=Schema,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+PS C:\Users\administrator.TSSR-MEN> Restart-Service DNS
+PS C:\Users\administrator.TSSR-MEN> Clear-DnsClientCache
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName SRV-WIN-MEN-02.tssr-men.lab
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    AAAA   1200  Question   fe80::308:c6c7:cd4:cb4b
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.56.101
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.100.11
+
+
+PS C:\Users\administrator.TSSR-MEN>
+```
+
+
+
 
 #### 5.4 Contrôle depuis le serveur graphique
 
@@ -513,9 +688,6 @@ Sur `SRV-WIN-MEN-01`, ouvre les trois consoles et confirme le résultat :
 > [!note] Screenshots  
 > These are the GUI checks the brief asks for. Take one screenshot per console. Don’t include any passwords in the captures.
 
-![[capture-5-4-aduc.png]] ![[capture-5-4-sites-services.png]] ![[capture-5-4-dns.png]]
-
-**Commentaires** : _(à rédiger avec tes propres mots)_
 
 ---
 
