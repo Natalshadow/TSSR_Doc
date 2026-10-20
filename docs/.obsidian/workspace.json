@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
+                "file": "9-Labs and TP/Deliverable version/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -213,10 +213,11 @@
   },
   "active": "40412b6dd4f90c8a",
   "lastOpenFiles": [
+    "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
+    "9-Labs and TP/Deliverable version/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
     "9-Labs and TP/attachments/Pasted image 20261020153521.png",
     "9-Labs and TP/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "9-Labs and TP/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
-    "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
     "9-Labs and TP/attachments/Pasted image 20261020122713.png",
     "9-Labs and TP/Deliverable version/Install Server Core 1.md",
     "9-Labs and TP/Install Server Core.md",
@@ -233,7 +234,6 @@
     "9-Labs and TP/attachments/Pasted image 20261019145033.png",
     "9-Labs and TP/attachments/Pasted image 20261019144842.png",
     "9-Labs and TP/attachments/Pasted image 20261019144131.png",
-    "9-Labs and TP/attachments/Pasted image 20261019143851.png",
     "9-Labs and TP/Server Core lite doc.md",
     "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "9-Labs and TP/TP - GPO.md",
