@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "test.md",
+                "file": "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "test"
+              "title": "DNS and DHCP workshop"
             }
           }
         ],
@@ -238,8 +238,9 @@
   },
   "active": "fb8790a45215d11f",
   "lastOpenFiles": [
-    "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
+    "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "test.md",
+    "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
     "exports",
     "3-Windows Server/labs",
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
@@ -263,7 +264,6 @@
     "9-Labs and TP/attachments/Pasted image 20261019144842.png",
     "9-Labs and TP/attachments/Pasted image 20261019144131.png",
     "9-Labs and TP/Server Core lite doc.md",
-    "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "3-Windows Server/labs/TP - GPO.md",
     "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
     "3-Windows Server/PTR.md",
