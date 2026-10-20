@@ -1,8 +1,7 @@
-site_name: TSSR Evaluation Export
-site_description: TSSR Lab Deliverable
+site_name: TSSR Documentation & Lab Vault
+site_description: TSSR Lab Runbooks, Configs, and Notes
 site_url: https://natalshadow.github.io/TSSR_Doc/
 
-# Change the target directory to only build files inside docs/exports
 docs_dir: docs
 
 theme:
@@ -18,7 +17,6 @@ theme:
 
 plugins:
   - search
-
 
 markdown_extensions:
   - pymdownx.arithmatex:
