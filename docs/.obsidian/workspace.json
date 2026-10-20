@@ -30,8 +30,33 @@
               "icon": "lucide-file",
               "title": "Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable"
             }
+          },
+          {
+            "id": "fb8790a45215d11f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "test.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "test"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -211,12 +236,13 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "fb8790a45215d11f",
   "lastOpenFiles": [
+    "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
+    "test.md",
     "exports",
     "3-Windows Server/labs",
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
-    "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
     "9-Labs and TP/attachments/Pasted image 20261020153521.png",
     "3-Windows Server/labs/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "3-Windows Server/labs/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
@@ -257,7 +283,6 @@
     "Templates",
     "Glossaire",
     "1-General/attachments",
-    "Excalidraw",
-    "9-Labs and TP/Deliverable version"
+    "Excalidraw"
   ]
 }
