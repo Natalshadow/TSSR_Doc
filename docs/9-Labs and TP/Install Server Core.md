@@ -7,8 +7,7 @@
 > L’entreprise souhaite déployer un serveur Windows Server 2025 en mode Core afin de privilégier l’administration en ligne de commande et à distance. Vous devez installer le serveur, réaliser sa configuration initiale avec PowerShell, puis l’intégrer à Windows Admin Center. Ce serveur sera réutilisé lors des prochains TP pour renforcer les services Active Directory.
 
 
----
-> [!note] Test
+ >[!note] Test
 ## Sommaire
 
 - [[#1. Objectifs]]
@@ -851,7 +850,7 @@ Résultats différents en raison de l'utilisation d'un bridge network pour sshd.
 
 ### 7.1 Ajouter le serveur à Windows Admin Center
 
-[!note] Je n'ai pas encore déployé Admin Center
+>[!note] Je n'ai pas encore déployé Admin Center
 
 
 **Étapes**
@@ -946,7 +945,7 @@ Résultats différents en raison de l'utilisation d'un bridge network pour sshd.
 - [x] VirtualBox features fonctionne.
 - [x] Les mises à jour applicables ont été installées.
 - [x] Le serveur utilise le LAN Segment du laboratoire.
-[!note] je l'ai fait, puis l'ai passé en bridge pour mettre openssh
+>[!note] je l'ai fait, puis l'ai passé en bridge pour mettre openssh
 - [ ] Le nom, l’adresse IPv4 et le DNS respectent les consignes.
 - [x] Un compte administrateur local est présent et fonctionnel.
 - [ ] Le serveur répond aux requêtes ICMP depuis le serveur graphique et le client Windows 11.
@@ -1052,7 +1051,7 @@ Restart-Computer
 
 ---
 
-> [!note] Rendu
+> >[!note] Rendu
 >
 > - [ ] Remplacer tous les placeholders `[TRI]` et les valeurs entre chevrons.
 > - [ ] Toutes les captures sont insérées et portent des noms cohérents.
