@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
+                "file": "test.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "DNS and DHCP workshop"
+              "title": "test"
             }
           }
         ],
@@ -238,6 +238,8 @@
   },
   "active": "fb8790a45215d11f",
   "lastOpenFiles": [
+    "index.md",
+    "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
     "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "test.md",
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
@@ -267,7 +269,6 @@
     "3-Windows Server/labs/TP - GPO.md",
     "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
     "3-Windows Server/PTR.md",
-    "index.md",
     "Glossaire.base",
     "DORA steps.md",
     "3-Windows Server/Flexible Single Master Operations roles.md",
@@ -276,7 +277,6 @@
     "3-Windows Server/GPO.md",
     "3-Windows Server/Kerberos.md",
     "3-Windows Server/NTLM.md",
-    "3-Windows Server/Recherche RSAT sur Windows 11 et consoles MMC.md",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
