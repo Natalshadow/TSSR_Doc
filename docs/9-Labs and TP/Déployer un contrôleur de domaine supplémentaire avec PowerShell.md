@@ -269,7 +269,24 @@ Résultat : `Operation completed successfully`, statut `Success`. Le serveur red
 > 
 > On DHCP: the brief asks what the scope distributes. Both servers use static IPs, so DHCP doesn’t affect them. Check whether a DHCP scope exists on `SRV-WIN-MEN-01` and, if so, make sure it hands out `192.168.100.10` and `192.168.100.11` as DNS servers, or only `192.168.100.10`. Record what you find, even if you don’t change anything.
 
-**Commentaires** : _(à rédiger avec tes propres mots)_
+```powershell
+PS C:\Users\administrator.TSSR-MEN> Get-ADDomainController -Filter * | Select-Object Name, IPv4Address, Site, IsGlobalCatalog
+
+Name           IPv4Address    Site                    IsGlobalCatalog
+----           -----------    ----                    ---------------
+SRV-WIN-MEN-02 192.168.56.101 Default-First-Site-Name            True
+SRV-WIN-MEN-01 192.168.100.10 Default-First-Site-Name            True
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-Service NTDS, DNS, KDC, Netlogon
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  DNS                DNS Server
+Running  KDC                Kerberos Key Distribution Center
+Running  Netlogon           Netlogon
+Running  NTDS               Active Directory Domain Services
+```
 
 ---
 
@@ -298,7 +315,24 @@ Get-ADDomainController -Filter * | Select-Object Name, IPv4Address, Site, IsGlob
 > [!note] Check this table against real output  
 > The values above are what the configuration should produce, not output I’ve seen. Replace them with what `Get-ADDomainController` actually returns. If only one server appears, the promotion didn’t finish, so check the reboot status first.
 
-![[capture-5-1-liste-dc.png]]
+```powershell
+PS C:\Users\administrator.TSSR-MEN> Get-ADDomainController -Filter * | Select-Object Name, IPv4Address, Site, IsGlobalCatalog
+
+Name           IPv4Address    Site                    IsGlobalCatalog
+----           -----------    ----                    ---------------
+SRV-WIN-MEN-02 192.168.56.101 Default-First-Site-Name            True
+SRV-WIN-MEN-01 192.168.100.10 Default-First-Site-Name            True
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-Service NTDS, DNS, KDC, Netlogon
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  DNS                DNS Server
+Running  KDC                Kerberos Key Distribution Center
+Running  Netlogon           Netlogon
+Running  NTDS               Active Directory Domain Services
+```
 
 #### 5.2 Contrôler l’état de la réplication
 
@@ -317,7 +351,91 @@ Get-ADDomainController -Filter * | Select-Object Name, IPv4Address, Site, IsGlob
 > [!note] What “good” looks like  
 > You want: a recent last-success time for each partner, zero failures, inbound and outbound links in both directions, and the Domain, Configuration, and Schema partitions replicating. Also check that replication works in **both** directions, not just one. If the summary says the last attempt failed with a DNS or RPC error, the cause is usually DNS or connectivity again.
 
-![[capture-5-2-replication.png]]
+```powershell
+PS C:\Users\administrator.TSSR-MEN> repadmin /replsummary
+Replication Summary Start Time: 2026-10-20 06:08:38
+
+Beginning data collection for replication summary, this may take awhile:
+  .....
+
+
+Source DSA          largest delta    fails/total %%   error
+ SRV-WIN-MEN-01            05m:42s    0 /   5    0
+
+
+Destination DSA     largest delta    fails/total %%   error
+ SRV-WIN-MEN-02            05m:42s    0 /   5    0
+
+
+PS C:\Users\administrator.TSSR-MEN> repadmin /showrepl SRV-WIN-MEN-02
+Default-First-Site-Name\SRV-WIN-MEN-02
+DSA Options: IS_GC
+Site Options: (none)
+DSA object GUID: 04d1bc83-fe9e-4db4-b6d8-07f61e08e8db
+DSA invocationID: 7e3c9549-551a-41c5-a2cf-00b73618ec2e
+
+==== INBOUND NEIGHBORS ======================================
+
+DC=TSSR-MEN,DC=LAB
+    Default-First-Site-Name\SRV-WIN-MEN-01 via RPC
+        DSA object GUID: 5447685d-80b7-4095-8487-2d824b48a0f0
+        Last attempt @ 2026-10-20 06:08:08 was successful.
+
+CN=Configuration,DC=TSSR-MEN,DC=LAB
+    Default-First-Site-Name\SRV-WIN-MEN-01 via RPC
+        DSA object GUID: 5447685d-80b7-4095-8487-2d824b48a0f0
+        Last attempt @ 2026-10-20 06:02:56 was successful.
+
+CN=Schema,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    Default-First-Site-Name\SRV-WIN-MEN-01 via RPC
+        DSA object GUID: 5447685d-80b7-4095-8487-2d824b48a0f0
+        Last attempt @ 2026-10-20 06:02:58 was successful.
+
+DC=DomainDnsZones,DC=TSSR-MEN,DC=LAB
+    Default-First-Site-Name\SRV-WIN-MEN-01 via RPC
+        DSA object GUID: 5447685d-80b7-4095-8487-2d824b48a0f0
+        Last attempt @ 2026-10-20 06:07:31 was successful.
+
+DC=ForestDnsZones,DC=TSSR-MEN,DC=LAB
+    Default-First-Site-Name\SRV-WIN-MEN-01 via RPC
+        DSA object GUID: 5447685d-80b7-4095-8487-2d824b48a0f0
+        Last attempt @ 2026-10-20 06:02:58 was successful.
+
+PS C:\Users\administrator.TSSR-MEN> dcdiag /test:replications
+
+Directory Server Diagnosis
+
+Performing initial setup:
+   Trying to find home server...
+   Home Server = SRV-WIN-MEN-02
+   * Identified AD Forest.
+   Done gathering initial info.
+
+Doing initial required tests
+
+   Testing server: Default-First-Site-Name\SRV-WIN-MEN-02
+      Starting test: Connectivity
+         ......................... SRV-WIN-MEN-02 passed test Connectivity
+
+Doing primary tests
+
+   Testing server: Default-First-Site-Name\SRV-WIN-MEN-02
+      Starting test: Replications
+         ......................... SRV-WIN-MEN-02 passed test Replications
+
+
+   Running partition tests on : ForestDnsZones
+
+   Running partition tests on : DomainDnsZones
+
+   Running partition tests on : Schema
+
+   Running partition tests on : Configuration
+
+   Running partition tests on : TSSR-MEN
+
+   Running enterprise tests on : TSSR-MEN.LAB
+```
 
 **Réplication AD avec tes mots**
 
