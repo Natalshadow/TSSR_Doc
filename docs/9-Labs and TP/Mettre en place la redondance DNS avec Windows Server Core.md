@@ -904,7 +904,16 @@ PS C:\Users\Administrator>
 **Étape 1 : examiner la configuration actuelle** sur chacun des deux serveurs
 
 ```powershell
-Get-DnsClientServerAddress -AddressFamily IPv4
+PS C:\Users\administrator.TSSR-MEN> Get-DnsClientServerAddress -AddressFamily IPv4
+
+InterfaceAlias               Interface Address ServerAddresses
+                             Index     Family
+--------------               --------- ------- ---------------
+Ethernet                             7 IPv4    {192.168.100.10, 127.0.0.1}
+Loopback Pseudo-Interface 1          1 IPv4    {}
+
+
+PS C:\Users\administrator.TSSR-MEN>
 ```
 
 Note l'alias de la carte (par exemple `Ethernet0`) et les adresses actuelles. Le TP précédent a peut-être laissé le Core pointer uniquement vers `192.168.100.10`, et `SRV-WIN-MEN-01` uniquement vers lui-même.
@@ -913,41 +922,73 @@ Note l'alias de la carte (par exemple `Ethernet0`) et les adresses actuelles. Le
 
 ```powershell
 Set-DnsClientServerAddress -InterfaceAlias "<alias de la carte>" -ServerAddresses ("<DNS préféré>","<DNS alternatif>")
+
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("192.168.100.10","192.168.100.11")
+
 ```
 
 **Étape 3 : revérifier**, puis vider le cache du client DNS de la machine
 
 ```powershell
-Get-DnsClientServerAddress -AddressFamily IPv4
-Clear-DnsClientCache
+PS C:\Users\administrator.TSSR-MEN> Get-DnsClientServerAddress -AddressFamily IPv4
+Ethernet                             7 IPv4    {192.168.100.10, 192.168.100.11}                                                                                                                                   Ethernet 2                           2 IPv4    {127.0.0.1}
+Loopback Pseudo-Interface 1          1 IPv4    {}
+
+
+PS C:\Users\administrator.TSSR-MEN> Clear-DnsClientCache
 ```
 
 **Étape 4 : vérifier que chaque contrôleur résout le domaine** (sur chaque serveur)
 
 ```powershell
-Resolve-DnsName -Name TSSR-MEN.LAB
-Resolve-DnsName -Name SRV-WIN-MEN-01.TSSR-MEN.LAB
-Resolve-DnsName -Name SRV-WIN-MEN-02.TSSR-MEN.LAB
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name TSSR-MEN.LAB
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+TSSR-MEN.LAB                                   A      600   Answer     192.168.100.10
+TSSR-MEN.LAB                                   A      600   Answer     192.168.100.11
+
+
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name SRV-WIN-MEN-01.TSSR-MEN.LAB
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+SRV-WIN-MEN-01.TSSR-MEN.LAB                    A      3600  Answer     192.168.100.10
+
+
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name SRV-WIN-MEN-02.TSSR-MEN.LAB
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    AAAA   1200  Question   fe80::308:c6c7:cd4:cb4b
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.56.101
+SRV-WIN-MEN-02.TSSR-MEN.LAB                    A      1200  Question   192.168.100.11
 ```
 
 **Étape 5 : contrôle global (optionnel)**
 
 `dcdiag /test:dns` lance un test DNS complet du contrôleur. La sortie est longue : lis surtout les lignes _passed_ et _failed_.
 
+```powershell
+PS C:\Users\administrator.TSSR-MEN> dcdiag /test:dns | Select-String -Pattern 'passed|failed'
+
+         ......................... SRV-WIN-MEN-02 passed test Connectivity
+         ......................... SRV-WIN-MEN-02 passed test DNS
+         ......................... TSSR-MEN.LAB passed test DNS
+```
+
+
 ### À noter
 
-|Élément|`SRV-WIN-MEN-01`|`SRV-WIN-MEN-02`|
-|---|---|---|
-|Alias de la carte réseau|||
-|DNS **avant**|||
-|DNS préféré **après**|||
-|DNS alternatif **après**|||
-|Résolution du domaine|||
-|Résolution des deux noms de contrôleur|||
+| Élément                                | `SRV-WIN-MEN-01` | `SRV-WIN-MEN-02` |
+| -------------------------------------- | ---------------- | ---------------- |
+| Alias de la carte réseau               | Ethernet         |                  |
+| DNS **avant**                          |                  |                  |
+| DNS préféré **après**                  |                  |                  |
+| DNS alternatif **après**               |                  |                  |
+| Résolution du domaine                  |                  |                  |
+| Résolution des deux noms de contrôleur |                  |                  |
 
-![[capture-6-dns-avant.png]] ![[capture-6-set-dns.png]] ![[capture-6-dns-apres.png]] ![[capture-6-resolution.png]]
-
-**Commentaires**
 
 ---
 
