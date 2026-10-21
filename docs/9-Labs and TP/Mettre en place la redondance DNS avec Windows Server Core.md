@@ -849,6 +849,40 @@ Remove-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -RRType A -Com
 **Commentaires**
 
 ---
+## Difficultés techniques
+
+La VM du SRV1 vient de crash. Au redémmarage le serveur semble avoir des difficultés.
+![](attachments/Pasted%20image%2020261021112852.png)
+
+**Troubleshooting:**
+
+```powershell
+PS C:\Users\Administrator> Get-Service | Where-Object { $_.StartType -eq 'Automatic' -and $_.Status -ne 'Running' }
+
+Status   Name               DisplayName
+------   ----               -----------
+Stopped  edgeupdate         Microsoft Edge Update Service (edge...
+
+
+PS C:\Users\Administrator> Get-Service NTDS, DNS, KDC, Netlogon | Start-Service -Verbose
+VERBOSE: Performing the operation "Start-Service" on target "DNS Server (DNS)".
+VERBOSE: Performing the operation "Start-Service" on target "Kerberos Key Distribution Center (KDC)".
+VERBOSE: Performing the operation "Start-Service" on target "Netlogon (Netlogon)".
+VERBOSE: Performing the operation "Start-Service" on target "Active Directory Domain Services (NTDS)".
+PS C:\Users\Administrator> esentutl /g "C:\Windows\NTDS\ntds.dit"
+
+Extensible Storage Engine Utilities for Microsoft(R) Windows(R)
+Version VER_PRODUCTMAJORVERSION.VER_PRODUCTMINORVERSION
+Copyright (C) Microsoft Corporation. All Rights Reserved.
+
+Error: Access to source database 'C:\Windows\NTDS\ntds.dit' failed with Jet error -1032.
+
+Operation terminated with error -1032 (JET_errFileAccessDenied, Cannot access file, the file is locked or in use) after 20.62 seconds.
+
+
+
+PS C:\Users\Administrator>
+```
 
 ## 6. Configurer les serveurs DNS
 
