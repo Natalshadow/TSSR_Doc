@@ -980,14 +980,14 @@ PS C:\Users\administrator.TSSR-MEN> dcdiag /test:dns | Select-String -Pattern 'p
 
 ### À noter
 
-| Élément                                | `SRV-WIN-MEN-01` | `SRV-WIN-MEN-02` |
-| -------------------------------------- | ---------------- | ---------------- |
-| Alias de la carte réseau               | Ethernet         |                  |
-| DNS **avant**                          |                  |                  |
-| DNS préféré **après**                  |                  |                  |
-| DNS alternatif **après**               |                  |                  |
-| Résolution du domaine                  |                  |                  |
-| Résolution des deux noms de contrôleur |                  |                  |
+| Élément                                | `SRV-WIN-MEN-01`                                                                                     | `SRV-WIN-MEN-02`                                                                                                         |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Alias de la carte réseau               | Ethernet 2                                                                                           | Ethernet                                                                                                                 |
+| DNS **avant**                          |                                                                                                      | `192.168.100.10`, `127.0.0.1`                                                                                            |
+| DNS préféré **après**                  | `192.168.100.10`                                                                                     | `192.168.100.10`                                                                                                         |
+| DNS alternatif **après**               | `192.168.100.11`                                                                                     | 192.168.100.11                                                                                                           |
+| Résolution du domaine                  | Oui — `192.168.100.10` et `192.168.100.11`                                                           | Oui — `192.168.100.10` et `192.168.100.11`                                                                               |
+| Résolution des deux noms de contrôleur | Oui — SRV1 → `192.168.100.10` ; SRV2 → `192.168.100.11` (SRV1 renvoie aussi une adresse IPv6 locale) | Oui — SRV1 → `192.168.100.10` ; SRV2 → `192.168.100.11` (SRV2 renvoie aussi `192.168.56.101` et une adresse IPv6 locale) |
 
 
 ---
