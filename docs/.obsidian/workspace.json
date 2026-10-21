@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
+                "file": "9-Labs and TP/Déploiement redondance DNS Server Core - 2.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Mettre en place la redondance DNS avec Windows Server Core"
+              "title": "Déploiement redondance DNS Server Core - 2"
             }
           }
         ]
@@ -93,8 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "ba07964c7ac4c91f",
@@ -214,6 +213,9 @@
   },
   "active": "fbffe4411db7015d",
   "lastOpenFiles": [
+    "9-Labs and TP/Deliverable version/Mettre en place la redondance DNS avec Windows Server Core.md",
+    "9-Labs and TP/Déploiement redondance DNS Server Core - 2.md",
+    "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/attachments/Pasted image 20261021135912.png",
     "9-Labs and TP/attachments/Pasted image 20261021135714.png",
     "9-Labs and TP/attachments/Pasted image 20261021135550.png",
@@ -225,8 +227,6 @@
     "9-Labs and TP/attachments/Pasted image 20261021121719.png",
     "9-Labs and TP/attachments/Pasted image 20261021112852.png",
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
-    "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
-    "9-Labs and TP/attachments/Pasted image 20261021110800.png",
     "test.md",
     "index.md",
     "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
@@ -252,7 +252,6 @@
     "3-Windows Server/Flexible Single Master Operations roles.md",
     "3-Windows Server/Active Directory domain vs DNS domain.md",
     "3-Windows Server/Active Directory et LDAP.md",
-    "3-Windows Server/GPO.md",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
