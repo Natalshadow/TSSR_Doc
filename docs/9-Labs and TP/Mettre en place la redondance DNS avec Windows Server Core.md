@@ -288,7 +288,97 @@ TSSR-MEN.LAB                        Primary         False           True        
 **Étape 2 : les comparer** avec les propriétés utiles
 
 ```powershell
-Get-DnsServerZone -ComputerName <serveur> | Select-Object ZoneName, ZoneType, IsDsIntegrated, ReplicationScope, DynamicUpdate
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerZone -ComputerName SRV-WIN-MEN-01 | Select-Object ZoneName, ZoneType, IsDsIntegrated, ReplicationScope, DynamicUpdate
+
+
+ZoneName         : _msdcs.TSSR-MEN.LAB
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Forest
+DynamicUpdate    : Secure
+
+ZoneName         : 0.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : False
+ReplicationScope : None
+DynamicUpdate    : None
+
+ZoneName         : 100.168.192.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Domain
+DynamicUpdate    : Secure
+
+ZoneName         : 127.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : False
+ReplicationScope : None
+DynamicUpdate    : None
+
+ZoneName         : 255.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : False
+ReplicationScope : None
+DynamicUpdate    : None
+
+ZoneName         : TrustAnchors
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Forest
+DynamicUpdate    : None
+
+ZoneName         : TSSR-MEN.LAB
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Domain
+DynamicUpdate    : Secure
+
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerZone -ComputerName SRV-WIN-MEN-02 | Select-Object ZoneName, ZoneType, IsDsIntegrated, ReplicationScope, DynamicUpdate
+
+
+ZoneName         : _msdcs.TSSR-MEN.LAB
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Forest
+DynamicUpdate    : Secure
+
+ZoneName         : 0.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : False
+ReplicationScope : None
+DynamicUpdate    : None
+
+ZoneName         : 100.168.192.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Domain
+DynamicUpdate    : Secure
+
+ZoneName         : 127.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : False
+ReplicationScope : None
+DynamicUpdate    : None
+
+ZoneName         : 255.in-addr.arpa
+ZoneType         : Primary
+IsDsIntegrated   : False
+ReplicationScope : None
+DynamicUpdate    : None
+
+ZoneName         : TrustAnchors
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Forest
+DynamicUpdate    : None
+
+ZoneName         : TSSR-MEN.LAB
+ZoneType         : Primary
+IsDsIntegrated   : True
+ReplicationScope : Domain
+DynamicUpdate    : Secure
 ```
 
 Repère : la zone `TSSR-MEN.LAB` sur **les deux** serveurs, le type de zone, si elle est intégrée à AD (`IsDsIntegrated`), sa portée (`ReplicationScope`) et la mise à jour dynamique.
@@ -296,52 +386,291 @@ Repère : la zone `TSSR-MEN.LAB` sur **les deux** serveurs, le type de zone, si 
 **Étape 3 : rechercher les zones « de service »**
 
 Regarde la zone `_msdcs.TSSR-MEN.LAB` et note sa portée. Pourquoi serait-elle différente de la zone du domaine ?
+Je ne sais pas.
+
+> [!note] La zone `_msdcs` contient les enregistrements des services globaux (comme le catalogue global et le contrôleur principal). Sa portée de réplication est définie sur **`Forest`** pour que tous les contrôleurs de domaine de l'ensemble de la forêt Active Directory puissent localiser ces services, même si d'autres domaines sont ajoutés plus tard.
 
 **Étape 4 : vérifier les enregistrements SRV** (ceux qui permettent de trouver les contrôleurs)
 
 ```powershell
-Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -RRType SRV -ComputerName <serveur>
-Get-DnsServerResourceRecord -ZoneName _msdcs.TSSR-MEN.LAB -RRType SRV -ComputerName <serveur>
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -RRType SRV -ComputerName SRV-WIN-MEN-01
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+_gc._tcp.Default-First... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_gc._tcp.Default-First... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_kerberos._tcp.Default... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp.Default... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_gc._tcp                  SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_gc._tcp                  SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp            SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp            SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_kpasswd._tcp             SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][464][srv-win-men-02.tssr-men.lab.]
+_kpasswd._tcp             SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][464][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp                SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp                SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_kerberos._udp            SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._udp            SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_kpasswd._udp             SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][464][srv-win-men-02.tssr-men.lab.]
+_kpasswd._udp             SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][464][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.DomainDnsZones SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.DomainDnsZones SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.ForestDnsZones SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.ForestDnsZones SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -RRType SRV -ComputerName SRV-WIN-MEN-02
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+_gc._tcp.Default-First... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_gc._tcp.Default-First... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_kerberos._tcp.Default... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp.Default... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_gc._tcp                  SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_gc._tcp                  SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp            SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp            SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_kpasswd._tcp             SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][464][srv-win-men-02.tssr-men.lab.]
+_kpasswd._tcp             SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][464][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp                SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp                SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_kerberos._udp            SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._udp            SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_kpasswd._udp             SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][464][srv-win-men-02.tssr-men.lab.]
+_kpasswd._udp             SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][464][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.DomainDnsZones SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.DomainDnsZones SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.ForestDnsZones SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.ForestDnsZones SRV        33         10/5/2026 5:00:00 AM 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+
+```
+
+```powershell
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerResourceRecord -ZoneName _msdcs.TSSR-MEN.LAB -RRType SRV -ComputerName SRV-WIN-MEN-01
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+_kerberos._tcp.Default... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp.Default... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_kerberos._tcp.dc         SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_kerberos._tcp.dc         SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.dc             SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.dc             SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.b317f640-12... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.b317f640-12... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.gc             SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.gc             SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.pdc            SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerResourceRecord -ZoneName _msdcs.TSSR-MEN.LAB -RRType SRV -ComputerName SRV-WIN-MEN-02
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+_kerberos._tcp.Default... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_kerberos._tcp.Default... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_kerberos._tcp.dc         SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][88][srv-win-men-01.tssr-men.lab.]
+_kerberos._tcp.dc         SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][88][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.dc             SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.dc             SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.b317f640-12... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.b317f640-12... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][389][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 6:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.Default-Fir... SRV        33         10/20/2026 5:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.gc             SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-01.tssr-men.lab.]
+_ldap._tcp.gc             SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][3268][srv-win-men-02.tssr-men.lab.]
+_ldap._tcp.pdc            SRV        33         10/21/2026 1:00:0... 00:10:00        [0][100][389][srv-win-men-01.tssr-men.lab.]
 ```
 
 Puis interroge-les comme le ferait un client :
 
 ```powershell
-Resolve-DnsName -Name _ldap._tcp.dc._msdcs.TSSR-MEN.LAB -Type SRV -Server <IP du serveur DNS>
-Resolve-DnsName -Name _kerberos._tcp.TSSR-MEN.LAB -Type SRV -Server <IP du serveur DNS>
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name _ldap._tcp.dc._msdcs.TSSR-MEN.LAB -Type SRV -Server 192.168.100.10
+
+Name                                     Type   TTL   Section    NameTarget                     Priority Weight Port
+----                                     ----   ---   -------    ----------                     -------- ------ ----
+_ldap._tcp.dc._msdcs.TSSR-MEN.LAB        SRV    600   Answer     srv-win-men-01.tssr-men.lab    0        100    389
+_ldap._tcp.dc._msdcs.TSSR-MEN.LAB        SRV    600   Answer     srv-win-men-02.tssr-men.lab    0        100    389
+
+Name       : srv-win-men-01.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.10
+
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.11
+
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.56.101
+
+
+
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name _ldap._tcp.dc._msdcs.TSSR-MEN.LAB -Type SRV -Server 192.168.100.11
+
+Name                                     Type   TTL   Section    NameTarget                     Priority Weight Port
+----                                     ----   ---   -------    ----------                     -------- ------ ----
+_ldap._tcp.dc._msdcs.TSSR-MEN.LAB        SRV    600   Answer     srv-win-men-01.tssr-men.lab    0        100    389
+_ldap._tcp.dc._msdcs.TSSR-MEN.LAB        SRV    600   Answer     srv-win-men-02.tssr-men.lab    0        100    389
+
+Name       : srv-win-men-01.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.10
+
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.11
+
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.56.101
+
 ```
+
+```powershell
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name _kerberos._tcp.TSSR-MEN.LAB -Type SRV -Server 192.168.100.10
+
+Name                                     Type   TTL   Section    NameTarget                     Priority Weight Port
+----                                     ----   ---   -------    ----------                     -------- ------ ----
+_kerberos._tcp.TSSR-MEN.LAB              SRV    600   Answer     srv-win-men-02.tssr-men.lab    0        100    88
+_kerberos._tcp.TSSR-MEN.LAB              SRV    600   Answer     srv-win-men-01.tssr-men.lab    0        100    88
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.11
+
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.56.101
+
+
+Name       : srv-win-men-01.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.10
+
+
+
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name _kerberos._tcp.TSSR-MEN.LAB -Type SRV -Server 192.168.100.11
+
+Name                                     Type   TTL   Section    NameTarget                     Priority Weight Port
+----                                     ----   ---   -------    ----------                     -------- ------ ----
+_kerberos._tcp.TSSR-MEN.LAB              SRV    600   Answer     srv-win-men-02.tssr-men.lab    0        100    88
+_kerberos._tcp.TSSR-MEN.LAB              SRV    600   Answer     srv-win-men-01.tssr-men.lab    0        100    88
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.11
+
+
+Name       : srv-win-men-02.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.56.101
+
+
+Name       : srv-win-men-01.tssr-men.lab
+QueryType  : A
+TTL        : 3600
+Section    : Additional
+IP4Address : 192.168.100.10
+
+```
+
 
 Pour chacun, tu dois trouver **deux** enregistrements (un par contrôleur). Regarde les colonnes _NameTarget_, _Port_ (389 pour LDAP, 88 pour Kerberos), _Priority_ et _Weight_.
 
-> [!warning] Si l'enregistrement du nouveau contrôleur manque Le service Netlogon du Core enregistre lui-même ses SRV. Pour forcer l'enregistrement : `nltest /dsregdns` sur `[Core]`. Relis ensuite. Si le problème persiste, vérifie les DNS configurés sur le Core (partie 6).
+> [!warning] Si l'enregistrement du nouveau contrôleur manque 
+> Le service Netlogon du Core enregistre lui-même ses SRV. Pour forcer l'enregistrement : `nltest /dsregdns` sur `[Core]`. Relis ensuite. Si le problème persiste, vérifie les DNS configurés sur le Core (partie 6).
 
 ### À noter
 
-|Élément|`SRV-WIN-MEN-01`|`SRV-WIN-MEN-02`|
-|---|---|---|
-|Zone `TSSR-MEN.LAB` présente|||
-|Type de zone|||
-|Intégrée à AD|||
-|Portée de réplication|||
-|Mise à jour dynamique|||
-|Zone `_msdcs.TSSR-MEN.LAB` : portée|||
-|Zone inversée `100.168.192.in-addr.arpa` présente (bonus)|||
-|Enregistrements SRV `_ldap._tcp.dc._msdcs` (nombre)|||
-|Enregistrements SRV `_kerberos._tcp` (nombre)|||
-
-![[capture-4-zones-01.png]] ![[capture-4-zones-02.png]] ![[capture-4-srv.png]]
+| Élément                                                   | `SRV-WIN-MEN-01` | `SRV-WIN-MEN-02` |
+| --------------------------------------------------------- | ---------------- | ---------------- |
+| Zone `TSSR-MEN.LAB` présente                              | Oui              | Oui              |
+| Type de zone                                              | Primary          | Primary          |
+| Intégrée à AD                                             | True             | True             |
+| Portée de réplication                                     | Domain           | Domain           |
+| Mise à jour dynamique                                     | Secure           | Secure           |
+| Zone `_msdcs.TSSR-MEN.LAB` : portée                       | Forest           | Forest           |
+| Zone inversée `100.168.192.in-addr.arpa` présente (bonus) | Oui              | Oui              |
+| Enregistrements SRV `_ldap._tcp.dc._msdcs` (nombre)       | 2                | 2                |
+| Enregistrements SRV `_kerberos._tcp` (nombre)             | 2                | 2                |
 
 **À quoi servent les enregistrements SRV (avec tes mots) :**
 
-**Commentaires**
 
+**Notes**
+
+1. **Zone Properties (`TSSR-MEN.LAB` & `_msdcs`):** In `Get-DnsServerZone` output from step 2:
+    
+    - Both servers show `ZoneType: Primary` and `IsDsIntegrated: True`.
+        
+    - For `TSSR-MEN.LAB`, `ReplicationScope` is **`Domain`** and `DynamicUpdate` is **`Secure`**.
+        
+    - For `_msdcs.TSSR-MEN.LAB`, `ReplicationScope` is **`Forest`**.
+        
+2. **Reverse Lookup Zone (`100.168.192.in-addr.arpa`):**
+    
+    - Listed in both server outputs as `Primary`, `IsDsIntegrated: True`, and `ReplicationScope: Domain`.
+        
+3. **SRV Record Counts:** In `Get-DnsServerResourceRecord` outputs from step 4:
+    
+    - `_ldap._tcp.dc._msdcs` returns **2 records** (one pointing to `srv-win-men-01.tssr-men.lab` and one pointing to `srv-win-men-02.tssr-men.lab`).
+        
+    - `_kerberos._tcp` also returns **2 records** (one for each domain controller).
 ---
 
 ## 5. Tester la réplication des enregistrements
 
 ### Comprendre
 
-> [!question] Ce que ce test prouve Tu crées une modification sur **un** serveur et tu la retrouves sur **l'autre**. Comme la zone est dans AD, c'est la **réplication Active Directory** qui transporte l'enregistrement. Il faut donc **interroger explicitement** chaque serveur (`-ComputerName`, `-Server`) : sans ça, la commande peut répondre à partir d'un seul serveur et le test ne prouve rien.
+> [!question] Ce que ce test prouve 
+> Tu crées une modification sur **un** serveur et tu la retrouves sur **l'autre**. Comme la zone est dans AD, c'est la **réplication Active Directory** qui transporte l'enregistrement. Il faut donc **interroger explicitement** chaque serveur (`-ComputerName`, `-Server`) : sans ça, la commande peut répondre à partir d'un seul serveur et le test ne prouve rien.
 
 ### Pas à pas
 
