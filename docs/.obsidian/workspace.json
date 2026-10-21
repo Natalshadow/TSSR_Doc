@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "test.md",
+                "file": "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "test"
+              "title": "Mettre en place la redondance DNS avec Windows Server Core"
             }
           }
         ],
@@ -238,11 +238,12 @@
   },
   "active": "fb8790a45215d11f",
   "lastOpenFiles": [
+    "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
+    "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
+    "test.md",
     "index.md",
     "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
     "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
-    "test.md",
-    "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
     "exports",
     "3-Windows Server/labs",
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
@@ -276,7 +277,6 @@
     "3-Windows Server/Active Directory et LDAP.md",
     "3-Windows Server/GPO.md",
     "3-Windows Server/Kerberos.md",
-    "3-Windows Server/NTLM.md",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
