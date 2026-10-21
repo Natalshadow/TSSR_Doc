@@ -194,22 +194,20 @@ DNS  Running Automatic
 | Résolution locale                         | Oui       |
 | Nombre de commandes du module `DnsServer` | 136       |
 
-**Commandes DNS utiles trouvées** (choisis-en au moins 8, avec leur rôle) :
+**Commandes DNS utiles trouvées** :
 
-|Commande|Rôle|
-|---|---|
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
+| Commande                    | Rôle |
+| --------------------------- | ---- |
+| Add-DnsServerResourceRecord |      |
+| Get-DnsServer               |      |
+|                             |      |
+|                             |      |
+|                             |      |
+|                             |      |
+|                             |      |
+|                             |      |
 
-![[capture-3-role-dns.png]] ![[capture-3-service.png]] ![[capture-3-commandes.png]]
 
-**Commentaires**
 
 ---
 
@@ -217,21 +215,78 @@ DNS  Running Automatic
 
 ### Comprendre
 
-> [!question] Zone intégrée à Active Directory Une zone DNS classique est stockée dans un **fichier** sur un serveur « principal » et copiée vers des serveurs « secondaires » (transfert de zone). Une zone **intégrée à AD** est stockée **dans la base Active Directory** : elle se réplique avec la réplication AD que tu as vérifiée au TP précédent. Conséquences : tous les contrôleurs DNS ont la zone en **lecture et écriture**, sans transfert de zone, et la sécurité des mises à jour dynamiques est gérée par AD. La **portée de réplication** dit quels contrôleurs reçoivent la zone : tous les contrôleurs de la **forêt**, tous ceux du **domaine**, ou un ensemble **personnalisé**. Ces portées s'appuient sur des partitions d'annuaire dédiées (`ForestDnsZones`, `DomainDnsZones`).
+> [!question] Zone intégrée à Active Directory 
+> Une zone DNS classique est stockée dans un **fichier** sur un serveur « principal » et copiée vers des serveurs « secondaires » (transfert de zone). Une zone **intégrée à AD** est stockée **dans la base Active Directory** : elle se réplique avec la réplication AD que tu as vérifiée au TP précédent. 
+> 
+> Conséquences : tous les contrôleurs DNS ont la zone en **lecture et écriture**, sans transfert de zone, et la sécurité des mises à jour dynamiques est gérée par AD. La **portée de réplication** dit quels contrôleurs reçoivent la zone : tous les contrôleurs de la **forêt**, tous ceux du **domaine**, ou un ensemble **personnalisé**. Ces portées s'appuient sur des partitions d'annuaire dédiées (`ForestDnsZones`, `DomainDnsZones`).
 
-> [!tip] Guidage Au TP DNS, tu as choisi « To all DNS on domain » pour ta zone inversée `100.168.192.in-addr.arpa`. Cette zone devrait donc **aussi** exister sur le Core : c'est une vérification bonus.
+> [!tip] Guidage 
+> Au TP DNS, tu as choisi « To all DNS on domain » pour ta zone inversée `100.168.192.in-addr.arpa`. Cette zone devrait donc **aussi** exister sur le Core : c'est une vérification bonus.
 
 Écris, avec tes mots, la différence entre une zone intégrée à AD et une zone principale classique :
 
 ### Pas à pas
 
 1. **Lister les zones des deux serveurs** (depuis `[Graphique]`, ou en local sur chaque serveur) :
-    
+     SRV Core
+ 
     ```powershell
-    Get-DnsServerZone -ComputerName SRV-WIN-MEN-01
-    Get-DnsServerZone -ComputerName SRV-WIN-MEN-02
+    PS C:\Users\administrator.TSSR-MEN> Get-DnsServerZone -ComputerName SRV-WIN-MEN-01
+
+ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
+--------                            --------        -------------   --------------  -------------------  --------
+_msdcs.TSSR-MEN.LAB                 Primary         False           True            False                False
+0.in-addr.arpa                      Primary         True            False           True                 False
+100.168.192.in-addr.arpa            Primary         False           True            True                 False
+127.in-addr.arpa                    Primary         True            False           True                 False
+255.in-addr.arpa                    Primary         True            False           True                 False
+TrustAnchors                        Primary         False           True            False                False
+TSSR-MEN.LAB                        Primary         False           True            False                False
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerZone -ComputerName SRV-WIN-MEN-02
+
+ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
+--------                            --------        -------------   --------------  -------------------  --------
+_msdcs.TSSR-MEN.LAB                 Primary         False           True            False                False
+0.in-addr.arpa                      Primary         True            False           True                 False
+100.168.192.in-addr.arpa            Primary         False           True            True                 False
+127.in-addr.arpa                    Primary         True            False           True                 False
+255.in-addr.arpa                    Primary         True            False           True                 False
+TrustAnchors                        Primary         False           True            False                False
+TSSR-MEN.LAB                        Primary         False           True            False                False
     ```
-    
+
+SRV1
+
+```powershell
+PS C:\Users\Administrator> Get-DnsServerZone -ComputerName SRV-WIN-MEN-01
+
+ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
+--------                            --------        -------------   --------------  -------------------  --------
+_msdcs.TSSR-MEN.LAB                 Primary         False           True            False                False
+0.in-addr.arpa                      Primary         True            False           True                 False
+100.168.192.in-addr.arpa            Primary         False           True            True                 False
+127.in-addr.arpa                    Primary         True            False           True                 False
+255.in-addr.arpa                    Primary         True            False           True                 False
+TrustAnchors                        Primary         False           True            False                False
+TSSR-MEN.LAB                        Primary         False           True            False                False
+
+
+PS C:\Users\Administrator> Get-DnsServerZone -ComputerName SRV-WIN-MEN-02
+
+ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
+--------                            --------        -------------   --------------  -------------------  --------
+_msdcs.TSSR-MEN.LAB                 Primary         False           True            False                False
+0.in-addr.arpa                      Primary         True            False           True                 False
+100.168.192.in-addr.arpa            Primary         False           True            True                 False
+127.in-addr.arpa                    Primary         True            False           True                 False
+255.in-addr.arpa                    Primary         True            False           True                 False
+TrustAnchors                        Primary         False           True            False                False
+TSSR-MEN.LAB                        Primary         False           True            False                False
+```
+
+
 2. **Les comparer** avec les propriétés utiles :
     
     ```powershell
