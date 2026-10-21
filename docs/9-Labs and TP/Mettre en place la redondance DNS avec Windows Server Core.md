@@ -1034,6 +1034,7 @@ Get-DnsClientServerAddress -AddressFamily IPv4
 
 ![](attachments/Pasted%20image%2020261021134308.png)
 
+> [!note] Malgré 32 Go de RAM, les 3 VM en même temps avec Discord et le navigateur posent problème avec de la pagination sur disque.
 
 **Étape 2 : modifier l'option DHCP** de l'étendue `LAN-TSSR` (`[Graphique]`)
 
