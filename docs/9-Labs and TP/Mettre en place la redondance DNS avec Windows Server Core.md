@@ -76,18 +76,15 @@
 ### Pas à pas (`[Core]`)
 
 1. **Le rôle est-il déjà là ?** Lors de la promotion du TP précédent, tu as demandé le DNS sur le nouveau contrôleur : il doit déjà être installé. Vérifie-le plutôt que de le supposer :
-    
-    ```powershell
-    PS C:\Users\administrator.TSSR-MEN>  Get-WindowsFeature -Name DNS
 
+```powershell
+PS C:\Users\administrator.TSSR-MEN>  Get-WindowsFeature -Name DNS
 Display Name                                            Name
 ------------                                            ----
 [X] DNS Server                                          DNS
+```
 
-    ```
-    
-    Lis la colonne _Install State_ (installé ou non).
-    
+   
 2. **S'il manque**, installe-le avec les outils de gestion (le module PowerShell `DnsServer` en fait partie) :
     
     ```powershell
@@ -95,17 +92,17 @@ Display Name                                            Name
     ```
     
 3. **Le service fonctionne-t-il ?**
-    
-    ```powershell
-    PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DNS
+
+```powershell
+PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DNS
 
 Status   Name               DisplayName
 ------   ----               -----------
 Running  DNS                DNS Server
 
-    
-    ```
-    
+```
+
+
     Regarde le statut (_Running_) et le type de démarrage (_Automatic_).
     
 4. **Le module PowerShell est-il disponible ?**

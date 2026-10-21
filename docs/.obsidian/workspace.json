@@ -38,7 +38,7 @@
               "type": "markdown",
               "state": {
                 "file": "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -237,7 +237,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e1ec310cf6a459a9",
+  "active": "fb8790a45215d11f",
   "lastOpenFiles": [
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
     "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
