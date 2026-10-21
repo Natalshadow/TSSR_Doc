@@ -1,8 +1,4 @@
----
 
-## title: TP - Mettre en place la redondance DNS avec Windows Server Core tags: [tssr, windows-server, active-directory, dns, dhcp, powershell, server-core, tp] date: auteur: trigramme: MEN statut: en-cours
-
-# TP - Mettre en place la redondance DNS avec Windows Server Core
 
 > [!abstract] Contexte L'entreprise dispose de deux contrôleurs de domaine. Le DNS est indispensable pour localiser les contrôleurs de domaine et les services d'authentification. Il faut vérifier que Windows Server Core assure aussi la résolution DNS et que le service fonctionne sur les deux contrôleurs. Les configurations se font avec PowerShell ; les outils graphiques servent à vérifier le résultat.
 
@@ -844,6 +840,8 @@ Resolve-DnsName -Name <nom>.TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
 
 **Nettoyage :** supprimes-tu ou gardes-tu les enregistrements de test ? Note ton choix. Pour supprimer :
 
+Je supprime, ça augmente inutilement la surface potentielle d'attaque. 
+
 ```powershell
 Remove-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -RRType A -ComputerName <serveur> -Force
 ```
@@ -856,7 +854,8 @@ Remove-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -RRType A -Com
 
 ### Comprendre
 
-> [!question] Pourquoi les DNS d'un contrôleur de domaine comptent Un contrôleur de domaine est **aussi un client DNS** : il consulte une liste ordonnée (**préféré**, puis **alternatif**). Cette liste a des conséquences :
+> [!question] Pourquoi les DNS d'un contrôleur de domaine comptent 
+> Un contrôleur de domaine est **aussi un client DNS** : il consulte une liste ordonnée (**préféré**, puis **alternatif**). Cette liste a des conséquences :
 > 
 > - Si un contrôleur ne se désigne que lui-même, il peut se retrouver « isolé » au démarrage : son DNS n'a pas encore chargé la zone ou n'a pas encore répliqué les changements.
 > - Si un contrôleur ne désigne que son partenaire, il dépend de ce partenaire pour sa propre résolution.

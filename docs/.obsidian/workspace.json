@@ -4,35 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "a195f64f373859b3",
+        "id": "d6dc11fa7bc8f76f",
         "type": "tabs",
         "children": [
           {
-            "id": "40412b6dd4f90c8a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable"
-            }
-          },
-          {
-            "id": "fb8790a45215d11f",
+            "id": "fbffe4411db7015d",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -55,8 +31,7 @@
               "title": "Mettre en place la redondance DNS avec Windows Server Core"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -237,11 +212,11 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "fb8790a45215d11f",
+  "active": "fbffe4411db7015d",
   "lastOpenFiles": [
-    "9-Labs and TP/attachments/Pasted image 20261021110800.png",
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
     "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
+    "9-Labs and TP/attachments/Pasted image 20261021110800.png",
     "test.md",
     "index.md",
     "9-Labs and TP/Deliverable version/DNS and DHCP workshop.md",
@@ -267,7 +242,6 @@
     "9-Labs and TP/attachments/Pasted image 20261019151743.png",
     "9-Labs and TP/attachments/Pasted image 20261019145033.png",
     "9-Labs and TP/attachments/Pasted image 20261019144842.png",
-    "9-Labs and TP/attachments/Pasted image 20261019144131.png",
     "9-Labs and TP/Server Core lite doc.md",
     "3-Windows Server/labs/TP - GPO.md",
     "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
