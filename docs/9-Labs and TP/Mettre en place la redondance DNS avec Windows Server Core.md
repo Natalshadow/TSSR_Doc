@@ -994,6 +994,29 @@ PS C:\Users\administrator.TSSR-MEN> dcdiag /test:dns | Select-String -Pattern 'p
 
 ## 7. Tester depuis le client Windows 11
 
+### Troubleshoot - VM ne démarre plus
+![](attachments/Pasted%20image%2020261021121719.png)
+
+Reconversion de la VM au format Virtual Box:
+
+```bash
+/mnt/WAREHOUSE/Work/TSSR/VMs/CLI-WIN-01/CLI-WIN-MEN-01
+❯
+  cd "/mnt/WAREHOUSE/Work/TSSR/VMs/CLI-WIN-01" || exit 1
+
+  mkdir -p "VirtualBox/converted"
+
+  qemu-img convert -p -f vmdk -O vdi \
+        "CLI-WIN-MEN-01/CLI-WIN-MEN-01.vmdk" \
+        "VirtualBox/converted/CLI-WIN-MEN-01-system.vdi"
+
+
+  qemu-img convert -p -f vmdk -O vdi \
+        "CLI-WIN-MEN-01/CLI-WIN-MEN-01-0.vmdk" \
+        "VirtualBox/converted/CLI-WIN-MEN-01-secondary.vdi"
+
+    (1.00/100%)
+```
 ### Comprendre
 
 > [!question] Le client reçoit ses DNS par DHCP 
