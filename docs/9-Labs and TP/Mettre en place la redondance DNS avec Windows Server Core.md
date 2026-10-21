@@ -832,13 +832,14 @@ Resolve-DnsName -Name <nom>.TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
 
 ### À noter
 
-|Étape|Serveur interrogé|Commande|Résultat|Délai|
-|---|---|---|---|---|
-|`test-core` visible en local|`SRV-WIN-MEN-02`||||
-|`test-core` résolu|`192.168.100.11`||||
-|Second enregistrement créé|`SRV-WIN-MEN-02`||||
-|Second enregistrement lu|`SRV-WIN-MEN-01`||||
-|Second enregistrement résolu|depuis le client||||
+
+| Étape                        | Serveur interrogé | Commande                                                                                                                         | Résultat               | Délai            |
+| ---------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------- |
+| `test-core` visible en local | `SRV-WIN-MEN-02`  | Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core                                                               | OK (`192.168.100.253`) | Instantané       |
+| `test-core` résolu           | `192.168.100.11`  | Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly                                                     | OK                     | Instantané       |
+| Second enregistrement créé   | `SRV-WIN-MEN-02`  | Add-DnsServerResourceRecordA -Name secondRecord -ZoneName TSSR-MEN.LAB -IPv4Address 192.168.100.140 -ComputerName SRV-WIN-MEN-02 | OK                     |                  |
+| Second enregistrement lu     | `SRV-WIN-MEN-01`  | Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name secondRecord -ComputerName SRV-WIN-MEN-01                               | OK (`192.168.100.140`) | Quelques minutes |
+| Second enregistrement résolu | depuis le client  |                                                                                                                                  |                        |                  |
 
 
 **Nettoyage :** supprimes-tu ou gardes-tu les enregistrements de test ? Note ton choix. Pour supprimer :
