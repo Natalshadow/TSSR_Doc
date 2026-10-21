@@ -1090,8 +1090,6 @@ Resolve-DnsName -Name <nom du second enregistrement>.TSSR-MEN.LAB -Server <IP>
 |`test-core.TSSR-MEN.LAB`|||
 |second enregistrement de test|||
 
-![[capture-7-client-avant.png]] ![[capture-7-option-dhcp.png]] ![[capture-7-client-apres.png]] ![[capture-7-resolution-10.png]] ![[capture-7-resolution-11.png]]
-
 ### Pour aller plus loin : test de panne (optionnel)
 
 > [!tip] Guidage C'est la vraie preuve de la **redondance**. Fais un snapshot avant, et n'oublie pas de redémarrer le service ensuite.
@@ -1133,9 +1131,12 @@ Resolve-DnsName -Name <nom du second enregistrement>.TSSR-MEN.LAB -Server <IP>
 > [!tip] Guidage 
 > Décris le symptôme, la cause identifiée et la correction appliquée. Un incident bien documenté vaut mieux qu'un TP « sans problème ».
 
-|Problème|Cause|Solution|
-|---|---|---|
-||||
+![](attachments/Pasted%20image%2020261021133628.png)
+
+| Problème                               | Cause                                                                                     | Solution |
+| -------------------------------------- | ----------------------------------------------------------------------------------------- | -------- |
+| Ma VM CLI ne démarre plus correctement | Inconnue pour le moment, pas de changement de config VM, mais update system de l'OS host. |          |
+|                                        |                                                                                           |          |
 
 ### Ce que j'ai retenu
 
