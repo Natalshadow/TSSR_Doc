@@ -1030,6 +1030,10 @@ Reconversion de la VM au format Virtual Box:
 ipconfig /all
 Get-DnsClientServerAddress -AddressFamily IPv4
 ```
+![](attachments/Pasted%20image%2020261021134214.png)
+
+![](attachments/Pasted%20image%2020261021134308.png)
+
 
 **Étape 2 : modifier l'option DHCP** de l'étendue `LAN-TSSR` (`[Graphique]`)
 
