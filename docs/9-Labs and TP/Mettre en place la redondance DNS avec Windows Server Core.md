@@ -1105,7 +1105,8 @@ Pareil, le core est éteint faute de RAM donc les commandes échouent.
 
 ### Pour aller plus loin : test de panne (optionnel)
 
-> [!tip] Guidage C'est la vraie preuve de la **redondance**. Fais un snapshot avant, et n'oublie pas de redémarrer le service ensuite.
+> [!tip] Guidage 
+> C'est la vraie preuve de la **redondance**. Fais un snapshot avant, et n'oublie pas de redémarrer le service ensuite.
 > 
 > 1. `[Core]` `Stop-Service -Name DNS`
 > 2. `[Client]` `Clear-DnsClientCache`, puis résous `SRV-WIN-MEN-01.TSSR-MEN.LAB` **sans** `-Server`. Le client bascule-t-il sur l'autre serveur ? Combien de temps la réponse met-elle à arriver ?
