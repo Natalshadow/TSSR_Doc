@@ -78,7 +78,12 @@
 1. **Le rôle est-il déjà là ?** Lors de la promotion du TP précédent, tu as demandé le DNS sur le nouveau contrôleur : il doit déjà être installé. Vérifie-le plutôt que de le supposer :
     
     ```powershell
-    Get-WindowsFeature -Name DNS
+    PS C:\Users\administrator.TSSR-MEN>  Get-WindowsFeature -Name DNS
+
+Display Name                                            Name
+------------                                            ----
+[X] DNS Server                                          DNS
+
     ```
     
     Lis la colonne _Install State_ (installé ou non).
@@ -92,7 +97,13 @@
 3. **Le service fonctionne-t-il ?**
     
     ```powershell
-    Get-Service -Name DNS
+    PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DNS
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  DNS                DNS Server
+
+    
     ```
     
     Regarde le statut (_Running_) et le type de démarrage (_Automatic_).
@@ -100,7 +111,17 @@
 4. **Le module PowerShell est-il disponible ?**
     
     ```powershell
-    Get-Module -ListAvailable -Name DnsServer
+    PS C:\Users\administrator.TSSR-MEN> Get-Module -ListAvailable -Name DnsServer
+
+
+    Directory: C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+
+
+ModuleType Version    Name                                ExportedCommand
+                                                          s
+---------- -------    ----                                ---------------
+Manifest   2.0.0.0    DnsServer                           {Add-DnsServ...
+
     ```
     
     S'il n'apparaît pas, la fonctionnalité des outils DNS (`RSAT-DNS-Server`) n'est pas installée : cherche-la avec `Get-WindowsFeature *DNS*`.
@@ -108,29 +129,70 @@
 5. **Le serveur répond-il ?** Un test direct depuis le Core :
     
     ```powershell
-    Resolve-DnsName -Name TSSR-MEN.LAB -Server 127.0.0.1 -DnsOnly
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name TSSR-MEN.LAB -Server 127.0.0.1 -DnsOnly
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+TSSR-MEN.LAB                                   A      600   Answer     192.168.100.11
+TSSR-MEN.LAB                                   A      600   Answer     192.168.100.10
     ```
     
 6. **Découvrir les commandes d'administration DNS** (ce que demande l'étape 4 du brief) :
-    
-    ```powershell
-    Get-Command -Module DnsServer | Measure-Object
-    Get-Command -Module DnsServer -Noun *Zone*
-    Get-Command -Module DnsServer -Noun *ResourceRecord*
-    Get-Command -Module DnsServer -Verb Get
-    ```
-    
+
+
+
+```powershell
+ Get-Command -Module DnsServer | Measure-Object
+```
+Cette commande fait la somme de quelque chose, j'ai un count de 136 mais je ne sais pas ce que c'est. 
+
+> [!note] Il s'aggit du nombre de commandes applets disponibles
+
+ 
+```powershell
+Get-Command -Module DnsServer -Noun *Zone*
+```
+
+Celle-ci a l'air de lister des fonctions disponibles en lien avec le serveur DNS et les zones et la version disponible.
+
+> [!note] Liste toutes les commandes qui agissent sur les **zones DNS** (création, suppression, modification de zone).
+
+
+```powershell
+ Get-Command -Module DnsServer -Noun *ResourceRecord*
+```
+
+Celle-ci a l'air de lister des fonctions disponibles en lien avec le serveur DNS et les manipulations de ressources et la version disponible.
+
+> [!note] Liste les commandes permettant de gérer les **enregistrements DNS** (A, AAAA, MX, CNAME, SRV, etc.).
+
+```powershell
+Get-Command -Module DnsServer -Verb Get
+```
+
+Similaire, mais avec un filtre sur le mot Get.
+
+> [!note] Liste toutes les commandes de lecture/consultation du module DNS (celles qui permettent d'afficher ou récupérer des informations).
+
+**Type de démarrage de service: 
+```powershell
+PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DNS | Select-Object Name, Status, StartType
+
+Name  Status StartType
+----  ------ ---------
+DNS  Running Automatic
+```
 
 ### À noter
 
-|Vérification|Résultat|
-|---|---|
-|État du rôle DNS||
-|Installation nécessaire ?||
-|État et type de démarrage du service||
-|Module `DnsServer` disponible||
-|Résolution locale||
-|Nombre de commandes du module `DnsServer`||
+| Vérification                              | Résultat  |
+| ----------------------------------------- | --------- |
+| État du rôle DNS                          | Running   |
+| Installation nécessaire ?                 | Non       |
+| État et type de démarrage du service      | Automatic |
+| Module `DnsServer` disponible             | Oui       |
+| Résolution locale                         | Oui       |
+| Nombre de commandes du module `DnsServer` | 136       |
 
 **Commandes DNS utiles trouvées** (choisis-en au moins 8, avec leur rôle) :
 
