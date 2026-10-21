@@ -686,34 +686,138 @@ Pour chacun, tu dois trouver **deux** enregistrements (un par contrôleur). Rega
 **A.1 : créer l'enregistrement** (`[Graphique]`)
 
 Console _DNS_ → _Forward Lookup Zones_ → `TSSR-MEN.LAB` → clic droit → **New Host (A or AAAA)...** → nom `test-core`, IP `192.168.100.253` → **Add Host**.
+![](attachments/Pasted%20image%2020261021110800.png)
 
 **A.2 : vérifier sa présence en local** (`[Core]`)
 
 ```powershell
-Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core
+Get-DnsServerResourceRecord : Failed to get test-core record in TSSR-MEN.LAB zone on SRV-WIN-MEN-02 server.
+At line:1 char:1
++ Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (test-core:root/Microsoft/...rResourceRecord) [Get-DnsServerResourceRecord], CimException
+    + FullyQualifiedErrorId : WIN32 9714,Get-DnsServerResourceRecord
+
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+test-core                 A          1          0                    01:00:00        192.168.100.253
 ```
 
 **A.3 : interroger explicitement le DNS du Core** (`[Core]`)
 
 ```powershell
-Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly
+PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+test-core.TSSR-MEN.LAB                         A      3600  Answer     192.168.100.253
 ```
 
 **B. Deuxième enregistrement créé depuis PowerShell, en ciblant le Core**
 
-> [!tip] Guidage Le brief ne donne ni nom ni adresse pour le second enregistrement : choisis-les. Une adresse **libre**, hors de la plage DHCP (`.150` à `.200`) et différente de `.10`, `.11`, `.99` et `.253`. Choisis un nom qui rappelle son origine (par exemple le suffixe `-ps`).
+> [!tip] Guidage 
+> Le brief ne donne ni nom ni adresse pour le second enregistrement : choisis-les. Une adresse **libre**, hors de la plage DHCP (`.150` à `.200`) et différente de `.10`, `.11`, `.99` et `.253`. Choisis un nom qui rappelle son origine (par exemple le suffixe `-ps`).
 
 **B.1 : créer l'enregistrement** (la commande part de `[Graphique]` ou du Core, mais **cible le Core**)
 
 ```powershell
-Add-DnsServerResourceRecordA -Name <nom> -ZoneName TSSR-MEN.LAB -IPv4Address <adresse> -ComputerName SRV-WIN-MEN-02
+Add-DnsServerResourceRecordA -Name secondRecord -ZoneName TSSR-MEN.LAB -IPv4Address 192.168.100.140 -ComputerName SRV-WIN-MEN-02
 ```
 
 **B.2 : le retrouver sur le serveur graphique**
 
 ```powershell
-Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -ComputerName SRV-WIN-MEN-01
+PS C:\Users\administrator.TSSR-MEN> repadmin /syncall /AdeP
+Syncing all NC's held on SRV-WIN-MEN-02.
+Syncing partition: DC=ForestDnsZones,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: DC=DomainDnsZones,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: CN=Schema,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+Syncing partition: DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication is in progress:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: The following replication completed successfully:
+    From: CN=NTDS Settings,CN=SRV-WIN-MEN-02,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+    To  : CN=NTDS Settings,CN=SRV-WIN-MEN-01,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=TSSR-MEN,DC=LAB
+CALLBACK MESSAGE: SyncAll Finished.
+SyncAll terminated with no errors.
+
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name secondRecord -ComputerName SRV-WIN-MEN-01
+Get-DnsServerResourceRecord : Failed to get secondRecord record in TSSR-MEN.LAB zone on SRV-WIN-MEN-01 server.
+At line:1 char:1
++ Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name secondRecord ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (secondRecord:root/Microsoft/...rResourceRecord) [Get-DnsServerResourceRecord], CimException
+    + FullyQualifiedErrorId : WIN32 9714,Get-DnsServerResourceRecord
+
+PS C:\Users\administrator.TSSR-MEN>
 ```
+La commande ne semble pas se propager et le record n'apparaît pas.
+
+### Troubleshoot du record perdu:
+
+```powershell
+PS C:\Users\Administrator> Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -ComputerName SRV-WIN-MEN-01 | Where-Object { $_.HostName -like "*secondRecord*" }
+PS C:\Users\Administrator> Update-DnsServerDsZone -Name TSSR-MEN.LAB -ComputerName SRV-WIN-MEN-01
+Update-DnsServerDsZone : The term 'Update-DnsServerDsZone' is not recognized as the name of a cmdlet, function, script
+file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct
+and try again.
+At line:1 char:1
++ Update-DnsServerDsZone -Name TSSR-MEN.LAB -ComputerName SRV-WIN-MEN-0 ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Update-DnsServerDsZone:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\Administrator> Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name secondRecord -ComputerName SRV-WIN-MEN-01
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+secondRecord              A          1          0                    01:00:00        192.168.100.140
+
+
+PS C:\Users\Administrator>
+```
+Je pense que c'était juste long.
 
 Vérifie aussi dans la console DNS de `[Graphique]` (touche F5 pour actualiser).
 
@@ -723,7 +827,8 @@ Vérifie aussi dans la console DNS de `[Graphique]` (touche F5 pour actualiser).
 Resolve-DnsName -Name <nom>.TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
 ```
 
-> [!warning] Délai de réplication Si l'enregistrement n'apparaît pas tout de suite sur l'autre serveur, patiente quelques dizaines de secondes (jusqu'à quelques minutes), puis relance. Sinon, force la réplication AD avec `repadmin /syncall /AdeP` et relis. Note le délai constaté.
+> [!warning] Délai de réplication 
+> Si l'enregistrement n'apparaît pas tout de suite sur l'autre serveur, patiente quelques dizaines de secondes (jusqu'à quelques minutes), puis relance. Sinon, force la réplication AD avec `repadmin /syncall /AdeP` et relis. Note le délai constaté.
 
 ### À noter
 
@@ -735,7 +840,6 @@ Resolve-DnsName -Name <nom>.TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
 |Second enregistrement lu|`SRV-WIN-MEN-01`||||
 |Second enregistrement résolu|depuis le client||||
 
-![[capture-5-creation-test-core.png]] ![[capture-5-lecture-core.png]] ![[capture-5-resolution-core.png]] ![[capture-5-creation-powershell.png]] ![[capture-5-lecture-graphique.png]] ![[capture-5-resolution-client.png]]
 
 **Nettoyage :** supprimes-tu ou gardes-tu les enregistrements de test ? Note ton choix. Pour supprimer :
 
