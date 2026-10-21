@@ -996,7 +996,8 @@ PS C:\Users\administrator.TSSR-MEN> dcdiag /test:dns | Select-String -Pattern 'p
 
 ### Comprendre
 
-> [!question] Le client reçoit ses DNS par DHCP Ton client est en DHCP depuis le TP DHCP : ses serveurs DNS ne se règlent donc pas sur le client, mais dans l'**option DHCP 006 (DNS Servers)** de l'étendue. Tant que cette option ne contient que `192.168.100.10`, le client n'a pas de DNS de secours. En ajoutant `192.168.100.11`, le client reçoit **deux** serveurs et bascule sur le second si le premier ne répond pas.
+> [!question] Le client reçoit ses DNS par DHCP 
+> Ton client est en DHCP depuis le TP DHCP : ses serveurs DNS ne se règlent donc pas sur le client, mais dans l'**option DHCP 006 (DNS Servers)** de l'étendue. Tant que cette option ne contient que `192.168.100.10`, le client n'a pas de DNS de secours. En ajoutant `192.168.100.11`, le client reçoit **deux** serveurs et bascule sur le second si le premier ne répond pas.
 
 ### Pas à pas
 
@@ -1100,15 +1101,14 @@ Resolve-DnsName -Name <nom du second enregistrement>.TSSR-MEN.LAB -Server <IP>
 > - [ ] La stratégie DNS des contrôleurs est écrite et justifiée
 > - [ ] Les enregistrements de test sont gardés ou supprimés, et c'est noté
 
-![[capture-8-console-dns-01.png]] ![[capture-8-console-dns-02.png]]
-
 ---
 
 ## 9. Conclusion et difficultés rencontrées
 
 ### Difficultés / erreurs rencontrées
 
-> [!tip] Guidage Décris le symptôme, la cause identifiée et la correction appliquée. Un incident bien documenté vaut mieux qu'un TP « sans problème ».
+> [!tip] Guidage 
+> Décris le symptôme, la cause identifiée et la correction appliquée. Un incident bien documenté vaut mieux qu'un TP « sans problème ».
 
 |Problème|Cause|Solution|
 |---|---|---|
