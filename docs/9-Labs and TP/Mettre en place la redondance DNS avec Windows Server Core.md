@@ -1,6 +1,10 @@
+---
 
-> [!abstract] Contexte 
-> L'entreprise dispose de deux contrôleurs de domaine. Le DNS est indispensable pour localiser les contrôleurs de domaine et les services d'authentification. Il faut vérifier que Windows Server Core assure aussi la résolution DNS et que le service fonctionne sur les deux contrôleurs. Les configurations se font avec PowerShell ; les outils graphiques servent à vérifier le résultat.
+## title: TP - Mettre en place la redondance DNS avec Windows Server Core tags: [tssr, windows-server, active-directory, dns, dhcp, powershell, server-core, tp] date: auteur: trigramme: MEN statut: en-cours
+
+# TP - Mettre en place la redondance DNS avec Windows Server Core
+
+> [!abstract] Contexte L'entreprise dispose de deux contrôleurs de domaine. Le DNS est indispensable pour localiser les contrôleurs de domaine et les services d'authentification. Il faut vérifier que Windows Server Core assure aussi la résolution DNS et que le service fonctionne sur les deux contrôleurs. Les configurations se font avec PowerShell ; les outils graphiques servent à vérifier le résultat.
 
 > [!info] Comment utiliser ce document
 > 
@@ -68,47 +72,57 @@
 
 ### Comprendre
 
-> [!question] Pourquoi le DNS est vital pour Active Directory 
-> Les contrôleurs de domaine et les clients **ne se trouvent pas par leur adresse IP mais par des enregistrements DNS** (notamment des enregistrements de type **SRV**, qui disent « tel service est fourni par tel serveur sur tel port »). Sans DNS, un poste ne retrouve plus de contrôleur de domaine : ouverture de session, GPO et recherche de l'annuaire échouent. C'est pourquoi un second serveur DNS apporte de la **redondance**.
+> [!question] Pourquoi le DNS est vital pour Active Directory Les contrôleurs de domaine et les clients **ne se trouvent pas par leur adresse IP mais par des enregistrements DNS** (notamment des enregistrements de type **SRV**, qui disent « tel service est fourni par tel serveur sur tel port »). Sans DNS, un poste ne retrouve plus de contrôleur de domaine : ouverture de session, GPO et recherche de l'annuaire échouent. C'est pourquoi un second serveur DNS apporte de la **redondance**.
 
 Écris en une phrase, avec tes mots, pourquoi un client Windows a besoin du DNS pour joindre un contrôleur de domaine :
 
 ### Pas à pas (`[Core]`)
 
-1. **Le rôle est-il déjà là ?** Lors de la promotion du TP précédent, tu as demandé le DNS sur le nouveau contrôleur : il doit déjà être installé. Vérifie-le plutôt que de le supposer :
+**Étape 1 : le rôle est-il déjà là ?**
 
-```powershell
+Lors de la promotion du TP précédent, tu as demandé le DNS sur le nouveau contrôleur : il doit déjà être installé. Vérifie-le plutôt que de le supposer. Lis la colonne _Install State_ (ou la case `[X]` devant le nom : installé).
+
+```text
 PS C:\Users\administrator.TSSR-MEN>  Get-WindowsFeature -Name DNS
 Display Name                                            Name
 ------------                                            ----
 [X] DNS Server                                          DNS
 ```
 
-   
-2. **S'il manque**, installe-le avec les outils de gestion (le module PowerShell `DnsServer` en fait partie) :
-    
-    ```powershell
-    Install-WindowsFeature -Name DNS -IncludeManagementTools
-    ```
-    
-3. **Le service fonctionne-t-il ?**
+**Étape 2 : s'il manque**, installe-le avec les outils de gestion (le module PowerShell `DnsServer` en fait partie) :
 
 ```powershell
+Install-WindowsFeature -Name DNS -IncludeManagementTools
+```
+
+**Étape 3 : le service fonctionne-t-il ?**
+
+Regarde le statut (_Running_) et le type de démarrage (_Automatic_).
+
+```text
 PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DNS
 
 Status   Name               DisplayName
 ------   ----               -----------
 Running  DNS                DNS Server
-
 ```
 
+Type de démarrage :
 
-    Regarde le statut (_Running_) et le type de démarrage (_Automatic_).
-    
-4. **Le module PowerShell est-il disponible ?**
-    
-    ```powershell
-    PS C:\Users\administrator.TSSR-MEN> Get-Module -ListAvailable -Name DnsServer
+```text
+PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DNS | Select-Object Name, Status, StartType
+
+Name  Status StartType
+----  ------ ---------
+DNS  Running Automatic
+```
+
+**Étape 4 : le module PowerShell est-il disponible ?**
+
+S'il n'apparaît pas, la fonctionnalité des outils DNS (`RSAT-DNS-Server`) n'est pas installée : cherche-la avec `Get-WindowsFeature *DNS*`.
+
+```text
+PS C:\Users\administrator.TSSR-MEN> Get-Module -ListAvailable -Name DnsServer
 
 
     Directory: C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
@@ -118,34 +132,31 @@ ModuleType Version    Name                                ExportedCommand
                                                           s
 ---------- -------    ----                                ---------------
 Manifest   2.0.0.0    DnsServer                           {Add-DnsServ...
+```
 
-    ```
-    
-    S'il n'apparaît pas, la fonctionnalité des outils DNS (`RSAT-DNS-Server`) n'est pas installée : cherche-la avec `Get-WindowsFeature *DNS*`.
-    
-5. **Le serveur répond-il ?** Un test direct depuis le Core :
-    
-    ```powershell
+**Étape 5 : le serveur répond-il ?**
+
+Un test direct depuis le Core :
+
+```text
 PS C:\Users\administrator.TSSR-MEN> Resolve-DnsName -Name TSSR-MEN.LAB -Server 127.0.0.1 -DnsOnly
 
 Name                                           Type   TTL   Section    IPAddress
 ----                                           ----   ---   -------    ---------
 TSSR-MEN.LAB                                   A      600   Answer     192.168.100.11
 TSSR-MEN.LAB                                   A      600   Answer     192.168.100.10
-    ```
-    
-6. **Découvrir les commandes d'administration DNS** (ce que demande l'étape 4 du brief) :
+```
 
-
+**Étape 6 : découvrir les commandes d'administration DNS** (ce que demande l'étape 4 du brief)
 
 ```powershell
- Get-Command -Module DnsServer | Measure-Object
+Get-Command -Module DnsServer | Measure-Object
 ```
-Cette commande fait la somme de quelque chose, j'ai un count de 136 mais je ne sais pas ce que c'est. 
 
-> [!note] Il s'aggit du nombre de commandes applets disponibles
+Cette commande fait la somme de quelque chose, j'ai un count de 136 mais je ne sais pas ce que c'est.
 
- 
+> [!note] Il s'agit du nombre de cmdlets disponibles dans le module `DnsServer`.
+
 ```powershell
 Get-Command -Module DnsServer -Noun *Zone*
 ```
@@ -154,9 +165,8 @@ Celle-ci a l'air de lister des fonctions disponibles en lien avec le serveur DNS
 
 > [!note] Liste toutes les commandes qui agissent sur les **zones DNS** (création, suppression, modification de zone).
 
-
 ```powershell
- Get-Command -Module DnsServer -Noun *ResourceRecord*
+Get-Command -Module DnsServer -Noun *ResourceRecord*
 ```
 
 Celle-ci a l'air de lister des fonctions disponibles en lien avec le serveur DNS et les manipulations de ressources et la version disponible.
@@ -171,40 +181,33 @@ Similaire, mais avec un filtre sur le mot Get.
 
 > [!note] Liste toutes les commandes de lecture/consultation du module DNS (celles qui permettent d'afficher ou récupérer des informations).
 
-**Type de démarrage de service: 
-```powershell
-PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DNS | Select-Object Name, Status, StartType
-
-Name  Status StartType
-----  ------ ---------
-DNS  Running Automatic
-```
-
 ### À noter
 
-| Vérification                              | Résultat  |
-| ----------------------------------------- | --------- |
-| État du rôle DNS                          | Running   |
-| Installation nécessaire ?                 | Non       |
-| État et type de démarrage du service      | Automatic |
-| Module `DnsServer` disponible             | Oui       |
-| Résolution locale                         | Oui       |
-| Nombre de commandes du module `DnsServer` | 136       |
+|Vérification|Résultat|
+|---|---|
+|État du rôle DNS|Running|
+|Installation nécessaire ?|Non|
+|État et type de démarrage du service|Automatic|
+|Module `DnsServer` disponible|Oui|
+|Résolution locale|Oui|
+|Nombre de commandes du module `DnsServer`|136|
 
 **Commandes DNS utiles trouvées** :
 
-| Commande                    | Rôle |
-| --------------------------- | ---- |
-| Add-DnsServerResourceRecord |      |
-| Get-DnsServer               |      |
-|                             |      |
-|                             |      |
-|                             |      |
-|                             |      |
-|                             |      |
-|                             |      |
+|Commande|Rôle|
+|---|---|
+|Add-DnsServerResourceRecord||
+|Get-DnsServer||
+|||
+|||
+|||
+|||
+|||
+|||
 
+![[capture-3-role-dns.png]] ![[capture-3-service.png]] ![[capture-3-commandes.png]]
 
+**Commentaires**
 
 ---
 
@@ -212,23 +215,22 @@ DNS  Running Automatic
 
 ### Comprendre
 
-> [!question] Zone intégrée à Active Directory 
-> Une zone DNS classique est stockée dans un **fichier** sur un serveur « principal » et copiée vers des serveurs « secondaires » (transfert de zone). Une zone **intégrée à AD** est stockée **dans la base Active Directory** : elle se réplique avec la réplication AD que tu as vérifiée au TP précédent. 
+> [!question] Zone intégrée à Active Directory Une zone DNS classique est stockée dans un **fichier** sur un serveur « principal » et copiée vers des serveurs « secondaires » (transfert de zone). Une zone **intégrée à AD** est stockée **dans la base Active Directory** : elle se réplique avec la réplication AD que tu as vérifiée au TP précédent.
 > 
 > Conséquences : tous les contrôleurs DNS ont la zone en **lecture et écriture**, sans transfert de zone, et la sécurité des mises à jour dynamiques est gérée par AD. La **portée de réplication** dit quels contrôleurs reçoivent la zone : tous les contrôleurs de la **forêt**, tous ceux du **domaine**, ou un ensemble **personnalisé**. Ces portées s'appuient sur des partitions d'annuaire dédiées (`ForestDnsZones`, `DomainDnsZones`).
 
-> [!tip] Guidage 
-> Au TP DNS, tu as choisi « To all DNS on domain » pour ta zone inversée `100.168.192.in-addr.arpa`. Cette zone devrait donc **aussi** exister sur le Core : c'est une vérification bonus.
+> [!tip] Guidage Au TP DNS, tu as choisi « To all DNS on domain » pour ta zone inversée `100.168.192.in-addr.arpa`. Cette zone devrait donc **aussi** exister sur le Core : c'est une vérification bonus.
 
 Écris, avec tes mots, la différence entre une zone intégrée à AD et une zone principale classique :
 
 ### Pas à pas
 
-1. **Lister les zones des deux serveurs** (depuis `[Graphique]`, ou en local sur chaque serveur) :
-     SRV Core
- 
-    ```powershell
-    PS C:\Users\administrator.TSSR-MEN> Get-DnsServerZone -ComputerName SRV-WIN-MEN-01
+**Étape 1 : lister les zones des deux serveurs** (depuis `[Graphique]`, ou en local sur chaque serveur)
+
+Depuis `[Core]` :
+
+```text
+PS C:\Users\administrator.TSSR-MEN> Get-DnsServerZone -ComputerName SRV-WIN-MEN-01
 
 ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
 --------                            --------        -------------   --------------  -------------------  --------
@@ -252,11 +254,11 @@ _msdcs.TSSR-MEN.LAB                 Primary         False           True        
 255.in-addr.arpa                    Primary         True            False           True                 False
 TrustAnchors                        Primary         False           True            False                False
 TSSR-MEN.LAB                        Primary         False           True            False                False
-    ```
+```
 
-SRV1
+Depuis `[Graphique]` :
 
-```powershell
+```text
 PS C:\Users\Administrator> Get-DnsServerZone -ComputerName SRV-WIN-MEN-01
 
 ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
@@ -283,33 +285,33 @@ TrustAnchors                        Primary         False           True        
 TSSR-MEN.LAB                        Primary         False           True            False                False
 ```
 
+**Étape 2 : les comparer** avec les propriétés utiles
 
-2. **Les comparer** avec les propriétés utiles :
-    
-    ```powershell
-    Get-DnsServerZone -ComputerName <serveur> | Select-Object ZoneName, ZoneType, IsDsIntegrated, ReplicationScope, DynamicUpdate
-    ```
-    
-    Repère : la zone `TSSR-MEN.LAB` sur **les deux** serveurs, le type de zone, si elle est intégrée à AD (`IsDsIntegrated`), sa portée (`ReplicationScope`) et la mise à jour dynamique.
-    
-3. **Rechercher les zones « de service »** : regarde la zone `_msdcs.TSSR-MEN.LAB` et note sa portée. Pourquoi serait-elle différente de la zone du domaine ?
-    
-4. **Vérifier les enregistrements SRV** (ceux qui permettent de trouver les contrôleurs) :
-    
-    ```powershell
-    Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -RRType SRV -ComputerName <serveur>
-    Get-DnsServerResourceRecord -ZoneName _msdcs.TSSR-MEN.LAB -RRType SRV -ComputerName <serveur>
-    ```
-    
-    Puis interroge-les comme le ferait un client :
-    
-    ```powershell
-    Resolve-DnsName -Name _ldap._tcp.dc._msdcs.TSSR-MEN.LAB -Type SRV -Server <IP du serveur DNS>
-    Resolve-DnsName -Name _kerberos._tcp.TSSR-MEN.LAB -Type SRV -Server <IP du serveur DNS>
-    ```
-    
-    Pour chacun, tu dois trouver **deux** enregistrements (un par contrôleur). Regarde les colonnes _NameTarget_, _Port_ (389 pour LDAP, 88 pour Kerberos), _Priority_ et _Weight_.
-    
+```powershell
+Get-DnsServerZone -ComputerName <serveur> | Select-Object ZoneName, ZoneType, IsDsIntegrated, ReplicationScope, DynamicUpdate
+```
+
+Repère : la zone `TSSR-MEN.LAB` sur **les deux** serveurs, le type de zone, si elle est intégrée à AD (`IsDsIntegrated`), sa portée (`ReplicationScope`) et la mise à jour dynamique.
+
+**Étape 3 : rechercher les zones « de service »**
+
+Regarde la zone `_msdcs.TSSR-MEN.LAB` et note sa portée. Pourquoi serait-elle différente de la zone du domaine ?
+
+**Étape 4 : vérifier les enregistrements SRV** (ceux qui permettent de trouver les contrôleurs)
+
+```powershell
+Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -RRType SRV -ComputerName <serveur>
+Get-DnsServerResourceRecord -ZoneName _msdcs.TSSR-MEN.LAB -RRType SRV -ComputerName <serveur>
+```
+
+Puis interroge-les comme le ferait un client :
+
+```powershell
+Resolve-DnsName -Name _ldap._tcp.dc._msdcs.TSSR-MEN.LAB -Type SRV -Server <IP du serveur DNS>
+Resolve-DnsName -Name _kerberos._tcp.TSSR-MEN.LAB -Type SRV -Server <IP du serveur DNS>
+```
+
+Pour chacun, tu dois trouver **deux** enregistrements (un par contrôleur). Regarde les colonnes _NameTarget_, _Port_ (389 pour LDAP, 88 pour Kerberos), _Priority_ et _Weight_.
 
 > [!warning] Si l'enregistrement du nouveau contrôleur manque Le service Netlogon du Core enregistre lui-même ses SRV. Pour forcer l'enregistrement : `nltest /dsregdns` sur `[Core]`. Relis ensuite. Si le problème persiste, vérifie les DNS configurés sur le Core (partie 6).
 
@@ -352,45 +354,45 @@ TSSR-MEN.LAB                        Primary         False           True        
 |IPv4|`192.168.100.253`|
 |Zone|`TSSR-MEN.LAB`|
 
-1. `[Graphique]` Console _DNS_ → _Forward Lookup Zones_ → `TSSR-MEN.LAB` → clic droit → **New Host (A or AAAA)...** → nom `test-core`, IP `192.168.100.253` → **Add Host**.
-    
-2. `[Core]` Vérifie sa présence en local :
-    
-    ```powershell
-    Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core
-    ```
-    
-3. `[Core]` Interroge **explicitement** le DNS du Core :
-    
-    ```powershell
-    Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly
-    ```
-    
+**A.1 : créer l'enregistrement** (`[Graphique]`)
+
+Console _DNS_ → _Forward Lookup Zones_ → `TSSR-MEN.LAB` → clic droit → **New Host (A or AAAA)...** → nom `test-core`, IP `192.168.100.253` → **Add Host**.
+
+**A.2 : vérifier sa présence en local** (`[Core]`)
+
+```powershell
+Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core
+```
+
+**A.3 : interroger explicitement le DNS du Core** (`[Core]`)
+
+```powershell
+Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly
+```
 
 **B. Deuxième enregistrement créé depuis PowerShell, en ciblant le Core**
 
 > [!tip] Guidage Le brief ne donne ni nom ni adresse pour le second enregistrement : choisis-les. Une adresse **libre**, hors de la plage DHCP (`.150` à `.200`) et différente de `.10`, `.11`, `.99` et `.253`. Choisis un nom qui rappelle son origine (par exemple le suffixe `-ps`).
 
-1. Crée l'enregistrement (la commande part de `[Graphique]` ou du Core, mais **cible le Core**) :
-    
-    ```powershell
-    Add-DnsServerResourceRecordA -Name <nom> -ZoneName TSSR-MEN.LAB -IPv4Address <adresse> -ComputerName SRV-WIN-MEN-02
-    ```
-    
-2. Retrouve-le **sur le serveur graphique** :
-    
-    ```powershell
-    Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -ComputerName SRV-WIN-MEN-01
-    ```
-    
-    Vérifie aussi dans la console DNS de `[Graphique]` (touche F5 pour actualiser).
-    
-3. `[Client]` Résous-le depuis Windows 11 :
-    
-    ```powershell
-    Resolve-DnsName -Name <nom>.TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
-    ```
-    
+**B.1 : créer l'enregistrement** (la commande part de `[Graphique]` ou du Core, mais **cible le Core**)
+
+```powershell
+Add-DnsServerResourceRecordA -Name <nom> -ZoneName TSSR-MEN.LAB -IPv4Address <adresse> -ComputerName SRV-WIN-MEN-02
+```
+
+**B.2 : le retrouver sur le serveur graphique**
+
+```powershell
+Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -ComputerName SRV-WIN-MEN-01
+```
+
+Vérifie aussi dans la console DNS de `[Graphique]` (touche F5 pour actualiser).
+
+**B.3 : le résoudre depuis Windows 11** (`[Client]`)
+
+```powershell
+Resolve-DnsName -Name <nom>.TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
+```
 
 > [!warning] Délai de réplication Si l'enregistrement n'apparaît pas tout de suite sur l'autre serveur, patiente quelques dizaines de secondes (jusqu'à quelques minutes), puis relance. Sinon, force la réplication AD avec `repadmin /syncall /AdeP` et relis. Note le délai constaté.
 
@@ -406,7 +408,11 @@ TSSR-MEN.LAB                        Primary         False           True        
 
 ![[capture-5-creation-test-core.png]] ![[capture-5-lecture-core.png]] ![[capture-5-resolution-core.png]] ![[capture-5-creation-powershell.png]] ![[capture-5-lecture-graphique.png]] ![[capture-5-resolution-client.png]]
 
-**Nettoyage :** supprimes-tu ou gardes-tu les enregistrements de test ? Note ton choix. Pour supprimer : `Remove-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -RRType A -ComputerName <serveur> -Force`.
+**Nettoyage :** supprimes-tu ou gardes-tu les enregistrements de test ? Note ton choix. Pour supprimer :
+
+```powershell
+Remove-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name <nom> -RRType A -ComputerName <serveur> -Force
+```
 
 **Commentaires**
 
@@ -428,37 +434,38 @@ TSSR-MEN.LAB                        Primary         False           True        
 
 ### Pas à pas
 
-1. **Examiner la configuration actuelle** sur chacun des deux serveurs :
-    
-    ```powershell
-    Get-DnsClientServerAddress -AddressFamily IPv4
-    ```
-    
-    Note l'alias de la carte (par exemple `Ethernet0`) et les adresses actuelles. Le TP précédent a peut-être laissé le Core pointer uniquement vers `192.168.100.10`, et `SRV-WIN-MEN-01` uniquement vers lui-même.
-    
-2. **Définir la liste** (une commande par serveur, adaptée à ta stratégie) :
-    
-    ```powershell
-    Set-DnsClientServerAddress -InterfaceAlias "<alias de la carte>" -ServerAddresses ("<DNS préféré>","<DNS alternatif>")
-    ```
-    
-3. **Revérifier**, puis vide le cache DNS du client DNS de la machine :
-    
-    ```powershell
-    Get-DnsClientServerAddress -AddressFamily IPv4
-    Clear-DnsClientCache
-    ```
-    
-4. **Vérifier que chaque contrôleur résout le domaine** (sur chaque serveur) :
-    
-    ```powershell
-    Resolve-DnsName -Name TSSR-MEN.LAB
-    Resolve-DnsName -Name SRV-WIN-MEN-01.TSSR-MEN.LAB
-    Resolve-DnsName -Name SRV-WIN-MEN-02.TSSR-MEN.LAB
-    ```
-    
-5. **Contrôle global (optionnel)** : `dcdiag /test:dns` lance un test DNS complet du contrôleur. La sortie est longue : lis surtout les lignes _passed_ et _failed_.
-    
+**Étape 1 : examiner la configuration actuelle** sur chacun des deux serveurs
+
+```powershell
+Get-DnsClientServerAddress -AddressFamily IPv4
+```
+
+Note l'alias de la carte (par exemple `Ethernet0`) et les adresses actuelles. Le TP précédent a peut-être laissé le Core pointer uniquement vers `192.168.100.10`, et `SRV-WIN-MEN-01` uniquement vers lui-même.
+
+**Étape 2 : définir la liste** (une commande par serveur, adaptée à ta stratégie)
+
+```powershell
+Set-DnsClientServerAddress -InterfaceAlias "<alias de la carte>" -ServerAddresses ("<DNS préféré>","<DNS alternatif>")
+```
+
+**Étape 3 : revérifier**, puis vider le cache du client DNS de la machine
+
+```powershell
+Get-DnsClientServerAddress -AddressFamily IPv4
+Clear-DnsClientCache
+```
+
+**Étape 4 : vérifier que chaque contrôleur résout le domaine** (sur chaque serveur)
+
+```powershell
+Resolve-DnsName -Name TSSR-MEN.LAB
+Resolve-DnsName -Name SRV-WIN-MEN-01.TSSR-MEN.LAB
+Resolve-DnsName -Name SRV-WIN-MEN-02.TSSR-MEN.LAB
+```
+
+**Étape 5 : contrôle global (optionnel)**
+
+`dcdiag /test:dns` lance un test DNS complet du contrôleur. La sortie est longue : lis surtout les lignes _passed_ et _failed_.
 
 ### À noter
 
@@ -485,47 +492,48 @@ TSSR-MEN.LAB                        Primary         False           True        
 
 ### Pas à pas
 
-1. `[Client]` **Identifier les DNS actuels** :
-    
-    ```powershell
-    ipconfig /all
-    Get-DnsClientServerAddress -AddressFamily IPv4
-    ```
-    
-2. `[Graphique]` **Modifier l'option DHCP** de l'étendue `LAN-TSSR`, soit à la console (_DHCP_ → `IPv4` → étendue → **Scope Options** → clic droit sur **006 DNS Servers** → **Properties** → ajoute `192.168.100.11` sans retirer `192.168.100.10`), soit en PowerShell :
-    
-    ```powershell
-    Set-DhcpServerv4OptionValue -ScopeId 192.168.100.0 -DnsServer <DNS1>,<DNS2>
-    Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0
-    ```
-    
-3. `[Client]` **Récupérer la nouvelle configuration** et contrôler :
-    
-    ```powershell
-    ipconfig /renew
-    ipconfig /all
-    ```
-    
-    Les deux DNS doivent apparaître. Note l'**ordre** : c'est celui de la liste que tu as saisie dans le DHCP. Si tu es en contrôle à distance, rappelle-toi l'avertissement du formateur sur `ipconfig /release` ; ici `/renew` seul suffit.
-    
-4. `[Client]` **Interroger explicitement chacun des deux serveurs** :
-    
-    ```powershell
-    Resolve-DnsName -Name TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
-    Resolve-DnsName -Name TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly
-    ```
-    
-    Équivalent avec l'outil classique : `nslookup TSSR-MEN.LAB 192.168.100.11`.
-    
-5. `[Client]` **Résoudre les deux contrôleurs et les enregistrements de test** sur chaque serveur DNS :
-    
-    ```powershell
-    Resolve-DnsName -Name SRV-WIN-MEN-01.TSSR-MEN.LAB -Server <IP>
-    Resolve-DnsName -Name SRV-WIN-MEN-02.TSSR-MEN.LAB -Server <IP>
-    Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server <IP>
-    Resolve-DnsName -Name <nom du second enregistrement>.TSSR-MEN.LAB -Server <IP>
-    ```
-    
+**Étape 1 : identifier les DNS actuels** (`[Client]`)
+
+```powershell
+ipconfig /all
+Get-DnsClientServerAddress -AddressFamily IPv4
+```
+
+**Étape 2 : modifier l'option DHCP** de l'étendue `LAN-TSSR` (`[Graphique]`)
+
+Soit à la console : _DHCP_ → `IPv4` → étendue → **Scope Options** → clic droit sur **006 DNS Servers** → **Properties** → ajoute `192.168.100.11` sans retirer `192.168.100.10`. Soit en PowerShell :
+
+```powershell
+Set-DhcpServerv4OptionValue -ScopeId 192.168.100.0 -DnsServer <DNS1>,<DNS2>
+Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0
+```
+
+**Étape 3 : récupérer la nouvelle configuration et contrôler** (`[Client]`)
+
+```powershell
+ipconfig /renew
+ipconfig /all
+```
+
+Les deux DNS doivent apparaître. Note l'**ordre** : c'est celui de la liste que tu as saisie dans le DHCP. Si tu es en contrôle à distance, rappelle-toi l'avertissement du formateur sur `ipconfig /release` ; ici `/renew` seul suffit.
+
+**Étape 4 : interroger explicitement chacun des deux serveurs** (`[Client]`)
+
+```powershell
+Resolve-DnsName -Name TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
+Resolve-DnsName -Name TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly
+```
+
+Équivalent avec l'outil classique : `nslookup TSSR-MEN.LAB 192.168.100.11`.
+
+**Étape 5 : résoudre les deux contrôleurs et les enregistrements de test** sur chaque serveur DNS (`[Client]`)
+
+```powershell
+Resolve-DnsName -Name SRV-WIN-MEN-01.TSSR-MEN.LAB -Server <IP>
+Resolve-DnsName -Name SRV-WIN-MEN-02.TSSR-MEN.LAB -Server <IP>
+Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server <IP>
+Resolve-DnsName -Name <nom du second enregistrement>.TSSR-MEN.LAB -Server <IP>
+```
 
 > [!tip] Guidage
 > 
