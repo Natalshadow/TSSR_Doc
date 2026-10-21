@@ -1044,6 +1044,9 @@ Soit à la console : _DHCP_ → `IPv4` → étendue → **Scope Options** → cl
 Set-DhcpServerv4OptionValue -ScopeId 192.168.100.0 -DnsServer <DNS1>,<DNS2>
 Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0
 ```
+![](attachments/Pasted%20image%2020261021135353.png)
+
+J'ai fait ça avec SRV2 éteint pour des contraintes de mémoire RAM.
 
 **Étape 3 : récupérer la nouvelle configuration et contrôler** (`[Client]`)
 
@@ -1051,6 +1054,8 @@ Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0
 ipconfig /renew
 ipconfig /all
 ```
+
+![](attachments/Pasted%20image%2020261021135550.png)
 
 Les deux DNS doivent apparaître. Note l'**ordre** : c'est celui de la liste que tu as saisie dans le DHCP. Si tu es en contrôle à distance, rappelle-toi l'avertissement du formateur sur `ipconfig /release` ; ici `/renew` seul suffit.
 
@@ -1060,7 +1065,9 @@ Les deux DNS doivent apparaître. Note l'**ordre** : c'est celui de la liste que
 Resolve-DnsName -Name TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly
 Resolve-DnsName -Name TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly
 ```
+![](attachments/Pasted%20image%2020261021135714.png)
 
+C'est normal, le Core est éteint. Sinon il dirait la même chose.
 Équivalent avec l'outil classique : `nslookup TSSR-MEN.LAB 192.168.100.11`.
 
 **Étape 5 : résoudre les deux contrôleurs et les enregistrements de test** sur chaque serveur DNS (`[Client]`)
@@ -1071,7 +1078,8 @@ Resolve-DnsName -Name SRV-WIN-MEN-02.TSSR-MEN.LAB -Server <IP>
 Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server <IP>
 Resolve-DnsName -Name <nom du second enregistrement>.TSSR-MEN.LAB -Server <IP>
 ```
-
+Pareil, le core est éteint faute de RAM donc les commandes échouent.
+![](attachments/Pasted%20image%2020261021135912.png)
 > [!tip] Guidage
 > 
 > - Pour un tableau propre, répète les quatre commandes avec `192.168.100.10` puis avec `192.168.100.11`. Les réponses doivent être **identiques** : c'est la preuve que les deux serveurs servent la même zone.
@@ -1138,10 +1146,10 @@ Resolve-DnsName -Name <nom du second enregistrement>.TSSR-MEN.LAB -Server <IP>
 
 ![](attachments/Pasted%20image%2020261021133628.png)
 
-| Problème                               | Cause                                                                                     | Solution |
-| -------------------------------------- | ----------------------------------------------------------------------------------------- | -------- |
-| Ma VM CLI ne démarre plus correctement | Inconnue pour le moment, pas de changement de config VM, mais update system de l'OS host. |          |
-|                                        |                                                                                           |          |
+| Problème                               | Cause                                                                                     | Solution                                                                                                         |
+| -------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Ma VM CLI ne démarre plus correctement | Inconnue pour le moment, pas de changement de config VM, mais update system de l'OS host. | Recréer une nouvelle VM en pointant la nouvelle VM vers le disque de la précédente et tout semble remis en état. |
+|                                        |                                                                                           |                                                                                                                  |
 
 ### Ce que j'ai retenu
 
