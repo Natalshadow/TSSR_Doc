@@ -252,7 +252,8 @@ Regarde : l'adresse (dans la plage), le serveur DHCP, les serveurs DNS et le suf
 **Étape 5 : constater l'absence de l'étendue sur le Core** (avant le failover)
 
 ```powershell
-Get-DhcpServerv4Scope -ComputerName SRV-WIN-MEN-02
+PS C:\Users\administrator.TSSR-MEN> Get-DhcpServerv4Scope -ComputerName SRV-WIN-MEN-02
+PS C:\Users\administrator.TSSR-MEN>
 ```
 
 Le résultat doit être vide : c'est ton « avant ».
