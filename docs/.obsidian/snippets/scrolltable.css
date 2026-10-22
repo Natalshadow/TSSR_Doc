@@ -1,0 +1,7 @@
+/* Allow tables to scroll horizontally in Obsidian */
+.cm-table-widget, 
+.markdown-rendered table {
+  display: block;
+  overflow-x: auto !important;
+  white-space: nowrap;
+}

@@ -197,6 +197,10 @@ La liste doit montrer **deux** serveurs : `SRV-WIN-MEN-01` et le Core, avec leur
 
 ```powershell
 Get-DhcpServerv4Scope -ComputerName SRV-WIN-MEN-01
+
+ScopeId         SubnetMask      Name           State    StartRange      EndRange        LeaseDuration
+-------         ----------      ----           -----    ----------      --------        -------------
+192.168.100.0   255.255.255.0   LAN-TSSR       Active   192.168.100.150 192.168.100.200 8.00:00:00
 ```
 
 Relève le nom, l'identifiant d'étendue, la plage (début et fin), le masque, l'état (_Active_) et la durée du bail.
