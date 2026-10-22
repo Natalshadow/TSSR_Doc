@@ -30,8 +30,33 @@
               "icon": "lucide-file",
               "title": "Mettre en place la redondance DNS avec Windows Server Core"
             }
+          },
+          {
+            "id": "0518d38593460d3d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "9-Labs and TP/TP - Configurer le DHCP Failover avec Windows Server Core.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "TP - Configurer le DHCP Failover avec Windows Server Core"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -93,7 +118,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "ba07964c7ac4c91f",
@@ -211,11 +237,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "fbffe4411db7015d",
+  "active": "0518d38593460d3d",
   "lastOpenFiles": [
+    "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
+    "9-Labs and TP/TP - Configurer le DHCP Failover avec Windows Server Core.md",
     "9-Labs and TP/Deliverable version/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/Déploiement redondance DNS Server Core - 2.md",
-    "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/attachments/Pasted image 20261021135912.png",
     "9-Labs and TP/attachments/Pasted image 20261021135714.png",
     "9-Labs and TP/attachments/Pasted image 20261021135550.png",
@@ -251,7 +278,6 @@
     "DORA steps.md",
     "3-Windows Server/Flexible Single Master Operations roles.md",
     "3-Windows Server/Active Directory domain vs DNS domain.md",
-    "3-Windows Server/Active Directory et LDAP.md",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
