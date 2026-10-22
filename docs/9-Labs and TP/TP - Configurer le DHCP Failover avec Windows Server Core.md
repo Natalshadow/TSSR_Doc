@@ -474,7 +474,13 @@ Invoke-DhcpServerv4FailoverReplication -ComputerName "SRV-WIN-MEN-01.tssr-men.la
 ```powershell
 Get-NetIPInterface -AddressFamily IPv4 | Select-Object InterfaceAlias, Dhcp
 ipconfig /all
+
+
+
 ```
+
+![](attachments/Pasted%20image%2020261022113146.png)
+![](attachments/Pasted%20image%2020261022113210.png)S
 
 Cherche _DHCP activé : Oui_. Les DNS ne doivent pas être saisis à la main.
 
@@ -491,17 +497,30 @@ ipconfig /release; ipconfig /renew
 ```powershell
 ipconfig /all
 ```
-
+![](attachments/Pasted%20image%2020261022113332.png)
 Relève : l'adresse (dans la plage `.150` à `.200` ?), le **serveur DHCP**, les **deux serveurs DNS**, le suffixe, les dates d'obtention et d'expiration du bail.
 
 **Étape 4 : contrôler le bail côté service DHCP**
 
 ```powershell
-Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
-Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-02
+PS C:\Users\Administrator> Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
+
+IPAddress       ScopeId         ClientId             HostName             AddressState         LeaseExpiryTime
+---------       -------         --------             --------             ------------         ---------------
+192.168.100.150 192.168.100.0   08-00-27-e5-de-16    CLI-WIN-MEN-01.TS... Active               10/22/2026 12:32:27 PM
+
+
+PS C:\Users\Administrator> Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-02
+
+IPAddress       ScopeId         ClientId             HostName             AddressState         LeaseExpiryTime
+---------       -------         --------             --------             ------------         ---------------
+192.168.100.150 192.168.100.0   08-00-27-e5-de-16    CLI-WIN-MEN-01.TS... Active               10/22/2026 12:32:26 PM
+
 ```
 
 Retrouve ton client par son adresse MAC (`ipconfig /all`) ou son nom.
+
+![](attachments/Pasted%20image%2020261022114824.png)
 
 ### À noter
 
@@ -516,9 +535,6 @@ Retrouve ton client par son adresse MAC (`ipconfig /all`) ou son nom.
 |Bail visible sur `SRV-WIN-MEN-01`||
 |Bail visible sur `SRV-WIN-MEN-02`||
 
-![[capture-7-client-auto.png]] ![[capture-7-release-renew.png]] ![[capture-7-ipconfig.png]] ![[capture-7-baux-serveurs.png]]
-
-**Commentaires**
 
 ---
 
