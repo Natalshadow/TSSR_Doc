@@ -105,7 +105,11 @@
 **Étape 1 : installer le rôle DHCP et les outils d'administration**
 
 ```powershell
-Install-WindowsFeature -Name DHCP -IncludeManagementTools
+PS C:\Users\administrator.TSSR-MEN> Install-WindowsFeature -Name DHCP -IncludeManagementTools
+
+Success Restart Needed Exit Code      Feature Result
+------- -------------- ---------      --------------
+True    No             Success        {DHCP Server}
 ```
 
 Si tu veux retrouver le nom du rôle, cherche avec `Get-WindowsFeature *DHCP*`. Note le résultat de l'installation (_Success_, besoin d'un redémarrage ou non).
@@ -115,15 +119,28 @@ Si tu veux retrouver le nom du rôle, cherche avec `Get-WindowsFeature *DHCP*`. 
 Cherche dans le module `DhcpServer` la commande qui crée les groupes de sécurité (`Get-Command -Module DhcpServer -Noun *SecurityGroup*`), puis redémarre le service pour prendre en compte les nouveaux groupes :
 
 ```powershell
-Add-DhcpServerSecurityGroup
-Restart-Service -Name DHCPServer
+PS C:\Users\administrator.TSSR-MEN> Add-DhcpServerSecurityGroup
+PS C:\Users\administrator.TSSR-MEN> Restart-Service -Name DHCPServer
+WARNING: Waiting for service 'DHCP Server (DHCPServer)' to start...
 ```
 
 **Étape 3 : vérifier la présence et le fonctionnement du service**
 
 ```powershell
-Get-WindowsFeature -Name DHCP
-Get-Service -Name DHCPServer
+PS C:\Users\administrator.TSSR-MEN> Get-WindowsFeature -Name DHCP
+
+Display Name                                            Name                       Install State
+------------                                            ----                       -------------
+[X] DHCP Server                                         DHCP                           Installed
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-Service -Name DHCPServer
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  DHCPServer         DHCP Server
+
+
 ```
 
 Regarde l'état d'installation, le statut (_Running_) et le type de démarrage (_Automatic_).
@@ -133,32 +150,37 @@ Regarde l'état d'installation, le statut (_Running_) et le type de démarrage (
 Cherche la commande avec `Get-Command -Module DhcpServer -Noun *InDC*`. Elle demande le **nom DNS complet** et l'**adresse IP** du serveur :
 
 ```powershell
-Add-DhcpServerInDC -DnsName <nom DNS complet du Core> -IPAddress <adresse IPv4 du Core>
+Add-DhcpServerInDC -DnsName SRV-WIN-MEN-02 -IPAddress 192.168.100.11
+or
+Add-DhcpServerInDC -DnsName SRV-WIN-MEN-02.tssr-men.lab -IPAddress 192.168.100.11
 ```
 
 **Étape 5 : vérifier que les deux serveurs sont autorisés**
 
 ```powershell
-Get-DhcpServerInDC
+PS C:\Users\administrator.TSSR-MEN> Get-DhcpServerInDC
+
+IPAddress            DnsName
+---------            -------
+192.168.100.10       srv-win-men-01.tssr-men.lab
+192.168.100.11       srv-win-men-02
+192.168.100.11       srv-win-men-02.tssr-men.lab
 ```
 
 La liste doit montrer **deux** serveurs : `SRV-WIN-MEN-01` et le Core, avec leurs adresses IP.
 
-> [!warning] Si l'autorisation échoue Vérifie que tu es connecté avec un compte qui a le droit d'autoriser un serveur DHCP dans l'annuaire (un administrateur du domaine racine) et que le nom DNS complet du Core se résout (`Resolve-DnsName <nom>`). N'invente pas l'adresse IP : relève-la sur le Core (`Get-NetIPAddress`).
+> [!warning] Si l'autorisation échoue 
+> Vérifie que tu es connecté avec un compte qui a le droit d'autoriser un serveur DHCP dans l'annuaire (un administrateur du domaine racine) et que le nom DNS complet du Core se résout (`Resolve-DnsName <nom>`). N'invente pas l'adresse IP : relève-la sur le Core (`Get-NetIPAddress`).
 
 ### À noter
 
-|Vérification|Résultat|
-|---|---|
-|Résultat de l'installation du rôle||
-|Groupes de sécurité créés||
-|Service `DHCPServer` : statut et démarrage||
-|Serveur Core autorisé (commande utilisée)||
-|Serveurs autorisés dans l'annuaire (liste)||
-
-![[capture-3-installation.png]] ![[capture-3-service.png]] ![[capture-3-autorisation.png]] ![[capture-3-serveurs-autorises.png]]
-
-**Commentaires**
+| Vérification                               | Résultat |
+| ------------------------------------------ | -------- |
+| Résultat de l'installation du rôle         | Success  |
+| Groupes de sécurité créés                  |          |
+| Service `DHCPServer` : statut et démarrage | Success  |
+| Serveur Core autorisé (commande utilisée)  |          |
+| Serveurs autorisés dans l'annuaire (liste) |          |
 
 ---
 
@@ -166,7 +188,8 @@ La liste doit montrer **deux** serveurs : `SRV-WIN-MEN-01` et le Core, avec leur
 
 ### Comprendre
 
-> [!question] Pourquoi relever l'état de départ Avant de créer le failover, tu dois savoir **ce que contient l'étendue** : plage, options (DNS, domaine), exclusions et baux. Après la mise en place, c'est ce contenu que le serveur de secours doit retrouver, à l'identique.
+> [!question] Pourquoi relever l'état de départ 
+> Avant de créer le failover, tu dois savoir **ce que contient l'étendue** : plage, options (DNS, domaine), exclusions et baux. Après la mise en place, c'est ce contenu que le serveur de secours doit retrouver, à l'identique.
 
 ### Pas à pas (`[Graphique]`)
 
