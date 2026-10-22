@@ -44,16 +44,52 @@ New-Item -ItemType Directory -Path "$base\RH", "$base\Compta" -Force
 **À essayer :**
 
 ```powershell
-New-Item -ItemType File -Path "$base\RH\note.txt" -Value "premier test"
-Get-ChildItem $base -Recurse
-Copy-Item "$base\RH\note.txt" "$base\Compta\"
-Rename-Item "$base\Compta\note.txt" "copie.txt"
-Add-Content "$base\Compta\copie.txt" "une ligne de plus"
-Get-Content "$base\Compta\copie.txt"
-Test-Path "$base\Compta\copie.txt"
+PS C:\Users\administrator.TSSR-MEN> Copy-Item "$base\RH\note.txt" "$base\Compta\"
+PS C:\Users\administrator.TSSR-MEN> Rename-Item "$base\Compta\note.txt" "copie.txt"
+PS C:\Users\administrator.TSSR-MEN> Add-Content "$base\Compta\copie.txt" "une ligne de plus"
+PS C:\Users\administrator.TSSR-MEN> Get-Content "$base\Compta\copie.txt"
+premier testune ligne de plus
+PS C:\Users\administrator.TSSR-MEN> Test-Path "$base\Compta\copie.txt"
+True
+PS C:\Users\administrator.TSSR-MEN> cd C:\Temp\TP-Sandbox
+PS C:\Temp\TP-Sandbox> ls
+
+
+    Directory: C:\Temp\TP-Sandbox
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10/22/2026   7:03 AM                Compta
+d-----        10/22/2026   7:03 AM                RH
+
+
+PS C:\Temp\TP-Sandbox> cd RH
+PS C:\Temp\TP-Sandbox\RH> ls
+
+
+    Directory: C:\Temp\TP-Sandbox\RH
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10/22/2026   7:03 AM             12 note.txt
+
+
+PS C:\Temp\TP-Sandbox\RH> cd ..
+PS C:\Temp\TP-Sandbox> cd Compta
+PS C:\Temp\TP-Sandbox\Compta> ls
+
+
+    Directory: C:\Temp\TP-Sandbox\Compta
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10/22/2026   7:03 AM             31 copie.txt
 ```
 
-**Commentaires :**
+
 
 ---
 
@@ -72,15 +108,59 @@ Test-Path "$base\Compta\copie.txt"
 **À essayer :**
 
 ```powershell
-Get-Acl "$base\RH" | Format-List
+PS C:\Temp\TP-Sandbox\Compta> Get-Acl "$base\RH" | Format-List
 
-$acl  = Get-Acl "$base\RH"
-$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("TSSR-MEN\GG-RH", "Modify", "ContainerInherit,ObjectInherit", "None", "Allow")
-$acl.SetAccessRule($rule)
-Set-Acl "$base\RH" $acl
 
-Get-Acl "$base\RH" | Format-List
-icacls "$base\RH"
+Path   : Microsoft.PowerShell.Core\FileSystem::C:\Temp\TP-Sandbox\RH
+Owner  : BUILTIN\Administrators
+Group  : TSSR-MEN\Domain Users
+Access : NT AUTHORITY\SYSTEM Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         BUILTIN\Users Allow  ReadAndExecute, Synchronize
+         BUILTIN\Users Allow  AppendData
+         BUILTIN\Users Allow  CreateFiles
+         CREATOR OWNER Allow  268435456
+Audit  :
+Sddl   : O:BAG:DUD:AI(A;OICIID;FA;;;SY)(A;OICIID;FA;;;BA)(A;OICIID;0x1200a9;;;BU)(A;CIID;LC;;;BU)(A;CIID;DC;;;BU)(A;OICIIOID;GA;;;CO)
+
+
+
+PS C:\Temp\TP-Sandbox\Compta>
+PS C:\Temp\TP-Sandbox\Compta> $acl  = Get-Acl "$base\RH"
+PS C:\Temp\TP-Sandbox\Compta> $rule = New-Object System.Security.AccessControl.FileSystemAccessRule("TSSR-MEN\GG-RH", "Modify", "ContainerInherit,ObjectInherit", "None", "Allow")
+PS C:\Temp\TP-Sandbox\Compta> $acl.SetAccessRule($rule)
+PS C:\Temp\TP-Sandbox\Compta> Set-Acl "$base\RH" $acl
+PS C:\Temp\TP-Sandbox\Compta>
+PS C:\Temp\TP-Sandbox\Compta> Get-Acl "$base\RH" | Format-List
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::C:\Temp\TP-Sandbox\RH
+Owner  : BUILTIN\Administrators
+Group  : TSSR-MEN\Domain Users
+Access : TSSR-MEN\GG-RH Allow  Modify, Synchronize
+         NT AUTHORITY\SYSTEM Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         BUILTIN\Users Allow  ReadAndExecute, Synchronize
+         BUILTIN\Users Allow  AppendData
+         BUILTIN\Users Allow  CreateFiles
+         CREATOR OWNER Allow  268435456
+Audit  :
+Sddl   : O:BAG:DUD:AI(A;OICI;0x1301bf;;;S-1-5-21-3751794092-3013587998-2465217153-1117)(A;OICIID;FA;;;SY)(A;OICIID;FA;;;BA)(A;OICIID;0x1200a9;;;BU)(A;CIID;LC;;;BU)(A;CI
+         ID;DC;;;BU)(A;OICIIOID;GA;;;CO)
+
+
+
+PS C:\Temp\TP-Sandbox\Compta> icacls "$base\RH"
+C:\Temp\TP-Sandbox\RH TSSR-MEN\GG-RH:(OI)(CI)(M)
+                      NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
+                      BUILTIN\Administrators:(I)(OI)(CI)(F)
+                      BUILTIN\Users:(I)(OI)(CI)(RX)
+                      BUILTIN\Users:(I)(CI)(AD)
+                      BUILTIN\Users:(I)(CI)(WD)
+                      CREATOR OWNER:(I)(OI)(CI)(IO)(F)
+
+Successfully processed 1 files; Failed processing 0 files
+PS C:\Temp\TP-Sandbox\Compta>
 ```
 
 Remplace `TSSR-MEN\GG-RH` par un groupe ou un compte qui existe sur ta machine (sur un poste hors domaine, un groupe local comme `Users`).
@@ -102,21 +182,50 @@ Remplace `TSSR-MEN\GG-RH` par un groupe ou un compte qui existe sur ta machine (
 **À essayer** (en administrateur) :
 
 ```powershell
-New-SmbShare -Name "Sandbox" -Path $base -ChangeAccess "TSSR-MEN\Domain Users"
-Get-SmbShare -Name "Sandbox"
-Get-SmbShareAccess -Name "Sandbox"
+PS C:\Temp\TP-Sandbox\Compta> New-SmbShare -Name "Sandbox" -Path $base -ChangeAccess "TSSR-MEN\Domain Users"
+
+Name    ScopeName Path               Description
+----    --------- ----               -----------
+Sandbox *         C:\Temp\TP-Sandbox
+
+
+PS C:\Temp\TP-Sandbox\Compta> Get-SmbShare -Name "Sandbox"
+
+Name    ScopeName Path               Description
+----    --------- ----               -----------
+Sandbox *         C:\Temp\TP-Sandbox
+
+
+PS C:\Temp\TP-Sandbox\Compta> Get-SmbShareAccess -Name "Sandbox"
+
+Name    ScopeName AccountName           AccessControlType AccessRight
+----    --------- -----------           ----------------- -----------
+Sandbox *         TSSR-MEN\Domain Users Allow             Change
+
+
+PS C:\Temp\TP-Sandbox\Compta>
 ```
 
-**Commentaires :**
 
 ---
 
 ## 5. Nettoyage
 
 ```powershell
-Remove-SmbShare -Name "Sandbox" -Force
-Remove-Item -Path $base -Recurse -Force
+PS C:\Temp\TP-Sandbox\Compta> Remove-SmbShare -Name "Sandbox" -Force
+PS C:\Temp\TP-Sandbox\Compta> Remove-Item -Path $base -Recurse -Force
+Remove-Item : Cannot remove the item at 'C:\Temp\TP-Sandbox' because it is in use.
+At line:1 char:1
++ Remove-Item -Path $base -Recurse -Force
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Remove-Item], PSInvalidOperationException
+    + FullyQualifiedErrorId : InvalidOperation,Microsoft.PowerShell.Commands.RemoveItemCommand
+
+PS C:\Temp\TP-Sandbox\Compta> Set-Location C:\Temp
+PS C:\Temp> Remove-Item -Path $base -Recurse -Force
+PS C:\Temp>
 ```
 
+> [!note] L'erreur provient du fait que mon terminal était dans le working directory et qu'il ne peut pas le vider si je m'y trouve 
 ---
 
