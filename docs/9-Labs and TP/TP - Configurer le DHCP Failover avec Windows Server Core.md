@@ -208,7 +208,18 @@ Relève le nom, l'identifiant d'étendue, la plage (début et fin), le masque, l
 **Étape 2 : vérifier les DNS et le suffixe de domaine distribués**
 
 ```powershell
-Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
+PS C:\Users\Administrator> Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
+
+OptionId   Name            Type       Value                VendorClass     UserClass       PolicyName
+--------   ----            ----       -----                -----------     ---------       ----------
+6          DNS Servers     IPv4Add... {192.168.100.10, ...
+51         Lease           DWord      {691200}
+15         DNS Domain Name String     {TSSR-MEN.LAB}
+
+
+PS C:\Users\Administrator> (Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0 -OptionId 6 -ComputerName SRV-WIN-MEN-01).Value
+192.168.100.10
+192.168.100.11
 ```
 
 Cherche dans le résultat l'option **6** (serveurs DNS) et l'option **15** (nom de domaine DNS). L'option 6 doit contenir **les deux** DNS.
@@ -221,8 +232,12 @@ Cherche dans le résultat l'option **6** (serveurs DNS) et l'option **15** (nom 
 **Étape 3 : relever les exclusions et les baux actuels**
 
 ```powershell
-Get-DhcpServerv4ExclusionRange -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
-Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
+PS C:\Users\Administrator> Get-DhcpServerv4ExclusionRange -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
+PS C:\Users\Administrator> Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-01
+
+IPAddress       ScopeId         ClientId             HostName             AddressState         LeaseExpiryTime
+---------       -------         --------             --------             ------------         ---------------
+192.168.100.150 192.168.100.0   08-00-27-e5-de-16    CLI-WIN-MEN-01.TS... Active               10/29/2026 12:55:34 PM
 ```
 
 **Étape 4 : vérifier qu'un poste obtient une configuration valide** (`[Client]`)
