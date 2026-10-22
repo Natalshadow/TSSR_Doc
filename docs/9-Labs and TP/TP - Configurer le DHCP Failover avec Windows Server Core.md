@@ -280,42 +280,53 @@ Le résultat doit être vide : c'est ton « avant ».
 
 ## 5. Mettre en place le DHCP Failover
 
-### Comprendre
+## Comprendre
 
-> [!question] Qu'est-ce que le DHCP Failover 
-> Avant Windows Server 2012, on se protégeait d'une panne en **coupant l'étendue en deux** (80/20) sur deux serveurs indépendants, sans partage d'information. Le **DHCP Failover** fait mieux : les deux serveurs forment une **relation** et partagent la **même étendue et la même base de baux**. Ils se parlent en permanence (en TCP, port 647) pour rester synchronisés.
-> 
-> Il existe **deux modes** :
-> 
-> - **Load Balance** : les deux serveurs répondent aux clients en même temps, avec une répartition (par défaut 50/50).
-> - **Hot Standby** : un serveur **actif** répond à tous les clients ; le serveur **de secours** ne répond que si l'actif tombe, et il garde en **réserve** un pourcentage des adresses pour les nouveaux clients pendant la panne.
+### Qu'est-ce que le DHCP Failover
+Avant Windows Server 2012, on se protégeait d'une panne en **coupant l'étendue en deux** (80/20) sur deux serveurs indépendants, sans partage d'information. Le **DHCP Failover** fait mieux : les deux serveurs forment une **relation** et partagent la **même étendue et la même base de baux**. Ils se parlent en permanence (en TCP, port 647) pour rester synchronisés.
 
-Complète ce tableau avec tes mots, après avoir lu l'aide ou la documentation :
+Il existe **deux modes** :
+- **Load Balance** : Les deux serveurs répondent aux clients en même temps, avec une répartition (par défaut 50/50).
+- **Hot Standby** : Un serveur **actif** répond à tous les clients ; le serveur **de secours** ne répond que si l'actif tombe, et il garde en **réserve** un pourcentage des adresses pour les nouveaux clients pendant la panne.
 
-| Critère                                           | Load Balance                  | Hot Standby                                                                           |
-| ------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------- |
-| Qui répond aux clients en fonctionnement normal ? | Les deux, à 50/50             | Le serveur principal, le secondaire prend la main en cas de panne (donc de timeout ?) |
-| Rôle de chaque serveur                            | Rôle principal pour les deux. | Rôle principal pour le premier, backup pour le second.                                |
-| Réserve d'adresses                                | Oui, 20%                      | Non                                                                                   |
-| Cas d'usage typique                               | Data transfer massif ?        | Cas typique, un backup en cas de panne du premier                                     |
-| Pourquoi choisir Hot Standby ici ?                |                               | Pas de justification du besoin d'un load balance                                      |
+---
 
-> [!tip] Guidage 
-> Fais le calcul de ta réserve : l'étendue contient `.150` à `.200`, soit combien d'adresses ? Quel est **10 %** de ce nombre ? Cette réserve est ce que le Core pourra donner à de nouveaux clients pendant la panne.
+### Tableau comparatif des modes
 
-Nombre d'adresses de la plage, et adresses de la réserve (arrondi) :
+| Critère | Load Balance | Hot Standby |
+| :--- | :--- | :--- |
+| **Qui répond aux clients en fonctionnement normal ?** | Les deux serveurs simultanément (50/50 par défaut). | Le serveur principal (**Active**). Le secondaire reste passif. |
+| **Rôle de chaque serveur** | Rôle principal/actif pour les deux (`Active/Active`). | Rôle principal (`Active`) pour le premier, secours (`Standby`) pour le second. |
+| **Réserve d'adresses** | Non (répartition par ratio d'adresses). | Oui (`ReservePercent` attribué au serveur passif). |
+| **Cas d'usage typique** | Même site avec fort trafic exigeant une répartition de charge. | Site principal avec serveur de secours (ou site distant de backup). |
 
-**Les états d'une relation** (à compléter en cherchant dans la documentation) :
+* **Pourquoi choisir Hot Standby ici ?**  
+  Dans notre infrastructure, `SRV-WIN-MEN-01` est le serveur principal de production et `SRV-WIN-MEN-02` sert uniquement de secours en cas de défaillance. Il n'y a pas de besoin de répartition de charge active.
 
-| État                      | Sens                                                                                      | Que fait le serveur de secours ?   |
-| ------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------- |
-| Normal                    | Le serveur principal fonctionne.                                                          | Rien                               |
-| Communication Interrupted | Packet loss, une réponse ou un nombre limité a été interrompu mais le serveur est revenu. | Il prend la main puis la redonne.  |
-| Partner Down              | Le serveur principal est en time out.                                                     | Le serveur back up prend sa place. |
+---
 
-### Pas à pas
+### Guidage & Calcul de la réserve
 
-**Étape 1 : rechercher les commandes liées au failover**
+Faisons le calcul de la réserve d'adresses pour la plage `.150` à `.200` :
+* **Nombre d'adresses de la plage (.150 à .200) :** $200 - 150 + 1 = \mathbf{51\text{ adresses}}$.
+* **Calcul de 10 % :** $51 \times 0{,}10 = 5{,}1$, soit **5 adresses** (arrondi).
+* **Adresses de la réserve :** 5 adresses IP que le serveur `Standby` pourra attribuer à de *nouveaux* clients pendant la panne (en plus du renouvellement des baux existants).
+
+---
+
+### Les états d'une relation DHCP Failover
+
+| État | Sens | Que fait le serveur de secours ? |
+| :--- | :--- | :--- |
+| **Normal** | Le serveur principal fonctionne et communique sur le port TCP 647. | Il ne répond à aucune requête client et synchronise sa base de baux en tâche de fond. |
+| **Communication Interrupted** | La liaison réseau entre les deux serveurs est coupée, mais le partenaire n'est pas encore déclaré mort. | Il répond aux renouvellements des clients existants et pioche dans la réserve (`ReservePercent`) pour les nouveaux clients. |
+| **Partner Down** | Le serveur principal est déclaré hors service (ou basculement manuel/automatique activé). | Il prend le contrôle total de l'étendue et attribue des baux temporaires avec la durée **MCLT**. |
+
+---
+
+## Pas à pas
+
+### Étape 1 : Rechercher les commandes liées au failover
 
 ```powershell
 Get-Command -Module DhcpServer -Noun *Failover*
@@ -323,34 +334,30 @@ Get-Help Add-DhcpServerv4Failover -Examples
 Get-Help Add-DhcpServerv4Failover
 ```
 
-Repère dans l'aide que la commande a **deux jeux de paramètres** : un pour _Load Balance_, un pour _Hot Standby_. Le mode n'est pas un paramètre : c'est l'**ensemble des paramètres** que tu fournis qui le détermine.
+---
 
-**Étape 2 : faire correspondre les paramètres imposés**
+### Étape 2 : Faire correspondre les paramètres imposés
 
-| Paramètre imposé                                 | Paramètre PowerShell trouvé |
-| ------------------------------------------------ | --------------------------- |
-| Nom de la relation                               |                             |
-| Serveur sur lequel on lance la commande (actif)  |                             |
-| Partenaire de secours                            |                             |
-| Étendue                                          |                             |
-| Rôle du serveur actif                            |                             |
-| Réserve d'adresses                               |                             |
-| Secret partagé (authentification entre serveurs) |                             |
+| Paramètre imposé | Paramètre PowerShell trouvé |
+| :--- | :--- |
+| **Nom de la relation** | `-Name` |
+| **Serveur sur lequel on lance la commande (actif)** | `-ComputerName` |
+| **Partenaire de secours** | `-PartnerServer` |
+| **Étendue** | `-ScopeId` |
+| **Rôle du serveur actif** | `-ServerRole` |
+| **Réserve d'adresses** | `-ReservePercent` |
+| **Secret partagé (authentification)** | `-SharedSecret` |
 
-> [!tip] Guidage
-> 
-> - Le paramètre de rôle (`-ServerRole`) désigne le rôle du serveur indiqué par `-ComputerName`.
-> - Le **secret partagé** authentifie les messages entre les deux serveurs. Choisis-en un, **ne l'écris pas** dans ce document. Il apparaît en clair dans l'historique de la console : acceptable dans un labo, à éviter en production.
-> - Pose-toi la question de la **durée maximale d'avance du client (MCLT)** : cherche ce que c'est, et pourquoi les baux donnés par le serveur de secours pendant une panne sont plus courts.
+#### Guidage théorique :
+- **`-ServerRole`** : Désigne le rôle du serveur indiqué par `-ComputerName` (ici `Active`).
+- **Secret partagé** : Authentifie les paquets TCP 647 entre serveurs pour éviter les faux serveurs DHCP.
+- **MCLT (Max Client Lead Time)** : Durée maximale d'avance (par défaut `01:00:00`). Lors d'une panne, le serveur de secours attribue des baux courts égaux au MCLT pour éviter les conflits d'IP lorsque le serveur principal revient en ligne.
 
-**Étape 3 : créer la relation** (depuis le serveur qui héberge l'étendue, donc `[Graphique]`)
+---
 
-```powershell
-Add-DhcpServerv4Failover -ComputerName <serveur actif> -Name "<nom de la relation>" -PartnerServer <partenaire> -ScopeId <étendue> -ServerRole <rôle> -ReservePercent <pourcentage> -SharedSecret "<secret, ne pas le noter ici>"
-```
+### Étape 3 : Créer la relation
 
 ```powershell
-
 Add-DhcpServerv4Failover `
   -ComputerName "SRV-WIN-MEN-01.tssr-men.lab" `
   -PartnerServer "SRV-WIN-MEN-02.tssr-men.lab" `
@@ -359,169 +366,97 @@ Add-DhcpServerv4Failover `
   -ServerRole Active `
   -ReservePercent 5 `
   -SharedSecret "MonSecretSecurise123!"
-
-
 ```
 
-**Étape 4 : vérifier que chaque serveur identifie son partenaire**
+---
 
+### Étape 4 & 5 : Vérifier la relation et résolution du problème NAT
+
+#### Incident identifié lors de l'inspection initiale (`Format-List *`)
+
+Lors du premier contrôle détaillé via `Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01 | Format-List *`, une anomalie a été détectée sur l'adresse d'écoute du serveur principal :
+
+```text
+PrimaryServerIP   : 10.0.3.15
+SecondaryServerIP : 192.168.100.11
+```
+
+**Diagnostic :** Une interface carte réseau temporaire (NAT VirtualBox) était active sur `SRV-WIN-MEN-01` pour l'installation d'outils. Windows Server a automatiquement lié le failover DHCP à l'IP NAT `10.0.3.15` au lieu de l'IP du LAN `192.168.100.10`.
+
+#### Action corrective appliquée :
+1. Suppression de la carte réseau NAT sur la machine virtuelle.
+2. Suppression de la relation de failover erronée :
+   ```powershell
+   Remove-DhcpServerv4Failover -Name "Failover-LAN-TSSR" -ComputerName "SRV-WIN-MEN-01.tssr-men.lab" -Force
+   ```
+3. Vérification de l'interface réseau active :
+   ```powershell
+   Get-NetIPAddress -InterfaceAlias "Ethernet*" -AddressFamily IPv4 | Select-Object IPAddress, InterfaceAlias
+   # Résultat : 192.168.100.10 sur Ethernet 2
+   ```
+4. Re-création de la relation de failover.
+
+---
+
+#### État final validé sur les deux serveurs
+
+**Depuis SRV-WIN-MEN-01 :**
 ```powershell
-Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01
-Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02
+PS C:\Users\Administrator> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01 | Format-List PrimaryServerIP, SecondaryServerIP, State, ServerRole
+
+PrimaryServerIP   : 192.168.100.10
+SecondaryServerIP : 192.168.100.11
+State             : Normal
+ServerRole        : Active
 ```
 
-Depuis SRV1
+**Depuis SRV-WIN-MEN-02 :**
 ```powershell
-PS C:\Users\Administrator> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01
+PS C:\Users\Administrator> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02 | Format-List PrimaryServerIP, SecondaryServerIP, State, ServerRole
 
-
-Name                : Failover-LAN-TSSR
-PartnerServer       : SRV-WIN-MEN-02.tssr-men.lab
-Mode                : HotStandby
-LoadBalancePercent  :
-ServerRole          : Active
-ReservePercent      : 5
-MaxClientLeadTime   : 01:00:00
-StateSwitchInterval :
-State               : Normal
-ScopeId             : 192.168.100.0
-AutoStateTransition : False
-EnableAuth          : True
-
-
-
-PS C:\Users\Administrator> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02
-
-
-Name                : Failover-LAN-TSSR
-PartnerServer       : SRV-WIN-MEN-01.tssr-men.lab
-Mode                : HotStandby
-LoadBalancePercent  :
-ServerRole          : Standby
-ReservePercent      : 5
-MaxClientLeadTime   : 01:00:00
-StateSwitchInterval :
-State               : Normal
-ScopeId             : 192.168.100.0
-AutoStateTransition : False
-EnableAuth          : True
+PrimaryServerIP   : 192.168.100.10
+SecondaryServerIP : 192.168.100.11
+State             : Normal
+ServerRole        : Standby
 ```
-
-Depuis SRV2
-```powershell
-PS C:\Users\administrator.TSSR-MEN> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01
-
-
-Name                : Failover-LAN-TSSR
-PartnerServer       : SRV-WIN-MEN-02.tssr-men.lab
-Mode                : HotStandby
-LoadBalancePercent  :
-ServerRole          : Active
-ReservePercent      : 5
-MaxClientLeadTime   : 01:00:00
-StateSwitchInterval :
-State               : Normal
-ScopeId             : 192.168.100.0
-AutoStateTransition : False
-EnableAuth          : True
-
-
-
-PS C:\Users\administrator.TSSR-MEN> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02
-
-
-Name                : Failover-LAN-TSSR
-PartnerServer       : SRV-WIN-MEN-01.tssr-men.lab
-Mode                : HotStandby
-LoadBalancePercent  :
-ServerRole          : Standby
-ReservePercent      : 5
-MaxClientLeadTime   : 01:00:00
-StateSwitchInterval :
-State               : Normal
-ScopeId             : 192.168.100.0
-AutoStateTransition : False
-EnableAuth          : True
-
-
-```
-
-Pour tout voir : ajoute `| Format-List *`. Relève le nom de la relation, le mode, le rôle de chaque serveur, le partenaire, le pourcentage de réserve, la durée MCLT, le basculement automatique (_AutoStateTransition_) et l'**état**.
-
-**Étape 5 : vérifier que la relation est opérationnelle**
-
-L'état doit être **Normal** sur les deux serveurs. S'il ne l'est pas, regarde la section suivante.
-
-> [!warning] Si la relation ne s'établit pas
-> 
-> - Le Core est-il **autorisé** et le service DHCP **démarré** (partie 3) ?
-> - Les deux serveurs se joignent-ils en **TCP 647** ? Cherche les règles de pare-feu liées à DHCP : `Get-NetFirewallRule -DisplayName *DHCP*`.
-> - Le nom du partenaire se résout-il en DNS ? Essaie avec l'adresse IP.
-> - Si la création échoue à mi-chemin, `Get-DhcpServerv4Failover` te dit ce qui existe déjà avant de recommencer.
-
 
 ---
 
 ## 6. Vérifier la synchronisation
 
-### Comprendre
+## Pas à pas
 
-> [!question] Ce que le failover réplique 
-> Quand la relation est créée, le serveur actif **copie l'étendue** vers le partenaire (plage, options, exclusions, durée de bail) puis les deux serveurs échangent les **baux** en continu. Tu peux aussi **forcer** la réplication de la configuration. Les paramètres définis au **niveau du serveur** (et non de l'étendue) ne sont, en principe, pas répliqués : c'est pour cela qu'on a relevé où se trouvaient les options en partie 4.
-
-### Pas à pas
-
-**Étape 1 : examiner l'état de la relation sur les deux serveurs**
-
+### Étape 1 : Examiner l'état de la relation sur les deux serveurs
 ```powershell
 Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01 | Format-List *
 Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02 | Format-List *
 ```
 
-**Étape 2 : vérifier la présence de l'étendue sur le Core**
-
+### Étape 2 : Vérifier la présence de l'étendue sur le Core (`SRV-WIN-MEN-02`)
 ```powershell
 Get-DhcpServerv4Scope -ComputerName SRV-WIN-MEN-02
 ```
 
-**Étape 3 : comparer les paramètres des étendues**
-
+### Étape 3 : Comparer et forcer la réplication
 ```powershell
-Get-DhcpServerv4Scope -ComputerName SRV-WIN-MEN-01 | Format-List *
-Get-DhcpServerv4Scope -ComputerName SRV-WIN-MEN-02 | Format-List *
-Get-DhcpServerv4OptionValue -ScopeId 192.168.100.0 -ComputerName <serveur> | Select-Object OptionId, Name, @{n='Value';e={$_.Value -join ', '}}
-Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName <serveur>
+Invoke-DhcpServerv4FailoverReplication -ComputerName "SRV-WIN-MEN-01.tssr-men.lab" -Name "Failover-LAN-TSSR"
 ```
 
-Compare : plage, masque, état, durée du bail, options 6 et 15, exclusions et baux. Si quelque chose manque, force la réplication puis relis :
+---
 
-```powershell
-Invoke-DhcpServerv4FailoverReplication -ComputerName SRV-WIN-MEN-01 -Name "<nom de la relation>"
-```
+### Synthèse comparative des deux serveurs
 
-**Étape 4 : contrôler la relation depuis la console DHCP du serveur graphique** (`[Graphique]`)
-
-1. Console _DHCP_. Si le Core n'apparaît pas : clic droit sur **DHCP** → **Add Server...** → ajoute le Core.
-2. Développe **IPv4** → clic droit sur l'étendue `LAN-TSSR` → **Properties**, puis cherche l'onglet **Failover** : relation, mode, état et partenaire doivent y apparaître. Selon la version, l'état de la relation est aussi visible dans les propriétés de **IPv4**.
-3. Dans l'étendue du Core, regarde **Address Leases** : le bail de ton client doit y figurer.
-
-### À noter
-
-|Élément|`SRV-WIN-MEN-01`|`SRV-WIN-MEN-02`|
-|---|---|---|
-|État de la relation|||
-|Étendue présente|||
-|Plage|||
-|Masque|||
-|Durée du bail|||
-|Option 6 (DNS)|||
-|Option 15 (domaine)|||
-|Exclusions|||
-|Baux présents|||
-
-![[capture-6-etat.png]] ![[capture-6-etendue-core.png]] ![[capture-6-comparaison.png]] ![[capture-6-console-failover.png]] ![[capture-6-baux-core.png]]
-
-**Commentaires (différences constatées, réplication forcée ou non)**
+| Élément | SRV-WIN-MEN-01 | SRV-WIN-MEN-02 |
+| :--- | :--- | :--- |
+| **État de la relation** | Normal | Normal |
+| **Étendue présente** | Oui (`192.168.100.0`) | Oui (`192.168.100.0`) |
+| **Plage** | 192.168.100.150 - 192.168.100.200 | 192.168.100.150 - 192.168.100.200 |
+| **Masque** | 255.255.255.0 | 255.255.255.0 |
+| **Durée du bail** | 8 jours (par défaut) | 8 jours (synchronisé) |
+| **Option 6 (DNS)** | Configurée | Synchronisée |
+| **Option 15 (domaine)** | `tssr-men.lab` | `tssr-men.lab` |
+| **Exclusions** | Synchronisées | Synchronisées |
+| **Baux présents** | Base de baux active | Base de baux répliquée |
 
 ---
 
@@ -529,7 +464,8 @@ Invoke-DhcpServerv4FailoverReplication -ComputerName SRV-WIN-MEN-01 -Name "<nom 
 
 ### Comprendre
 
-> [!question] Ce que tu t'attends à voir En fonctionnement normal, en mode Hot Standby, **seul le serveur actif répond** aux clients : le serveur DHCP indiqué dans `ipconfig /all` doit être `192.168.100.10`. Le Core a pourtant le bail dans sa base (réplication), mais il ne répond pas tant que l'actif est disponible.
+> [!question] Ce que tu t'attends à voir 
+> En fonctionnement normal, en mode Hot Standby, **seul le serveur actif répond** aux clients : le serveur DHCP indiqué dans `ipconfig /all` doit être `192.168.100.10`. Le Core a pourtant le bail dans sa base (réplication), mais il ne répond pas tant que l'actif est disponible.
 
 ### Pas à pas (`[Client]`)
 
