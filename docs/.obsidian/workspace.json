@@ -37,8 +37,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/TP - Configurer le DHCP Failover avec Windows Server Core.md",
-                "mode": "source",
+                "file": "9-Labs and TP/Demo- TP - Configurer le DHCP Failover avec Windows Server Core.md",
+                "mode": "preview",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TP - Configurer le DHCP Failover avec Windows Server Core"
+              "title": "Demo- TP - Configurer le DHCP Failover avec Windows Server Core"
             }
           }
         ],
@@ -238,21 +238,22 @@
   },
   "active": "0518d38593460d3d",
   "lastOpenFiles": [
-    "9-Labs and TP/Deliverable version/TP - Configurer le DHCP Failover avec Windows Server Core.md",
     "9-Labs and TP/TP - Configurer le DHCP Failover avec Windows Server Core.md",
-    "9-Labs and TP/attachments/Pasted image 20261022114824.png",
-    "9-Labs and TP/attachments/Pasted image 20261022113558.png",
-    "9-Labs and TP/attachments/Pasted image 20261022113332.png",
-    "9-Labs and TP/attachments/Pasted image 20261022113210.png",
-    "9-Labs and TP/attachments/Pasted image 20261022113146.png",
+    "9-Labs and TP/Demo- TP - Configurer le DHCP Failover avec Windows Server Core.md",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261007095217.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261021135912.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005152634.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005152225.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261006114420.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261002122846.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261007104919.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005160601.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261021133628.png",
+    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005150240.png",
+    "9-Labs and TP/Demo- TP - Configurer le DHCP Failover avec Windows Server Core.md",
     "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/Deliverable version/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/Déploiement redondance DNS Server Core - 2.md",
-    "9-Labs and TP/attachments/Pasted image 20261021135912.png",
-    "9-Labs and TP/attachments/Pasted image 20261021135714.png",
-    "9-Labs and TP/attachments/Pasted image 20261021135550.png",
-    "9-Labs and TP/attachments/Pasted image 20261021135353.png",
-    "9-Labs and TP/attachments/Pasted image 20261021134308.png",
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
     "test.md",
     "index.md",
@@ -275,8 +276,6 @@
     "3-Windows Server/GPO — Sauvegarde, Rapports et Exécution à distance.md",
     "3-Windows Server/PTR.md",
     "Glossaire.base",
-    "DORA steps.md",
-    "3-Windows Server/Flexible Single Master Operations roles.md",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",

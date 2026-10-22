@@ -1,4 +1,5 @@
-> [!abstract] Contexte Le laboratoire dispose de deux contrôleurs de domaine et de deux serveurs DNS, mais l'attribution des adresses IPv4 dépend encore d'un seul serveur DHCP. Il faut installer DHCP sur Windows Server Core, établir une relation de basculement (failover) avec le serveur existant et vérifier son fonctionnement. Les configurations se font avec PowerShell et se valident avec les outils graphiques.
+> [!abstract] Contexte
+Le laboratoire dispose de deux contrôleurs de domaine et de deux serveurs DNS, mais l'attribution des adresses IPv4 dépend encore d'un seul serveur DHCP. Il faut installer DHCP sur Windows Server Core, établir une relation de basculement (failover) avec le serveur existant et vérifier son fonctionnement. Les configurations se font avec PowerShell et se valident avec les outils graphiques.
 
 > [!info] Comment utiliser ce document
 > 
