@@ -282,7 +282,8 @@ Le résultat doit être vide : c'est ton « avant ».
 
 ### Comprendre
 
-> [!question] Qu'est-ce que le DHCP Failover Avant Windows Server 2012, on se protégeait d'une panne en **coupant l'étendue en deux** (80/20) sur deux serveurs indépendants, sans partage d'information. Le **DHCP Failover** fait mieux : les deux serveurs forment une **relation** et partagent la **même étendue et la même base de baux**. Ils se parlent en permanence (en TCP, port 647) pour rester synchronisés.
+> [!question] Qu'est-ce que le DHCP Failover 
+> Avant Windows Server 2012, on se protégeait d'une panne en **coupant l'étendue en deux** (80/20) sur deux serveurs indépendants, sans partage d'information. Le **DHCP Failover** fait mieux : les deux serveurs forment une **relation** et partagent la **même étendue et la même base de baux**. Ils se parlent en permanence (en TCP, port 647) pour rester synchronisés.
 > 
 > Il existe **deux modes** :
 > 
