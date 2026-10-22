@@ -1,7 +1,27 @@
-/* Allow tables to scroll horizontally in Obsidian */
-.cm-table-widget, 
-.markdown-rendered table {
-  display: block;
+/* Enable horizontal scrolling for Markdown Tables */
+.cm-table-widget,
+.cm-embed-block:has(.cm-table-widget),
+.markdown-rendered table,
+.markdown-rendered .table-wrapper {
+  display: block !important;
+  max-width: 100% !important;
   overflow-x: auto !important;
-  white-space: nowrap;
+  white-space: nowrap !important;
+}
+
+.markdown-rendered th,
+.markdown-rendered td,
+.cm-table-widget th,
+.cm-table-widget td {
+  white-space: nowrap !important;
+}
+
+/* Enable horizontal scrolling for Code Blocks */
+.markdown-rendered pre,
+.markdown-rendered pre > code,
+.cm-line:has(.cm-codeblock),
+.HyperMD-codeblock {
+  white-space: pre !important;
+  word-break: normal !important;
+  overflow-x: auto !important;
 }
