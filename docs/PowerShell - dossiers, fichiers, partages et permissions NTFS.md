@@ -2,11 +2,10 @@
 > [!abstract] Consigne du formateur 
 > Pour ceux qui ont fini, en attendant la correction : rechercher et manipuler les commandes PowerShell sur la gestion des dossiers, des fichiers, et du partage / des permissions NTFS.
 
-> [!info] Version rapide 
-> Le tableau donne les cmdlets de départ. Ton travail : **les lancer dans le bac à sable ci-dessous** et noter ce que tu observes. Tout se passe dans un dossier jetable, rien d'autre n'est touché.
+
 
 > [!tip] Méthode de recherche 
-> Tu n'as pas besoin de connaître les commandes par cœur : il suffit de savoir **où chercher**. Dans PowerShell, les commandes suivent le schéma Verbe-Nom. Pour un sujet, cherche par le nom :
+> Pas besoin de connaître les commandes par cœur : il suffit de savoir **où chercher**. Dans PowerShell, les commandes suivent le schéma Verbe-Nom. Pour un sujet, cherche par le nom :
 > 
 > ```powershell
 > Get-Command -Noun Item*, Content, Acl
@@ -18,7 +17,7 @@
 
 ## 1. Bac à sable
 
-Crée un dossier jetable (sur n'importe quelle machine) :
+Créer un dossier jetable (sur n'importe quelle machine) :
 
 ```powershell
 $base = "C:\Temp\TP-Sandbox"
@@ -163,7 +162,7 @@ Successfully processed 1 files; Failed processing 0 files
 PS C:\Temp\TP-Sandbox\Compta>
 ```
 
-Remplace `TSSR-MEN\GG-RH` par un groupe ou un compte qui existe sur ta machine (sur un poste hors domaine, un groupe local comme `Users`).
+Remplacer `TSSR-MEN\GG-RH` par un groupe ou un compte qui existe sur la machine (sur un poste hors domaine, un groupe local comme `Users`).
 
 **À répondre :** que signifient `Modify`, `ContainerInherit` et `ObjectInherit` ? Que se passe-t-il si on retire l'héritage ?
 
