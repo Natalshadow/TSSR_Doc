@@ -275,9 +275,6 @@ Le résultat doit être vide : c'est ton « avant ».
 |Adresse obtenue par le client||
 |Étendue présente sur le Core ?||
 
-![[capture-4-etendue.png]] ![[capture-4-options.png]] ![[capture-4-baux.png]] ![[capture-4-client.png]] ![[capture-4-core-avant.png]]
-
-**Commentaires**
 
 ---
 
