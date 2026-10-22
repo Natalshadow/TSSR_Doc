@@ -524,16 +524,16 @@ Retrouve ton client par son adresse MAC (`ipconfig /all`) ou son nom.
 
 ### À noter
 
-| Élément                           | Valeur constatée |
-| --------------------------------- | ---------------- |
-| Obtention automatique (IP et DNS) | Oui              |
-| Adresse obtenue                   | 192.168.100.50   |
-| Dans la plage prévue ?            | Oui              |
-| Serveur DHCP qui a répondu        | SRV1             |
-| DNS reçus (ordre)                 | 10 puis 11       |
-| Bail obtenu / expirant            | Oui, 1h          |
-| Bail visible sur `SRV-WIN-MEN-01` | Oui              |
-| Bail visible sur `SRV-WIN-MEN-02` | Oui              |
+| Élément                           | Valeur constatée               |
+| --------------------------------- | ------------------------------ |
+| Obtention automatique (IP et DNS) | Oui                            |
+| Adresse obtenue                   | 192.168.100.150                |
+| Dans la plage prévue ?            | Oui                            |
+| Serveur DHCP qui a répondu        | 192.168.100.10                 |
+| DNS reçus (ordre)                 | 192.168.100.10, 192.168.100.11 |
+| Bail obtenu / expirant            | Oui, 1h                        |
+| Bail visible sur `SRV-WIN-MEN-01` | Oui                            |
+| Bail visible sur `SRV-WIN-MEN-02` | Oui                            |
 
 
 ---
@@ -649,9 +649,7 @@ Get-DhcpServerv4Lease -ScopeId 192.168.100.0 -ComputerName SRV-WIN-MEN-02
 - L'état est-il resté à _Communication Interrupted_, ou est-il passé à _Partner Down_ ? Pourquoi ?
 - Que se passerait-il si la réserve était épuisée ?
 
-![[capture-8-etat-initial.png]] ![[capture-8-service-arrete.png]] ![[capture-8-etat-interrompu.png]] ![[capture-8-client-renouvellement.png]] ![[capture-8-client-nouveau-bail.png]] ![[capture-8-baux-core.png]] ![[capture-8-service-redemarre.png]] ![[capture-8-retour-normal.png]]
 
-**Commentaires**
 
 ---
 
@@ -726,172 +724,3 @@ ipconfig /all
 > - [ ] Tous les blocs `[!tip]` et `[!warning]` supprimés
 > - [ ] Export PDF réalisé (si demandé)
 
-<br> <br> <br> <br> <br>
-
----
-
----
-
----
-
-<br> <br> <br> <br> <br>
-
-# ✂ VERSION POUR LE FORMATEUR (à découper ici)
-
-> Tout ce qui suit est la **version à rendre** : pas de guidage, pas d'explications d'étudiant. Remplis les champs, colle tes commandes, insère les captures. Si tu publies le guide sur ton site, **ne publie pas cette partie** (elle va dans le dossier `Deliverable version`).
-
----
-
-# TP - Configurer le DHCP Failover avec Windows Server Core
-
-**Domaine :** `TSSR-MEN.LAB` · **Serveur existant :** `SRV-WIN-MEN-01` (`192.168.100.10`) · **Serveur Core :** `SRV-WIN-MEN-02` (`192.168.100.11`) · **Client :** `CLI-WIN-MEN-01`
-
-|Paramètre du failover|Valeur|
-|---|---|
-|Nom de relation|`CLUSTER-DHCP-TSSR-MEN`|
-|Mode|Hot Standby|
-|Serveur actif|`SRV-WIN-MEN-01`|
-|Partenaire de secours|`SRV-WIN-MEN-02`|
-|Étendue|`192.168.100.0/24`|
-|Réserve d'adresses du partenaire|10 %|
-
-## 3. Installation et autorisation de DHCP sur Core (rendu)
-
-```powershell
-# installation du rôle et des outils
-```
-
-```powershell
-# configuration post-déploiement et vérification du service
-```
-
-```powershell
-# autorisation dans Active Directory et vérification des deux serveurs autorisés
-```
-
-|Vérification|Résultat|
-|---|---|
-|Rôle DHCP installé||
-|Service `DHCPServer` (statut, démarrage)||
-|Serveur Core autorisé||
-|Serveurs autorisés dans l'annuaire||
-
-![[capture-3-installation.png]] ![[capture-3-service.png]] ![[capture-3-autorisation.png]] ![[capture-3-serveurs-autorises.png]]
-
-**Commentaires :**
-
-## 4. Étendue actuelle (rendu)
-
-|Élément|Valeur constatée|
-|---|---|
-|Nom||
-|Plage||
-|Masque||
-|Option 6 (DNS)||
-|Option 15 (domaine)||
-|Adresse obtenue par le client||
-
-```powershell
-# commandes utilisées pour relever l'étendue, les options et les baux
-```
-
-![[capture-4-etendue.png]] ![[capture-4-options.png]] ![[capture-4-client.png]]
-
-**Commentaires :**
-
-## 5. Mise en place du DHCP Failover (rendu)
-
-**Différence entre Load Balance et Hot Standby :**
-
-**Commande de création** (secret remplacé par `***`) :
-
-```powershell
-# commande exacte
-```
-
-|Élément|`SRV-WIN-MEN-01`|`SRV-WIN-MEN-02`|
-|---|---|---|
-|Nom de la relation|||
-|Mode|||
-|Rôle|||
-|Partenaire|||
-|Réserve (%)|||
-|État|||
-
-![[capture-5-creation.png]] ![[capture-5-relation-01.png]] ![[capture-5-relation-02.png]]
-
-**Commentaires :**
-
-## 6. Synchronisation (rendu)
-
-```powershell
-# commandes de comparaison des étendues, options et baux sur les deux serveurs
-```
-
-|Élément|`SRV-WIN-MEN-01`|`SRV-WIN-MEN-02`|
-|---|---|---|
-|Étendue présente|||
-|Plage / masque|||
-|Options 6 et 15|||
-|Baux présents|||
-
-![[capture-6-etat.png]] ![[capture-6-etendue-core.png]] ![[capture-6-console-failover.png]]
-
-**Commentaires :**
-
-## 7. Test depuis Windows 11 (rendu)
-
-```powershell
-# commandes exécutées sur le client
-```
-
-|Élément|Valeur constatée|
-|---|---|
-|Adresse obtenue (dans la plage ?)||
-|Serveur DHCP qui a répondu||
-|DNS reçus||
-|Bail visible sur `SRV-WIN-MEN-01` / `-02`||
-
-![[capture-7-client-auto.png]] ![[capture-7-ipconfig.png]] ![[capture-7-baux-serveurs.png]]
-
-**Commentaires :**
-
-## 8. Indisponibilité du serveur DHCP actif (rendu)
-
-```powershell
-# commandes : état initial, arrêt du service, observation, tests client, redémarrage, retour à la normale
-```
-
-|Heure|Événement|État sur `SRV-WIN-MEN-01`|État sur `SRV-WIN-MEN-02`|
-|---|---|---|---|
-||Avant la panne|||
-||Service arrêté sur `-01`|||
-|||||
-||Service redémarré sur `-01`|||
-||Retour à la normale|||
-
-|Test client|Serveur qui a répondu|Adresse|Durée du bail|Résultat|
-|---|---|---|---|---|
-|Renouvellement|||||
-|Nouveau bail|||||
-
-**Limites observées :**
-
-![[capture-8-etat-interrompu.png]] ![[capture-8-client-renouvellement.png]] ![[capture-8-client-nouveau-bail.png]] ![[capture-8-retour-normal.png]]
-
-## 9. Validation finale (rendu)
-
-|Vérification|Validé|
-|---|---|
-|DHCP installé et autorisé sur Server Core|☐|
-|Partenariat Hot Standby en place|☐|
-|Étendue et baux synchronisés|☐|
-|Client Windows 11 : configuration correcte|☐|
-|Serveur de secours testé et expliqué|☐|
-|Service principal rétabli, relation à l'état normal|☐|
-
-**Conclusion et difficultés rencontrées :**
-
-|Problème|Cause|Solution|
-|---|---|---|
-||||
