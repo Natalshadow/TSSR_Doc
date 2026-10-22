@@ -327,15 +327,15 @@ Repère dans l'aide que la commande a **deux jeux de paramètres** : un pour _Lo
 
 **Étape 2 : faire correspondre les paramètres imposés**
 
-|Paramètre imposé|Paramètre PowerShell trouvé|
-|---|---|
-|Nom de la relation||
-|Serveur sur lequel on lance la commande (actif)||
-|Partenaire de secours||
-|Étendue||
-|Rôle du serveur actif||
-|Réserve d'adresses||
-|Secret partagé (authentification entre serveurs)||
+| Paramètre imposé                                 | Paramètre PowerShell trouvé |
+| ------------------------------------------------ | --------------------------- |
+| Nom de la relation                               |                             |
+| Serveur sur lequel on lance la commande (actif)  |                             |
+| Partenaire de secours                            |                             |
+| Étendue                                          |                             |
+| Rôle du serveur actif                            |                             |
+| Réserve d'adresses                               |                             |
+| Secret partagé (authentification entre serveurs) |                             |
 
 > [!tip] Guidage
 > 
@@ -349,11 +349,101 @@ Repère dans l'aide que la commande a **deux jeux de paramètres** : un pour _Lo
 Add-DhcpServerv4Failover -ComputerName <serveur actif> -Name "<nom de la relation>" -PartnerServer <partenaire> -ScopeId <étendue> -ServerRole <rôle> -ReservePercent <pourcentage> -SharedSecret "<secret, ne pas le noter ici>"
 ```
 
+```powershell
+
+Add-DhcpServerv4Failover `
+  -ComputerName "SRV-WIN-MEN-01.tssr-men.lab" `
+  -PartnerServer "SRV-WIN-MEN-02.tssr-men.lab" `
+  -Name "Failover-LAN-TSSR" `
+  -ScopeId 192.168.100.0 `
+  -ServerRole Active `
+  -ReservePercent 5 `
+  -SharedSecret "MonSecretSecurise123!"
+
+
+```
+
 **Étape 4 : vérifier que chaque serveur identifie son partenaire**
 
 ```powershell
 Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01
 Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02
+```
+
+Depuis SRV1
+```powershell
+PS C:\Users\Administrator> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01
+
+
+Name                : Failover-LAN-TSSR
+PartnerServer       : SRV-WIN-MEN-02.tssr-men.lab
+Mode                : HotStandby
+LoadBalancePercent  :
+ServerRole          : Active
+ReservePercent      : 5
+MaxClientLeadTime   : 01:00:00
+StateSwitchInterval :
+State               : Normal
+ScopeId             : 192.168.100.0
+AutoStateTransition : False
+EnableAuth          : True
+
+
+
+PS C:\Users\Administrator> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02
+
+
+Name                : Failover-LAN-TSSR
+PartnerServer       : SRV-WIN-MEN-01.tssr-men.lab
+Mode                : HotStandby
+LoadBalancePercent  :
+ServerRole          : Standby
+ReservePercent      : 5
+MaxClientLeadTime   : 01:00:00
+StateSwitchInterval :
+State               : Normal
+ScopeId             : 192.168.100.0
+AutoStateTransition : False
+EnableAuth          : True
+```
+
+Depuis SRV2
+```powershell
+PS C:\Users\administrator.TSSR-MEN> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-01
+
+
+Name                : Failover-LAN-TSSR
+PartnerServer       : SRV-WIN-MEN-02.tssr-men.lab
+Mode                : HotStandby
+LoadBalancePercent  :
+ServerRole          : Active
+ReservePercent      : 5
+MaxClientLeadTime   : 01:00:00
+StateSwitchInterval :
+State               : Normal
+ScopeId             : 192.168.100.0
+AutoStateTransition : False
+EnableAuth          : True
+
+
+
+PS C:\Users\administrator.TSSR-MEN> Get-DhcpServerv4Failover -ComputerName SRV-WIN-MEN-02
+
+
+Name                : Failover-LAN-TSSR
+PartnerServer       : SRV-WIN-MEN-01.tssr-men.lab
+Mode                : HotStandby
+LoadBalancePercent  :
+ServerRole          : Standby
+ReservePercent      : 5
+MaxClientLeadTime   : 01:00:00
+StateSwitchInterval :
+State               : Normal
+ScopeId             : 192.168.100.0
+AutoStateTransition : False
+EnableAuth          : True
+
+
 ```
 
 Pour tout voir : ajoute `| Format-List *`. Relève le nom de la relation, le mode, le rôle de chaque serveur, le partenaire, le pourcentage de réserve, la durée MCLT, le basculement automatique (_AutoStateTransition_) et l'**état**.
@@ -369,28 +459,6 @@ L'état doit être **Normal** sur les deux serveurs. S'il ne l'est pas, regarde 
 > - Le nom du partenaire se résout-il en DNS ? Essaie avec l'adresse IP.
 > - Si la création échoue à mi-chemin, `Get-DhcpServerv4Failover` te dit ce qui existe déjà avant de recommencer.
 
-### À noter
-
-|Élément|`SRV-WIN-MEN-01`|`SRV-WIN-MEN-02`|
-|---|---|---|
-|Nom de la relation|||
-|Mode|||
-|Rôle|||
-|Partenaire identifié|||
-|Réserve (%)|||
-|MCLT|||
-|Basculement automatique|||
-|État|||
-
-**Commande de création utilisée** (sans le secret) :
-
-```powershell
-# colle ici la commande exacte, secret remplacé par ***
-```
-
-![[capture-5-aide.png]] ![[capture-5-creation.png]] ![[capture-5-relation-01.png]] ![[capture-5-relation-02.png]]
-
-**Commentaires**
 
 ---
 
@@ -398,7 +466,8 @@ L'état doit être **Normal** sur les deux serveurs. S'il ne l'est pas, regarde 
 
 ### Comprendre
 
-> [!question] Ce que le failover réplique Quand la relation est créée, le serveur actif **copie l'étendue** vers le partenaire (plage, options, exclusions, durée de bail) puis les deux serveurs échangent les **baux** en continu. Tu peux aussi **forcer** la réplication de la configuration. Les paramètres définis au **niveau du serveur** (et non de l'étendue) ne sont, en principe, pas répliqués : c'est pour cela qu'on a relevé où se trouvaient les options en partie 4.
+> [!question] Ce que le failover réplique 
+> Quand la relation est créée, le serveur actif **copie l'étendue** vers le partenaire (plage, options, exclusions, durée de bail) puis les deux serveurs échangent les **baux** en continu. Tu peux aussi **forcer** la réplication de la configuration. Les paramètres définis au **niveau du serveur** (et non de l'étendue) ne sont, en principe, pas répliqués : c'est pour cela qu'on a relevé où se trouvaient les options en partie 4.
 
 ### Pas à pas
 
