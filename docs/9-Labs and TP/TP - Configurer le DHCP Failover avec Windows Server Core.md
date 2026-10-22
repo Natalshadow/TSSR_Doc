@@ -292,25 +292,26 @@ Le résultat doit être vide : c'est ton « avant ».
 
 Complète ce tableau avec tes mots, après avoir lu l'aide ou la documentation :
 
-|Critère|Load Balance|Hot Standby|
-|---|---|---|
-|Qui répond aux clients en fonctionnement normal ?|||
-|Rôle de chaque serveur|||
-|Réserve d'adresses|||
-|Cas d'usage typique|||
-|Pourquoi choisir Hot Standby ici ?|||
+| Critère                                           | Load Balance                  | Hot Standby                                                                           |
+| ------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------- |
+| Qui répond aux clients en fonctionnement normal ? | Les deux, à 50/50             | Le serveur principal, le secondaire prend la main en cas de panne (donc de timeout ?) |
+| Rôle de chaque serveur                            | Rôle principal pour les deux. | Rôle principal pour le premier, backup pour le second.                                |
+| Réserve d'adresses                                | Oui, 20%                      | Non                                                                                   |
+| Cas d'usage typique                               | Data transfer massif ?        | Cas typique, un backup en cas de panne du premier                                     |
+| Pourquoi choisir Hot Standby ici ?                |                               | Pas de justification du besoin d'un load balance                                      |
 
-> [!tip] Guidage Fais le calcul de ta réserve : l'étendue contient `.150` à `.200`, soit combien d'adresses ? Quel est **10 %** de ce nombre ? Cette réserve est ce que le Core pourra donner à de nouveaux clients pendant la panne.
+> [!tip] Guidage 
+> Fais le calcul de ta réserve : l'étendue contient `.150` à `.200`, soit combien d'adresses ? Quel est **10 %** de ce nombre ? Cette réserve est ce que le Core pourra donner à de nouveaux clients pendant la panne.
 
 Nombre d'adresses de la plage, et adresses de la réserve (arrondi) :
 
 **Les états d'une relation** (à compléter en cherchant dans la documentation) :
 
-|État|Sens|Que fait le serveur de secours ?|
-|---|---|---|
-|Normal|||
-|Communication Interrupted|||
-|Partner Down|||
+| État                      | Sens                                                                                      | Que fait le serveur de secours ?   |
+| ------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------- |
+| Normal                    | Le serveur principal fonctionne.                                                          | Rien                               |
+| Communication Interrupted | Packet loss, une réponse ou un nombre limité a été interrompu mais le serveur est revenu. | Il prend la main puis la redonne.  |
+| Partner Down              | Le serveur principal est en time out.                                                     | Le serveur back up prend sa place. |
 
 ### Pas à pas
 
