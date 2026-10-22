@@ -524,16 +524,16 @@ Retrouve ton client par son adresse MAC (`ipconfig /all`) ou son nom.
 
 ### À noter
 
-|Élément|Valeur constatée|
-|---|---|
-|Obtention automatique (IP et DNS)||
-|Adresse obtenue||
-|Dans la plage prévue ?||
-|Serveur DHCP qui a répondu||
-|DNS reçus (ordre)||
-|Bail obtenu / expirant||
-|Bail visible sur `SRV-WIN-MEN-01`||
-|Bail visible sur `SRV-WIN-MEN-02`||
+| Élément                           | Valeur constatée |
+| --------------------------------- | ---------------- |
+| Obtention automatique (IP et DNS) | Oui              |
+| Adresse obtenue                   | 192.168.100.50   |
+| Dans la plage prévue ?            | Oui              |
+| Serveur DHCP qui a répondu        | SRV1             |
+| DNS reçus (ordre)                 | 10 puis 11       |
+| Bail obtenu / expirant            | Oui, 1h          |
+| Bail visible sur `SRV-WIN-MEN-01` | Oui              |
+| Bail visible sur `SRV-WIN-MEN-02` | Oui              |
 
 
 ---
@@ -542,7 +542,8 @@ Retrouve ton client par son adresse MAC (`ipconfig /all`) ou son nom.
 
 ### Comprendre
 
-> [!question] Ce qui doit se passer, et ses limites Quand le serveur actif ne répond plus, la relation passe de **Normal** à **Communication Interrupted** : le Core sait qu'il ne joint plus son partenaire, mais ne sait pas **pourquoi** (panne, ou simple coupure réseau ?). Il adopte donc une attitude prudente. L'état **Partner Down** (où le serveur de secours prend l'ensemble de l'étendue en charge) ne survient pas forcément tout seul : il dépend d'un **basculement automatique** (_AutoStateTransition_) et d'un délai (_StateSwitchInterval_), ou d'une décision de l'administrateur. Vérifie la valeur par défaut avec `Get-DhcpServerv4Failover | Format-List *`. Les **limites** à observer : quelles adresses le Core peut-il donner, pour quelle durée, et à quels clients (ceux qui ont déjà un bail, ou de nouveaux).
+> [!question] Ce qui doit se passer, et ses limites 
+> Quand le serveur actif ne répond plus, la relation passe de **Normal** à **Communication Interrupted** : le Core sait qu'il ne joint plus son partenaire, mais ne sait pas **pourquoi** (panne, ou simple coupure réseau ?). Il adopte donc une attitude prudente. L'état **Partner Down** (où le serveur de secours prend l'ensemble de l'étendue en charge) ne survient pas forcément tout seul : il dépend d'un **basculement automatique** (_AutoStateTransition_) et d'un délai (_StateSwitchInterval_), ou d'une décision de l'administrateur. Vérifie la valeur par défaut avec `Get-DhcpServerv4Failover | Format-List *`. Les **limites** à observer : quelles adresses le Core peut-il donner, pour quelle durée, et à quels clients (ceux qui ont déjà un bail, ou de nouveaux).
 
 > [!warning] Précautions
 > 
