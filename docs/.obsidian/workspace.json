@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/TP05 — Active Directory FSMO Roles Management & Transfer.md",
+                "file": "0-Learning/Terraform.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TP05 — Active Directory FSMO Roles Management & Transfer"
+              "title": "Terraform"
             }
           }
         ],
@@ -262,8 +262,11 @@
   },
   "active": "409aa682715e90ee",
   "lastOpenFiles": [
+    "0-Learning/Ansible 101.md",
+    "0-Learning/TP05 — Active Directory FSMO Roles Management & Transfer.md",
+    "0-Learning/Terraform.md",
+    "test.md",
     "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
-    "3-Windows Server/TP05 — Active Directory FSMO Roles Management & Transfer.md",
     "stylesheets/extra.css~",
     "stylesheets/extra.css",
     "stylesheets",
@@ -294,7 +297,6 @@
     "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/Déploiement redondance DNS Server Core - 2.md",
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
-    "test.md",
     "index.md",
     "9-Labs and TP/Deliverable version/Analyse réflexive 261009.md",
     "exports",
@@ -302,8 +304,6 @@
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
     "3-Windows Server/labs/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/Install Server Core.md",
-    "9-Labs and TP/Server Core.md",
-    "3-Windows Server/labs/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "Glossaire.base",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
