@@ -260,8 +260,11 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "409aa682715e90ee",
+  "active": "e1ec310cf6a459a9",
   "lastOpenFiles": [
+    "stylesheets/extra.css~",
+    "stylesheets/extra.css",
+    "stylesheets",
     "3-Windows Server/labs/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
     "3-Windows Server/labs/Créer un domaine Active Directory et joindre un poste client - Full.md",
@@ -300,13 +303,10 @@
     "9-Labs and TP/Install Server Core.md",
     "9-Labs and TP/Server Core.md",
     "3-Windows Server/labs/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
-    "3-Windows Server/labs/DNS and DHCP.md",
     "Glossaire.base",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
     "attachments",
-    "Templates",
-    "Glossaire",
-    "1-General/attachments"
+    "Templates"
   ]
 }
