@@ -1,0 +1,3611 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="TSSR Lab Runbooks, Configs, and Notes">
+      
+      
+      
+        <link rel="canonical" href="https://natalshadow.github.io/TSSR_Doc/TP05%20%E2%80%94%20Active%20Directory%20FSMO%20Roles%20Management%20%26%20Transfer/">
+      
+      
+        <link rel="prev" href="../PowerShell%20-%20dossiers%2C%20fichiers%2C%20partages%20et%20permissions%20NTFS/">
+      
+      
+        <link rel="next" href="../1-General/AGDLP/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>TP05 — Active Directory FSMO Roles Management & Transfer - TSSR Documentation & Lab Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-theoretical-background-core-concepts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="TSSR Documentation &amp; Lab Vault" class="md-header__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TSSR Documentation & Lab Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TP05 — Active Directory FSMO Roles Management & Transfer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="TSSR Documentation &amp; Lab Vault" class="md-nav__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TSSR Documentation & Lab Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Administration%20Windows%20Server%20Core%20et%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administration Windows Server Core et PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DORA%20steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DORA steps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fiches%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiches techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PowerShell%20-%20dossiers%2C%20fichiers%2C%20partages%20et%20permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell   dossiers, fichiers, partages et permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP05 — Active Directory FSMO Roles Management & Transfer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP05 — Active Directory FSMO Roles Management & Transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-theoretical-background-core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Theoretical Background &amp; Core Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Theoretical Background &amp; Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-fsmo-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are FSMO Roles?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forest-vs-domain-role-scope-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forest vs. Domain Role Scope Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-5-fsmo-roles-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 5 FSMO Roles Explained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The 5 FSMO Roles Explained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#forest-wide-roles-only-one-instance-per-ad-forest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forest-Wide Roles (Only one instance per AD Forest)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-wide-roles-one-instance-per-active-directory-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain-Wide Roles (One instance per Active Directory Domain)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-lab-environment-role-transfer-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Lab Environment &amp; Role Transfer Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Lab Environment &amp; Role Transfer Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-transfer-sequence-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Transfer Sequence Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-step-1-identifying-current-fsmo-role-owners-health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Step 1: Identifying Current FSMO Role Owners &amp; Health Checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Step 1: Identifying Current FSMO Role Owners &amp; Health Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-11-identify-fsmo-holders-via-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1.1: Identify FSMO Holders via Command Line
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-12-check-domain-controller-availability-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1.2: Check Domain Controller Availability &amp; Replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-step-2-transferring-fsmo-roles-using-graphical-consoles-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Step 2: Transferring FSMO Roles Using Graphical Consoles (GUI)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Step 2: Transferring FSMO Roles Using Graphical Consoles (GUI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-domain-wide-roles-rid-pdc-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Domain-Wide Roles (RID, PDC, Infrastructure)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-domain-naming-master-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Domain Naming Master Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-schema-master-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Schema Master Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-verification-of-graphical-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Verification of Graphical Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-step-3-transferring-fsmo-roles-using-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Step 3: Transferring FSMO Roles Using PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Step 3: Transferring FSMO Roles Using PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-identify-active-directory-powershell-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Identify Active Directory PowerShell Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-powershell-commands-to-check-fsmo-holders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 PowerShell Commands to Check FSMO Holders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-move-all-5-fsmo-roles-to-srv-win-tri-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Move All 5 FSMO Roles to SRV-WIN-[TRI]-01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Move All 5 FSMO Roles to SRV-WIN-[TRI]-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-role-numerical-index-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Role Numerical Index Reference:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-verify-powershell-role-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Verify PowerShell Role Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-step-4-post-transfer-active-directory-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Step 4: Post-Transfer Active Directory Validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-answers-to-comprehension-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Answers to Comprehension Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Answers to Comprehension Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-why-can-users-continue-to-authenticate-when-a-dc-holding-fsmo-roles-is-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: Why can users continue to authenticate when a DC holding FSMO roles is offline?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-which-of-the-5-fsmo-roles-plays-a-key-role-in-managing-recent-password-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2: Which of the 5 FSMO roles plays a key role in managing recent password changes?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-why-must-you-check-active-directory-replication-before-transferring-an-fsmo-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: Why must you check Active Directory replication before transferring an FSMO role?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-in-what-scenario-would-a-forced-seizure-of-fsmo-roles-be-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: In what scenario would a forced seizure of FSMO roles be necessary?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-validation-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Validation Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 General
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1 General
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGDLP Explained: The Foundation of Role-Based Access Control in Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/DNS%20et%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS et DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/DNS%20server%20types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Droits%20de%20partage%20et%20droits%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Droits de partage et droits NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/How%20to%20find%20Powershell%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to find Powershell commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Protocol%20SMB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol SMB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Syst%C3%A8me%20d%27information%20et%20syst%C3%A8me%20informatique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information et système informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attachments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Attachments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.04.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.04.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.28.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.28.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 Scripts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    10 Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-Scripts/Export%20GPOs%20-%20Powershell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Export GPOs   Powershell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 Virtualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2 Virtualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/Snapshots%20et%20clones%20de%20VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshots et clones de VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/TP5%20-%20Modification%20de%20la%20VM%20Windows%2011/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP5   Modification de la VM Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/Virtualisation%20-%20types%20et%20r%C3%A9seaux%20virtuels%20%28VMware%20Workstation%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation   types et réseaux virtuels (VMware Workstation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 Windows Server
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3 Windows Server
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Active%20Directory%20domain%20vs%20DNS%20domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory domain vs DNS domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Active%20Directory%20et%20LDAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory et LDAP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Flexible%20Single%20Master%20Operations%20roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flexible Single Master Operations roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/GPO%20%E2%80%94%20Sauvegarde%2C%20Rapports%20et%20Ex%C3%A9cution%20%C3%A0%20distance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO — Sauvegarde, Rapports et Exécution à distance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Kerberos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/NTLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/PTR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PTR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Partages%20de%20fichiers%2C%20AGDLP%20et%20FSRM%20en%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partages de fichiers, AGDLP et FSRM en PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Recherche%20RSAT%20sur%20Windows%2011%20et%20consoles%20MMC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche RSAT sur Windows 11 et consoles MMC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Recherche%20Windows%20Server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche Windows Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Tiering%20AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory : les fondamentaux du Tiering Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_13" id="__nav_10_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/Cr%C3%A9er%20un%20domaine%20Active%20Directory%20et%20joindre%20un%20poste%20client%20-%20Full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Créer un domaine Active Directory et joindre un poste client   Full
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/DNS%20and%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS and DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/Mettre%20en%20place%20des%20partages%20r%C3%A9seau%20avec%20la%20m%C3%A9thode%20AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place des partages réseau avec la méthode AGDLP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/Organiser%20les%20utilisateurs%2C%20groupes%20et%20ordinateurs%20Active%20Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organiser les utilisateurs, groupes et ordinateurs Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/TP%20-%20GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/TP06%20%E2%80%94%20VMware%20Workstation%20LAN%20Segment%20Windows%20Server%202025%20%26%20Isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 Labs and TP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9 Labs and TP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Demo-%20TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo  TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/D%C3%A9ploiement%20redondance%20DNS%20Server%20Core%20-%202/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déploiement redondance DNS Server Core   2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Haute%20disponibilit%C3%A9%20DHCP%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Haute disponibilité DHCP avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Install%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Mettre%20en%20place%20la%20redondance%20DNS%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place la redondance DNS avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Server%20Core%20lite%20doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core lite doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Excalidraw/Drawing%202026-10-06%2007.50.21.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2026 10 06 07.50.21.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glossaire
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/A%20record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/Glossary%20entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary entry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/Index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/forward%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forward lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/lease/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lease
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/reverse%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exports
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exports
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exports/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell%20-%20Deliverable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell   Deliverable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-theoretical-background-core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Theoretical Background &amp; Core Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Theoretical Background &amp; Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-fsmo-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are FSMO Roles?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forest-vs-domain-role-scope-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forest vs. Domain Role Scope Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-5-fsmo-roles-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 5 FSMO Roles Explained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The 5 FSMO Roles Explained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#forest-wide-roles-only-one-instance-per-ad-forest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forest-Wide Roles (Only one instance per AD Forest)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-wide-roles-one-instance-per-active-directory-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain-Wide Roles (One instance per Active Directory Domain)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-lab-environment-role-transfer-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Lab Environment &amp; Role Transfer Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Lab Environment &amp; Role Transfer Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-transfer-sequence-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Transfer Sequence Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-step-1-identifying-current-fsmo-role-owners-health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Step 1: Identifying Current FSMO Role Owners &amp; Health Checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Step 1: Identifying Current FSMO Role Owners &amp; Health Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-11-identify-fsmo-holders-via-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1.1: Identify FSMO Holders via Command Line
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-12-check-domain-controller-availability-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1.2: Check Domain Controller Availability &amp; Replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-step-2-transferring-fsmo-roles-using-graphical-consoles-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Step 2: Transferring FSMO Roles Using Graphical Consoles (GUI)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Step 2: Transferring FSMO Roles Using Graphical Consoles (GUI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-domain-wide-roles-rid-pdc-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Domain-Wide Roles (RID, PDC, Infrastructure)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-domain-naming-master-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Domain Naming Master Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-schema-master-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Schema Master Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-verification-of-graphical-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Verification of Graphical Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-step-3-transferring-fsmo-roles-using-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Step 3: Transferring FSMO Roles Using PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Step 3: Transferring FSMO Roles Using PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-identify-active-directory-powershell-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Identify Active Directory PowerShell Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-powershell-commands-to-check-fsmo-holders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 PowerShell Commands to Check FSMO Holders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-move-all-5-fsmo-roles-to-srv-win-tri-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Move All 5 FSMO Roles to SRV-WIN-[TRI]-01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Move All 5 FSMO Roles to SRV-WIN-[TRI]-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-role-numerical-index-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Role Numerical Index Reference:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-verify-powershell-role-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Verify PowerShell Role Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-step-4-post-transfer-active-directory-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Step 4: Post-Transfer Active Directory Validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-answers-to-comprehension-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Answers to Comprehension Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Answers to Comprehension Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-why-can-users-continue-to-authenticate-when-a-dc-holding-fsmo-roles-is-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: Why can users continue to authenticate when a DC holding FSMO roles is offline?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-which-of-the-5-fsmo-roles-plays-a-key-role-in-managing-recent-password-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2: Which of the 5 FSMO roles plays a key role in managing recent password changes?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-why-must-you-check-active-directory-replication-before-transferring-an-fsmo-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: Why must you check Active Directory replication before transferring an FSMO role?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-in-what-scenario-would-a-forced-seizure-of-fsmo-roles-be-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: In what scenario would a forced seizure of FSMO roles be necessary?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-validation-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Validation Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>TP05 — Active Directory FSMO Roles Management & Transfer</h1>
+
+<p>This guide covers the theory, verification, graphical transfer, and PowerShell transfer of Active Directory <strong>FSMO</strong> (Flexible Single Master Operations) roles between Domain Controllers (DCs).</p>
+<h2 id="1-theoretical-background-core-concepts">1. Theoretical Background &amp; Core Concepts</h2>
+<h3 id="what-are-fsmo-roles">What are FSMO Roles?</h3>
+<p>Active Directory Domain Services (AD DS) primarily operates on a <strong>multi-master replication model</strong>: any Domain Controller can process writes (such as creating users or changing passwords) and replicate those changes to all other DCs.</p>
+<p>However, certain critical operations require strict consistency to prevent conflicts across the entire directory or forest. Active Directory handles these tasks using a <strong>single-master model</strong>, where specific operations can only be performed by a single DC designated as the <strong>FSMO Role Owner</strong>.</p>
+<p>There are <strong>5 FSMO roles</strong> divided into two scope categories:</p>
+<pre class="mermaid"><code>graph TD
+    Forest[Active Directory Forest] --&gt; ForestRoles[Forest-Wide Roles&lt;br/&gt;&lt;i&gt;1 Instance per Forest&lt;/i&gt;]
+    Forest --&gt; Domain[Active Directory Domain]
+    Domain --&gt; DomainRoles[Domain-Wide Roles&lt;br/&gt;&lt;i&gt;1 Instance per Domain&lt;/i&gt;]
+
+    ForestRoles --&gt; SM[Schema Master]
+    ForestRoles --&gt; DNM[Domain Naming Master]
+
+    DomainRoles --&gt; PDC[PDC Emulator]
+    DomainRoles --&gt; RID[RID Master]
+    DomainRoles --&gt; IM[Infrastructure Master]
+
+    style Forest fill:#1f2937,stroke:#374151,color:#fff
+    style Domain fill:#1f2937,stroke:#374151,color:#fff
+    style ForestRoles fill:#1e3a8a,stroke:#3b82f6,color:#fff
+    style DomainRoles fill:#065f46,stroke:#10b981,color:#fff</code></pre>
+<hr />
+<h3 id="forest-vs-domain-role-scope-breakdown">Forest vs. Domain Role Scope Breakdown</h3>
+<pre class="mermaid"><code>mindmap
+  root((FSMO Roles))
+    Forest Wide
+      Schema Master
+        Controls Schema Modifications
+        Defines Classes and Attributes
+      Domain Naming Master
+        Controls Domain Additions/Removals
+        Manages Application Partitions
+    Domain Wide
+      PDC Emulator
+        Time Synchronization
+        Password Modification &amp; Validation
+        Group Policy Updates
+      RID Master
+        Allocates RID Pools to DCs
+        Prevents Duplicate SIDs
+      Infrastructure Master
+        Cross-Domain Object References
+        Group Membership Tracking</code></pre>
+<hr />
+<h3 id="the-5-fsmo-roles-explained">The 5 FSMO Roles Explained</h3>
+<h4 id="forest-wide-roles-only-one-instance-per-ad-forest">Forest-Wide Roles (Only one instance per AD Forest)</h4>
+<ol>
+<li><strong>Schema Master</strong>:</li>
+<li><strong>Function</strong>: Controls all updates and modifications to the Active Directory <strong>Schema</strong> (the structural definition of all object classes and attributes, such as <code>user</code>, <code>group</code>, <code>computer</code>).</li>
+<li>
+<p><strong>Why single-master?</strong>: Schema changes modify the structural foundation of the entire forest. Allowing concurrent schema edits from multiple sources could cause catastrophic database corruption.</p>
+</li>
+<li>
+<p><strong>Domain Naming Master</strong>:</p>
+</li>
+<li><strong>Function</strong>: Controls the addition, renaming, or removal of domains, partitions, and application partitions within the forest.</li>
+<li><strong>Why single-master?</strong>: Ensures that domain names remain unique across the entire enterprise directory structure.</li>
+</ol>
+<h4 id="domain-wide-roles-one-instance-per-active-directory-domain">Domain-Wide Roles (One instance per Active Directory Domain)</h4>
+<ol>
+<li><strong>PDC Emulator (Primary Domain Controller Emulator)</strong>:</li>
+<li><strong>Function</strong>:<ul>
+<li>Acts as the authoritative <strong>time server</strong> for the domain (Windows Time Service / NTP hierarchy).</li>
+<li>Processes password changes immediately and acts as the fallback server when authentication fails on another DC due to a recent password change.</li>
+<li>Processes Account Lockout policies.</li>
+<li>Serves as the primary target for Group Policy Object (GPO) updates.</li>
+</ul>
+</li>
+<li>
+<p><strong>Why single-master?</strong>: Eliminates race conditions for password updates and ensures time synchronization across network entities (Kerberos authentication strictly requires time skew within 5 minutes).</p>
+</li>
+<li>
+<p><strong>RID Master (Relative Identifier Master)</strong>:</p>
+</li>
+<li><strong>Function</strong>: Allocates pools of unique Security Identifiers (SIDs) / Relative Identifiers (RIDs) to each DC in the domain.</li>
+<li>
+<p><strong>Why single-master?</strong>: Every security principal (user, group, computer) has a unique SID. To prevent two DCs from generating duplicate security IDs, DCs request a batch of RIDs (typically 500 at a time) exclusively from the RID Master.</p>
+</li>
+<li>
+<p><strong>Infrastructure Master</strong>:</p>
+</li>
+<li><strong>Function</strong>: Responsible for updating references from objects in its own domain to objects in other domains (cross-domain object references, such as multi-domain group memberships).</li>
+<li><strong>Note/Best Practice</strong>: In a single-domain environment or when all DCs run as Global Catalog (GC) servers, the Infrastructure Master role has minimal overhead. Do <strong>NOT</strong> place the Infrastructure Master on a Global Catalog server in a multi-domain environment unless <em>all</em> DCs are Global Catalogs.</li>
+</ol>
+<hr />
+<h2 id="2-lab-environment-role-transfer-workflow">2. Lab Environment &amp; Role Transfer Workflow</h2>
+<h3 id="architecture-overview">Architecture Overview</h3>
+<pre class="mermaid"><code>graph LR
+    subgraph LAB ["Network Subnet: 192.168.100.0/24 (LAB-TSSR-[TRI])"]
+        direction TB
+        DC1["&lt;b&gt;SRV-WIN-[TRI]-01&lt;/b&gt;&lt;br/&gt;IP: 192.168.100.10&lt;br/&gt;OS: Windows Server GUI"]
+        DC2["&lt;b&gt;SRV-WIN-[TRI]-02&lt;/b&gt;&lt;br/&gt;IP: 192.168.100.11&lt;br/&gt;OS: Windows Server Core"]
+        CL1["&lt;b&gt;Client Workstation&lt;/b&gt;&lt;br/&gt;OS: Windows 11&lt;br/&gt;Joined to Domain"]
+    end
+
+    DC1 &lt;== Active Directory Replication ==&gt; DC2
+    CL1 -. Authentication .-&gt; DC1
+    CL1 -. Authentication .-&gt; DC2
+
+    style DC1 fill:#1e293b,stroke:#3b82f6,color:#fff
+    style DC2 fill:#1e293b,stroke:#10b981,color:#fff
+    style CL1 fill:#334155,stroke:#94a3b8,color:#fff
+    style LAB fill:#0f172a,stroke:#475569,color:#fff</code></pre>
+<h3 id="lab-transfer-sequence-workflow">Lab Transfer Sequence Workflow</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    participant DC1 as SRV-WIN-[TRI]-01 (GUI)
+    participant DC2 as SRV-WIN-[TRI]-02 (Core)
+
+    Note over DC1,DC2: Initial State: All 5 FSMO Roles on DC1
+
+    rect rgb(30, 58, 138)
+    Note over DC1,DC2: Step 1: Graphical Transfer (GUI Consoles)
+    DC1-&gt;&gt;DC2: Transfer Domain Roles (dsa.msc) -&gt; RID, PDC, Infra
+    DC1-&gt;&gt;DC2: Transfer Domain Naming Master (domain.msc)
+    DC1-&gt;&gt;DC2: Transfer Schema Master (schmmgmt.msc)
+    end
+
+    Note over DC1,DC2: Intermediate State: All 5 FSMO Roles on DC2
+
+    rect rgb(6, 95, 70)
+    Note over DC1,DC2: Step 2: PowerShell Transfer
+    DC2-&gt;&gt;DC1: Move-ADDirectoryServerOperationMasterRole (0,1,2,3,4)
+    end
+
+    Note over DC1,DC2: Final State: All 5 FSMO Roles Returned to DC1</code></pre>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Domain Name</strong></td>
+<td><code>TSSR-[TRI].LAB</code> (e.g., <code>TSSR-XYZ.LAB</code>)</td>
+</tr>
+<tr>
+<td><strong>Subnet / Network</strong></td>
+<td><code>192.168.100.0/24</code> (<code>LAB-TSSR-[TRI]</code>)</td>
+</tr>
+<tr>
+<td><strong>DC 1 (GUI)</strong></td>
+<td><code>SRV-WIN-[TRI]-01</code> (<code>192.168.100.10</code>) — Windows Server Desktop Experience</td>
+</tr>
+<tr>
+<td><strong>DC 2 (Core)</strong></td>
+<td><code>SRV-WIN-[TRI]-02</code> (<code>192.168.100.11</code>) — Windows Server Core</td>
+</tr>
+<tr>
+<td><strong>Client Workstation</strong></td>
+<td>Windows 11 Workstation joined to domain</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: Replace <code>[TRI]</code> with your designated 3-letter identifier or trigram (e.g., <code>SRV-WIN-JDOE-01</code>).</p>
+</blockquote>
+<hr />
+<h2 id="3-step-1-identifying-current-fsmo-role-owners-health-checks">3. Step 1: Identifying Current FSMO Role Owners &amp; Health Checks</h2>
+<p>Before performing any role transfers, confirm current role holders and verify Active Directory health.</p>
+<h3 id="step-11-identify-fsmo-holders-via-command-line">Step 1.1: Identify FSMO Holders via Command Line</h3>
+<p>Run the following command in PowerShell or Command Prompt on <code>SRV-WIN-[TRI]-01</code>:</p>
+<div class="highlight"><pre><span></span><code>netdom query fsmo
+</code></pre></div>
+<p><strong>Expected Output:</strong></p>
+<div class="highlight"><pre><span></span><code>Schema master               SRV-WIN-[TRI]-01.tssr-[tri].lab
+Domain naming master        SRV-WIN-[TRI]-01.tssr-[tri].lab
+PDC                         SRV-WIN-[TRI]-01.tssr-[tri].lab
+RID pool manager            SRV-WIN-[TRI]-01.tssr-[tri].lab
+Infrastructure master       SRV-WIN-[TRI]-01.tssr-[tri].lab
+The command completed successfully.
+</code></pre></div>
+<h3 id="step-12-check-domain-controller-availability-replication">Step 1.2: Check Domain Controller Availability &amp; Replication</h3>
+<p>Verify AD replication state and network connectivity before modifying role holders:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Verify domain controllers status</span>
+<span class="nb">Get-ADDomainController</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">IPv4Address</span><span class="p">,</span> <span class="n">OperatingSystem</span>
+
+<span class="c"># Check Active Directory replication health</span>
+<span class="n">repadmin</span> <span class="p">/</span><span class="n">replsummary</span>
+<span class="n">repadmin</span> <span class="p">/</span><span class="n">showrepl</span>
+</code></pre></div>
+<p>Ensure <code>repadmin /replsummary</code> shows <code>0</code> errors across all nodes.</p>
+<hr />
+<h2 id="4-step-2-transferring-fsmo-roles-using-graphical-consoles-gui">4. Step 2: Transferring FSMO Roles Using Graphical Consoles (GUI)</h2>
+<p>We will transfer all 5 roles from <code>SRV-WIN-[TRI]-01</code> to <code>SRV-WIN-[TRI]-02</code> using administrative consoles.</p>
+<h3 id="41-domain-wide-roles-rid-pdc-infrastructure">4.1 Domain-Wide Roles (RID, PDC, Infrastructure)</h3>
+<p><strong>Console</strong>: Active Directory Users and Computers (<code>dsa.msc</code>)</p>
+<ol>
+<li>Open <strong>Active Directory Users and Computers</strong>.</li>
+<li>Right-click the domain node (<code>TSSR-[TRI].LAB</code>) in the left pane and select <strong>Change Domain Controller...</strong></li>
+<li>Select <code>SRV-WIN-[TRI]-02.tssr-[tri].lab</code> and click <strong>OK</strong>.</li>
+<li>Right-click the domain node again and select <strong>Operations Masters...</strong></li>
+<li>Navigate through the tabs and click <strong>Change</strong> on each:</li>
+<li><strong>RID Tab</strong>: Click <strong>Change</strong> <span class="arithmatex">\(\rightarrow\)</span> Confirm transfer.</li>
+<li><strong>PDC Tab</strong>: Click <strong>Change</strong> <span class="arithmatex">\(\rightarrow\)</span> Confirm transfer.</li>
+<li><strong>Infrastructure Tab</strong>: Click <strong>Change</strong> <span class="arithmatex">\(\rightarrow\)</span> Confirm transfer.</li>
+</ol>
+<h3 id="42-domain-naming-master-role">4.2 Domain Naming Master Role</h3>
+<p><strong>Console</strong>: Active Directory Domains and Trusts (<code>domain.msc</code>)</p>
+<ol>
+<li>Open <strong>Active Directory Domains and Trusts</strong>.</li>
+<li>Right-click the top node <strong>Active Directory Domains and Trusts</strong> in the left tree and select <strong>Change Active Directory Domain Controller...</strong></li>
+<li>Choose <code>SRV-WIN-[TRI]-02.tssr-[tri].lab</code> and click <strong>OK</strong>.</li>
+<li>Right-click <strong>Active Directory Domains and Trusts</strong> again and select <strong>Operations Master...</strong></li>
+<li>Click <strong>Change</strong> to transfer the Domain Naming Master role to <code>SRV-WIN-[TRI]-02</code>.</li>
+</ol>
+<h3 id="43-schema-master-role">4.3 Schema Master Role</h3>
+<p><strong>Console</strong>: Active Directory Schema snap-in (<code>schmmgmt.msc</code>)</p>
+<blockquote>
+<p><strong>Note</strong>: The Active Directory Schema MMC snap-in is unregistered by default to prevent unintended schema changes.</p>
+</blockquote>
+<ol>
+<li>Register the dynamic-link library via an elevated Command Prompt or PowerShell:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">regsvr32</span> <span class="n">schmmgmt</span><span class="p">.</span><span class="n">dll</span>
+</code></pre></div>
+<p><em>Verify the popup message confirms successful registration.</em></p>
+<ol>
+<li>Open an empty Microsoft Management Console:</li>
+<li>
+<p>Press <code>Win + R</code>, type <code>mmc.exe</code>, and press <strong>Enter</strong>.</p>
+</li>
+<li>
+<p>In MMC: Go to <strong>File</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>Add/Remove Snap-in...</strong></p>
+</li>
+<li>Select <strong>Active Directory Schema</strong> <span class="arithmatex">\(\rightarrow\)</span> Click <strong>Add</strong> <span class="arithmatex">\(\rightarrow\)</span> Click <strong>OK</strong>.</li>
+<li>Right-click <strong>Active Directory Schema</strong> in the tree and select <strong>Change Active Directory Domain Controller...</strong></li>
+<li>Select <code>SRV-WIN-[TRI]-02.tssr-[tri].lab</code> and click <strong>OK</strong> (acknowledge any warning about schema editing).</li>
+<li>Right-click <strong>Active Directory Schema</strong> and select <strong>Operations Master...</strong></li>
+<li>Click <strong>Change</strong> to transfer the Schema Master role to <code>SRV-WIN-[TRI]-02</code>.</li>
+</ol>
+<h3 id="44-verification-of-graphical-transfer">4.4 Verification of Graphical Transfer</h3>
+<p>Run from PowerShell:</p>
+<div class="highlight"><pre><span></span><code><span class="n">netdom</span> <span class="n">query</span> <span class="n">fsmo</span>
+</code></pre></div>
+<p>All 5 roles should now point to <code>SRV-WIN-[TRI]-02</code>.</p>
+<hr />
+<h2 id="5-step-3-transferring-fsmo-roles-using-powershell">5. Step 3: Transferring FSMO Roles Using PowerShell</h2>
+<p>Now we will perform the reverse operation: moving all 5 roles back from <code>SRV-WIN-[TRI]-02</code> (Server Core) to <code>SRV-WIN-[TRI]-01</code> using PowerShell.</p>
+<h3 id="51-identify-active-directory-powershell-module">5.1 Identify Active Directory PowerShell Module</h3>
+<p>The standard module for managing Active Directory is <code>ActiveDirectory</code>, included with RSAT and installed on Domain Controllers by default.</p>
+<h3 id="52-powershell-commands-to-check-fsmo-holders">5.2 PowerShell Commands to Check FSMO Holders</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Get Domain-wide FSMO roles</span>
+<span class="p">(</span><span class="nb">Get-ADDomain</span><span class="p">).</span><span class="n">PDCEmulator</span>
+<span class="p">(</span><span class="nb">Get-ADDomain</span><span class="p">).</span><span class="n">RIDMaster</span>
+<span class="p">(</span><span class="nb">Get-ADDomain</span><span class="p">).</span><span class="n">InfrastructureMaster</span>
+
+<span class="c"># Get Forest-wide FSMO roles</span>
+<span class="p">(</span><span class="nb">Get-ADForest</span><span class="p">).</span><span class="n">SchemaMaster</span>
+<span class="p">(</span><span class="nb">Get-ADForest</span><span class="p">).</span><span class="n">DomainNamingMaster</span>
+</code></pre></div>
+<h3 id="53-move-all-5-fsmo-roles-to-srv-win-tri-01">5.3 Move All 5 FSMO Roles to <code>SRV-WIN-[TRI]-01</code></h3>
+<p>The <code>Move-ADDirectoryServerOperationMasterRole</code> cmdlet can transfer multiple or all roles in a single execution.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Execute targeting SRV-WIN-[TRI]-01</span>
+<span class="nb">Move-ADDirectoryServerOperationMasterRole</span> <span class="n">-Identity</span> <span class="s2">"SRV-WIN-[TRI]-01"</span> <span class="n">-OperationMasterRole</span> <span class="n">0</span><span class="p">,</span><span class="n">1</span><span class="p">,</span><span class="n">2</span><span class="p">,</span><span class="n">3</span><span class="p">,</span><span class="n">4</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$false</span>
+</code></pre></div>
+<h4 id="parameter-role-numerical-index-reference">Parameter Role Numerical Index Reference:</h4>
+<ul>
+<li><code>0</code>: <strong>PDCEmulator</strong></li>
+<li><code>1</code>: <strong>RIDMaster</strong></li>
+<li><code>2</code>: <strong>InfrastructureMaster</strong></li>
+<li><code>3</code>: <strong>SchemaMaster</strong></li>
+<li><code>4</code>: <strong>DomainNamingMaster</strong></li>
+</ul>
+<p><em>Alternative syntax using named constants:</em></p>
+<div class="highlight"><pre><span></span><code><span class="nb">Move-ADDirectoryServerOperationMasterRole</span> <span class="n">-Identity</span> <span class="s2">"SRV-WIN-[TRI]-01"</span> <span class="p">`</span>
+  <span class="n">-OperationMasterRole</span> <span class="n">PDCEmulator</span><span class="p">,</span> <span class="n">RIDMaster</span><span class="p">,</span> <span class="n">InfrastructureMaster</span><span class="p">,</span> <span class="n">SchemaMaster</span><span class="p">,</span> <span class="n">DomainNamingMaster</span> <span class="p">`</span>
+  <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$false</span>
+</code></pre></div>
+<h3 id="54-verify-powershell-role-transfer">5.4 Verify PowerShell Role Transfer</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-ADDomain</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">PDCEmulator</span><span class="p">,</span> <span class="n">RIDMaster</span><span class="p">,</span> <span class="n">InfrastructureMaster</span>
+<span class="nb">Get-ADForest</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">SchemaMaster</span><span class="p">,</span> <span class="n">DomainNamingMaster</span>
+</code></pre></div>
+<hr />
+<h2 id="6-step-4-post-transfer-active-directory-validation">6. Step 4: Post-Transfer Active Directory Validation</h2>
+<p>Validate AD health, replication, and client processing following role transfers.</p>
+<ol>
+<li><strong>Verify Availability of Both DCs</strong>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">Test-Connection</span> <span class="n">-ComputerName</span> <span class="s2">"SRV-WIN-[TRI]-01"</span> <span class="n">-Count</span> <span class="n">2</span>
+<span class="nb">Test-Connection</span> <span class="n">-ComputerName</span> <span class="s2">"SRV-WIN-[TRI]-02"</span> <span class="n">-Count</span> <span class="n">2</span>
+</code></pre></div>
+<ol>
+<li><strong>Force and Verify AD Replication</strong>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">repadmin</span> <span class="p">/</span><span class="n">syncall</span> <span class="p">/</span><span class="n">A</span> <span class="p">/</span><span class="n">e</span> <span class="p">/</span><span class="n">d</span>
+<span class="n">repadmin</span> <span class="p">/</span><span class="n">replsummary</span>
+</code></pre></div>
+<ol>
+<li><strong>Verify User Authentication</strong>:
+   Log into a domain-joined Windows 11 client using a domain user account (e.g., <code>TSSR-[TRI]\jdoe</code>) and verify domain logon:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>whoami /fqdn
+echo %LOGONSERVER%
+</code></pre></div>
+<ol>
+<li>
+<p><strong>Replication Object Test</strong>:</p>
+</li>
+<li>
+<p>Create a temporary user on <code>SRV-WIN-[TRI]-01</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">New-ADUser</span> <span class="n">-Name</span> <span class="s2">"Test Replication"</span> <span class="n">-SamAccountName</span> <span class="s2">"test.repl"</span> <span class="n">-UserPrincipalName</span> <span class="s2">"test.repl@tssr-[tri].lab"</span> <span class="n">-Enabled</span> <span class="nv">$true</span>
+</code></pre></div>
+</li>
+<li>
+<p>Query the user from <code>SRV-WIN-[TRI]-02</code> to confirm real-time replication:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-ADUser</span> <span class="n">-Server</span> <span class="s2">"SRV-WIN-[TRI]-02"</span> <span class="n">-Identity</span> <span class="s2">"test.repl"</span>
+</code></pre></div>
+</li>
+<li>
+<p>Clean up test user:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Remove-ADUser</span> <span class="n">-Identity</span> <span class="s2">"test.repl"</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$false</span>
+</code></pre></div>
+</li>
+</ol>
+<hr />
+<h2 id="7-answers-to-comprehension-questions">7. Answers to Comprehension Questions</h2>
+<h3 id="q1-why-can-users-continue-to-authenticate-when-a-dc-holding-fsmo-roles-is-offline">Q1: Why can users continue to authenticate when a DC holding FSMO roles is offline?</h3>
+<p><strong>Answer</strong>:
+User authentication in Active Directory relies on the Kerberos v5 protocol (or NTLM fallback) and Global Catalog lookups. Standard authentication can be processed by <strong>any functional Domain Controller</strong> in the domain because user account database records and password hashes are replicated multi-master across all DCs. FSMO roles manage specific structural and administrative operations, not daily authentication operations.</p>
+<h3 id="q2-which-of-the-5-fsmo-roles-plays-a-key-role-in-managing-recent-password-changes">Q2: Which of the 5 FSMO roles plays a key role in managing recent password changes?</h3>
+<p><strong>Answer</strong>:
+The <strong>PDC Emulator</strong>. When a user changes their password, the update is immediately sent to the PDC Emulator over an urgent replication pathway. If a user tries to log in to another DC before normal replication finishes, that DC forwards the request to the PDC Emulator to check if a new password exists before rejecting the attempt.</p>
+<h3 id="q3-why-must-you-check-active-directory-replication-before-transferring-an-fsmo-role">Q3: Why must you check Active Directory replication before transferring an FSMO role?</h3>
+<p><strong>Answer</strong>:
+Transferring a role assumes the source and target DCs have matching Active Directory data. If replication is broken or delayed, transferring a role (like Schema or RID Master) can cause inconsistent state updates, database synchronization errors, or duplicate Object/RID allocations.</p>
+<h3 id="q4-in-what-scenario-would-a-forced-seizure-of-fsmo-roles-be-necessary">Q4: In what scenario would a forced seizure of FSMO roles be necessary?</h3>
+<p><strong>Answer</strong>:
+A <strong>Role Seizure</strong> (using <code>Move-ADDirectoryServerOperationMasterRole -Force</code> or <code>ntdsutil</code>) is required only when the original FSMO role holder suffers an unrecoverable hardware/software failure, is permanently destroyed, or is offline without possibility of recovery.</p>
+<blockquote>
+<p><strong>CRITICAL WARNING</strong>: Never bring a Domain Controller back online if its FSMO roles were seized by another DC. Doing so causes USN rollback and directory database corruption. The seized DC must be forcibly removed from AD and rebuilt from scratch.</p>
+</blockquote>
+<hr />
+<h2 id="8-validation-checklist">8. Validation Checklist</h2>
+<ul>
+<li>[x] All 5 FSMO roles identified using <code>netdom query fsmo</code> and AD PowerShell modules.</li>
+<li>[x] Registered <code>schmmgmt.dll</code> and accessed the AD Schema MMC Console.</li>
+<li>[x] Successfully transferred all 5 FSMO roles to Server Core (<code>SRV-WIN-[TRI]-02</code>) using GUI consoles.</li>
+<li>[x] Successfully transferred all 5 FSMO roles back to <code>SRV-WIN-[TRI]-01</code> using PowerShell commands.</li>
+<li>[x] Confirmed AD replication status using <code>repadmin</code>.</li>
+<li>[x] Verified domain authentication and object replication.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

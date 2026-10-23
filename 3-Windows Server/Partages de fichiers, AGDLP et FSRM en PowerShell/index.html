@@ -1,0 +1,3612 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="TSSR Lab Runbooks, Configs, and Notes">
+      
+      
+      
+        <link rel="canonical" href="https://natalshadow.github.io/TSSR_Doc/3-Windows%20Server/Partages%20de%20fichiers%2C%20AGDLP%20et%20FSRM%20en%20PowerShell/">
+      
+      
+        <link rel="prev" href="../PTR/">
+      
+      
+        <link rel="next" href="../Recherche%20RSAT%20sur%20Windows%2011%20et%20consoles%20MMC/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Partages de fichiers, AGDLP et FSRM en PowerShell - TSSR Documentation & Lab Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#competences-mobilisees" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-header__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TSSR Documentation & Lab Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Partages de fichiers, AGDLP et FSRM en PowerShell
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-nav__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TSSR Documentation & Lab Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Administration%20Windows%20Server%20Core%20et%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administration Windows Server Core et PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DORA%20steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DORA steps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Fiches%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiches techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PowerShell%20-%20dossiers%2C%20fichiers%2C%20partages%20et%20permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell   dossiers, fichiers, partages et permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TP05%20%E2%80%94%20Active%20Directory%20FSMO%20Roles%20Management%20%26%20Transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP05 — Active Directory FSMO Roles Management & Transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 General
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1 General
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGDLP Explained: The Foundation of Role-Based Access Control in Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/DNS%20et%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS et DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/DNS%20server%20types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Droits%20de%20partage%20et%20droits%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Droits de partage et droits NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/How%20to%20find%20Powershell%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to find Powershell commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Protocol%20SMB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol SMB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Syst%C3%A8me%20d%27information%20et%20syst%C3%A8me%20informatique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information et système informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attachments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Attachments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.04.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.04.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.28.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.28.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 Scripts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    10 Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-Scripts/Export%20GPOs%20-%20Powershell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Export GPOs   Powershell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 Virtualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2 Virtualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/Snapshots%20et%20clones%20de%20VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshots et clones de VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/TP5%20-%20Modification%20de%20la%20VM%20Windows%2011/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP5   Modification de la VM Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/Virtualisation%20-%20types%20et%20r%C3%A9seaux%20virtuels%20%28VMware%20Workstation%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation   types et réseaux virtuels (VMware Workstation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 Windows Server
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3 Windows Server
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Active%20Directory%20domain%20vs%20DNS%20domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory domain vs DNS domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Active%20Directory%20et%20LDAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory et LDAP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Flexible%20Single%20Master%20Operations%20roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flexible Single Master Operations roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GPO%20%E2%80%94%20Sauvegarde%2C%20Rapports%20et%20Ex%C3%A9cution%20%C3%A0%20distance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO — Sauvegarde, Rapports et Exécution à distance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kerberos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NTLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PTR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PTR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partages de fichiers, AGDLP et FSRM en PowerShell
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partages de fichiers, AGDLP et FSRM en PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#competences-mobilisees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compétences mobilisées
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contexte-et-objectif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contexte et objectif
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environnement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modele-dacces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modèle d'accès
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modèle d&#39;accès">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-agdlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pourquoi AGDLP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mise-en-uvre-en-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mise en œuvre en PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mise en œuvre en PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-arborescence-et-fichiers-de-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arborescence et fichiers de test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-partages-smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Partages SMB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-groupes-de-domaine-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Groupes de domaine local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-droits-ntfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Droits NTFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-application-de-la-matrice-agdlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Application de la matrice AGDLP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-validation-des-acces-depuis-le-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Validation des accès depuis le client
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-quotas-stricts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Quotas stricts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-quotas-souples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Quotas souples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-blocage-dextensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Blocage d'extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ce-que-ce-laboratoire-demontre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que ce laboratoire démontre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limites-de-ce-laboratoire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limites de ce laboratoire
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Recherche%20RSAT%20sur%20Windows%2011%20et%20consoles%20MMC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche RSAT sur Windows 11 et consoles MMC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Recherche%20Windows%20Server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche Windows Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tiering%20AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory : les fondamentaux du Tiering Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_13" id="__nav_10_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/Cr%C3%A9er%20un%20domaine%20Active%20Directory%20et%20joindre%20un%20poste%20client%20-%20Full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Créer un domaine Active Directory et joindre un poste client   Full
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/DNS%20and%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS and DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/Mettre%20en%20place%20des%20partages%20r%C3%A9seau%20avec%20la%20m%C3%A9thode%20AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place des partages réseau avec la méthode AGDLP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/Organiser%20les%20utilisateurs%2C%20groupes%20et%20ordinateurs%20Active%20Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organiser les utilisateurs, groupes et ordinateurs Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/TP%20-%20GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/TP06%20%E2%80%94%20VMware%20Workstation%20LAN%20Segment%20Windows%20Server%202025%20%26%20Isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 Labs and TP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9 Labs and TP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/Demo-%20TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo  TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/D%C3%A9ploiement%20redondance%20DNS%20Server%20Core%20-%202/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déploiement redondance DNS Server Core   2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/Haute%20disponibilit%C3%A9%20DHCP%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Haute disponibilité DHCP avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/Install%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/Mettre%20en%20place%20la%20redondance%20DNS%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place la redondance DNS avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/Server%20Core%20lite%20doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core lite doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Labs%20and%20TP/TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202026-10-06%2007.50.21.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2026 10 06 07.50.21.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glossaire
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/A%20record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/Glossary%20entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary entry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/Index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/forward%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forward lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/lease/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lease
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/reverse%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exports
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exports
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exports/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell%20-%20Deliverable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell   Deliverable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#competences-mobilisees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compétences mobilisées
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contexte-et-objectif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contexte et objectif
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environnement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modele-dacces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modèle d'accès
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modèle d&#39;accès">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-agdlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pourquoi AGDLP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mise-en-uvre-en-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mise en œuvre en PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mise en œuvre en PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-arborescence-et-fichiers-de-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arborescence et fichiers de test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-partages-smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Partages SMB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-groupes-de-domaine-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Groupes de domaine local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-droits-ntfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Droits NTFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-application-de-la-matrice-agdlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Application de la matrice AGDLP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-validation-des-acces-depuis-le-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Validation des accès depuis le client
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-quotas-stricts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Quotas stricts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-quotas-souples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Quotas souples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-blocage-dextensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Blocage d'extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ce-que-ce-laboratoire-demontre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que ce laboratoire démontre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limites-de-ce-laboratoire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limites de ce laboratoire
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Partages de fichiers, AGDLP et FSRM en PowerShell</h1>
+
+<div class="admonition abstract">
+<p class="admonition-title">Résumé</p>
+<p>Mise à disposition des données d'une petite organisation sur Windows Server : un partage par service, des droits NTFS gérés par la méthode <strong>AGDLP</strong>, des <strong>quotas</strong> disque et un <strong>filtrage de fichiers</strong> avec FSRM. L'ensemble de la procédure est écrit en <strong>PowerShell</strong>, de la création des dossiers au contrôle des accès, de façon reproductible.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Nature du projet</p>
+<p>Projet réalisé en environnement de laboratoire virtualisé, pas sur une infrastructure client.</p>
+</div>
+<h2 id="competences-mobilisees">Compétences mobilisées</h2>
+<ul>
+<li>Création et administration de <strong>partages SMB</strong> en PowerShell</li>
+<li>Gestion des droits <strong>NTFS</strong> (héritage, permissions explicites) avec <code>Get-Acl</code> et <code>Set-Acl</code></li>
+<li>Mise en œuvre de la méthode <strong>AGDLP</strong> avec Active Directory (groupes globaux, groupes de domaine local)</li>
+<li><strong>File Server Resource Manager</strong> : quotas stricts et souples, écrans de fichiers</li>
+<li>Scripts pilotés par les données (une table décrit le modèle d'accès, la boucle l'applique)</li>
+<li><strong>Tests automatisés</strong> des accès depuis un poste client</li>
+</ul>
+<h2 id="contexte-et-objectif">Contexte et objectif</h2>
+<p>Le domaine comptait déjà ses unités d'organisation, ses utilisateurs et ses groupes par service. Il restait à leur donner accès aux données : chaque service doit disposer de son dossier, certains services doivent pouvoir <strong>lire</strong> les dossiers d'autres services, et personne ne doit accéder au reste. L'espace disque doit aussi être borné et certains types de fichiers refusés.</p>
+<h2 id="environnement">Environnement</h2>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domaine</td>
+<td><code>TSSR-MEN.LAB</code></td>
+</tr>
+<tr>
+<td>Serveur (AD, DNS, DHCP, partages)</td>
+<td><code>srv-win-men-01</code>, <code>192.168.100.10</code></td>
+</tr>
+<tr>
+<td>Poste client</td>
+<td><code>CLI-WIN-MEN-01</code>, Windows 11</td>
+</tr>
+<tr>
+<td>Racine des données</td>
+<td><code>C:\PARTAGE</code></td>
+</tr>
+<tr>
+<td>Services</td>
+<td>ADMINISTRATIF, DIRECTION, COMPTABILITE, INFORMATIQUE, RH, PRODUCTION</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modele-dacces">Modèle d'accès</h2>
+<p>Chaque service possède un dossier qu'il peut <strong>modifier</strong>. Certains services peuvent en plus <strong>lire</strong> d'autres dossiers :</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Son dossier</th>
+<th>Lecture seule sur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADMINISTRATIF</td>
+<td>Modification</td>
+<td>COMPTABILITE, RH</td>
+</tr>
+<tr>
+<td>DIRECTION</td>
+<td>Modification</td>
+<td>ADMINISTRATIF, COMPTABILITE, RH, PRODUCTION</td>
+</tr>
+<tr>
+<td>COMPTABILITE</td>
+<td>Modification</td>
+<td>aucun</td>
+</tr>
+<tr>
+<td>INFORMATIQUE</td>
+<td>Modification</td>
+<td>PRODUCTION</td>
+</tr>
+<tr>
+<td>RH</td>
+<td>Modification</td>
+<td>aucun</td>
+</tr>
+<tr>
+<td>PRODUCTION</td>
+<td>Modification</td>
+<td>aucun</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pourquoi-agdlp">Pourquoi AGDLP</h3>
+<p>La méthode <strong>AGDLP</strong> (<em>Account, Global, Domain Local, Permission</em>) évite d'attribuer des droits à des personnes :</p>
+<ul>
+<li>les <strong>utilisateurs</strong> (A) sont membres du groupe global de leur service (<code>GG-&lt;SERVICE&gt;</code>) ;</li>
+<li>les <strong>groupes globaux</strong> (G) sont membres de groupes de domaine local (DL) qui représentent <strong>un droit sur une ressource</strong> ;</li>
+<li>ce sont ces groupes de domaine local qui reçoivent la <strong>permission</strong> (P) sur le dossier.</li>
+</ul>
+<p>Quand quelqu'un change de service, une seule appartenance à modifier suffit : aucun droit n'est à retoucher sur les dossiers.</p>
+<table>
+<thead>
+<tr>
+<th>Groupe</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GG-&lt;SERVICE&gt;</code></td>
+<td>Les membres d'un service (groupe global)</td>
+</tr>
+<tr>
+<td><code>GDL-&lt;SERVICE&gt;-RW</code></td>
+<td>Droit de <strong>modification</strong> sur le dossier du service</td>
+</tr>
+<tr>
+<td><code>GDL-&lt;SERVICE&gt;-RO</code></td>
+<td>Droit de <strong>lecture</strong> sur le dossier du service</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mise-en-uvre-en-powershell">Mise en œuvre en PowerShell</h2>
+<p>Les commandes s'exécutent sur le serveur, dans une session PowerShell ouverte en administrateur du domaine. Les services sont décrits une seule fois :</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$services</span> <span class="p">=</span> <span class="s2">"ADMINISTRATIF"</span><span class="p">,</span><span class="s2">"DIRECTION"</span><span class="p">,</span><span class="s2">"COMPTABILITE"</span><span class="p">,</span><span class="s2">"INFORMATIQUE"</span><span class="p">,</span><span class="s2">"RH"</span><span class="p">,</span><span class="s2">"PRODUCTION"</span>
+</code></pre></div>
+<h3 id="1-arborescence-et-fichiers-de-test">1. Arborescence et fichiers de test</h3>
+<p>Une racine commune (<code>C:\PARTAGE</code>) regroupe les six dossiers : un seul emplacement à sauvegarder, à superviser et à borner.</p>
+<div class="highlight"><pre><span></span><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$services</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">New-Item</span> <span class="n">-ItemType</span> <span class="n">Directory</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\$s"</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+    <span class="nb">New-Item</span> <span class="n">-ItemType</span> <span class="n">File</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\$s\FICHIER-$s.txt"</span> <span class="n">-Value</span> <span class="s2">"Fichier du service $s"</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+<span class="p">}</span>
+<span class="nb">Get-ChildItem</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span> <span class="n">-Recurse</span>
+
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span>
+
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">31</span> <span class="n">AM</span>                <span class="n">ADMINISTRATIF</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">37</span> <span class="n">AM</span>                <span class="n">COMPTABILITE</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">31</span> <span class="n">AM</span>                <span class="n">DIRECTION</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">31</span> <span class="n">AM</span>                <span class="n">INFORMATIQUE</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">41</span> <span class="n">AM</span>                <span class="n">PRODUCTION</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">31</span> <span class="n">AM</span>                <span class="n">RH</span>
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">ADMINISTRATIF</span>
+
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">27</span> <span class="n">AM</span>             <span class="n">32</span> <span class="n">FICHIER-ADMINISTRATIF</span><span class="p">.</span><span class="n">txt</span>
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">COMPTABILITE</span>
+
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">27</span> <span class="n">AM</span>             <span class="n">31</span> <span class="n">FICHIER-COMPTABILITE</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">37</span> <span class="n">AM</span>       <span class="n">10485760</span> <span class="n">test1</span><span class="p">.</span><span class="n">bin</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">37</span> <span class="n">AM</span>       <span class="n">10485760</span> <span class="n">test2</span><span class="p">.</span><span class="n">bin</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">37</span> <span class="n">AM</span>       <span class="n">10485760</span> <span class="n">test3</span><span class="p">.</span><span class="n">bin</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">37</span> <span class="n">AM</span>       <span class="n">10485760</span> <span class="n">test4</span><span class="p">.</span><span class="n">bin</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">37</span> <span class="n">AM</span>              <span class="n">0</span> <span class="n">test5</span><span class="p">.</span><span class="n">bin</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">37</span> <span class="n">AM</span>              <span class="n">0</span> <span class="n">test6</span><span class="p">.</span><span class="n">bin</span>
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">DIRECTION</span>
+
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">27</span> <span class="n">AM</span>             <span class="n">28</span> <span class="n">FICHIER-DIRECTION</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">-a</span><span class="p">----</span>         <span class="n">10</span><span class="p">/</span><span class="n">7</span><span class="p">/</span><span class="n">2026</span>   <span class="n">3</span><span class="p">:</span><span class="n">39</span> <span class="n">PM</span>              <span class="n">0</span> <span class="n">test</span><span class="p">.</span><span class="n">txt</span>
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">INFORMATIQUE</span>
+
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">27</span> <span class="n">AM</span>             <span class="n">31</span> <span class="n">FICHIER-INFORMATIQUE</span><span class="p">.</span><span class="n">txt</span>
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">PRODUCTION</span>
+
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">27</span> <span class="n">AM</span>             <span class="n">29</span> <span class="n">FICHIER-PRODUCTION</span><span class="p">.</span><span class="n">txt</span>
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">RH</span>
+
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span>  <span class="n">10</span><span class="p">:</span><span class="n">27</span> <span class="n">AM</span>             <span class="n">21</span> <span class="n">FICHIER-RH</span><span class="p">.</span><span class="n">txt</span>
+</code></pre></div>
+<h3 id="2-partages-smb">2. Partages SMB</h3>
+<p>Chaque dossier est partagé avec <strong>Contrôle total pour Everyone</strong> : la restriction se fait uniquement côté NTFS. Le droit effectif est le plus restrictif des deux couches (partage et NTFS), donc un partage ouvert n'élargit rien et il n'y a qu'un seul endroit où gérer les droits.</p>
+<div class="highlight"><pre><span></span><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$services</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="nv">$s</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\$s"</span> <span class="n">-FullAccess</span> <span class="s2">"Everyone"</span>
+<span class="p">}</span>
+
+
+<span class="nb">Get-SmbShare</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Path</span> <span class="o">-like</span> <span class="s2">"C:\PARTAGE\*"</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Path</span>
+<span class="n">Name</span>          <span class="n">Path</span>
+<span class="p">----</span>          <span class="p">----</span>
+<span class="n">ADMINISTRATIF</span> <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">ADMINISTRATIF</span>
+<span class="n">COMPTABILITE</span>  <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">COMPTABILITE</span>
+<span class="n">DIRECTION</span>     <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">DIRECTION</span>
+<span class="n">INFORMATIQUE</span>  <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">INFORMATIQUE</span>
+<span class="n">PRODUCTION</span>    <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">PRODUCTION</span>
+<span class="n">RH</span>            <span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">RH</span>
+
+
+<span class="nb">Get-SmbShareAccess</span> <span class="n">-Name</span> <span class="s2">"RH"</span>
+<span class="n">Name</span> <span class="n">ScopeName</span> <span class="n">AccountName</span> <span class="n">AccessControlType</span> <span class="n">AccessRight</span>
+<span class="p">----</span> <span class="p">---------</span> <span class="p">-----------</span> <span class="p">-----------------</span> <span class="p">-----------</span>
+<span class="n">RH</span>   <span class="p">*</span>         <span class="n">Everyone</span>    <span class="n">Allow</span>             <span class="n">Full</span>
+</code></pre></div>
+<h3 id="3-groupes-de-domaine-local">3. Groupes de domaine local</h3>
+<p>Douze groupes (<code>-RW</code> et <code>-RO</code> pour chaque service) sont créés dans l'unité d'organisation <code>GROUPES/GDL</code>, avec l'étendue <strong>domaine local</strong> et le type <strong>sécurité</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$services</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">foreach</span> <span class="p">(</span><span class="nv">$droit</span> <span class="k">in</span> <span class="s2">"RW"</span><span class="p">,</span> <span class="s2">"RO"</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nv">$nom</span> <span class="p">=</span> <span class="s2">"GDL-$s-$droit"</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Get-ADGroup</span> <span class="n">-Filter</span> <span class="s2">"Name -eq '$nom'"</span> <span class="p">`</span>
+                 <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">))</span> <span class="p">{</span>
+             <span class="nb">New-ADGroup</span> <span class="n">-Name</span> <span class="nv">$nom</span> <span class="p">`</span>
+                 <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="p">`</span>
+                 <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="p">`</span>
+                 <span class="n">-Path</span> <span class="s2">"OU=GDL,OU=GROUPES,DC=TSSR-MEN,DC=LAB"</span>
+
+             <span class="nb">Write-Host</span> <span class="s2">"Créé : $nom"</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+         <span class="p">}</span>
+         <span class="k">else</span> <span class="p">{</span>
+             <span class="nb">Write-Host</span> <span class="s2">"Déjà existant : $nom"</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
+         <span class="p">}</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-ADMINISTRATIF-RW</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-ADMINISTRATIF-RO</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-DIRECTION-RW</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-DIRECTION-RO</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-COMPTABILITE-RW</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-COMPTABILITE-RO</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-INFORMATIQUE-RW</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-INFORMATIQUE-RO</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-RH-RW</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-RH-RO</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-PRODUCTION-RW</span>
+<span class="n">Déjà</span> <span class="n">existant</span> <span class="p">:</span> <span class="n">GDL-PRODUCTION-RO</span>
+</code></pre></div>
+<h3 id="4-droits-ntfs">4. Droits NTFS</h3>
+<p>Par défaut, un dossier hérite des droits de <code>C:\</code>, dont ceux du groupe <code>Users</code> : sans action, tout le monde pourrait lire les dossiers. L'héritage est donc <strong>coupé sans conserver les droits hérités</strong>, puis les droits explicites sont posés. <code>SYSTEM</code> et <code>Administrators</code> sont conservés pour ne pas se verrouiller soi-même.</p>
+<div class="highlight"><pre><span></span><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$services</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$chemin</span> <span class="p">=</span> <span class="s2">"C:\PARTAGE\$s"</span>
+    <span class="nv">$acl</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="nv">$chemin</span>
+    <span class="nv">$acl</span><span class="p">.</span><span class="n">SetAccessRuleProtection</span><span class="p">(</span><span class="nv">$true</span><span class="p">,</span> <span class="nv">$false</span><span class="p">)</span>    <span class="c"># coupe l'héritage et supprime les droits hérités</span>
+
+    <span class="nv">$regles</span> <span class="p">=</span> <span class="p">@(</span>
+        <span class="p">@(</span><span class="s2">"NT AUTHORITY\SYSTEM"</span><span class="p">,</span>       <span class="s2">"FullControl"</span><span class="p">),</span>
+        <span class="p">@(</span><span class="s2">"BUILTIN\Administrators"</span><span class="p">,</span>    <span class="s2">"FullControl"</span><span class="p">),</span>
+        <span class="p">@(</span><span class="s2">"TSSR-MEN\GDL-$s-RW"</span><span class="p">,</span>        <span class="s2">"Modify"</span><span class="p">),</span>
+        <span class="p">@(</span><span class="s2">"TSSR-MEN\GDL-$s-RO"</span><span class="p">,</span>        <span class="s2">"ReadAndExecute"</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$r</span> <span class="k">in</span> <span class="nv">$regles</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$ace</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span>
+            <span class="nv">$r</span><span class="p">[</span><span class="n">0</span><span class="p">],</span> <span class="nv">$r</span><span class="p">[</span><span class="n">1</span><span class="p">],</span> <span class="s2">"ContainerInherit,ObjectInherit"</span><span class="p">,</span> <span class="s2">"None"</span><span class="p">,</span> <span class="s2">"Allow"</span><span class="p">)</span>
+        <span class="nv">$acl</span><span class="p">.</span><span class="n">AddAccessRule</span><span class="p">(</span><span class="nv">$ace</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="nv">$chemin</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Les droits sont appliqués au dossier, à ses sous-dossiers et à ses fichiers. <strong>Modification</strong> permet de lire, écrire et supprimer, mais pas de changer les permissions ; <strong>Lecture et exécution</strong> n'autorise que la consultation.</p>
+<p>Contrôle des permissions en place :</p>
+<div class="highlight"><pre><span></span><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$services</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">"--- $s"</span>
+    <span class="p">(</span><span class="nb">Get-Acl</span> <span class="s2">"C:\PARTAGE\$s"</span><span class="p">).</span><span class="n">Access</span> <span class="p">|</span>
+        <span class="nb">Select-Object</span> <span class="n">IdentityReference</span><span class="p">,</span> <span class="n">FileSystemRights</span><span class="p">,</span> <span class="n">IsInherited</span> <span class="p">|</span>
+        <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+<span class="p">}</span>
+
+<span class="p">---</span> <span class="n">ADMINISTRATIF</span>
+
+<span class="n">IdentityReference</span>                        <span class="n">FileSystemRights</span> <span class="n">IsInherited</span>
+<span class="p">-----------------</span>                        <span class="p">----------------</span> <span class="p">-----------</span>
+<span class="n">CREATOR</span> <span class="n">OWNER</span>                                 <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span>                           <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administrators</span>                        <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-ADMINISTRATIF-RW</span>                 <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-ADMINISTRATIF-RO</span> <span class="n">ReadAndExecute</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+
+
+<span class="p">---</span> <span class="n">DIRECTION</span>
+
+<span class="n">IdentityReference</span>                    <span class="n">FileSystemRights</span> <span class="n">IsInherited</span>
+<span class="p">-----------------</span>                    <span class="p">----------------</span> <span class="p">-----------</span>
+<span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span>                       <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administrators</span>                    <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-DIRECTION-RW</span>         <span class="n">Modify</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-DIRECTION-RO</span> <span class="n">ReadAndExecute</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+
+
+<span class="p">---</span> <span class="n">COMPTABILITE</span>
+
+<span class="n">IdentityReference</span>                       <span class="n">FileSystemRights</span> <span class="n">IsInherited</span>
+<span class="p">-----------------</span>                       <span class="p">----------------</span> <span class="p">-----------</span>
+<span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span>                          <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administrators</span>                       <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-COMPTABILITE-RW</span>         <span class="n">Modify</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-COMPTABILITE-RO</span> <span class="n">ReadAndExecute</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+
+
+<span class="p">---</span> <span class="n">INFORMATIQUE</span>
+
+<span class="n">IdentityReference</span>                       <span class="n">FileSystemRights</span> <span class="n">IsInherited</span>
+<span class="p">-----------------</span>                       <span class="p">----------------</span> <span class="p">-----------</span>
+<span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span>                          <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administrators</span>                       <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-INFORMATIQUE-RW</span>         <span class="n">Modify</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-INFORMATIQUE-RO</span> <span class="n">ReadAndExecute</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+
+
+<span class="p">---</span> <span class="n">RH</span>
+
+<span class="n">IdentityReference</span>                 <span class="n">FileSystemRights</span> <span class="n">IsInherited</span>
+<span class="p">-----------------</span>                 <span class="p">----------------</span> <span class="p">-----------</span>
+<span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span>                    <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administrators</span>                 <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-RH-RW</span>             <span class="n">Modify</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-RH-RO</span>     <span class="n">ReadAndExecute</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+
+
+<span class="p">---</span> <span class="n">PRODUCTION</span>
+
+<span class="n">IdentityReference</span>                     <span class="n">FileSystemRights</span> <span class="n">IsInherited</span>
+<span class="p">-----------------</span>                     <span class="p">----------------</span> <span class="p">-----------</span>
+<span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span>                        <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administrators</span>                     <span class="n">FullControl</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-PRODUCTION-RW</span>         <span class="n">Modify</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+<span class="n">TSSR-MEN</span><span class="p">\</span><span class="n">GDL-PRODUCTION-RO</span> <span class="n">ReadAndExecute</span><span class="p">,</span> <span class="n">Synchronize</span>       <span class="n">False</span>
+</code></pre></div>
+<p>Chaque dossier ne doit plus afficher que quatre entrées, aucune héritée.</p>
+<!-- TODO : coller ici la sortie réelle du contrôle des permissions pour un dossier (par exemple RH) après exécution. -->
+
+<h3 id="5-application-de-la-matrice-agdlp">5. Application de la matrice AGDLP</h3>
+<p>La matrice est décrite sous forme de <strong>table de données</strong> : la boucle applique ensuite les mêmes règles à tous les services. Ajouter un service ou modifier un droit revient à changer une ligne.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$lecture</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="n">ADMINISTRATIF</span> <span class="p">=</span> <span class="s2">"COMPTABILITE"</span><span class="p">,</span><span class="s2">"RH"</span>
+    <span class="n">DIRECTION</span>     <span class="p">=</span> <span class="s2">"ADMINISTRATIF"</span><span class="p">,</span><span class="s2">"COMPTABILITE"</span><span class="p">,</span><span class="s2">"RH"</span><span class="p">,</span><span class="s2">"PRODUCTION"</span>
+    <span class="n">COMPTABILITE</span>  <span class="p">=</span> <span class="p">@()</span>
+    <span class="n">INFORMATIQUE</span>  <span class="p">=</span> <span class="s2">"PRODUCTION"</span>
+    <span class="n">RH</span>            <span class="p">=</span> <span class="p">@()</span>
+    <span class="n">PRODUCTION</span>    <span class="p">=</span> <span class="p">@()</span>
+<span class="p">}</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$services</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Add-ADGroupMember</span> <span class="n">-Identity</span> <span class="s2">"GDL-$s-RW"</span> <span class="n">-Members</span> <span class="s2">"GG-$s"</span>        <span class="c"># le service modifie son dossier</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$cible</span> <span class="k">in</span> <span class="nv">$lecture</span><span class="p">[</span><span class="nv">$s</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nb">Add-ADGroupMember</span> <span class="n">-Identity</span> <span class="s2">"GDL-$cible-RO"</span> <span class="n">-Members</span> <span class="s2">"GG-$s"</span> <span class="c"># le service lit le dossier d'un autre</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Vérification de l'appartenance de chaque groupe de domaine local :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-ADGroup</span> <span class="n">-Filter</span> <span class="s1">'Name -like "GDL-*"'</span> <span class="p">|</span> <span class="nb">Sort </span><span class="n">Name</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+    <span class="nv">$m</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ADGroupMember</span> <span class="nv">$_</span> <span class="p">|</span> <span class="nb">Select </span><span class="n">-Expand</span> <span class="n">Name</span><span class="p">)</span> <span class="n">-join</span> <span class="s2">", "</span>
+    <span class="s2">"{0,-24} {1}"</span> <span class="o">-f</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="nv">$m</span>
+<span class="p">}</span>
+
+<span class="n">GDL-ADMINISTRATIF-RO</span>     <span class="n">GG-DIRECTION</span>
+<span class="n">GDL-ADMINISTRATIF-RW</span>     <span class="n">GG-ADMINISTRATIF</span>
+<span class="n">GDL-COMPTABILITE-RO</span>      <span class="n">GG-DIRECTION</span><span class="p">,</span> <span class="n">GG-ADMINISTRATIF</span>
+<span class="n">GDL-COMPTABILITE-RW</span>      <span class="n">GG-COMPTABILITE</span>
+<span class="n">GDL-DIRECTION-RO</span>
+<span class="n">GDL-DIRECTION-RW</span>         <span class="n">GG-DIRECTION</span>
+<span class="n">GDL-INFORMATIQUE-RO</span>
+<span class="n">GDL-INFORMATIQUE-RW</span>      <span class="n">GG-INFORMATIQUE</span>
+<span class="n">GDL-PRODUCTION-RO</span>        <span class="n">GG-INFORMATIQUE</span><span class="p">,</span> <span class="n">GG-DIRECTION</span>
+<span class="n">GDL-PRODUCTION-RW</span>        <span class="n">GG-PRODUCTION</span>
+<span class="n">GDL-RH-RO</span>                <span class="n">GG-DIRECTION</span><span class="p">,</span> <span class="n">GG-ADMINISTRATIF</span>
+<span class="n">GDL-RH-RW</span>                <span class="n">GG-RH</span>
+</code></pre></div>
+<p>VS. le résultat attendu :
+<div class="highlight"><pre><span></span><code>GDL-ADMINISTRATIF-RO     GG-DIRECTION
+GDL-ADMINISTRATIF-RW     GG-ADMINISTRATIF
+GDL-COMPTABILITE-RO      GG-DIRECTION, GG-ADMINISTRATIF
+GDL-COMPTABILITE-RW      GG-COMPTABILITE
+GDL-DIRECTION-RO
+GDL-DIRECTION-RW         GG-DIRECTION
+GDL-INFORMATIQUE-RO
+GDL-INFORMATIQUE-RW      GG-INFORMATIQUE
+GDL-PRODUCTION-RO        GG-INFORMATIQUE, GG-DIRECTION
+GDL-PRODUCTION-RW        GG-PRODUCTION
+GDL-RH-RO                GG-DIRECTION, GG-ADMINISTRATIF
+GDL-RH-RW                GG-RH
+</code></pre></div></p>
+<p>Les groupes <code>GDL-DIRECTION-RO</code> et <code>GDL-INFORMATIQUE-RO</code> sont vides : d'après la matrice, aucun autre service ne lit ces deux dossiers.</p>
+<h3 id="6-validation-des-acces-depuis-le-client">6. Validation des accès depuis le client</h3>
+<p>Les accès attendus se déduisent directement de la matrice :</p>
+<table>
+<thead>
+<tr>
+<th>Utilisateur (service)</th>
+<th>ADMINISTRATIF</th>
+<th>DIRECTION</th>
+<th>COMPTABILITE</th>
+<th>INFORMATIQUE</th>
+<th>RH</th>
+<th>PRODUCTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADMINISTRATIF</td>
+<td>RW</td>
+<td>✖</td>
+<td>R</td>
+<td>✖</td>
+<td>R</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>DIRECTION</td>
+<td>R</td>
+<td>RW</td>
+<td>R</td>
+<td>✖</td>
+<td>R</td>
+<td>R</td>
+</tr>
+<tr>
+<td>COMPTABILITE</td>
+<td>✖</td>
+<td>✖</td>
+<td>RW</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>INFORMATIQUE</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+<td>RW</td>
+<td>✖</td>
+<td>R</td>
+</tr>
+<tr>
+<td>RH</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+<td>RW</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>PRODUCTION</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+<td>✖</td>
+<td>RW</td>
+</tr>
+</tbody>
+</table>
+<p>Pour comparer ces attendus à la réalité, un script teste chaque partage avec les droits du compte connecté : il tente de <strong>lister</strong> le dossier, puis de <strong>créer et supprimer</strong> un fichier temporaire. Il s'exécute dans une session ouverte avec le compte à tester (les groupes sont lus à l'ouverture de session) :</p>
+<div class="highlight"><pre><span></span><code><span class="n">whoami</span> <span class="p">/</span><span class="n">groups</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="s2">"GG-"</span>
+
+<span class="nv">$services</span> <span class="p">=</span> <span class="s2">"ADMINISTRATIF"</span><span class="p">,</span><span class="s2">"DIRECTION"</span><span class="p">,</span><span class="s2">"COMPTABILITE"</span><span class="p">,</span><span class="s2">"INFORMATIQUE"</span><span class="p">,</span><span class="s2">"RH"</span><span class="p">,</span><span class="s2">"PRODUCTION"</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$services</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$unc</span> <span class="p">=</span> <span class="s2">"\\srv-win-men-01\$s"</span>
+    <span class="nv">$lecture</span> <span class="p">=</span> <span class="nv">$false</span>
+    <span class="nv">$ecriture</span> <span class="p">=</span> <span class="nv">$false</span>
+    <span class="k">try</span> <span class="p">{</span> <span class="nv">$null</span> <span class="p">=</span> <span class="nb">Get-ChildItem</span> <span class="nv">$unc</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span><span class="p">;</span> <span class="nv">$lecture</span> <span class="p">=</span> <span class="nv">$true</span> <span class="p">}</span> <span class="k">catch</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$lecture</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$tmp</span> <span class="p">=</span> <span class="nb">Join-Path</span> <span class="nv">$unc</span> <span class="s2">"test-ecriture-$env:USERNAME.tmp"</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nb">New-Item</span> <span class="n">-ItemType</span> <span class="n">File</span> <span class="n">-Path</span> <span class="nv">$tmp</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+            <span class="nb">Remove-Item</span> <span class="nv">$tmp</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span>
+            <span class="nv">$ecriture</span> <span class="p">=</span> <span class="nv">$true</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">{}</span>
+    <span class="p">}</span>
+    <span class="no">[pscustomobject]</span><span class="p">@{</span>
+        <span class="n">Partage</span> <span class="p">=</span> <span class="nv">$s</span>
+        <span class="n">Acces</span>   <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$ecriture</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"RW"</span> <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$lecture</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"R"</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="s2">"Refusé"</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">Partage</span>       <span class="n">Acces</span>
+<span class="p">-------</span>       <span class="p">-----</span>
+<span class="n">ADMINISTRATIF</span> <span class="n">RW</span>
+<span class="n">DIRECTION</span>     <span class="n">RW</span>
+<span class="n">COMPTABILITE</span>  <span class="n">RW</span>
+<span class="n">INFORMATIQUE</span>  <span class="n">RW</span>
+<span class="n">RH</span>            <span class="n">RW</span>
+<span class="n">PRODUCTION</span>    <span class="n">RW</span>
+</code></pre></div>
+<!-- TODO : exécuter le script avec un compte par service (les six lignes du tableau) et ajouter ici le tableau des résultats observés. -->
+
+<h3 id="7-quotas-stricts">7. Quotas stricts</h3>
+<p>Le rôle <strong>File Server Resource Manager</strong> (FSRM) apporte quotas et filtrage de fichiers. Un quota <strong>strict</strong> refuse toute écriture au-delà de la limite.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Install-WindowsFeature</span> <span class="n">-Name</span> <span class="n">FS-Resource-Manager</span> <span class="n">-IncludeManagementTools</span>
+
+<span class="nv">$quotas</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="n">ADMINISTRATIF</span> <span class="p">=</span> <span class="n">150MB</span>
+    <span class="n">COMPTABILITE</span>  <span class="p">=</span> <span class="n">50MB</span>
+    <span class="n">DIRECTION</span>     <span class="p">=</span> <span class="n">20MB</span>
+    <span class="n">INFORMATIQUE</span>  <span class="p">=</span> <span class="n">100MB</span>
+    <span class="n">PRODUCTION</span>    <span class="p">=</span> <span class="n">200MB</span>
+    <span class="n">RH</span>            <span class="p">=</span> <span class="n">150MB</span>
+<span class="p">}</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$s</span> <span class="k">in</span> <span class="nv">$quotas</span><span class="p">.</span><span class="n">Keys</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">New-FsrmQuota</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\$s"</span> <span class="n">-Size</span> <span class="nv">$quotas</span><span class="p">[</span><span class="nv">$s</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="nb">Get-FsrmQuota</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Path</span><span class="p">,</span> <span class="n">Size</span><span class="p">,</span> <span class="n">Usage</span><span class="p">,</span> <span class="n">SoftLimit</span>
+
+<span class="n">Path</span>                          <span class="n">Size</span> <span class="n">Usage</span> <span class="n">SoftLimit</span>
+<span class="p">----</span>                          <span class="p">----</span> <span class="p">-----</span> <span class="p">---------</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">ADMINISTRATIF</span> <span class="n">157286400</span>  <span class="n">2048</span>     <span class="n">False</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">COMPTABILITE</span>   <span class="n">52428800</span>  <span class="n">2048</span>      <span class="n">True</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">DIRECTION</span>      <span class="n">20971520</span>  <span class="n">3072</span>     <span class="n">False</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">INFORMATIQUE</span>  <span class="n">104857600</span>  <span class="n">2048</span>     <span class="n">False</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">PRODUCTION</span>    <span class="n">209715200</span>  <span class="n">2048</span>     <span class="n">False</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">RH</span>            <span class="n">157286400</span>  <span class="n">2048</span>     <span class="n">False</span>
+</code></pre></div>
+<p>Test sur le dossier <code>COMPTABILITE</code> (50 Mo) : des fichiers de 10 Mo sont écrits un à un jusqu'au dépassement, avec relevé de l'utilisation à chaque étape.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$dossier</span> <span class="p">=</span> <span class="s2">"C:\PARTAGE\COMPTABILITE"</span>
+<span class="n">1</span><span class="p">..</span><span class="n">6</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+    <span class="nv">$nom</span> <span class="p">=</span> <span class="s2">"test$_.bin"</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="no">[System.IO.File]</span><span class="p">::</span><span class="n">WriteAllBytes</span><span class="p">((</span><span class="nb">Join-Path</span> <span class="nv">$dossier</span> <span class="nv">$nom</span><span class="p">),</span> <span class="no">[byte[]]</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">10MB</span><span class="p">))</span>
+        <span class="nv">$etat</span> <span class="p">=</span> <span class="s2">"écrit"</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+        <span class="nv">$etat</span> <span class="p">=</span> <span class="s2">"refusé : "</span> <span class="p">+</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span>
+    <span class="p">}</span>
+    <span class="nv">$q</span> <span class="p">=</span> <span class="nb">Get-FsrmQuota</span> <span class="n">-Path</span> <span class="nv">$dossier</span>
+    <span class="s2">"{0} : {1} (utilisation {2:N1} Mo sur {3:N0} Mo)"</span> <span class="o">-f</span> <span class="nv">$nom</span><span class="p">,</span> <span class="nv">$etat</span><span class="p">,</span> <span class="p">(</span><span class="nv">$q</span><span class="p">.</span><span class="n">Usage</span> <span class="p">/</span> <span class="n">1MB</span><span class="p">),</span> <span class="p">(</span><span class="nv">$q</span><span class="p">.</span><span class="n">Size</span> <span class="p">/</span> <span class="n">1MB</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">test1</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test2</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">20</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test3</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">30</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test4</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">40</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test5</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">50</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test6</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">60</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+</code></pre></div>
+<p>L'événement correspondant est consultable dans le journal :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="p">@{</span> <span class="n">LogName</span> <span class="p">=</span> <span class="s2">"Application"</span><span class="p">;</span> <span class="n">ProviderName</span> <span class="p">=</span> <span class="s2">"SRMSVC"</span> <span class="p">}</span> <span class="n">-MaxEvents</span> <span class="n">10</span> <span class="p">|</span>
+    <span class="nb">Select-Object</span> <span class="n">TimeCreated</span><span class="p">,</span> <span class="n">Id</span><span class="p">,</span> <span class="n">Message</span>
+
+
+<span class="n">TimeCreated</span>               <span class="n">Id</span> <span class="n">Message</span>
+<span class="p">-----------</span>               <span class="p">--</span> <span class="p">-------</span>
+<span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span> <span class="n">10</span><span class="p">:</span><span class="n">22</span><span class="p">:</span><span class="n">54</span> <span class="n">AM</span> <span class="n">12317</span> <span class="n">File</span> <span class="n">Server</span> <span class="n">Resource</span> <span class="n">Manager</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">enumerate</span> <span class="n">share</span> <span class="n">paths</span> <span class="n">or</span> <span class="n">DFS</span> <span class="n">paths</span><span class="p">.</span>  <span class="n">Mappings</span> <span class="n">from</span> <span class="n">local</span> <span class="n">file</span> <span class="n">paths</span> <span class="n">to</span> <span class="n">share</span> <span class="n">and</span> <span class="n">DFS</span> <span class="n">paths</span> <span class="n">may</span> <span class="n">be</span> <span class="n">incomplete</span> <span class="n">or</span> <span class="p">...</span>
+<span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span> <span class="n">10</span><span class="p">:</span><span class="n">22</span><span class="p">:</span><span class="n">26</span> <span class="n">AM</span> <span class="n">12295</span> <span class="n">File</span> <span class="n">Server</span> <span class="n">Resource</span> <span class="n">Manager</span> <span class="n">has</span> <span class="n">completed</span> <span class="n">a</span> <span class="n">configuration</span> <span class="n">request</span> <span class="n">from</span> <span class="n">the</span> <span class="n">file</span> <span class="n">screen</span> <span class="k">filter</span> <span class="n">driver</span> <span class="k">for</span> <span class="n">volume</span> <span class="s1">'C:'</span><span class="p">.</span>
+<span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span> <span class="n">10</span><span class="p">:</span><span class="n">22</span><span class="p">:</span><span class="n">26</span> <span class="n">AM</span> <span class="n">12294</span> <span class="n">File</span> <span class="n">Server</span> <span class="n">Resource</span> <span class="n">Manager</span> <span class="n">has</span> <span class="n">received</span> <span class="n">a</span> <span class="n">configuration</span> <span class="n">request</span> <span class="n">from</span> <span class="n">the</span> <span class="n">file</span> <span class="n">screen</span> <span class="k">filter</span> <span class="n">driver</span> <span class="k">for</span> <span class="n">volume</span> <span class="s1">'C:'</span><span class="p">.</span>
+<span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span> <span class="n">10</span><span class="p">:</span><span class="n">22</span><span class="p">:</span><span class="n">25</span> <span class="n">AM</span>  <span class="n">8202</span> <span class="n">Communication</span> <span class="n">port</span> <span class="s1">'\DataScreenCommPort'</span> <span class="n">to</span> <span class="n">the</span> <span class="s1">'DataScrn'</span> <span class="k">filter</span> <span class="n">driver</span> <span class="n">was</span> <span class="n">established</span><span class="p">.</span>
+<span class="n">10</span><span class="p">/</span><span class="n">23</span><span class="p">/</span><span class="n">2026</span> <span class="n">10</span><span class="p">:</span><span class="n">22</span><span class="p">:</span><span class="n">25</span> <span class="n">AM</span>  <span class="n">8202</span> <span class="n">Communication</span> <span class="n">port</span> <span class="s1">'\QuotaCommPort'</span> <span class="n">to</span> <span class="n">the</span> <span class="s1">'Quota'</span> <span class="k">filter</span> <span class="n">driver</span> <span class="n">was</span> <span class="n">established</span><span class="p">.</span>
+<span class="n">10</span><span class="p">/</span><span class="n">22</span><span class="p">/</span><span class="n">2026</span> <span class="n">11</span><span class="p">:</span><span class="n">08</span><span class="p">:</span><span class="n">22</span> <span class="n">AM</span> <span class="n">12317</span> <span class="n">File</span> <span class="n">Server</span> <span class="n">Resource</span> <span class="n">Manager</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">enumerate</span> <span class="n">share</span> <span class="n">paths</span> <span class="n">or</span> <span class="n">DFS</span> <span class="n">paths</span><span class="p">.</span>  <span class="n">Mappings</span> <span class="n">from</span> <span class="n">local</span> <span class="n">file</span> <span class="n">paths</span> <span class="n">to</span> <span class="n">share</span> <span class="n">and</span> <span class="n">DFS</span> <span class="n">paths</span> <span class="n">may</span> <span class="n">be</span> <span class="n">incomplete</span> <span class="n">or</span> <span class="p">...</span>
+<span class="n">10</span><span class="p">/</span><span class="n">22</span><span class="p">/</span><span class="n">2026</span> <span class="n">11</span><span class="p">:</span><span class="n">08</span><span class="p">:</span><span class="n">15</span> <span class="n">AM</span> <span class="n">12295</span> <span class="n">File</span> <span class="n">Server</span> <span class="n">Resource</span> <span class="n">Manager</span> <span class="n">has</span> <span class="n">completed</span> <span class="n">a</span> <span class="n">configuration</span> <span class="n">request</span> <span class="n">from</span> <span class="n">the</span> <span class="n">file</span> <span class="n">screen</span> <span class="k">filter</span> <span class="n">driver</span> <span class="k">for</span> <span class="n">volume</span> <span class="s1">'C:'</span><span class="p">.</span>
+<span class="n">10</span><span class="p">/</span><span class="n">22</span><span class="p">/</span><span class="n">2026</span> <span class="n">11</span><span class="p">:</span><span class="n">08</span><span class="p">:</span><span class="n">15</span> <span class="n">AM</span> <span class="n">12294</span> <span class="n">File</span> <span class="n">Server</span> <span class="n">Resource</span> <span class="n">Manager</span> <span class="n">has</span> <span class="n">received</span> <span class="n">a</span> <span class="n">configuration</span> <span class="n">request</span> <span class="n">from</span> <span class="n">the</span> <span class="n">file</span> <span class="n">screen</span> <span class="k">filter</span> <span class="n">driver</span> <span class="k">for</span> <span class="n">volume</span> <span class="s1">'C:'</span><span class="p">.</span>
+<span class="n">10</span><span class="p">/</span><span class="n">22</span><span class="p">/</span><span class="n">2026</span> <span class="n">11</span><span class="p">:</span><span class="n">08</span><span class="p">:</span><span class="n">15</span> <span class="n">AM</span>  <span class="n">8202</span> <span class="n">Communication</span> <span class="n">port</span> <span class="s1">'\QuotaCommPort'</span> <span class="n">to</span> <span class="n">the</span> <span class="s1">'Quota'</span> <span class="k">filter</span> <span class="n">driver</span> <span class="n">was</span> <span class="n">established</span><span class="p">.</span>
+<span class="n">10</span><span class="p">/</span><span class="n">22</span><span class="p">/</span><span class="n">2026</span> <span class="n">11</span><span class="p">:</span><span class="n">08</span><span class="p">:</span><span class="n">15</span> <span class="n">AM</span>  <span class="n">8202</span> <span class="n">Communication</span> <span class="n">port</span> <span class="s1">'\DataScreenCommPort'</span> <span class="n">to</span> <span class="n">the</span> <span class="s1">'DataScrn'</span> <span class="k">filter</span> <span class="n">driver</span> <span class="n">was</span> <span class="n">established</span><span class="p">.</span>
+</code></pre></div>
+<h3 id="8-quotas-souples">8. Quotas souples</h3>
+<p>Un quota <strong>souple</strong> ne bloque rien : il sert à surveiller et à notifier. La bascule se fait sur le même dossier, après suppression des fichiers de test :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Remove-Item</span> <span class="s2">"C:\PARTAGE\COMPTABILITE\test*.bin"</span> <span class="n">-Force</span>
+<span class="nb">Set-FsrmQuota</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\COMPTABILITE"</span> <span class="n">-SoftLimit</span><span class="p">:</span><span class="nv">$false</span>
+<span class="nb">Get-FsrmQuota</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\COMPTABILITE"</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Path</span><span class="p">,</span> <span class="n">Size</span><span class="p">,</span> <span class="n">Usage</span><span class="p">,</span> <span class="n">SoftLimit</span>
+<span class="n">Path</span>                        <span class="n">Size</span>    <span class="n">Usage</span> <span class="n">SoftLimit</span>
+<span class="p">----</span>                        <span class="p">----</span>    <span class="p">-----</span> <span class="p">---------</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">COMPTABILITE</span> <span class="n">52428800</span> <span class="n">41951232</span>     <span class="n">False</span>
+
+
+<span class="nv">$dossier</span> <span class="p">=</span> <span class="s2">"C:\PARTAGE\COMPTABILITE"</span>
+<span class="n">1</span><span class="p">..</span><span class="n">6</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+<span class="p">&gt;&gt;</span>     <span class="nv">$nom</span> <span class="p">=</span> <span class="s2">"test$_.bin"</span>
+<span class="p">&gt;&gt;</span>     <span class="k">try</span> <span class="p">{</span>
+<span class="p">&gt;&gt;</span>         <span class="no">[System.IO.File]</span><span class="p">::</span><span class="n">WriteAllBytes</span><span class="p">((</span><span class="nb">Join-Path</span> <span class="nv">$dossier</span> <span class="nv">$nom</span><span class="p">),</span> <span class="no">[byte[]]</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">10MB</span><span class="p">))</span>
+<span class="p">&gt;&gt;</span>         <span class="nv">$etat</span> <span class="p">=</span> <span class="s2">"écrit"</span>
+<span class="p">&gt;&gt;</span>     <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+<span class="p">&gt;&gt;</span>         <span class="nv">$etat</span> <span class="p">=</span> <span class="s2">"refusé : "</span> <span class="p">+</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span>
+<span class="p">&gt;&gt;</span>     <span class="p">}</span>
+<span class="p">&gt;&gt;</span>     <span class="nv">$q</span> <span class="p">=</span> <span class="nb">Get-FsrmQuota</span> <span class="n">-Path</span> <span class="nv">$dossier</span>
+<span class="p">&gt;&gt;</span>     <span class="s2">"{0} : {1} (utilisation {2:N1} Mo sur {3:N0} Mo)"</span> <span class="o">-f</span> <span class="nv">$nom</span><span class="p">,</span> <span class="nv">$etat</span><span class="p">,</span> <span class="p">(</span><span class="nv">$q</span><span class="p">.</span><span class="n">Usage</span> <span class="p">/</span> <span class="n">1MB</span><span class="p">),</span> <span class="p">(</span><span class="nv">$q</span><span class="p">.</span><span class="n">Size</span> <span class="p">/</span> <span class="n">1MB</span><span class="p">)</span>
+<span class="p">&gt;&gt;</span> <span class="p">}</span>
+<span class="n">test1</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test2</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">20</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test3</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">30</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test4</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">écrit</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">40</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test5</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">refusé</span> <span class="p">:</span> <span class="n">Exception</span> <span class="n">calling</span> <span class="s2">"WriteAllBytes"</span> <span class="n">with</span> <span class="s2">"2"</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="s2">"There is not enough space on the disk.</span>
+<span class="s2">"</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">40</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+<span class="n">test6</span><span class="p">.</span><span class="n">bin</span> <span class="p">:</span> <span class="n">refusé</span> <span class="p">:</span> <span class="n">Exception</span> <span class="n">calling</span> <span class="s2">"WriteAllBytes"</span> <span class="n">with</span> <span class="s2">"2"</span> <span class="n">argument</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="s2">"There is not enough space on the disk.</span>
+<span class="s2">"</span> <span class="p">(</span><span class="n">utilisation</span> <span class="n">40</span><span class="p">.</span><span class="n">0</span> <span class="n">Mo</span> <span class="n">sur</span> <span class="n">50</span> <span class="n">Mo</span><span class="p">)</span>
+</code></pre></div>
+<p>Le même test que précédemment est ensuite relancé pour comparer les deux comportements.</p>
+<table>
+<thead>
+<tr>
+<th>Type de quota</th>
+<th>Au dépassement de la limite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strict</td>
+<td>L'écriture est refusée</td>
+</tr>
+<tr>
+<td>Souple</td>
+<td>L'écriture est autorisée, le dépassement est consigné</td>
+</tr>
+</tbody>
+</table>
+<h3 id="9-blocage-dextensions">9. Blocage d'extensions</h3>
+<p>Un <strong>écran de fichiers</strong> s'applique à un dossier à partir d'un <strong>groupe de fichiers</strong> (une liste d'extensions). Un écran <strong>actif</strong> bloque, un écran <strong>passif</strong> journalise seulement : même logique que strict et souple pour les quotas.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-FsrmFileGroup</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span>
+
+<span class="n">Name</span>
+<span class="p">----</span>
+<span class="n">Audio</span> <span class="n">and</span> <span class="n">Video</span> <span class="n">Files</span>
+<span class="n">Image</span> <span class="n">Files</span>
+<span class="n">Office</span> <span class="n">Files</span>
+<span class="n">E-mail</span> <span class="n">Files</span>
+<span class="n">Executable</span> <span class="n">Files</span>
+<span class="n">System</span> <span class="n">Files</span>
+<span class="n">Compressed</span> <span class="n">Files</span>
+<span class="n">Web</span> <span class="n">Page</span> <span class="n">Files</span>
+<span class="n">Text</span> <span class="n">Files</span>
+<span class="n">Backup</span> <span class="n">Files</span>
+<span class="n">Temporary</span> <span class="n">Files</span>
+
+<span class="nb">New-FsrmFileScreen</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\PRODUCTION"</span> <span class="n">-IncludeGroup</span> <span class="s2">"Audio and Video Files"</span> <span class="n">-Active</span>
+<span class="nb">New-FsrmFileScreen</span> <span class="p">:</span> <span class="n">0x80045303</span><span class="p">,</span> <span class="n">The</span> <span class="n">specified</span> <span class="n">object</span> <span class="n">already</span> <span class="n">exists</span><span class="p">.</span>
+<span class="n">At</span> <span class="n">line</span><span class="p">:</span><span class="n">1</span> <span class="n">char</span><span class="p">:</span><span class="n">1</span>
+<span class="p">+</span> <span class="nb">New-FsrmFileScreen</span> <span class="n">-Path</span> <span class="s2">"C:\PARTAGE\PRODUCTION"</span> <span class="n">-IncludeGroup</span> <span class="s2">"Audio ...</span>
+<span class="s2">+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="s2">    + CategoryInfo          : ResourceExists: (MSFT_FSRMFileScreen:Root/Microsoft/..._FSRMFileScreen) [New-FsrmFileScreen], CimException</span>
+<span class="s2">    + FullyQualifiedErrorId : MI RESULT 11,New-FsrmFileScreen</span>
+
+
+<span class="s2">New-Item -ItemType File -Path "</span><span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">PRODUCTION</span><span class="p">\</span><span class="n">test</span><span class="p">.</span><span class="n">txt</span><span class="s2">"</span>
+
+
+<span class="s2">    Directory: C:\PARTAGE\PRODUCTION</span>
+
+
+<span class="s2">Mode                 LastWriteTime         Length Name</span>
+<span class="s2">----                 -------------         ------ ----</span>
+<span class="s2">-a----        10/23/2026  10:39 AM              0 test.txt</span>
+
+
+<span class="s2">New-Item -ItemType File -Path "</span><span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">PRODUCTION</span><span class="p">\</span><span class="n">test</span><span class="p">.</span><span class="n">mp3</span><span class="s2">"</span>
+<span class="s2">New-Item : Access to the path 'C:\PARTAGE\PRODUCTION\test.mp3' is denied.</span>
+<span class="s2">At line:1 char:1</span>
+<span class="s2">+ New-Item -ItemType File -Path "</span><span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">PRODUCTION</span><span class="p">\</span><span class="n">test</span><span class="p">.</span><span class="n">mp3</span><span class="s2">"</span>
+<span class="s2">+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="s2">    + CategoryInfo          : PermissionDenied: (C:\PARTAGE\PRODUCTION\test.mp3:String) [New-Item], UnauthorizedAccessException</span>
+<span class="s2">    + FullyQualifiedErrorId : NewItemUnauthorizedAccessError,Microsoft.PowerShell.Commands.NewItemCommand</span>
+
+
+<span class="s2">Get-FsrmFileScreen -Path "</span><span class="n">C</span><span class="p">:\</span><span class="n">PARTAGE</span><span class="p">\</span><span class="n">PRODUCTION</span><span class="s2">"</span>
+
+
+<span class="s2">Active          : True</span>
+<span class="s2">Description     :</span>
+<span class="s2">IncludeGroup    : {Audio and Video Files}</span>
+<span class="s2">MatchesTemplate : False</span>
+<span class="s2">Notification    :</span>
+<span class="s2">Path            : C:\PARTAGE\PRODUCTION</span>
+<span class="s2">Template        :</span>
+<span class="s2">PSComputerName  :</span>
+</code></pre></div>
+<p>Résultat attendu : le fichier <code>.txt</code> est créé, le <code>.mp3</code> est refusé.</p>
+<p>Nettoyage en fin de test :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Remove-Item</span> <span class="s2">"C:\PARTAGE\PRODUCTION\test.*"</span> <span class="n">-Force</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</code></pre></div>
+<h2 id="ce-que-ce-laboratoire-demontre">Ce que ce laboratoire démontre</h2>
+<ul>
+<li>Appliquer la méthode <strong>AGDLP</strong> de bout en bout, des groupes à la permission, avec une matrice décrite en une seule table.</li>
+<li>Remplacer une procédure en interface graphique, répétitive (douze groupes, six dossiers, douze jeux de permissions), par un script <strong>relisible et rejouable</strong>.</li>
+<li>Gérer les droits au bon endroit : <strong>partage ouvert, restriction côté NTFS</strong>, héritage coupé, comptes système conservés.</li>
+<li><strong>Contrôler</strong> le résultat par un audit des ACL, un listing des groupes et un test d'accès exécuté avec les droits de chaque utilisateur.</li>
+<li>Encadrer l'usage du stockage avec <strong>FSRM</strong> : quotas stricts ou souples, filtrage d'extensions.</li>
+</ul>
+<h2 id="limites-de-ce-laboratoire">Limites de ce laboratoire</h2>
+<ul>
+<li>Environnement virtuel, six utilisateurs, un seul serveur de fichiers : pas de charge ni de volumétrie réelles.</li>
+<li>Les quotas et l'écran de fichiers sont testés sur un dossier représentatif, les autres sont contrôlés par leur configuration.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

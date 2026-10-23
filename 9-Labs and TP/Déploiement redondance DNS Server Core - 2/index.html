@@ -1,0 +1,3849 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="TSSR Lab Runbooks, Configs, and Notes">
+      
+      
+      
+        <link rel="canonical" href="https://natalshadow.github.io/TSSR_Doc/9-Labs%20and%20TP/D%C3%A9ploiement%20redondance%20DNS%20Server%20Core%20-%202/">
+      
+      
+        <link rel="prev" href="../Demo-%20TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/">
+      
+      
+        <link rel="next" href="../D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Déploiement redondance DNS Server Core 2 - TSSR Documentation & Lab Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sommaire" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-header__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TSSR Documentation & Lab Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Déploiement redondance DNS Server Core   2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-nav__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TSSR Documentation & Lab Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Administration%20Windows%20Server%20Core%20et%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administration Windows Server Core et PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DORA%20steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DORA steps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Fiches%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiches techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PowerShell%20-%20dossiers%2C%20fichiers%2C%20partages%20et%20permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell   dossiers, fichiers, partages et permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TP05%20%E2%80%94%20Active%20Directory%20FSMO%20Roles%20Management%20%26%20Transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP05 — Active Directory FSMO Roles Management & Transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 General
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1 General
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGDLP Explained: The Foundation of Role-Based Access Control in Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/DNS%20et%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS et DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/DNS%20server%20types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Droits%20de%20partage%20et%20droits%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Droits de partage et droits NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/How%20to%20find%20Powershell%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to find Powershell commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Protocol%20SMB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol SMB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Syst%C3%A8me%20d%27information%20et%20syst%C3%A8me%20informatique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information et système informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attachments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Attachments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.04.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.04.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.28.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.28.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 Scripts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    10 Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-Scripts/Export%20GPOs%20-%20Powershell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Export GPOs   Powershell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 Virtualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2 Virtualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/Snapshots%20et%20clones%20de%20VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshots et clones de VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/TP5%20-%20Modification%20de%20la%20VM%20Windows%2011/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP5   Modification de la VM Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/Virtualisation%20-%20types%20et%20r%C3%A9seaux%20virtuels%20%28VMware%20Workstation%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation   types et réseaux virtuels (VMware Workstation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 Windows Server
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3 Windows Server
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Active%20Directory%20domain%20vs%20DNS%20domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory domain vs DNS domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Active%20Directory%20et%20LDAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory et LDAP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Flexible%20Single%20Master%20Operations%20roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flexible Single Master Operations roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/GPO%20%E2%80%94%20Sauvegarde%2C%20Rapports%20et%20Ex%C3%A9cution%20%C3%A0%20distance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO — Sauvegarde, Rapports et Exécution à distance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Kerberos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/NTLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/PTR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PTR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Partages%20de%20fichiers%2C%20AGDLP%20et%20FSRM%20en%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partages de fichiers, AGDLP et FSRM en PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Recherche%20RSAT%20sur%20Windows%2011%20et%20consoles%20MMC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche RSAT sur Windows 11 et consoles MMC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Recherche%20Windows%20Server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche Windows Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Tiering%20AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory : les fondamentaux du Tiering Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_13" id="__nav_10_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/Cr%C3%A9er%20un%20domaine%20Active%20Directory%20et%20joindre%20un%20poste%20client%20-%20Full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Créer un domaine Active Directory et joindre un poste client   Full
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/DNS%20and%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS and DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/Mettre%20en%20place%20des%20partages%20r%C3%A9seau%20avec%20la%20m%C3%A9thode%20AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place des partages réseau avec la méthode AGDLP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/Organiser%20les%20utilisateurs%2C%20groupes%20et%20ordinateurs%20Active%20Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organiser les utilisateurs, groupes et ordinateurs Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/TP%20-%20GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/TP06%20%E2%80%94%20VMware%20Workstation%20LAN%20Segment%20Windows%20Server%202025%20%26%20Isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 Labs and TP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9 Labs and TP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Demo-%20TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo  TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déploiement redondance DNS Server Core   2
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déploiement redondance DNS Server Core   2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-objectifs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Objectifs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-environnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Environnement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-installer-et-verifier-le-role-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Installer et vérifier le rôle DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Installer et vérifier le rôle DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas ([Core])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-verifier-la-replication-des-zones-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Vérifier la réplication des zones DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Vérifier la réplication des zones DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tester-la-replication-des-enregistrements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tester la réplication des enregistrements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tester la réplication des enregistrements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configurer-les-serveurs-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configurer les serveurs DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configurer les serveurs DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tester-depuis-le-client-windows-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tester depuis le client Windows 11
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Tester depuis le client Windows 11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-conclusion-et-difficultes-rencontrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Conclusion et difficultés rencontrées
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Conclusion et difficultés rencontrées">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#difficultes-erreurs-rencontrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Difficultés / erreurs rencontrées
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-jai-retenu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que j'ai retenu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Haute%20disponibilit%C3%A9%20DHCP%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Haute disponibilité DHCP avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Install%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mettre%20en%20place%20la%20redondance%20DNS%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place la redondance DNS avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Server%20Core%20lite%20doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core lite doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202026-10-06%2007.50.21.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2026 10 06 07.50.21.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glossaire
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/A%20record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/Glossary%20entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary entry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/Index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/forward%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forward lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/lease/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lease
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/reverse%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exports
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exports
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exports/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell%20-%20Deliverable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell   Deliverable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-objectifs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Objectifs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-environnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Environnement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-installer-et-verifier-le-role-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Installer et vérifier le rôle DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Installer et vérifier le rôle DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas ([Core])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-verifier-la-replication-des-zones-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Vérifier la réplication des zones DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Vérifier la réplication des zones DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tester-la-replication-des-enregistrements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tester la réplication des enregistrements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tester la réplication des enregistrements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configurer-les-serveurs-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configurer les serveurs DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configurer les serveurs DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tester-depuis-le-client-windows-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tester depuis le client Windows 11
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Tester depuis le client Windows 11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprendre_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprendre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-a-pas_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas à pas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-noter_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        À noter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-conclusion-et-difficultes-rencontrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Conclusion et difficultés rencontrées
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Conclusion et difficultés rencontrées">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#difficultes-erreurs-rencontrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Difficultés / erreurs rencontrées
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-jai-retenu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que j'ai retenu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Déploiement redondance DNS Server Core   2</h1>
+
+<div class="admonition abstract">
+<p class="admonition-title">Contexte</p>
+<p>L'entreprise dispose de deux contrôleurs de domaine. Le DNS est indispensable pour localiser les contrôleurs de domaine et les services d'authentification. Il faut vérifier que Windows Server Core assure aussi la résolution DNS et que le service fonctionne sur les deux contrôleurs. Les configurations se font avec PowerShell ; les outils graphiques servent à vérifier le résultat.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Comment utiliser ce document</p>
+<ul>
+<li>Trois machines : <code>[Graphique]</code> = <code>SRV-WIN-MEN-01</code> (interface complète), <code>[Core]</code> = <code>SRV-WIN-MEN-02</code> (Server Core), <code>[Client]</code> = <code>CLI-WIN-MEN-01</code> (Windows 11, en français). Vérifie toujours sur quelle machine tu tapes.</li>
+<li>Chaque partie suit le même schéma : <strong>Comprendre</strong> (pourquoi), <strong>Pas à pas</strong> (quoi faire, avec des squelettes de commandes à compléter), <strong>À noter</strong> (ce que tu dois observer), puis captures.</li>
+<li>Dans les squelettes, <code>&lt;...&gt;</code> indique une valeur à remplacer par la tienne. Colle ensuite la commande <strong>exacte</strong> utilisée dans le bloc prévu.</li>
+<li>Les <code>&gt; [!tip]</code> et <code>&gt; [!warning]</code> sont du guidage : à supprimer dans la version rendue.</li>
+<li>Place les captures dans <code>attachments/</code> et insère-les avec <code>![[nom-capture.png]]</code>.</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Ordre conseillé</p>
+<ol>
+<li>Partie 3 : vérifier le rôle DNS sur le Core (5 min).</li>
+<li>Partie 4 : comparer les zones sur les deux serveurs (10 min).</li>
+<li>Partie 5 : créer et retrouver les deux enregistrements (10 min).</li>
+<li>Partie 6 : régler les DNS des deux contrôleurs (10 min).</li>
+<li>Partie 7 : régler le DHCP puis tester depuis le client (15 min).</li>
+<li>Fais un <strong>snapshot</strong> des trois VM avant la partie 6 : c'est là que tu modifies des réglages réseau.</li>
+</ol>
+</div>
+<hr />
+<h2 id="sommaire">Sommaire</h2>
+<ul>
+<li><a href="#1-objectifs">#1. Objectifs</a></li>
+<li><a href="#2-environnement">#2. Environnement</a></li>
+<li><a href="#3-installer-et-vérifier-le-rôle-dns">#3. Installer et vérifier le rôle DNS</a></li>
+<li><a href="#4-vérifier-la-réplication-des-zones-dns">#4. Vérifier la réplication des zones DNS</a></li>
+<li><a href="#5-tester-la-réplication-des-enregistrements">#5. Tester la réplication des enregistrements</a></li>
+<li><a href="#6-configurer-les-serveurs-dns">#6. Configurer les serveurs DNS</a></li>
+<li><a href="#7-tester-depuis-le-client-windows-11">#7. Tester depuis le client Windows 11</a></li>
+<li><a href="#8-validation">#8. Validation</a></li>
+<li><a href="#9-conclusion-et-difficultés-rencontrées">#9. Conclusion et difficultés rencontrées</a></li>
+</ul>
+<hr />
+<h2 id="1-objectifs">1. Objectifs</h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Vérifier ou installer le rôle DNS sur Windows Server Core.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Comprendre les zones DNS intégrées à Active Directory et leur réplication.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Vérifier la réplication des zones et des enregistrements.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Configurer les DNS des contrôleurs de domaine et du client.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Tester la résolution depuis les deux serveurs et valider dans la console DNS.</li>
+</ul>
+<hr />
+<h2 id="2-environnement">2. Environnement</h2>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domaine et zone DNS</td>
+<td><code>TSSR-MEN.LAB</code></td>
+</tr>
+<tr>
+<td>Serveur DNS existant</td>
+<td><code>SRV-WIN-MEN-01</code> : <code>192.168.100.10</code></td>
+</tr>
+<tr>
+<td>Nouveau serveur DNS</td>
+<td><code>SRV-WIN-MEN-02</code> : <code>192.168.100.11</code></td>
+</tr>
+<tr>
+<td>Type de zone</td>
+<td>Intégrée à Active Directory</td>
+</tr>
+<tr>
+<td>Poste client</td>
+<td><code>CLI-WIN-MEN-01</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nom réel du Server Core :</strong> <code>SRV-WIN-MEN-02</code></p>
+<hr />
+<h2 id="3-installer-et-verifier-le-role-dns">3. Installer et vérifier le rôle DNS</h2>
+<h3 id="comprendre">Comprendre</h3>
+<div class="admonition question">
+<p class="admonition-title">Pourquoi le DNS est vital pour Active Directory</p>
+<p>Les contrôleurs de domaine et les clients <strong>ne se trouvent pas par leur adresse IP mais par des enregistrements DNS</strong> (notamment des enregistrements de type <strong>SRV</strong>, qui disent « tel service est fourni par tel serveur sur tel port »). Sans DNS, un poste ne retrouve plus de contrôleur de domaine : ouverture de session, GPO et recherche de l'annuaire échouent. C'est pourquoi un second serveur DNS apporte de la <strong>redondance</strong>.</p>
+</div>
+<p>Un client Windows membre du domaine a besoin du DNS pour localiser les enregistrements SRV indiquant l'emplacement exact des services Active Directory (LDAP, Kerberos, Catalogue Global) afin de s'authentifier et d'appliquer les stratégies de groupe.</p>
+<h3 id="pas-a-pas-core">Pas à pas (<code>[Core]</code>)</h3>
+<p><strong>Étape 1 : le rôle est-il déjà là ?</strong></p>
+<p>Lors de la promotion du TP précédent, tu as demandé le DNS sur le nouveau contrôleur : il doit déjà être installé. Vérifie-le plutôt que de le supposer. Lis la colonne <em>Install State</em> (ou la case <code>[X]</code> devant le nom : installé).</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span>  <span class="nb">Get-WindowsFeature</span> <span class="n">-Name</span> <span class="n">DNS</span>
+<span class="n">Display</span> <span class="n">Name</span>                                            <span class="n">Name</span>
+<span class="p">------------</span>                                            <span class="p">----</span>
+<span class="no">[X]</span> <span class="n">DNS</span> <span class="n">Server</span>                                          <span class="n">DNS</span>
+</code></pre></div>
+<p><strong>Étape 2 : s'il manque</strong>, installe-le avec les outils de gestion (le module PowerShell <code>DnsServer</code> en fait partie) :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Install-WindowsFeature</span> <span class="n">-Name</span> <span class="n">DNS</span> <span class="n">-IncludeManagementTools</span>
+</code></pre></div>
+<p><strong>Étape 3 : le service fonctionne-t-il ?</strong></p>
+<p>Regarde le statut (<em>Running</em>) et le type de démarrage (<em>Automatic</em>).</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">DNS</span>
+
+<span class="n">Status</span>   <span class="n">Name</span>               <span class="n">DisplayName</span>
+<span class="p">------</span>   <span class="p">----</span>               <span class="p">-----------</span>
+<span class="n">Running</span>  <span class="n">DNS</span>                <span class="n">DNS</span> <span class="n">Server</span>
+</code></pre></div>
+<p>Type de démarrage :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">DNS</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Status</span><span class="p">,</span> <span class="n">StartType</span>
+
+<span class="n">Name</span>  <span class="n">Status</span> <span class="n">StartType</span>
+<span class="p">----</span>  <span class="p">------</span> <span class="p">---------</span>
+<span class="n">DNS</span>  <span class="n">Running</span> <span class="n">Automatic</span>
+</code></pre></div>
+<p><strong>Étape 4 : le module PowerShell est-il disponible ?</strong></p>
+<p>S'il n'apparaît pas, la fonctionnalité des outils DNS (<code>RSAT-DNS-Server</code>) n'est pas installée : cherche-la avec <code>Get-WindowsFeature *DNS*</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-Module</span> <span class="n">-ListAvailable</span> <span class="n">-Name</span> <span class="n">DnsServer</span>
+
+
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">WINDOWS</span><span class="p">\</span><span class="n">system32</span><span class="p">\</span><span class="n">WindowsPowerShell</span><span class="p">\</span><span class="n">v1</span><span class="p">.</span><span class="n">0</span><span class="p">\</span><span class="n">Modules</span>
+
+
+<span class="n">ModuleType</span> <span class="n">Version</span>    <span class="n">Name</span>                                <span class="n">ExportedCommand</span>
+                                                          <span class="n">s</span>
+<span class="p">----------</span> <span class="p">-------</span>    <span class="p">----</span>                                <span class="p">---------------</span>
+<span class="n">Manifest</span>   <span class="n">2</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span>    <span class="n">DnsServer</span>                           <span class="p">{</span><span class="nb">Add-DnsServ</span><span class="p">...</span>
+</code></pre></div>
+<p><strong>Étape 5 : le serveur répond-il ?</strong></p>
+<p>Un test direct depuis le Core :</p>
+<div class="highlight"><pre><span></span><code>PS C:\Users\administrator.TSSR-MEN&gt; Resolve-DnsName -Name TSSR-MEN.LAB -Server 127.0.0.1 -DnsOnly
+
+Name                                           Type   TTL   Section    IPAddress
+----                                           ----   ---   -------    ---------
+TSSR-MEN.LAB                                   A      600   Answer     192.168.100.11
+TSSR-MEN.LAB                                   A      600   Answer     192.168.100.10
+</code></pre></div>
+<p><strong>Étape 6 : découvrir les commandes d'administration DNS</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Command</span> <span class="n">-Module</span> <span class="n">DnsServer</span> <span class="p">|</span> <span class="nb">Measure-Object</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Il s'agit du nombre total de cmdlets disponibles dans le module <code>DnsServer</code> (136 fonctions au total).</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Command</span> <span class="n">-Module</span> <span class="n">DnsServer</span> <span class="n">-Noun</span> <span class="p">*</span><span class="n">Zone</span><span class="p">*</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Liste toutes les commandes qui agissent sur les <strong>zones DNS</strong> (création, suppression, modification de zone).</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Command</span> <span class="n">-Module</span> <span class="n">DnsServer</span> <span class="n">-Noun</span> <span class="p">*</span><span class="n">ResourceRecord</span><span class="p">*</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Liste les commandes permettant de gérer les <strong>enregistrements DNS</strong> (A, AAAA, MX, CNAME, SRV, etc.).</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Command</span> <span class="n">-Module</span> <span class="n">DnsServer</span> <span class="n">-Verb</span> <span class="n">Get</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Liste toutes les commandes de lecture/consultation du module DNS (celles qui permettent d'afficher ou récupérer des informations).</p>
+</div>
+<h3 id="a-noter">À noter</h3>
+<table>
+<thead>
+<tr>
+<th>Vérification</th>
+<th>Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>État du rôle DNS</td>
+<td>Running / Installed</td>
+</tr>
+<tr>
+<td>Installation nécessaire ?</td>
+<td>Non (déjà présent suite à la promotion)</td>
+</tr>
+<tr>
+<td>État et type de démarrage du service</td>
+<td>Running / Automatic</td>
+</tr>
+<tr>
+<td>Module <code>DnsServer</code> disponible</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Résolution locale</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Nombre de commandes du module <code>DnsServer</code></td>
+<td>136</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commandes DNS utiles trouvées</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Commande</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Add-DnsServerResourceRecord</code></td>
+<td>Ajoute un nouvel enregistrement DNS</td>
+</tr>
+<tr>
+<td><code>Get-DnsServer</code></td>
+<td>Affiche la configuration globale du serveur DNS</td>
+</tr>
+<tr>
+<td><code>Get-DnsServerZone</code></td>
+<td>Liste les zones DNS hébergées sur le serveur</td>
+</tr>
+<tr>
+<td><code>Get-DnsServerResourceRecord</code></td>
+<td>Récupère les enregistrements d'une zone DNS donnée</td>
+</tr>
+<tr>
+<td><code>Remove-DnsServerResourceRecord</code></td>
+<td>Supprime un enregistrement DNS spécifique</td>
+</tr>
+<tr>
+<td><code>Set-DnsClientServerAddress</code></td>
+<td>Configure les serveurs DNS de l'interface réseau</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-verifier-la-replication-des-zones-dns">4. Vérifier la réplication des zones DNS</h2>
+<h3 id="comprendre_1">Comprendre</h3>
+<div class="admonition question">
+<p class="admonition-title">Zone intégrée à Active Directory</p>
+<p>Une zone DNS classique est stockée dans un <strong>fichier</strong> sur un serveur « principal » et copiée vers des serveurs « secondaires » (transfert de zone). Une zone <strong>intégrée à AD</strong> est stockée <strong>dans la base Active Directory</strong> : elle se réplique avec la réplication AD que tu as vérifiée au TP précédent.</p>
+</div>
+<p>Une zone intégrée Active Directory stocke ses données directement au sein de la base de données NTDS (<code>ntds.dit</code>) et s'appuie sur le mécanisme de réplication AD multi-maître, offrant une écriture sur n'importe quel contrôleur, une sécurité renforcée et l'absence de transferts de zone au format fichier.</p>
+<h3 id="pas-a-pas">Pas à pas</h3>
+<p><strong>Étape 1 : lister les zones des deux serveurs</strong></p>
+<p>Depuis <code>[Core]</code> :</p>
+<div class="highlight"><pre><span></span><code>PS C:\Users\administrator.TSSR-MEN&gt; Get-DnsServerZone -ComputerName SRV-WIN-MEN-01
+
+ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
+--------                            --------        -------------   --------------  -------------------  --------
+_msdcs.TSSR-MEN.LAB                 Primary         False           True            False                False
+0.in-addr.arpa                      Primary         True            False           True                 False
+100.168.192.in-addr.arpa            Primary         False           True            True                 False
+127.in-addr.arpa                    Primary         True            False           True                 False
+255.in-addr.arpa                    Primary         True            False           True                 False
+TrustAnchors                        Primary         False           True            False                False
+TSSR-MEN.LAB                        Primary         False           True            False                False
+
+
+PS C:\Users\administrator.TSSR-MEN&gt; Get-DnsServerZone -ComputerName SRV-WIN-MEN-02
+
+ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned
+--------                            --------        -------------   --------------  -------------------  --------
+_msdcs.TSSR-MEN.LAB                 Primary         False           True            False                False
+0.in-addr.arpa                      Primary         True            False           True                 False
+100.168.192.in-addr.arpa            Primary         False           True            True                 False
+127.in-addr.arpa                    Primary         True            False           True                 False
+255.in-addr.arpa                    Primary         True            False           True                 False
+TrustAnchors                        Primary         False           True            False                False
+TSSR-MEN.LAB                        Primary         False           True            False                False
+</code></pre></div>
+<p><strong>Étape 2 : les comparer</strong> avec les propriétés utiles</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-DnsServerZone</span> <span class="n">-ComputerName</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">01</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">ZoneName</span><span class="p">,</span> <span class="n">ZoneType</span><span class="p">,</span> <span class="n">IsDsIntegrated</span><span class="p">,</span> <span class="n">ReplicationScope</span><span class="p">,</span> <span class="n">DynamicUpdate</span>
+
+<span class="n">ZoneName</span>         <span class="p">:</span> <span class="n">_msdcs</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span>
+<span class="n">ZoneType</span>         <span class="p">:</span> <span class="n">Primary</span>
+<span class="n">IsDsIntegrated</span>   <span class="p">:</span> <span class="n">True</span>
+<span class="n">ReplicationScope</span> <span class="p">:</span> <span class="n">Forest</span>
+<span class="n">DynamicUpdate</span>    <span class="p">:</span> <span class="n">Secure</span>
+
+<span class="n">ZoneName</span>         <span class="p">:</span> <span class="n">100</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">192</span><span class="p">.</span><span class="k">in</span><span class="n">-addr</span><span class="p">.</span><span class="n">arpa</span>
+<span class="n">ZoneType</span>         <span class="p">:</span> <span class="n">Primary</span>
+<span class="n">IsDsIntegrated</span>   <span class="p">:</span> <span class="n">True</span>
+<span class="n">ReplicationScope</span> <span class="p">:</span> <span class="n">Domain</span>
+<span class="n">DynamicUpdate</span>    <span class="p">:</span> <span class="n">Secure</span>
+
+<span class="n">ZoneName</span>         <span class="p">:</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span>
+<span class="n">ZoneType</span>         <span class="p">:</span> <span class="n">Primary</span>
+<span class="n">IsDsIntegrated</span>   <span class="p">:</span> <span class="n">True</span>
+<span class="n">ReplicationScope</span> <span class="p">:</span> <span class="n">Domain</span>
+<span class="n">DynamicUpdate</span>    <span class="p">:</span> <span class="n">Secure</span>
+</code></pre></div>
+<p><strong>Étape 3 : rechercher les zones « de service »</strong></p>
+<p>La zone <code>_msdcs</code> contient les enregistrements des services globaux (comme le catalogue global et le contrôleur principal). Sa portée de réplication est définie sur <strong><code>Forest</code></strong> pour que tous les contrôleurs de domaine de l'ensemble de la forêt Active Directory puissent localiser ces services, même si d'autres domaines sont ajoutés plus tard.</p>
+<p><strong>Étape 4 : vérifier les enregistrements SRV</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-DnsServerResourceRecord</span> <span class="n">-ZoneName</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-RRType</span> <span class="n">SRV</span> <span class="n">-ComputerName</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">01</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-DnsServerResourceRecord</span> <span class="n">-ZoneName</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-RRType</span> <span class="n">SRV</span> <span class="n">-ComputerName</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">02</span>
+</code></pre></div>
+<p>Vérification de résolution cliente :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">_ldap</span><span class="p">.</span><span class="n">_tcp</span><span class="p">.</span><span class="n">dc</span><span class="p">.</span><span class="n">_msdcs</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Type</span> <span class="n">SRV</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">10</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">_ldap</span><span class="p">.</span><span class="n">_tcp</span><span class="p">.</span><span class="n">dc</span><span class="p">.</span><span class="n">_msdcs</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Type</span> <span class="n">SRV</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">11</span>
+</code></pre></div>
+<h3 id="a-noter_1">À noter</h3>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th><code>SRV-WIN-MEN-01</code></th>
+<th><code>SRV-WIN-MEN-02</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zone <code>TSSR-MEN.LAB</code> présente</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Type de zone</td>
+<td>Primary</td>
+<td>Primary</td>
+</tr>
+<tr>
+<td>Intégrée à AD</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr>
+<td>Portée de réplication</td>
+<td>Domain</td>
+<td>Domain</td>
+</tr>
+<tr>
+<td>Mise à jour dynamique</td>
+<td>Secure</td>
+<td>Secure</td>
+</tr>
+<tr>
+<td>Zone <code>_msdcs.TSSR-MEN.LAB</code> : portée</td>
+<td>Forest</td>
+<td>Forest</td>
+</tr>
+<tr>
+<td>Zone inversée <code>100.168.192.in-addr.arpa</code> présente (bonus)</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Enregistrements SRV <code>_ldap._tcp.dc._msdcs</code> (nombre)</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Enregistrements SRV <code>_kerberos._tcp</code> (nombre)</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>À quoi servent les enregistrements SRV :</strong>
+Ils permettent aux machines clientes et serveurs du réseau de localiser dynamiquement l'adresse IP et les ports réseau des services spécifiques hébergés par Active Directory (authentification Kerberos, requêtes d'annuaire LDAP, Catalogue Global).</p>
+<hr />
+<h2 id="5-tester-la-replication-des-enregistrements">5. Tester la réplication des enregistrements</h2>
+<h3 id="comprendre_2">Comprendre</h3>
+<div class="admonition question">
+<p class="admonition-title">Ce que ce test prouve</p>
+<p>Tu crées une modification sur <strong>un</strong> serveur et tu la retrouves sur <strong>l'autre</strong>. Comme la zone est dans AD, c'est la <strong>réplication Active Directory</strong> qui transporte l'enregistrement. Il faut donc <strong>interroger explicitement</strong> chaque serveur (<code>-ComputerName</code>, <code>-Server</code>) : sans ça, la commande peut répondre à partir d'un seul serveur et le test ne prouve rien.</p>
+</div>
+<h3 id="pas-a-pas_1">Pas à pas</h3>
+<p><strong>A. Enregistrement créé sur <code>[Graphique]</code></strong></p>
+<p><strong>A.1 : créer l'enregistrement</strong> (<code>[Graphique]</code>)
+Console <em>DNS</em> → <em>Forward Lookup Zones</em> → <code>TSSR-MEN.LAB</code> → <strong>New Host (A or AAAA)...</strong> → <code>test-core</code> (<code>192.168.100.253</code>).</p>
+<p><strong>A.2 : vérifier sa présence en local</strong> (<code>[Core]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-DnsServerResourceRecord</span> <span class="n">-ZoneName</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Name</span> <span class="nb">test-core</span>
+
+<span class="n">HostName</span>                  <span class="n">RecordType</span> <span class="nb">Type </span>      <span class="n">Timestamp</span>            <span class="n">TimeToLive</span>      <span class="n">RecordData</span>
+<span class="p">--------</span>                  <span class="p">----------</span> <span class="p">----</span>       <span class="p">---------</span>            <span class="p">----------</span>      <span class="p">----------</span>
+<span class="nb">test-core</span>                 <span class="n">A</span>          <span class="n">1</span>          <span class="n">0</span>                    <span class="n">01</span><span class="p">:</span><span class="n">00</span><span class="p">:</span><span class="n">00</span>        <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">253</span>
+</code></pre></div>
+<p><strong>A.3 : interroger explicitement le DNS du Core</strong> (<code>[Core]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="nb">test-core</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">11</span> <span class="n">-DnsOnly</span>
+
+<span class="n">Name</span>                                           <span class="nb">Type </span>  <span class="n">TTL</span>   <span class="n">Section</span>    <span class="n">IPAddress</span>
+<span class="p">----</span>                                           <span class="p">----</span>   <span class="p">---</span>   <span class="p">-------</span>    <span class="p">---------</span>
+<span class="nb">test-core</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span>                         <span class="n">A</span>      <span class="n">3600</span>  <span class="n">Answer</span>     <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">253</span>
+</code></pre></div>
+<p><strong>B. Deuxième enregistrement créé depuis PowerShell, en ciblant le Core</strong></p>
+<p><strong>B.1 : créer l'enregistrement</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">Add-DnsServerResourceRecordA</span> <span class="n">-Name</span> <span class="n">secondRecord</span> <span class="n">-ZoneName</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-IPv4Address</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">140</span> <span class="n">-ComputerName</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">02</span>
+</code></pre></div>
+<p><strong>B.2 : le retrouver sur le serveur graphique</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrator</span><span class="p">&gt;</span> <span class="nb">Get-DnsServerResourceRecord</span> <span class="n">-ZoneName</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Name</span> <span class="n">secondRecord</span> <span class="n">-ComputerName</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">01</span>
+
+<span class="n">HostName</span>                  <span class="n">RecordType</span> <span class="nb">Type </span>      <span class="n">Timestamp</span>            <span class="n">TimeToLive</span>      <span class="n">RecordData</span>
+<span class="p">--------</span>                  <span class="p">----------</span> <span class="p">----</span>       <span class="p">---------</span>            <span class="p">----------</span>      <span class="p">----------</span>
+<span class="n">secondRecord</span>              <span class="n">A</span>          <span class="n">1</span>          <span class="n">0</span>                    <span class="n">01</span><span class="p">:</span><span class="n">00</span><span class="p">:</span><span class="n">00</span>        <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">140</span>
+</code></pre></div>
+<p><strong>B.3 : le résoudre depuis Windows 11</strong> (<code>[Client]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">secondRecord</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">10</span> <span class="n">-DnsOnly</span>
+</code></pre></div>
+<h3 id="a-noter_2">À noter</h3>
+<table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Serveur interrogé</th>
+<th>Commande</th>
+<th>Résultat</th>
+<th>Délai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test-core</code> visible en local</td>
+<td><code>SRV-WIN-MEN-02</code></td>
+<td><code>Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name test-core</code></td>
+<td>OK (<code>192.168.100.253</code>)</td>
+<td>Instantané</td>
+</tr>
+<tr>
+<td><code>test-core</code> résolu</td>
+<td><code>192.168.100.11</code></td>
+<td><code>Resolve-DnsName -Name test-core.TSSR-MEN.LAB -Server 192.168.100.11 -DnsOnly</code></td>
+<td>OK</td>
+<td>Instantané</td>
+</tr>
+<tr>
+<td>Second enregistrement créé</td>
+<td><code>SRV-WIN-MEN-02</code></td>
+<td><code>Add-DnsServerResourceRecordA -Name secondRecord -ZoneName TSSR-MEN.LAB -IPv4Address 192.168.100.140 -ComputerName SRV-WIN-MEN-02</code></td>
+<td>OK</td>
+<td>Instantané</td>
+</tr>
+<tr>
+<td>Second enregistrement lu</td>
+<td><code>SRV-WIN-MEN-01</code></td>
+<td><code>Get-DnsServerResourceRecord -ZoneName TSSR-MEN.LAB -Name secondRecord -ComputerName SRV-WIN-MEN-01</code></td>
+<td>OK (<code>192.168.100.140</code>)</td>
+<td>Quelques minutes</td>
+</tr>
+<tr>
+<td>Second enregistrement résolu</td>
+<td>depuis le client</td>
+<td><code>Resolve-DnsName -Name secondRecord.TSSR-MEN.LAB -Server 192.168.100.10 -DnsOnly</code></td>
+<td>OK</td>
+<td>Quelques minutes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nettoyage :</strong>
+Les enregistrements de test ont été supprimés afin de maintenir une zone propre et d'éviter d'augmenter inutilement la surface d'attaque.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Remove-DnsServerResourceRecord</span> <span class="n">-ZoneName</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Name</span> <span class="nb">test-core</span> <span class="n">-RRType</span> <span class="n">A</span> <span class="n">-ComputerName</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">01</span> <span class="n">-Force</span>
+<span class="nb">Remove-DnsServerResourceRecord</span> <span class="n">-ZoneName</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Name</span> <span class="n">secondRecord</span> <span class="n">-RRType</span> <span class="n">A</span> <span class="n">-ComputerName</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">02</span> <span class="n">-Force</span>
+</code></pre></div>
+<hr />
+<h2 id="6-configurer-les-serveurs-dns">6. Configurer les serveurs DNS</h2>
+<h3 id="comprendre_3">Comprendre</h3>
+<div class="admonition question">
+<p class="admonition-title">Pourquoi les DNS d'un contrôleur de domaine comptent</p>
+<p>Un contrôleur de domaine est <strong>aussi un client DNS</strong> : il consulte une liste ordonnée (<strong>préféré</strong>, puis <strong>alternatif</strong>). </p>
+</div>
+<p><strong>Stratégie retenue et justification :</strong>
+Pour chaque contrôleur de domaine, nous configurons le partenaire en DNS préféré (<code>192.168.100.10</code> sur le Core et vice-versa) et l'adresse IP locale / adresse de bouclage (<code>127.0.0.1</code> ou son propre IP) en DNS alternatif. Cela garantit qu'au démarrage, un contrôleur s'appuie sur un annuaire DNS déjà démarré et fonctionnel pour initialiser ses services, tout en maintenant sa propre résolution si le partenaire est hors ligne.</p>
+<h3 id="pas-a-pas_2">Pas à pas</h3>
+<p><strong>Étape 1 : examiner la configuration actuelle</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Get-DnsClientServerAddress</span> <span class="n">-AddressFamily</span> <span class="n">IPv4</span>
+</code></pre></div>
+<p><strong>Étape 2 : définir la liste</strong></p>
+<p>Sur <code>SRV-WIN-MEN-01</code> :
+<div class="highlight"><pre><span></span><code><span class="nb">Set-DnsClientServerAddress</span> <span class="n">-InterfaceAlias</span> <span class="s2">"Ethernet 2"</span> <span class="n">-ServerAddresses</span> <span class="p">(</span><span class="s2">"192.168.100.11"</span><span class="p">,</span><span class="s2">"127.0.0.1"</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Sur <code>SRV-WIN-MEN-02</code> :
+<div class="highlight"><pre><span></span><code><span class="nb">Set-DnsClientServerAddress</span> <span class="n">-InterfaceAlias</span> <span class="s2">"Ethernet"</span> <span class="n">-ServerAddresses</span> <span class="p">(</span><span class="s2">"192.168.100.10"</span><span class="p">,</span><span class="s2">"127.0.0.1"</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Étape 3 : revérifier et vider le cache</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">Clear-DnsClientCache</span>
+</code></pre></div>
+<p><strong>Étape 4 : vérifier la résolution du domaine</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">01</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">administrator</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">&gt;</span> <span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">02</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span>
+</code></pre></div>
+<p><strong>Étape 5 : contrôle global</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">dcdiag</span> <span class="p">/</span><span class="n">test</span><span class="p">:</span><span class="n">dns</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span> <span class="s1">'passed|failed'</span>
+</code></pre></div>
+<h3 id="a-noter_3">À noter</h3>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th><code>SRV-WIN-MEN-01</code></th>
+<th><code>SRV-WIN-MEN-02</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alias de la carte réseau</td>
+<td>Ethernet 2</td>
+<td>Ethernet</td>
+</tr>
+<tr>
+<td>DNS <strong>avant</strong></td>
+<td><code>127.0.0.1</code></td>
+<td><code>192.168.100.10</code>, <code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td>DNS préféré <strong>après</strong></td>
+<td><code>192.168.100.11</code></td>
+<td><code>192.168.100.10</code></td>
+</tr>
+<tr>
+<td>DNS alternatif <strong>après</strong></td>
+<td><code>127.0.0.1</code></td>
+<td><code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td>Résolution du domaine</td>
+<td>Oui — <code>192.168.100.10</code> et <code>192.168.100.11</code></td>
+<td>Oui — <code>192.168.100.10</code> et <code>192.168.100.11</code></td>
+</tr>
+<tr>
+<td>Résolution des deux noms de contrôleur</td>
+<td>Oui (<code>.10</code> et <code>.11</code>)</td>
+<td>Oui (<code>.10</code> et <code>.11</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-tester-depuis-le-client-windows-11">7. Tester depuis le client Windows 11</h2>
+<h3 id="comprendre_4">Comprendre</h3>
+<div class="admonition question">
+<p class="admonition-title">Le client reçoit ses DNS par DHCP</p>
+<p>Ton client est en DHCP depuis le TP DHCP. En ajoutant <code>192.168.100.11</code> dans l'option 006, le client reçoit <strong>deux</strong> serveurs et bascule automatiquement sur le second si le premier ne répond pas.</p>
+</div>
+<h3 id="pas-a-pas_3">Pas à pas</h3>
+<p><strong>Étape 1 : identifier les DNS actuels</strong> (<code>[Client]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-DnsClientServerAddress</span> <span class="n">-AddressFamily</span> <span class="n">IPv4</span>
+</code></pre></div>
+<p><strong>Étape 2 : modifier l'option DHCP 006</strong> (<code>[Graphique]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Set-DhcpServerv4OptionValue</span> <span class="n">-ScopeId</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">0</span> <span class="n">-OptionId</span> <span class="n">6</span> <span class="n">-Value</span> <span class="s2">"192.168.100.10"</span><span class="p">,</span><span class="s2">"192.168.100.11"</span>
+<span class="nb">Get-DhcpServerv4OptionValue</span> <span class="n">-ScopeId</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">0</span> <span class="n">-OptionId</span> <span class="n">6</span>
+</code></pre></div>
+<p><strong>Étape 3 : renouveler la bail et contrôler</strong> (<code>[Client]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="n">ipconfig</span> <span class="p">/</span><span class="n">renew</span>
+<span class="n">ipconfig</span> <span class="p">/</span><span class="n">all</span>
+</code></pre></div>
+<p><strong>Étape 4 : interroger explicitement chacun des deux serveurs</strong> (<code>[Client]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">10</span> <span class="n">-DnsOnly</span>
+<span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">11</span> <span class="n">-DnsOnly</span>
+</code></pre></div>
+<p><strong>Étape 5 : résoudre les noms de contrôleurs</strong> (<code>[Client]</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">01</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">10</span>
+<span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="n">SRV-WIN-MEN</span><span class="p">-</span><span class="n">02</span><span class="p">.</span><span class="n">TSSR-MEN</span><span class="p">.</span><span class="n">LAB</span> <span class="n">-Server</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">100</span><span class="p">.</span><span class="n">11</span>
+</code></pre></div>
+<h3 id="a-noter_4">À noter</h3>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS du client <strong>avant</strong></td>
+<td><code>192.168.100.10</code></td>
+</tr>
+<tr>
+<td>Option DHCP 006 <strong>après</strong></td>
+<td><code>192.168.100.10</code>, <code>192.168.100.11</code></td>
+</tr>
+<tr>
+<td>DNS du client <strong>après</strong> (ordre)</td>
+<td>1. <code>192.168.100.10</code>, 2. <code>192.168.100.11</code></td>
+</tr>
+<tr>
+<td>Domaine résolu par <code>192.168.100.10</code></td>
+<td>Oui (<code>192.168.100.10</code>, <code>192.168.100.11</code>)</td>
+</tr>
+<tr>
+<td>Domaine résolu par <code>192.168.100.11</code></td>
+<td>Oui (<code>192.168.100.10</code>, <code>192.168.100.11</code>)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Nom résolu</th>
+<th>Via <code>192.168.100.10</code></th>
+<th>Via <code>192.168.100.11</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SRV-WIN-MEN-01.TSSR-MEN.LAB</code></td>
+<td><code>192.168.100.10</code></td>
+<td><code>192.168.100.10</code></td>
+</tr>
+<tr>
+<td><code>SRV-WIN-MEN-02.TSSR-MEN.LAB</code></td>
+<td><code>192.168.100.11</code></td>
+<td><code>192.168.100.11</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-validation">8. Validation</h2>
+<table>
+<thead>
+<tr>
+<th>Vérification</th>
+<th>Validé</th>
+<th>Preuve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Le rôle DNS fonctionne sur les deux contrôleurs</td>
+<td>☑</td>
+<td><a href="#3-installer-et-vérifier-le-rôle-dns">#3. Installer et vérifier le rôle DNS</a></td>
+</tr>
+<tr>
+<td>La zone intégrée à AD est présente sur les deux serveurs</td>
+<td>☑</td>
+<td><a href="#4-vérifier-la-réplication-des-zones-dns">#4. Vérifier la réplication des zones DNS</a></td>
+</tr>
+<tr>
+<td>Les enregistrements AD et de test sont disponibles</td>
+<td>☑</td>
+<td><a href="#4-vérifier-la-réplication-des-zones-dns">#4. Vérifier la réplication des zones DNS</a> et <a href="#5-tester-la-réplication-des-enregistrements">#5. Tester la réplication des enregistrements</a></td>
+</tr>
+<tr>
+<td>La réplication des modifications DNS fonctionne dans les deux sens</td>
+<td>☑</td>
+<td><a href="#5-tester-la-réplication-des-enregistrements">#5. Tester la réplication des enregistrements</a></td>
+</tr>
+<tr>
+<td>Le client interroge les deux DNS et obtient des réponses correctes</td>
+<td>☑</td>
+<td><a href="#7-tester-depuis-le-client-windows-11">#7. Tester depuis le client Windows 11</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-conclusion-et-difficultes-rencontrees">9. Conclusion et difficultés rencontrées</h2>
+<h3 id="difficultes-erreurs-rencontrees">Difficultés / erreurs rencontrées</h3>
+<table>
+<thead>
+<tr>
+<th>Problème</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L'enregistrement <code>secondRecord</code> n'apparaissait pas immédiatement sur <code>SRV-WIN-MEN-01</code>.</td>
+<td>Délai naturel de propagation de la réplication Active Directory entre les deux contrôleurs.</td>
+<td>Exécution de <code>repadmin /syncall /AdeP</code> pour forcer la synchronisation inter-annuaire puis attente de la mise à jour du cache local DNS.</td>
+</tr>
+<tr>
+<td>Erreur <code>1311 ERROR_NO_LOGON_SERVERS</code> lors de <code>nltest /dsregdns</code>.</td>
+<td>Le service Netlogon écoutait sur une seconde interface réseau secondaire (<code>Ethernet 2</code> / <code>.56.101</code>).</td>
+<td>Suppression de l'enregistrement A parasite, redémarrage du service Netlogon (<code>Restart-Service Netlogon</code>) et ré-exécution de <code>nltest /dsregdns</code>.</td>
+</tr>
+<tr>
+<td>Plantage VM / Ressources hôte insuffisantes.</td>
+<td>Saturation de la mémoire RAM du poste hôte exécutant 3 VM simultanées.</td>
+<td>Démarrage séquentiel des VM et optimisation de la mémoire allouée.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ce-que-jai-retenu">Ce que j'ai retenu</h3>
+<ol>
+<li>Les zones DNS intégrées Active Directory simplifient la gestion de la haute disponibilité : toute modification apportée sur un serveur DNS s'appuie sur la topologie de réplication AD multi-maître sans nécessiter de configuration manuelle de transfert de zone.</li>
+<li>Les enregistrements SRV sont essentiels au fonctionnement des réseaux Active Directory ; leur enregistrement automatique est assuré par le service <code>Netlogon</code>.</li>
+<li>Une configuration robuste des cartes réseau sur les contrôleurs de domaine impose un pointage DNS croisé pour éviter l'isolement au démarrage.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

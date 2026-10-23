@@ -1,0 +1,3474 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="TSSR Lab Runbooks, Configs, and Notes">
+      
+      
+      
+        <link rel="canonical" href="https://natalshadow.github.io/TSSR_Doc/9-Labs%20and%20TP/Server%20Core/">
+      
+      
+        <link rel="prev" href="../Server%20Core%20lite%20doc/">
+      
+      
+        <link rel="next" href="../TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Server Core - TSSR Documentation & Lab Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sommaire" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-header__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TSSR Documentation & Lab Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Server Core
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TSSR Documentation &amp; Lab Vault" class="md-nav__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TSSR Documentation & Lab Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Administration%20Windows%20Server%20Core%20et%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administration Windows Server Core et PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DORA%20steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DORA steps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Fiches%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiches techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PowerShell%20-%20dossiers%2C%20fichiers%2C%20partages%20et%20permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell   dossiers, fichiers, partages et permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TP05%20%E2%80%94%20Active%20Directory%20FSMO%20Roles%20Management%20%26%20Transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP05 — Active Directory FSMO Roles Management & Transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 General
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1 General
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGDLP Explained: The Foundation of Role-Based Access Control in Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/DNS%20et%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS et DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/DNS%20server%20types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Droits%20de%20partage%20et%20droits%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Droits de partage et droits NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/How%20to%20find%20Powershell%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to find Powershell commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Protocol%20SMB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol SMB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/Syst%C3%A8me%20d%27information%20et%20syst%C3%A8me%20informatique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information et système informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attachments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Attachments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.04.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.04.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.28.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.28.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 Scripts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    10 Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-Scripts/Export%20GPOs%20-%20Powershell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Export GPOs   Powershell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 Virtualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2 Virtualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/Snapshots%20et%20clones%20de%20VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshots et clones de VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/TP5%20-%20Modification%20de%20la%20VM%20Windows%2011/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP5   Modification de la VM Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Virtualization/Virtualisation%20-%20types%20et%20r%C3%A9seaux%20virtuels%20%28VMware%20Workstation%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation   types et réseaux virtuels (VMware Workstation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 Windows Server
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3 Windows Server
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Active%20Directory%20domain%20vs%20DNS%20domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory domain vs DNS domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Active%20Directory%20et%20LDAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory et LDAP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Flexible%20Single%20Master%20Operations%20roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flexible Single Master Operations roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/GPO%20%E2%80%94%20Sauvegarde%2C%20Rapports%20et%20Ex%C3%A9cution%20%C3%A0%20distance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO — Sauvegarde, Rapports et Exécution à distance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Kerberos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/NTLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/PTR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PTR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Partages%20de%20fichiers%2C%20AGDLP%20et%20FSRM%20en%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partages de fichiers, AGDLP et FSRM en PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Recherche%20RSAT%20sur%20Windows%2011%20et%20consoles%20MMC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche RSAT sur Windows 11 et consoles MMC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Recherche%20Windows%20Server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche Windows Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/Tiering%20AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory : les fondamentaux du Tiering Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_10_13" id="__nav_10_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/Cr%C3%A9er%20un%20domaine%20Active%20Directory%20et%20joindre%20un%20poste%20client%20-%20Full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Créer un domaine Active Directory et joindre un poste client   Full
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/DNS%20and%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS and DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/Mettre%20en%20place%20des%20partages%20r%C3%A9seau%20avec%20la%20m%C3%A9thode%20AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place des partages réseau avec la méthode AGDLP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/Organiser%20les%20utilisateurs%2C%20groupes%20et%20ordinateurs%20Active%20Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organiser les utilisateurs, groupes et ordinateurs Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/TP%20-%20GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Windows%20Server/labs/TP06%20%E2%80%94%20VMware%20Workstation%20LAN%20Segment%20Windows%20Server%202025%20%26%20Isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 Labs and TP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9 Labs and TP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Demo-%20TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo  TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../D%C3%A9ploiement%20redondance%20DNS%20Server%20Core%20-%202/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déploiement redondance DNS Server Core   2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Haute%20disponibilit%C3%A9%20DHCP%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Haute disponibilité DHCP avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Install%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mettre%20en%20place%20la%20redondance%20DNS%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place la redondance DNS avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Server%20Core%20lite%20doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core lite doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methode-de-recherche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Méthode de recherche
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-prerequis-et-configuration-minimale-de-windows-server-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Prérequis et configuration minimale de Windows Server Core
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-interet-dinstaller-un-server-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Intérêt d'installer un Server Core
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-administration-dun-serveur-windows-via-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Administration d'un serveur Windows via PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Administration d&#39;un serveur Windows via PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-administration-en-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Administration en local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-administration-a-distance-avec-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Administration à distance avec PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-outils-graphiques-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Outils graphiques à distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-taches-courantes-en-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Tâches courantes en PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-securite-et-bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Sécurité et bonnes pratiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-syntaxe-des-commandes-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Syntaxe des commandes PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Syntaxe des commandes PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntaxe-generale-des-commandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntaxe générale des commandes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#41-tableau-de-syntaxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Tableau de syntaxe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-exercices-lecture-seule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Exercices (lecture seule)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-comparaison-avec-un-autre-shell-optionnel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Comparaison avec un autre shell (optionnel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-synthese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Synthèse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Synthèse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-jai-retenu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que j'ai retenu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-je-nai-pas-compris-ou-que-je-veux-approfondir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que je n'ai pas compris ou que je veux approfondir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termes-a-ajouter-au-glossaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Termes à ajouter au glossaire
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202026-10-06%2007.50.21.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2026 10 06 07.50.21.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glossaire
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/A%20record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/Glossary%20entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary entry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/Index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/forward%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forward lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/lease/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lease
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/reverse%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossaire/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exports
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exports
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exports/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell%20-%20Deliverable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell   Deliverable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methode-de-recherche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Méthode de recherche
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-prerequis-et-configuration-minimale-de-windows-server-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Prérequis et configuration minimale de Windows Server Core
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-interet-dinstaller-un-server-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Intérêt d'installer un Server Core
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-administration-dun-serveur-windows-via-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Administration d'un serveur Windows via PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Administration d&#39;un serveur Windows via PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-administration-en-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Administration en local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-administration-a-distance-avec-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Administration à distance avec PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-outils-graphiques-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Outils graphiques à distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-taches-courantes-en-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Tâches courantes en PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-securite-et-bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Sécurité et bonnes pratiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-syntaxe-des-commandes-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Syntaxe des commandes PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Syntaxe des commandes PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntaxe-generale-des-commandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntaxe générale des commandes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#41-tableau-de-syntaxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Tableau de syntaxe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-exercices-lecture-seule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Exercices (lecture seule)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-comparaison-avec-un-autre-shell-optionnel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Comparaison avec un autre shell (optionnel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-synthese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Synthèse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Synthèse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-jai-retenu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que j'ai retenu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-je-nai-pas-compris-ou-que-je-veux-approfondir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que je n'ai pas compris ou que je veux approfondir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termes-a-ajouter-au-glossaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Termes à ajouter au glossaire
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Server Core</h1>
+
+<div class="admonition abstract">
+<p class="admonition-title">Consigne Recherches en autonomie :</p>
+<ul>
+<li>prérequis / configuration minimale pour installer Windows Server Core</li>
+<li>intérêt d'installer un Server Core</li>
+<li>recherches sur l'administration d'un serveur Windows via PowerShell</li>
+<li>syntaxe des commandes PowerShell</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Comment utiliser ce document</p>
+<ul>
+<li>Rédige <strong>avec tes mots</strong> : ce document doit montrer que tu as compris, pas que tu as copié.</li>
+<li>Pour chaque information importante, note la <strong>source</strong> (voir le tableau en bas de la section Méthode) et la <strong>version de Windows Server</strong> concernée : les chiffres et les fonctionnalités changent d'une version à l'autre.</li>
+<li>Les blocs <code>&gt; [!tip]</code> sont des pistes de recherche : à supprimer dans la version rendue.</li>
+<li>Les commandes proposées sont en lecture seule : elles ne modifient rien.</li>
+</ul>
+</div>
+<hr />
+<h2 id="sommaire">Sommaire</h2>
+<ul>
+<li><a href="#méthode-de-recherche">#Méthode de recherche</a></li>
+<li><a href="#1-prérequis-et-configuration-minimale-de-windows-server-core">#1. Prérequis et configuration minimale de Windows Server Core</a></li>
+<li><a href="#2-intérêt-dinstaller-un-server-core">#2. Intérêt d'installer un Server Core</a></li>
+<li><a href="#3-administration-dun-serveur-windows-via-powershell">#3. Administration d'un serveur Windows via PowerShell</a></li>
+<li><a href="#4-syntaxe-des-commandes-powershell">#4. Syntaxe des commandes PowerShell</a></li>
+<li><a href="#5-synthèse">#5. Synthèse</a></li>
+</ul>
+<hr />
+<h2 id="methode-de-recherche">Méthode de recherche</h2>
+<div class="admonition tip">
+<p class="admonition-title">Guidage</p>
+<ul>
+<li>Commence par la <strong>documentation officielle de Microsoft</strong> (Microsoft Learn), puis complète avec des sources techniques reconnues. Méfie-toi des pages non datées et des vidéos qui ne citent pas de version.</li>
+<li>Note la <strong>version de Windows Server</strong> qui sert de référence à ta recherche (celle du labo, par exemple), et signale quand une source parle d'une autre version.</li>
+<li>Distingue ce qui est un <strong>fait</strong> (documenté) de ce qui est un <strong>avis</strong> (retour d'expérience).</li>
+<li>Les VM du labo n'ont pas d'accès Internet : fais tes recherches sur l'ordinateur hôte, et teste les commandes dans la VM.</li>
+</ul>
+</div>
+<p><strong>Version de Windows Server de référence :</strong></p>
+<p><strong>Sources consultées</strong></p>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Titre</th>
+<th>URL</th>
+<th>Date de consultation</th>
+<th>Fiabilité (officielle / tierce)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-prerequis-et-configuration-minimale-de-windows-server-core">1. Prérequis et configuration minimale de Windows Server Core</h2>
+<div class="admonition question">
+<p class="admonition-title">Questions à traiter</p>
+<ul>
+<li>Qu'est-ce qu'une installation <strong>Server Core</strong> ? En quoi diffère-t-elle d'une installation avec <strong>Desktop Experience</strong> (l'interface graphique complète) ?</li>
+<li>Quels sont les <strong>prérequis matériels</strong> minimaux : processeur (architecture, fréquence, fonctions exigées), mémoire, espace disque, réseau ?</li>
+<li>Y a-t-il des exigences de <strong>firmware</strong> ou de sécurité (UEFI, Secure Boot, TPM) selon la version ?</li>
+<li>Quelle est la différence entre la configuration <strong>minimale</strong> et la configuration <strong>recommandée</strong> ?</li>
+<li>Que change le choix de l'<strong>édition</strong> (Standard, Datacenter) et de la <strong>licence</strong> (évaluation incluse) ?</li>
+<li>Y a-t-il des contraintes si on installe dans une <strong>machine virtuelle</strong> (génération, mémoire dynamique) ?</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Guidage Cherche la page « configuration requise » de la version choisie sur Microsoft Learn. Vérifie si les valeurs sont <strong>différentes</strong> entre Server Core et Desktop Experience : c'est une information utile pour la section 2.</p>
+</div>
+<p><strong>Tableau à compléter</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Composant</strong></th>
+<th><strong>Exigence minimale</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Processeur</strong></td>
+<td>1,4 GHz, 64-bit (compatible jeux d'instructions x64, NX, DEP, CMPXCHG16b, LAHF/SAHF, PrefetchW)</td>
+</tr>
+<tr>
+<td><strong>Mémoire RAM</strong></td>
+<td>512 Mo (3,2 Go minimum recommandé si virtualisé pour éviter les échecs de démarrage/installation)</td>
+</tr>
+<tr>
+<td><strong>Espace disque</strong></td>
+<td>32 Go (Server Core nécessite environ 4 à 6 Go d'espace disque disponible de moins que la version GUI)</td>
+</tr>
+<tr>
+<td><strong>Réseau</strong></td>
+<td>Adaptateur Ethernet gigabit (10/100/1000 Base-T)</td>
+</tr>
+<tr>
+<td><strong>Firmware</strong></td>
+<td>Système UEFI 2.3.1c avec Secure Boot</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Au choix de l'installation :</strong> à quel moment de l'assistant choisit-on entre Core et Desktop Experience, et que se passe-t-il si on ne change rien ?</p>
+<p><strong>Synthèse de la section 1 (avec tes mots)</strong></p>
+<hr />
+<h2 id="2-interet-dinstaller-un-server-core">2. Intérêt d'installer un Server Core</h2>
+<div class="admonition question">
+<p class="admonition-title">Questions à traiter</p>
+<ul>
+<li>Quels sont les <strong>avantages</strong> annoncés (sécurité, ressources, mises à jour, stabilité) et sur quoi reposent-ils ? Pourquoi une installation sans interface est-elle plus difficile à attaquer ?</li>
+<li>Quels sont les <strong>inconvénients</strong> et limites (administration plus technique, dépannage, logiciels incompatibles) ?</li>
+<li>Dans quels <strong>cas d'usage</strong> Server Core est-il adapté ? Dans lesquels est-il déconseillé ?</li>
+<li>Quelles <strong>interfaces</strong> reste-t-il sur un Server Core (invite de commandes, PowerShell, un outil de configuration en mode texte) ?</li>
+</ul>
+</div>
+<p>Le choix de déployer la déclinaison <strong>Server Core</strong> (sans interface graphique utilisateur) repose sur quatre piliers majeurs :</p>
+<ul>
+<li>
+<p><strong>Surface d'attaque réduite :</strong> Moins de code, pas d'interface graphique, de navigateur ou d'outils d'administration visuels installés. Cela diminue drastiquement le nombre de vulnérabilités potentielles exploitables par un attaquant.</p>
+</li>
+<li>
+<p><strong>Maintenance et redémarrages réduits :</strong> La majorité des correctifs Windows (Windows Updates) concernent les composants graphiques ou les dépendances associées (comme Shell, Internet Explorer/Edge libraries). Un serveur Core nécessite jusqu'à 50 à 60 % de redémarrages en moins par an.</p>
+</li>
+<li>
+<p><strong>Empreinte mémoire et disque minimale :</strong> Libère des ressources système considérables pour les rôles serveur (Active Directory, DNS, Hyper-V). La mémoire RAM consommée au démarrage est généralement inférieure à 1 Go contre 2,5 Go à 3 Go pour une version GUI.</p>
+</li>
+<li>
+<p><strong>Standardisation et automatisation :</strong> Force les équipes système à adopter l'administration à distance, l'automatisation via des scripts et la gestion centralisée.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-administration-dun-serveur-windows-via-powershell">3. Administration d'un serveur Windows via PowerShell</h2>
+<div class="admonition question">
+<p class="admonition-title">Questions à traiter</p>
+<ul>
+<li>Comment s'administre un serveur <strong>en local</strong> quand il n'a pas d'interface graphique ?</li>
+<li>Comment s'administre-t-il <strong>à distance</strong> avec PowerShell ? Que sont le <strong>remoting</strong>, WinRM, une <strong>session</strong> ?</li>
+<li>Quels <strong>outils graphiques à distance</strong> existent (Server Manager, RSAT, Windows Admin Center) et dans quels cas les préférer à PowerShell ?</li>
+<li>Quels <strong>modules</strong> PowerShell servent à administrer les rôles que tu as installés ?</li>
+<li>Quels sont les <strong>prérequis</strong> pour qu'une administration à distance fonctionne (activation, pare-feu, authentification, droits) ?</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Guidage Quelques pistes de mots-clés à chercher :</p>
+<ul>
+<li>en local : l'outil de configuration en mode texte de Server Core (<code>sconfig</code>), <code>Rename-Computer</code>, <code>Add-Computer</code>, <code>Install-WindowsFeature</code></li>
+<li>à distance : <code>Enter-PSSession</code>, <code>Invoke-Command</code>, <code>New-PSSession</code>, <code>Enable-PSRemoting</code></li>
+<li>modules : <code>ActiveDirectory</code>, <code>DhcpServer</code>, <code>DnsServer</code>, <code>GroupPolicy</code>, <code>SmbShare</code> Pour un module, la découverte se fait avec <code>Get-Module -ListAvailable</code> puis <code>Get-Command -Module &lt;nom&gt;</code>.</li>
+</ul>
+</div>
+<h3 id="31-administration-en-local">3.1 Administration en local</h3>
+<h3 id="32-administration-a-distance-avec-powershell">3.2 Administration à distance avec PowerShell</h3>
+<p><strong>Prérequis constatés :</strong></p>
+<p><strong>Schéma d'une session distante</strong> (qui se connecte à qui, avec quels droits, sur quel port) :</p>
+<h3 id="33-outils-graphiques-a-distance">3.3 Outils graphiques à distance</h3>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>À quoi il sert</th>
+<th>Avantages</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server Manager</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RSAT</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Windows Admin Center</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="34-taches-courantes-en-powershell">3.4 Tâches courantes en PowerShell</h3>
+<p>Complète avec les cmdlets que <strong>tu as trouvées</strong> et ce que tu as vérifié. Pour chaque ligne, cherche d'abord la commande avec <code>Get-Command</code>, puis lis son aide avec <code>Get-Help &lt;commande&gt; -Examples</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Tâche</th>
+<th>Cmdlet(s) trouvée(s)</th>
+<th>Testée ?</th>
+<th>Résultat observé</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voir l'adresse IP et la configuration réseau</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lister les services et leur état</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lister les rôles et fonctionnalités installés</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lister les zones DNS</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lister les baux DHCP</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lister les utilisateurs d'une OU</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lister les partages</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Produire un rapport sur les GPO</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Guidage Les tâches des lignes DNS, DHCP, utilisateurs et GPO reprennent ce que tu as fait <strong>à la souris</strong> dans les TP : refais-les en PowerShell sur ton labo en <strong>lecture seule</strong> (listes et rapports). Compare : combien de clics contre combien de caractères ?</p>
+</div>
+<h3 id="35-securite-et-bonnes-pratiques">3.5 Sécurité et bonnes pratiques</h3>
+<div class="admonition tip">
+<p class="admonition-title">Guidage Cherche : la <strong>politique d'exécution</strong> des scripts (<code>ExecutionPolicy</code>), les droits nécessaires pour une session distante, la <strong>journalisation</strong> des commandes PowerShell, et pourquoi un administrateur évite de travailler en permanence avec un compte très privilégié.</p>
+</div>
+<p><strong>Synthèse de la section 3 (avec tes mots)</strong></p>
+<hr />
+<h2 id="4-syntaxe-des-commandes-powershell">4. Syntaxe des commandes PowerShell</h2>
+<div class="admonition question">
+<p class="admonition-title">Questions à traiter</p>
+<ul>
+<li>Quelle est la structure d'une commande <strong>Verbe-Nom</strong> ? Où trouve-t-on la liste des verbes approuvés ?</li>
+<li>Que sont les <strong>paramètres</strong> (nommés, positionnels) et les <strong>switchs</strong> ? Comment passer plusieurs valeurs ?</li>
+<li>Qu'est-ce que le <strong>pipeline</strong>, et en quoi diffère-t-il de celui d'un shell qui transmet du texte ?</li>
+<li>Comment <strong>filtrer</strong>, <strong>sélectionner</strong>, <strong>trier</strong> et <strong>mettre en forme</strong> une sortie ?</li>
+<li>Quels sont les <strong>opérateurs de comparaison</strong> (<code>-eq</code>, <code>-like</code>, <code>-match</code>…) et pourquoi <code>==</code> et <code>&gt;</code> ne servent pas à comparer ?</li>
+<li>Comment fonctionnent les <strong>variables</strong>, les <strong>tableaux</strong> et les <strong>tables de hachage</strong> ?</li>
+<li>À quoi servent les <strong>alias</strong> et la <strong>complétion</strong> avec la touche Tab ?</li>
+<li>Comment <strong>tester</strong> une commande sans l'exécuter ? (<code>-WhatIf</code>, <code>-Confirm</code>)</li>
+<li>Comment <strong>trouver de l'aide</strong> : <code>Get-Help</code>, <code>Get-Command</code>, <code>Get-Member</code>, <code>Update-Help</code> ?</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Guidage</p>
+<ul>
+<li>Si tu connais déjà un autre shell (par exemple Bash), fais un tableau de <strong>correspondances et de différences</strong> : c'est la meilleure façon de fixer les idées.</li>
+<li><code>Update-Help</code> a besoin d'Internet : à lancer sur l'ordinateur hôte, pas dans les VM du labo.</li>
+<li>PowerShell travaille avec des <strong>objets</strong> : une commande ne renvoie pas du texte mais des objets avec des propriétés. <code>Get-Member</code> te montre lesquelles.</li>
+</ul>
+</div>
+<h3 id="syntaxe-generale-des-commandes">Syntaxe générale des commandes</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Verb-Noun</span> <span class="n">-Parametre1</span> <span class="n">Valeur1</span> <span class="n">-Parametre2</span> <span class="n">Valeur2</span> <span class="p">[</span><span class="n">-Interrupteur</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="41-tableau-de-syntaxe">4.1 Tableau de syntaxe</h3>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Syntaxe générale</th>
+<th>Exemple testé</th>
+<th>Remarque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Commande Verbe-Nom</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Paramètre nommé</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Switch</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Pipeline</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Filtrer</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sélectionner des propriétés</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Trier</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Comparaison</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Variable</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Alias</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Simulation (<code>-WhatIf</code>)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Aide</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-exercices-lecture-seule">4.2 Exercices (lecture seule)</h3>
+<p>Lance ces commandes dans PowerShell, observe, puis complète la colonne « Ce que j'ai compris ».</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Verb</span>
+<span class="nb">Get-Command</span> <span class="p">*</span><span class="n">service</span><span class="p">*</span>
+<span class="nb">Get-Help</span> <span class="nb">Get-Service</span> <span class="n">-Examples</span>
+<span class="nb">Get-Service</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+<span class="nb">Get-Service</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Status</span> <span class="o">-eq</span> <span class="s1">'Running'</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">5</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Status</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Sort-Object</span> <span class="n">CPU</span> <span class="n">-Descending</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">5</span> <span class="n">Name</span><span class="p">,</span> <span class="n">CPU</span>
+<span class="nb">Get-Alias</span> <span class="nb">gci</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Commande</th>
+<th>Ce que j'ai compris</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Get-Verb</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Get-Command *service*</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Get-Help Get-Service -Examples</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Get-Service \| Get-Member</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Get-Service \| Where-Object ...</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Get-Process \| Sort-Object ...</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Get-Alias gci</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Capture(s)</strong></p>
+<p>![[capture-4-exercices.png]]</p>
+<h3 id="43-comparaison-avec-un-autre-shell-optionnel">4.3 Comparaison avec un autre shell (optionnel)</h3>
+<table>
+<thead>
+<tr>
+<th>Besoin</th>
+<th>PowerShell</th>
+<th>Autre shell</th>
+<th>Différence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lister les fichiers</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Filtrer une sortie</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Enchaîner des commandes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Texte ou objets ?</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Synthèse de la section 4 (avec tes mots)</strong></p>
+<hr />
+<h2 id="5-synthese">5. Synthèse</h2>
+<h3 id="ce-que-jai-retenu">Ce que j'ai retenu</h3>
+<h3 id="ce-que-je-nai-pas-compris-ou-que-je-veux-approfondir">Ce que je n'ai pas compris ou que je veux approfondir</h3>
+<h3 id="termes-a-ajouter-au-glossaire">Termes à ajouter au glossaire</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Server Core / Desktop Experience</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> cmdlet</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> pipeline</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> module</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> PowerShell Remoting / WinRM</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> RSAT</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ExecutionPolicy</li>
+</ul>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Rendu</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Version de Windows Server de référence indiquée</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Toutes les sources notées (titre, URL, date)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Tableaux remplis avec mes mots</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Exercices exécutés et captures insérées</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Tous les blocs <code>[!tip]</code> supprimés</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Export PDF réalisé (si demandé)</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

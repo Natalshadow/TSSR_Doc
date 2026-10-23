@@ -1,0 +1,25 @@
+
+/* Code block container */
+.md-typeset pre:has(code) {
+  position: relative;
+}
+
+/* Header strip above the code */
+.md-typeset pre:has(code)::before {
+  content: "CODE";
+  display: block;
+  padding: 0.55rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--md-default-fg-color--light);
+  background: var(--md-code-bg-color);
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* Keep code readable beneath the header */
+.md-typeset pre code {
+  display: block;
+  padding: 0.8rem 1rem;
+}
+
