@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "0-Learning/Terraform.md",
+                "file": "TP05 — Active Directory FSMO Roles Management & Transfer.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Terraform"
+              "title": "TP05 — Active Directory FSMO Roles Management & Transfer"
             }
           }
         ],
@@ -260,11 +260,11 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "409aa682715e90ee",
+  "active": "3e73a2684060e5e0",
   "lastOpenFiles": [
-    "0-Learning/Ansible 101.md",
-    "0-Learning/TP05 — Active Directory FSMO Roles Management & Transfer.md",
     "0-Learning/Terraform.md",
+    "0-Learning/Ansible 101.md",
+    "TP05 — Active Directory FSMO Roles Management & Transfer.md",
     "test.md",
     "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
     "stylesheets/extra.css~",
