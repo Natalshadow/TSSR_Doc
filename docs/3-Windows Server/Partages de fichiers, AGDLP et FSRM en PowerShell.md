@@ -76,17 +76,20 @@ foreach ($s in $services) {
     New-Item -ItemType File -Path "C:\PARTAGE\$s\FICHIER-$s.txt" -Value "Fichier du service $s" -Force | Out-Null
 }
 Get-ChildItem C:\PARTAGE -Recurse
+
+
+
     Directory: C:\PARTAGE
 
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
-d-----         10/7/2026   2:24 PM                ADMINISTRATIF
-d-----         10/7/2026   4:04 PM                COMPTABILITE
-d-----         10/7/2026   3:39 PM                DIRECTION
-d-----         10/7/2026   2:24 PM                INFORMATIQUE
-d-----         10/7/2026   2:24 PM                PRODUCTION
-d-----         10/7/2026   2:24 PM                RH
+d-----        10/23/2026  10:31 AM                ADMINISTRATIF
+d-----        10/23/2026  10:37 AM                COMPTABILITE
+d-----        10/23/2026  10:31 AM                DIRECTION
+d-----        10/23/2026  10:31 AM                INFORMATIQUE
+d-----        10/23/2026  10:41 AM                PRODUCTION
+d-----        10/23/2026  10:31 AM                RH
 
 
     Directory: C:\PARTAGE\ADMINISTRATIF
@@ -103,6 +106,12 @@ Mode                 LastWriteTime         Length Name
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 -a----        10/23/2026  10:27 AM             31 FICHIER-COMPTABILITE.txt
+-a----        10/23/2026  10:37 AM       10485760 test1.bin
+-a----        10/23/2026  10:37 AM       10485760 test2.bin
+-a----        10/23/2026  10:37 AM       10485760 test3.bin
+-a----        10/23/2026  10:37 AM       10485760 test4.bin
+-a----        10/23/2026  10:37 AM              0 test5.bin
+-a----        10/23/2026  10:37 AM              0 test6.bin
 
 
     Directory: C:\PARTAGE\DIRECTION
@@ -136,6 +145,7 @@ Mode                 LastWriteTime         Length Name
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 -a----        10/23/2026  10:27 AM             21 FICHIER-RH.txt
+
 ```
 
 ### 2. Partages SMB
