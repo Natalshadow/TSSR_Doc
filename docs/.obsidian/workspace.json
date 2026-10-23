@@ -62,7 +62,7 @@
               "type": "markdown",
               "state": {
                 "file": "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -260,7 +260,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e1ec310cf6a459a9",
+  "active": "409aa682715e90ee",
   "lastOpenFiles": [
     "stylesheets/extra.css~",
     "stylesheets/extra.css",

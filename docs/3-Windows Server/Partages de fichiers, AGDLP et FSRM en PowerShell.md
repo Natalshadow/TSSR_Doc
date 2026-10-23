@@ -182,11 +182,35 @@ Douze groupes (`-RW` et `-RO` pour chaque service) sont créés dans l'unité d'
 
 ```powershell
 foreach ($s in $services) {
-    foreach ($droit in "RW","RO") {
-        New-ADGroup -Name "GDL-$s-$droit" -GroupScope DomainLocal -GroupCategory Security `
-            -Path "OU=GDL,OU=GROUPES,DC=TSSR-MEN,DC=LAB"
-    }
-}
+     foreach ($droit in "RW", "RO") {
+         $nom = "GDL-$s-$droit"
+
+         if (-not (Get-ADGroup -Filter "Name -eq '$nom'" `
+                 -ErrorAction SilentlyContinue)) {
+             New-ADGroup -Name $nom `
+                 -GroupScope DomainLocal `
+                 -GroupCategory Security `
+                 -Path "OU=GDL,OU=GROUPES,DC=TSSR-MEN,DC=LAB"
+
+             Write-Host "Créé : $nom" -ForegroundColor Green
+         }
+         else {
+             Write-Host "Déjà existant : $nom" -ForegroundColor Yellow
+         }
+     }
+ }
+Déjà existant : GDL-ADMINISTRATIF-RW
+Déjà existant : GDL-ADMINISTRATIF-RO
+Déjà existant : GDL-DIRECTION-RW
+Déjà existant : GDL-DIRECTION-RO
+Déjà existant : GDL-COMPTABILITE-RW
+Déjà existant : GDL-COMPTABILITE-RO
+Déjà existant : GDL-INFORMATIQUE-RW
+Déjà existant : GDL-INFORMATIQUE-RO
+Déjà existant : GDL-RH-RW
+Déjà existant : GDL-RH-RO
+Déjà existant : GDL-PRODUCTION-RW
+Déjà existant : GDL-PRODUCTION-RO
 ```
 
 ### 4. Droits NTFS
