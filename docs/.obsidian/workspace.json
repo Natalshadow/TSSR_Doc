@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9-Labs and TP/Haute disponibilité DHCP avec Windows Server Core.md",
+                "file": "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Haute disponibilité DHCP avec Windows Server Core"
+              "title": "Partages de fichiers, AGDLP et FSRM en PowerShell"
             }
           }
         ],
@@ -260,8 +260,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "3e73a2684060e5e0",
+  "active": "409aa682715e90ee",
   "lastOpenFiles": [
+    "3-Windows Server/labs/Mettre en place des partages réseau avec la méthode AGDLP.md",
+    "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
+    "3-Windows Server/labs/Créer un domaine Active Directory et joindre un poste client - Full.md",
+    "3-Windows Server/Active Directory et LDAP.md",
     "9-Labs and TP/Haute disponibilité DHCP avec Windows Server Core.md",
     "9-Labs and TP/TP - Configurer le DHCP Failover avec Windows Server Core.md",
     "Untitled",
@@ -292,15 +296,11 @@
     "exports",
     "3-Windows Server/labs",
     "9-Labs and TP/Déployer un contrôleur de domaine supplémentaire avec PowerShell.md",
-    "3-Windows Server/labs/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "3-Windows Server/labs/TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation.md",
     "9-Labs and TP/Install Server Core.md",
-    "3-Windows Server/labs/Mettre en place des partages réseau avec la méthode AGDLP.md",
     "9-Labs and TP/Server Core.md",
     "3-Windows Server/labs/Organiser les utilisateurs, groupes et ordinateurs Active Directory.md",
     "3-Windows Server/labs/DNS and DHCP.md",
-    "Fiches techniques.md",
-    "9-Labs and TP/Server Core lite doc.md",
     "Glossaire.base",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
