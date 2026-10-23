@@ -608,31 +608,31 @@ Get-WinEvent -FilterHashtable @{ LogName = 'System'; StartTime = (Get-Date).AddH
 
 ### Grille de compétences
 
-| Compétence | Section | Niveau (A/B/C) |
-|---|---|---|
-| Lire la syntaxe Verbe-Nom et trouver une cmdlet avec `Get-Command` | 2.1, 2.2 | |
-| Lire l'aide et ses exemples avant d'exécuter | 2.2 | |
-| Filtrer, trier et sélectionner des propriétés avec le pipeline | 2.3 | |
-| Utiliser `-WhatIf`, `-Confirm` et `-ErrorAction` | 2.4 | |
-| Utiliser SConfig et expliquer ce qu'il ne fait pas | 3.2 | |
-| Gérer un service et connaître ses dépendances | 3.3 | |
-| Configurer une adresse IPv4 et un DNS en PowerShell | 4.2 | |
-| Tester une connectivité avec le bon outil (ping ou port) | 4.3 | |
-| Expliquer et ouvrir une règle de pare-feu | 4.4 | |
-| Activer le remoting et exécuter une commande à distance | 5.2 | |
-| Distinguer installer AD DS, promouvoir un DC et joindre un domaine | 6.2, 6.3 | |
-| Vérifier la réplication AD et expliquer SYSVOL et NETLOGON | 6.4, 6.5 | |
-| Vérifier qu'un objet existe sur un DC précis avec `-Server` | 6.6 | |
-| Lire un enregistrement SRV et expliquer son rôle | 7.4 | |
-| Autoriser un serveur DHCP dans AD | 8.1 | |
-| Expliquer la différence entre Load Balance et Hot Standby | 8.3 | |
-| Créer une relation de failover et vérifier son état | 8.4, 8.6 | |
-| Simuler une panne DHCP sans toucher au DC | 8.7 | |
-| Nommer les cinq rôles FSMO et leur portée | 9.1 | |
-| Identifier les détenteurs de rôles | 9.2 | |
-| Distinguer transfert et saisie d'un rôle FSMO | 9.4 | |
-| Lire un journal d'événements avec `Get-WinEvent` | 10.3 | |
-| Appliquer la démarche de diagnostic (couche basse d'abord) | 10.1 | |
+| Compétence                                                         | Section  | Niveau (A/B/C)                                              |
+| ------------------------------------------------------------------ | -------- | ----------------------------------------------------------- |
+| Lire la syntaxe Verbe-Nom et trouver une cmdlet avec `Get-Command` | 2.1, 2.2 | B, j'utilise TLDR                                           |
+| Lire l'aide et ses exemples avant d'exécuter                       | 2.2      | A, tldr                                                     |
+| Filtrer, trier et sélectionner des propriétés avec le pipeline     | 2.3      | B, habitué à grep, par encore intégré la syntaxe powershell |
+| Utiliser `-WhatIf`, `-Confirm` et `-ErrorAction`                   | 2.4      | C                                                           |
+| Utiliser SConfig et expliquer ce qu'il ne fait pas                 | 3.2      | A                                                           |
+| Gérer un service et connaître ses dépendances                      | 3.3      | B                                                           |
+| Configurer une adresse IPv4 et un DNS en PowerShell                | 4.2      | B                                                           |
+| Tester une connectivité avec le bon outil (ping ou port)           | 4.3      | B                                                           |
+| Expliquer et ouvrir une règle de pare-feu                          | 4.4      | B                                                           |
+| Activer le remoting et exécuter une commande à distance            | 5.2      | B                                                           |
+| Distinguer installer AD DS, promouvoir un DC et joindre un domaine | 6.2, 6.3 | C                                                           |
+| Vérifier la réplication AD et expliquer SYSVOL et NETLOGON         | 6.4, 6.5 | C                                                           |
+| Vérifier qu'un objet existe sur un DC précis avec `-Server`        | 6.6      | C                                                           |
+| Lire un enregistrement SRV et expliquer son rôle                   | 7.4      | C                                                           |
+| Autoriser un serveur DHCP dans AD                                  | 8.1      | C                                                           |
+| Expliquer la différence entre Load Balance et Hot Standby          | 8.3      | A                                                           |
+| Créer une relation de failover et vérifier son état                | 8.4, 8.6 | C                                                           |
+| Simuler une panne DHCP sans toucher au DC                          | 8.7      | C                                                           |
+| Nommer les cinq rôles FSMO et leur portée                          | 9.1      | C                                                           |
+| Identifier les détenteurs de rôles                                 | 9.2      | C                                                           |
+| Distinguer transfert et saisie d'un rôle FSMO                      | 9.4      | C                                                           |
+| Lire un journal d'événements avec `Get-WinEvent`                   | 10.3     | B                                                           |
+| Appliquer la démarche de diagnostic (couche basse d'abord)         | 10.1     | C                                                           |
 
 ### Questions
 
