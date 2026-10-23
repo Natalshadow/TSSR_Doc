@@ -528,17 +528,67 @@ Un **écran de fichiers** s'applique à un dossier à partir d'un **groupe de fi
 
 ```powershell
 Get-FsrmFileGroup | Select-Object Name
+
+Name
+----
+Audio and Video Files
+Image Files
+Office Files
+E-mail Files
+Executable Files
+System Files
+Compressed Files
+Web Page Files
+Text Files
+Backup Files
+Temporary Files
+
 New-FsrmFileScreen -Path "C:\PARTAGE\PRODUCTION" -IncludeGroup "Audio and Video Files" -Active
+New-FsrmFileScreen : 0x80045303, The specified object already exists.
+At line:1 char:1
++ New-FsrmFileScreen -Path "C:\PARTAGE\PRODUCTION" -IncludeGroup "Audio ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceExists: (MSFT_FSRMFileScreen:Root/Microsoft/..._FSRMFileScreen) [New-FsrmFileScreen], CimException
+    + FullyQualifiedErrorId : MI RESULT 11,New-FsrmFileScreen
+
 
 New-Item -ItemType File -Path "C:\PARTAGE\PRODUCTION\test.txt"
+
+
+    Directory: C:\PARTAGE\PRODUCTION
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10/23/2026  10:39 AM              0 test.txt
+
+
 New-Item -ItemType File -Path "C:\PARTAGE\PRODUCTION\test.mp3"
+New-Item : Access to the path 'C:\PARTAGE\PRODUCTION\test.mp3' is denied.
+At line:1 char:1
++ New-Item -ItemType File -Path "C:\PARTAGE\PRODUCTION\test.mp3"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\PARTAGE\PRODUCTION\test.mp3:String) [New-Item], UnauthorizedAccessException
+    + FullyQualifiedErrorId : NewItemUnauthorizedAccessError,Microsoft.PowerShell.Commands.NewItemCommand
+
 
 Get-FsrmFileScreen -Path "C:\PARTAGE\PRODUCTION"
+
+
+Active          : True
+Description     :
+IncludeGroup    : {Audio and Video Files}
+MatchesTemplate : False
+Notification    :
+Path            : C:\PARTAGE\PRODUCTION
+Template        :
+PSComputerName  :
+
+
 ```
 
 Résultat attendu : le fichier `.txt` est créé, le `.mp3` est refusé.
 
-<!-- TODO : coller ici le résultat réel (création du .txt, message de refus pour le .mp3). -->
 
 Nettoyage en fin de test :
 
@@ -558,4 +608,3 @@ Remove-Item "C:\PARTAGE\PRODUCTION\test.*" -Force -ErrorAction SilentlyContinue
 
 - Environnement virtuel, six utilisateurs, un seul serveur de fichiers : pas de charge ni de volumétrie réelles.
 - Les quotas et l'écran de fichiers sont testés sur un dossier représentatif, les autres sont contrôlés par leur configuration.
-- Pas de sauvegarde ni de réplication des données (DFS, VSS) dans ce périmètre.
