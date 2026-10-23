@@ -61,8 +61,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
-                "mode": "preview",
+                "file": "3-Windows Server/TP05 — Active Directory FSMO Roles Management & Transfer.md",
+                "mode": "source",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -76,7 +76,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Partages de fichiers, AGDLP et FSRM en PowerShell"
+              "title": "TP05 — Active Directory FSMO Roles Management & Transfer"
             }
           }
         ],
@@ -262,11 +262,12 @@
   },
   "active": "409aa682715e90ee",
   "lastOpenFiles": [
+    "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
+    "3-Windows Server/TP05 — Active Directory FSMO Roles Management & Transfer.md",
     "stylesheets/extra.css~",
     "stylesheets/extra.css",
     "stylesheets",
     "3-Windows Server/labs/Mettre en place des partages réseau avec la méthode AGDLP.md",
-    "3-Windows Server/Partages de fichiers, AGDLP et FSRM en PowerShell.md",
     "3-Windows Server/labs/Créer un domaine Active Directory et joindre un poste client - Full.md",
     "3-Windows Server/Active Directory et LDAP.md",
     "9-Labs and TP/Haute disponibilité DHCP avec Windows Server Core.md",
@@ -306,7 +307,6 @@
     "Glossaire.base",
     "10-Scripts",
     "9-Labs and TP/Deliverable version/attachments",
-    "attachments",
-    "Templates"
+    "attachments"
   ]
 }
