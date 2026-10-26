@@ -102,9 +102,33 @@
               "icon": "lucide-file",
               "title": "Administration Windows Server Core et PowerShell"
             }
+          },
+          {
+            "id": "1b85e206744e372b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Installation de Gentoo dans une VM.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Installation de Gentoo dans une VM"
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -284,11 +308,16 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "73cd3c83570d4574",
+  "active": "1b85e206744e372b",
   "lastOpenFiles": [
-    "Untitled.md",
-    "tasks.txt",
+    "attachments/Pasted image 20261026120007.png",
+    "attachments/Pasted image 20261026115809.png",
+    "attachments/Pasted image 20261026115435.png",
+    "attachments/Pasted image 20261026114425.png",
+    "attachments/Pasted image 20261026113427.png",
     "Administration Windows Server Core et PowerShell.md",
+    "Installation de Gentoo dans une VM.md",
+    "tasks.txt",
     "TP05 — Active Directory FSMO Roles Management & Transfer.md",
     "0-Learning/Terraform.md",
     "0-Learning/Ansible 101.md",
@@ -317,10 +346,6 @@
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005152225.png",
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261006114420.png",
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261002122846.png",
-    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261007104919.png",
-    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005160601.png",
-    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261021133628.png",
-    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005150240.png",
     "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/Déploiement redondance DNS Server Core - 2.md",
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
