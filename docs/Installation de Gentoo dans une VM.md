@@ -83,11 +83,15 @@ Link pour le stagefile
 
 - `make.conf`, miroirs, locale, fuseau horaire :
 - Notes :
-
+cp make.conf.example make.conf
+la config par défaut semble correcte
 ## 6. Noyau
 
-- Méthode (genkernel, configuration manuelle, dist-kernel) :
-- Notes :
+A partir de là je me suis coincé en attribuant trop peu d'espace disque à la VM, je n'ai pas la place d'installer d'autres paquets. 
+Etapes envisagées :
+- Vérifier ce qui sera perdu s'il faut éteindre la VM pour changer la config Virtual Box.
+- Ajouter ou élargir le disque Virtual Box
+- Reprendre la procédure.
 
 ## 7. Bootloader
 
