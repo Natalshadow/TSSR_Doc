@@ -69,10 +69,11 @@ Re-enter password: (Re-enter larry's password)
 
 ![](attachments/Pasted%20image%2020261026120007.png)
 
+![](attachments/Pasted%20image%2020261026120040.png)
 
+Link pour le stagefile
 
-
-
+![](attachments/Pasted%20image%2020261026120349.png)
 ## 4. Stage3 et chroot
 
 - Stage3 choisie (profil, init) :
