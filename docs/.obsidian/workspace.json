@@ -109,7 +109,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Installation de Gentoo dans une VM.md",
+                "file": "4-Linux admin/Installation minimale de Gentoo en ligne de commande.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -124,7 +124,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Installation de Gentoo dans une VM"
+              "title": "Installation minimale de Gentoo en ligne de commande"
             }
           }
         ],
@@ -190,7 +190,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "ba07964c7ac4c91f",
@@ -310,6 +311,8 @@
   },
   "active": "1b85e206744e372b",
   "lastOpenFiles": [
+    "Installation de Gentoo dans une VM.md",
+    "4-Linux admin/Installation minimale de Gentoo en ligne de commande.md",
     "attachments/Pasted image 20261026120349.png",
     "attachments/Pasted image 20261026120040.png",
     "attachments/Pasted image 20261026120007.png",
@@ -318,7 +321,6 @@
     "attachments/Pasted image 20261026114425.png",
     "attachments/Pasted image 20261026113427.png",
     "Administration Windows Server Core et PowerShell.md",
-    "Installation de Gentoo dans une VM.md",
     "tasks.txt",
     "TP05 — Active Directory FSMO Roles Management & Transfer.md",
     "0-Learning/Terraform.md",
@@ -345,7 +347,6 @@
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261007095217.png",
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261021135912.png",
     "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005152634.png",
-    "9-Labs and TP/Deliverable version/attachments/Pasted image 20261005152225.png",
     "9-Labs and TP/Mettre en place la redondance DNS avec Windows Server Core.md",
     "9-Labs and TP/Déploiement redondance DNS Server Core - 2.md",
     "exports/Déployer un contrôleur de domaine supplémentaire avec PowerShell - Deliverable.md",
