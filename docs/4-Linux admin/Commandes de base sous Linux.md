@@ -411,7 +411,7 @@ L'option `-a` (append) est indispensable avec `-G`. Sans elle, `usermod -G proje
 
 **Question :** décris l'utilité des répertoires à la racine du système.
 
-**Réponse :** (source : `man hier`)
+**Réponse :** 
 
 |Répertoire|Utilité|
 |---|---|
