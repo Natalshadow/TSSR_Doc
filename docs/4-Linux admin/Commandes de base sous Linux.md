@@ -1,35 +1,5 @@
 
 
-> [!info] Compétences à ajouter au Kanban
-> 
-> - [ ] Se repérer dans l'arborescence : `pwd`, `cd`, `ls` (à faire)
-> - [ ] Créer, lire, éditer et supprimer fichiers et répertoires (à faire)
-> - [ ] Éditer un fichier avec `nano` (à faire)
-> - [ ] Gérer les paquets : mise à jour des index, mise à jour, recherche, installation, suppression (à faire)
-> - [ ] Comprendre où sont stockés utilisateurs et groupes (à faire)
-> - [ ] Créer, modifier, supprimer un utilisateur et son mot de passe (à faire)
-> - [ ] Gérer l'appartenance aux groupes sans perdre les groupes existants (à faire)
-> - [ ] Comprendre le rôle des répertoires à la racine (FHS) (à faire)
-
-> [!abstract] Contexte En tant que technicien informatique, installer Linux et faire des recherches sur l'utilisation des commandes de base.
-
-> [!info] Comment utiliser ce document
-> 
-> - Chaque question a un espace **Réponse** à compléter avec la commande et une explication courte.
-> - Les blocs `> [!tip]` donnent des mots-clés de recherche : `man <commande>`, `<commande> --help` et `apropos <mot>` sont tes premiers réflexes.
-> - Teste chaque commande avant de l'écrire, et note ce qu'elle a réellement renvoyé.
-
-## Environnement
-
-|Élément|Valeur|
-|---|---|
-|Distribution installée||
-|Version||
-|Gestionnaire de paquets||
-|Utilisateur utilisé pour le TP||
-
-> [!warning] Les commandes de paquets dépendent de la distribution Les sections sur les paquets ne donnent pas la même commande partout : `apt` (Debian, Ubuntu), `dnf` (Fedora), `pacman` (Arch, CachyOS), `emerge` (Gentoo). Indique la tienne dans le tableau ci-dessus, et écris les commandes de cette distribution.
-
 ---
 
 ## 1. Navigation et fichiers
@@ -167,7 +137,6 @@ sudo pacman -S firefox chrome truc bidule machin
 
 **Question :** comment supprimer un paquet ?
 
-> [!tip] Recherche Regarde la différence entre supprimer le paquet et supprimer ses fichiers de configuration.
 
 **Réponse :**
 
@@ -292,8 +261,6 @@ Linux man-pages 6.19                                                           2
 ### 3.5 Assigner un mot de passe
 
 **Question :** comment lui assigner un mot de passe ?
-
-> [!warning] Ne pas écrire le mot de passe dans le document Utilise un mot de passe fictif dans tes notes, ou note seulement la commande.
 
 **Réponse :**
 passwd
