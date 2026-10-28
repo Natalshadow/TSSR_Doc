@@ -1,197 +1,224 @@
 
-> [!abstract] Objectif 
-> Installer Gentoo de bout en bout en ligne de commande, dans une VM, avec le minimum de paquets. Chaque commande est copiée telle qu'elle a été exécutée.
+> [!abstract] Objectif
+> Installer Gentoo Linux de bout en bout en ligne de commande, sur une VM VirtualBox en UEFI, avec un système minimal (OpenRC, sans environnement de bureau).
 
 ## Environnement
 
-|Élément|Valeur|
+| Élément | Valeur |
 |---|---|
-|Hyperviseur|VirtualBox|
-|Nom de la VM|`Gentoo`|
-|Mode de démarrage (UEFI / BIOS)||
-|Disque (chemin, ex. `/dev/vda`)||
-|Version du Handbook suivie||
-|Stage3 utilisée||
+| Hyperviseur | VirtualBox |
+| Nom de la VM | `Gentoo` |
+| Mode de démarrage | UEFI (vérifié avec `ls /sys/firmware/efi`) |
+| Disque | `/dev/sda` |
+| Système de fichiers racine | XFS |
+| Stage3 | `stage3-amd64-openrc-20261025T170057Z.tar.xz` |
+| Profil Portage | `default/linux/amd64/23.0` (profil 1, sans desktop ni systemd) |
 
-> [!warning] Vérifier avant chaque commande destructive Les commandes de partitionnement et de formatage effacent le disque choisi. Relis le chemin du disque avant de valider. Les commandes ci-dessous sont des repères : la référence reste le Handbook, dans la version que tu suis.
+> [!warning] Vérifier le disque avant chaque commande destructive
+> Les commandes `mkfs` effacent la partition visée. Relire le chemin avant de valider.
 
 ## 1. Partitionnement
 
+Vérifier les disques :
+
 ```bash
-# Lister les disques pour confirmer le chemin
 lsblk
 ```
 
-Schéma prévu (UEFI) :
+Schéma utilisé :
 
-| Partition | Taille | Type  | Usage       |
-| --------- | ------ | ----- | ----------- |
-| `/dev/…1` | 4      | EFI   | `/boot/efi` |
-| `/dev/…2` | 2      | swap  | swap        |
-| `/dev/…3` | 50     | Linux | `/`         |
+| Partition | Usage | Système de fichiers |
+|---|---|---|
+| `/dev/sda1` | ESP (`/efi`) | vfat |
+| `/dev/sda2` | swap | swap |
+| `/dev/sda3` | racine (`/`) | xfs |
+
+## 2. Formatage et montage
+
+![](attachments/Pasted%20image%2020261028101344.png)
 
 ```bash
-# Formatage (adapter les chemins)
-mkfs.vfat -F 32 /dev/vda1
-mkswap /dev/vda2
-mkfs.ext4 /dev/vda3
+mkfs.xfs -f -L gentoo-root /dev/sda3
+mkswap /dev/sda2
+mkfs.vfat -F 32 /dev/sda1
 
-# Montage
-mount /dev/vda3 /mnt/gentoo
-mkdir -p /mnt/gentoo/boot/efi
-mount /dev/vda1 /mnt/gentoo/boot/efi
-swapon /dev/vda2
+mount /dev/sda3 /mnt/gentoo
+mkdir -p /mnt/gentoo/efi
+mount /dev/sda1 /mnt/gentoo/efi
+swapon /dev/sda2
 ```
 
-**Notes :**
+Vérifier :
 
-## 2. Stage3
+```bash
+findmnt -R /mnt/gentoo
+```
+
+## 3. Stage3
 
 ```bash
 cd /mnt/gentoo
-# Télécharger la stage3 depuis le miroir (URL choisie dans le Handbook)
-wget [<URL_STAGE3>](https://distfiles.gentoo.org/releases/amd64/autobuilds/20261025T170057Z/stage3-amd64-openrc-20261025T170057Z.tar.xz)
-# Vérifier la somme de contrôle avant d'extraire, nom placeholder parce que j'en ai essayé plusieurs
-sha256sum stage3-*.tar.xz
-tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner
+wget https://distfiles.gentoo.org/releases/amd64/autobuilds/20261025T170057Z/stage3-amd64-openrc-20261025T170057Z.tar.xz
+wget https://distfiles.gentoo.org/releases/amd64/autobuilds/20261025T170057Z/stage3-amd64-openrc-20261025T170057Z.tar.xz.sha256
+grep 'stage3-amd64-openrc-20261025T170057Z.tar.xz$' stage3-amd64-openrc-20261025T170057Z.tar.xz.sha256 | sha256sum -c -
 ```
 
-**Somme attendue / obtenue :**
-
-## 3. Environnement chroot
+La vérification doit afficher `OK`. Sinon, ne pas continuer.
 
 ```bash
-# Copier la configuration DNS et monter les systèmes de fichiers virtuels
-cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
-mount --types proc /proc /mnt/gentoo/proc
-mount --rbind /sys /mnt/gentoo/sys
-mount --make-rslave /mnt/gentoo/sys
-mount --rbind /dev /mnt/gentoo/dev
-mount --make-rslave /mnt/gentoo/dev
-
-chroot /mnt/gentoo /bin/bash
-source /etc/profile
-export PS1="(chroot) ${PS1}"
+tar xpvf stage3-amd64-openrc-20261025T170057Z.tar.xz --xattrs-include='*.*' --numeric-owner -C /mnt/gentoo
+rm -f stage3-amd64-openrc-20261025T170057Z.tar.xz*
+ls /mnt/gentoo/bin/bash
 ```
 
-**Notes :**
+## 4. Environnement chroot
 
-## 4. Portage et profil
+![](attachments/Pasted%20image%2020261028095753.png)
+
+```bash
+mount -t proc /proc /mnt/gentoo/proc
+mount --rbind /sys /mnt/gentoo/sys && mount --make-rslave /mnt/gentoo/sys
+mount --rbind /dev /mnt/gentoo/dev && mount --make-rslave /mnt/gentoo/dev
+cp -L /etc/resolv.conf /mnt/gentoo/etc/
+chroot /mnt/gentoo /bin/bash
+source /etc/profile
+```
+
+Vérifier que la racine est bien le disque installé :
+
+```bash
+findmnt /
+```
+
+## 5. Portage et profil
 
 ```bash
 emerge-webrsync
 eselect profile list
-eselect profile set <NUMERO_DU_PROFIL>
-```
-1 dans mon cas
-
-`make.conf` :
-
-```bash
-nano /etc/portage/make.conf
+eselect profile set 1
 ```
 
-**Valeurs choisies** (`MAKEOPTS`, `USE`, `COMMON_FLAGS`) :
-
-## 5. Locale et fuseau horaire
+Vérifier la configuration :
 
 ```bash
-echo "Europe/Paris" > /etc/timezone
-emerge --config sys-libs/timezone-data
-nano /etc/locale.gen
-locale-gen
-eselect locale list
-eselect locale set <LOCALE>
-```
-FR dans mon cas
-**Notes :**
-
-## 6. Noyau
-
-```bash
-# Choisir la méthode du Handbook (binaire ou compilation manuelle)
-emerge --ask sys-kernel/installkernel
-emerge --ask sys-kernel/gentoo-kernel-bin
+readlink -f /etc/portage/make.profile
+emerge --info | grep '^USE='
 ```
 
-**Méthode choisie et raison :**
+`USE` ne doit contenir ni `X`, ni `gnome`, ni `systemd`.
 
-## 7. Fichier fstab, réseau et système
+Ajouter à `/etc/portage/make.conf` :
 
 ```bash
-nano /etc/fstab          # UUID ou chemins des partitions
-echo "gentoo-vm" > /etc/hostname
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
 ```
 
-Configuration réseau (adapter au service choisi dans le Handbook) :
+## 6. Fstab
 
 ```bash
-# Notes : service choisi, nom de l'interface, mode DHCP ou statique
+cat > /etc/fstab << 'EOF'
+UUID=9e21f375-8957-458b-abb7-d3507caa79e8  /      xfs   noatime     0 1
+UUID=CA96-5B73                             /efi   vfat  umask=0077  0 2
+UUID=fa85ac24-0fe9-471d-b41e-83971c897484  none   swap  sw          0 0
+EOF
 ```
 
-**Notes :**
+Les UUID viennent de `blkid /dev/sda1 /dev/sda2 /dev/sda3`. Ne pas utiliser de `$(blkid ...)` dans fstab : ce n'est pas du shell, la ligne est ignorée.
 
-## 8. Bootloader
+## 7. Noyau et initramfs
+
+Autoriser le firmware (licence restrictive) et les USE nécessaires :
 
 ```bash
-emerge --ask sys-boot/grub
-grub-install --target=x86_64-efi --efi-directory=/boot/efi
+echo "sys-kernel/linux-firmware linux-fw-redistributable no-source-code" >> /etc/portage/package.license
+mkdir -p /etc/portage/package.use
+echo "sys-kernel/installkernel dracut" >> /etc/portage/package.use/kernel
+echo "sys-kernel/gentoo-kernel-bin initramfs" >> /etc/portage/package.use/kernel
+```
+
+Vérifier le plan, puis installer :
+
+```bash
+emerge -pv sys-boot/grub sys-fs/xfsprogs sys-kernel/dracut sys-kernel/installkernel sys-kernel/gentoo-kernel-bin sys-kernel/linux-firmware
+emerge -av sys-boot/grub sys-fs/xfsprogs sys-kernel/dracut sys-kernel/installkernel sys-kernel/gentoo-kernel-bin sys-kernel/linux-firmware
+```
+
+Vérifier les fichiers de démarrage :
+
+```bash
+ls /boot
+```
+
+Résultat attendu : `vmlinuz-6.18.57-gentoo-dist-bin` et `initramfs-6.18.57-gentoo-dist-bin.img`.
+
+Vérifier que XFS est intégré au noyau :
+
+```bash
+grep CONFIG_XFS_FS /usr/src/linux-6.18.57-gentoo-dist-bin/.config
+```
+
+Résultat attendu : `CONFIG_XFS_FS=y`.
+
+## 8. Bootloader (GRUB, UEFI)
+
+```bash
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=gentoo
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-**Notes (UEFI ou BIOS, erreurs éventuelles) :**
+Vérifier :
 
-## 9. Mot de passe root et utilisateur
+```bash
+ls /efi/EFI/gentoo
+grep -E 'linux|initrd|root=' /boot/grub/grub.cfg
+efibootmgr -v
+```
+
+Résultat attendu :
+- `/efi/EFI/gentoo/grubx64.efi` présent ;
+- une ligne `linux` pointant vers `/boot/vmlinuz-6.18.57-gentoo-dist-bin` avec `root=UUID=9e21f375-8957-458b-abb7-d3507caa79e8` ;
+- une entrée `gentoo` dans `efibootmgr`.
+
+## 9. Mot de passe root
 
 ```bash
 passwd
-useradd -m -G wheel <NOM_UTILISATEUR>
-passwd <NOM_UTILISATEUR>
 ```
 
-Le mot de passe n'est pas écrit dans ce document.
+Le mot de passe n'est pas noté dans ce document.
 
 ## 10. Premier démarrage
 
 ```bash
 exit                     # sortir du chroot
-umount -l /mnt/gentoo/dev{/shm,/pts,}
 umount -R /mnt/gentoo
 reboot
 ```
 
 Retirer l'ISO de la VM avant le redémarrage, sinon le live se relance.
 
-**Résultat du premier démarrage :**
-
-## 11. Difficultés rencontrées
-
-| Symptôme                            | Cause                     | Solution                           |
-| ----------------------------------- | ------------------------- | ---------------------------------- |
-| Manquie de place disque VM          | Config trop conservatrice | élargir                            |
-| Difficulté de compilation du kernel | Pas compris               | Rajouter des flags de dependencies |
-
-
-
-![](attachments/Pasted%20image%2020261028095753.png)
-![](attachments/Pasted%20image%2020261028101344.png)
-
-
-#### GRUB
-
-Users of GRUB can use either systemd's kernel-install or the traditional Debian installkernel. The [systemd](https://packages.gentoo.org/useflags/systemd)[](https://wiki.gentoo.org/wiki/USE_flag "USE flag") USE flag switches between these implementations. To automatically run grub-mkconfig when installing the kernel, enable the [grub](https://packages.gentoo.org/useflags/grub)[](https://wiki.gentoo.org/wiki/USE_flag "USE flag") [USE flag](https://wiki.gentoo.org/wiki/USE_flag "USE flag").
-
-**Note**  
-GRUB requires kernels to be installed to /boot.
-
-sudo nano **`/etc/portage/package.use/installkernel`**
-
-sys-kernel/installkernel grub
-
-`emerge --ask sys-kernel/installkernel`
-
-
+**Résultat :** démarrage réussi sur GRUB, connexion en root.
 
 ![](attachments/Pasted%20image%2020261028120812.png)
 
 ![](attachments/Pasted%20image%2020261028121233.png)
+
+
+## 11. Difficultés rencontrées
+
+| Symptôme                                                         | Cause                                          | Solution                                                        |
+| ---------------------------------------------------------------- | ---------------------------------------------- | --------------------------------------------------------------- |
+| Stage3 desktop/systemd : conflits de dépendances, USE GNOME/X/Qt | Mauvais choix de stage3                        | Passer à la stage3 OpenRC minimale                              |
+| `sbverify: command not found` lors de la compilation du noyau    | `SECUREBOOT_SIGN_CERT` défini, outil absent    | Abandon du noyau sans signature ; passage à `gentoo-kernel-bin` |
+| fstab ne montait pas la racine                                   | `$(blkid ...)` n'est pas interprété dans fstab | UUID littéraux                                                  |
+| Espace disque insuffisant                                        | Partition trop petite                          | Repartitionnement et réinstallation                             |
+| Partition `/mnt/gentoo/efi` introuvable                          | Point de montage non créé                      | `mkdir -p` avant `mount`                                        |
+| Licence firmware bloquant l'installation                         | `linux-firmware` masqué par sa licence         | Ajout dans `package.license`                                    |
+| Kernel sans initramfs au premier essai                           | USE `initramfs` désactivé                      | Activation de `initramfs` et `dracut`                           |
+|                                                                  |                                                |                                                                 |
+
+
+
+
+
+
