@@ -109,7 +109,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "4-Linux admin/Installation minimale de Gentoo en ligne de commande.md",
+                "file": "4-Linux admin/Commandes de base sous Linux.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -124,7 +124,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Installation minimale de Gentoo en ligne de commande"
+              "title": "Commandes de base sous Linux"
             }
           }
         ],
@@ -310,13 +310,14 @@
   },
   "active": "1b85e206744e372b",
   "lastOpenFiles": [
+    "4-Linux admin/Installation minimale de Gentoo en ligne de commande.md",
+    "4-Linux admin/Commandes de base sous Linux.md",
     "4-Linux admin/attachments/Pasted image 20261028121233.png",
     "4-Linux admin/attachments/Pasted image 20261028120812.png",
     "4-Linux admin/attachments/Pasted image 20261028101344.png",
     "4-Linux admin/attachments/Pasted image 20261028095753.png",
     "4-Linux admin/attachments",
     "TP05 — Active Directory FSMO Roles Management & Transfer.md",
-    "4-Linux admin/Installation minimale de Gentoo en ligne de commande.md",
     "Installation de Gentoo dans une VM.md",
     "attachments/Pasted image 20261026120349.png",
     "attachments/Pasted image 20261026120040.png",
@@ -324,7 +325,6 @@
     "attachments/Pasted image 20261026115809.png",
     "attachments/Pasted image 20261026115435.png",
     "attachments/Pasted image 20261026114425.png",
-    "attachments/Pasted image 20261026113427.png",
     "Administration Windows Server Core et PowerShell.md",
     "tasks.txt",
     "0-Learning/Terraform.md",
