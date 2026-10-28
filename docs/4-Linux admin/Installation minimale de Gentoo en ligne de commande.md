@@ -189,3 +189,9 @@ sudo nano **`/etc/portage/package.use/installkernel`**
 sys-kernel/installkernel grub
 
 `emerge --ask sys-kernel/installkernel`
+
+
+
+![](attachments/Pasted%20image%2020261028120812.png)
+
+![](attachments/Pasted%20image%2020261028121233.png)
