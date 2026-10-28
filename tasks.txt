@@ -1,0 +1,23 @@
+[Acquis] Server Core : VM, VMware Tools, SSH, IP statique, renommage, compte local, ICMP
+[Acquis] Domaine AD & Client W11 : RSAT, promotion, dcdiag /test:services, DNS client, RDP, MMC
+[Acquis] Services Réseau : DNS (A, PTR, zone inversée) & DHCP (étendue, bail, release/renew)
+[Acquis] Réseau virtuel : LAN Segment VMware isolé, IP statiques, ICMP
+[Acquis] Annuaire : OU, utilisateurs, groupes GG, imprimante publiée
+[Acquis] Haute Dispo AD : Promotion DC suppl., Install-ADDSDomainController, réplication OU
+[Acquis] Redondance DNS : Server Core, zones AD, SRV, enregistrements de test, DNS croisés, option DHCP 006
+[Acquis] Haute Dispo DHCP : Failover Hot Standby, autorisation AD, relation, bail sur les 2 serveurs
+[Acquis] Stratégie d'accès : AGDLP, partages, GDL, NTFS, matrice
+[Acquis] GPO : Rédaction des GPO (scope utilisateur/ordinateur, UNC, ciblage)
+[À Confirmer] Valider les résultats réels des GPO (test par compte, gpresult)
+[À Confirmer] Valider les résultats de quotas stricts/souples et écrans de fichiers (FSRM)
+[À Confirmer] Tester la bascule DHCP Failover (arrêt du service, état relation, bail Core)
+[À Confirmer] Vérifier la table de réplication DC après promotion
+[À Corriger] Ajuster DHCP Failover (-ReservePercent : passer de 5% à 10%)
+[À Nettoyer] Supprimer les doublons de notes (DNS_redondance_1, DHCP_Failover_1, Demo_TP)
+[Révision Pattern] Multihoming : Liaison des services aux interfaces réseau (Netlogon, DHCP, DNS)
+[Révision Pattern] GPO : Différence de portée Utilisateur vs Ordinateur & Filtrage WMI/Ciblage
+[Révision Pattern] PowerShell : Identifiants, Get-Credential, SID -500 & Noms FR/EN des comptes/groupes
+[Révision Pattern] SysAdmin : Session à distance vs Console VM & Migration de VM entre hyperviseurs
+[Side Quest] Script PowerShell : Vérifier les interfaces réseau liées à chaque service
+[Side Quest] Automation Ansible : Déployer les rôles DNS/DHCP sur Windows via WinRM
+[Side Quest] IaC Terraform : Déclarer VM + LAN Segment (déploiement / destruction)

@@ -1,0 +1,4993 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="TSSR Lab Runbooks, Configs, and Notes">
+      
+      
+      
+        <link rel="canonical" href="https://natalshadow.github.io/TSSR_Doc/Administration%20Windows%20Server%20Core%20et%20PowerShell/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../DORA%20steps/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Administration Windows Server Core et PowerShell - TSSR Documentation & Lab Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sommaire" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="TSSR Documentation &amp; Lab Vault" class="md-header__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TSSR Documentation & Lab Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Administration Windows Server Core et PowerShell
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="TSSR Documentation &amp; Lab Vault" class="md-nav__button md-logo" aria-label="TSSR Documentation & Lab Vault" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TSSR Documentation & Lab Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administration Windows Server Core et PowerShell
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administration Windows Server Core et PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction-a-ladministration-windows-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction à l'administration Windows Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction à l&#39;administration Windows Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-objectifs-du-cours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Objectifs du cours
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-principaux-outils-dadministration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Principaux outils d'administration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-fondamentaux-de-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Fondamentaux de PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Fondamentaux de PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-syntaxe-dune-cmdlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Syntaxe d'une cmdlet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-rechercher-les-commandes-et-leur-aide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Rechercher les commandes et leur aide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-objets-et-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Objets et pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-parametres-de-prudence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Paramètres de prudence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-administration-de-windows-server-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Administration de Windows Server Core
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Administration de Windows Server Core">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-principe-et-interet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Principe et intérêt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-sconfig-et-informations-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 SConfig et informations système
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-services-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Services Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-mises-a-jour-et-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Mises à jour et maintenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-administration-reseau-et-pare-feu-avec-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Administration réseau et pare-feu avec PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Administration réseau et pare-feu avec PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-consulter-le-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Consulter le réseau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-configurer-ipv4-et-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Configurer IPv4 et DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-connectivite-et-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Connectivité et résolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-pare-feu-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Pare-feu Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-administration-distante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Administration distante
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Administration distante">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-outils-et-principes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Outils et principes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-commandes-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Commandes de base
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-windows-admin-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Windows Admin Center
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-administration-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Administration Active Directory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Administration Active Directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-ad-ds-et-controleurs-de-domaine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 AD DS et contrôleurs de domaine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-installer-ad-ds-et-joindre-un-domaine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Installer AD DS et joindre un domaine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-promouvoir-un-controleur-supplementaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Promouvoir un contrôleur supplémentaire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-controleurs-de-domaine-et-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Contrôleurs de domaine et réplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-erreurs-de-replication-et-partages-essentiels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Erreurs de réplication et partages essentiels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-objets-ad-et-controleur-cible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Objets AD et contrôleur ciblé
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-administration-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Administration DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Administration DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-dns-et-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 DNS et Active Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-role-et-zones-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Rôle et zones DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-enregistrements-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Enregistrements DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-tests-de-resolution-et-enregistrements-srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Tests de résolution et enregistrements SRV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-administration-dhcp-et-dhcp-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Administration DHCP et DHCP Failover
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Administration DHCP et DHCP Failover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-role-dhcp-et-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Rôle DHCP et installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-etendues-options-et-baux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Étendues, options et baux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-modes-de-dhcp-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Modes de DHCP Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-creer-une-relation-hot-standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Créer une relation Hot Standby
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-comprendre-les-parametres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 Comprendre les paramètres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-verifier-la-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6 Vérifier la relation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#87-simulation-dindisponibilite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7 Simulation d'indisponibilité
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-gestion-des-roles-fsmo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Gestion des rôles FSMO
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Gestion des rôles FSMO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-pourquoi-cinq-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Pourquoi cinq rôles ?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-identifier-les-detenteurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Identifier les détenteurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-consoles-graphiques-pour-un-transfert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Consoles graphiques pour un transfert
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-transferer-avec-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Transférer avec PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-diagnostic-et-depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Diagnostic et dépannage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Diagnostic et dépannage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-demarche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Démarche
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-commandes-de-diagnostic-par-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Commandes de diagnostic par thème
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-lire-les-journaux-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Lire les journaux Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-évaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Auto-évaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grille-de-competences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grille de compétences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defis-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Défis pratiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lecture-de-ton-resultat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lecture de ton résultat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pour-aller-plus-loin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pour aller plus loin
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DORA%20steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DORA steps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fiches%20techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiches techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Installation%20de%20Gentoo%20dans%20une%20VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation de Gentoo dans une VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PowerShell%20-%20dossiers%2C%20fichiers%2C%20partages%20et%20permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell   dossiers, fichiers, partages et permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TP05%20%E2%80%94%20Active%20Directory%20FSMO%20Roles%20Management%20%26%20Transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP05 — Active Directory FSMO Roles Management & Transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 General
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1 General
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGDLP Explained: The Foundation of Role-Based Access Control in Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/DNS%20et%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS et DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/DNS%20server%20types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Droits%20de%20partage%20et%20droits%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Droits de partage et droits NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/How%20to%20find%20Powershell%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to find Powershell commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Permissions%20NTFS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permissions NTFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Protocol%20SMB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol SMB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/Syst%C3%A8me%20d%27information%20et%20syst%C3%A8me%20informatique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information et système informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_9" id="__nav_8_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attachments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Attachments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.04.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.04.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-General/attachments/DNS%20server%20types%202026-10-06%2007.58.28.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS server types 2026 10 06 07.58.28.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 Scripts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    10 Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-Scripts/Export%20GPOs%20-%20Powershell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Export GPOs   Powershell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 Virtualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2 Virtualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/Snapshots%20et%20clones%20de%20VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshots et clones de VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/TP5%20-%20Modification%20de%20la%20VM%20Windows%2011/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP5   Modification de la VM Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-Virtualization/Virtualisation%20-%20types%20et%20r%C3%A9seaux%20virtuels%20%28VMware%20Workstation%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation   types et réseaux virtuels (VMware Workstation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 Windows Server
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3 Windows Server
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Active%20Directory%20domain%20vs%20DNS%20domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory domain vs DNS domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Active%20Directory%20et%20LDAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory et LDAP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Flexible%20Single%20Master%20Operations%20roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flexible Single Master Operations roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/GPO%20%E2%80%94%20Sauvegarde%2C%20Rapports%20et%20Ex%C3%A9cution%20%C3%A0%20distance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO — Sauvegarde, Rapports et Exécution à distance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Kerberos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/NTLM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/PTR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PTR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Partages%20de%20fichiers%2C%20AGDLP%20et%20FSRM%20en%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partages de fichiers, AGDLP et FSRM en PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Recherche%20RSAT%20sur%20Windows%2011%20et%20consoles%20MMC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche RSAT sur Windows 11 et consoles MMC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Recherche%20Windows%20Server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recherche Windows Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/Tiering%20AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory : les fondamentaux du Tiering Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_13" id="__nav_11_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/Cr%C3%A9er%20un%20domaine%20Active%20Directory%20et%20joindre%20un%20poste%20client%20-%20Full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Créer un domaine Active Directory et joindre un poste client   Full
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/DNS%20and%20DHCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS and DHCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/Mettre%20en%20place%20des%20partages%20r%C3%A9seau%20avec%20la%20m%C3%A9thode%20AGDLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place des partages réseau avec la méthode AGDLP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/Organiser%20les%20utilisateurs%2C%20groupes%20et%20ordinateurs%20Active%20Directory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organiser les utilisateurs, groupes et ordinateurs Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/TP%20-%20GPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Windows%20Server/labs/TP06%20%E2%80%94%20VMware%20Workstation%20LAN%20Segment%20Windows%20Server%202025%20%26%20Isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP06 — VMware Workstation LAN Segment Windows Server 2025 & Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 Linux admin
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4 Linux admin
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-Linux%20admin/Commandes%20de%20base%20sous%20Linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commandes de base sous Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-Linux%20admin/Installation%20minimale%20de%20Gentoo%20en%20ligne%20de%20commande/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation minimale de Gentoo en ligne de commande
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 Labs and TP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9 Labs and TP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Demo-%20TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo  TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/D%C3%A9ploiement%20redondance%20DNS%20Server%20Core%20-%202/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déploiement redondance DNS Server Core   2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Haute%20disponibilit%C3%A9%20DHCP%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Haute disponibilité DHCP avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Install%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Mettre%20en%20place%20la%20redondance%20DNS%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mettre en place la redondance DNS avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Server%20Core%20lite%20doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core lite doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-Labs%20and%20TP/TP%20-%20Configurer%20le%20DHCP%20Failover%20avec%20Windows%20Server%20Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP   Configurer le DHCP Failover avec Windows Server Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Excalidraw/Drawing%202026-10-06%2007.50.21.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2026 10 06 07.50.21.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Glossaire
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/A%20record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/Glossary%20entry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary entry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/Index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/forward%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forward lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/lease/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lease
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/reverse%20lookup%20zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse lookup zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossaire/scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exports
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exports
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exports/D%C3%A9ployer%20un%20contr%C3%B4leur%20de%20domaine%20suppl%C3%A9mentaire%20avec%20PowerShell%20-%20Deliverable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Déployer un contrôleur de domaine supplémentaire avec PowerShell   Deliverable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sommaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sommaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction-a-ladministration-windows-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction à l'administration Windows Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction à l&#39;administration Windows Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-objectifs-du-cours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Objectifs du cours
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-principaux-outils-dadministration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Principaux outils d'administration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-fondamentaux-de-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Fondamentaux de PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Fondamentaux de PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-syntaxe-dune-cmdlet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Syntaxe d'une cmdlet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-rechercher-les-commandes-et-leur-aide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Rechercher les commandes et leur aide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-objets-et-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Objets et pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-parametres-de-prudence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Paramètres de prudence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-administration-de-windows-server-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Administration de Windows Server Core
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Administration de Windows Server Core">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-principe-et-interet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Principe et intérêt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-sconfig-et-informations-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 SConfig et informations système
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-services-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Services Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-mises-a-jour-et-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Mises à jour et maintenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-administration-reseau-et-pare-feu-avec-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Administration réseau et pare-feu avec PowerShell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Administration réseau et pare-feu avec PowerShell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-consulter-le-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Consulter le réseau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-configurer-ipv4-et-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Configurer IPv4 et DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-connectivite-et-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Connectivité et résolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-pare-feu-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Pare-feu Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-administration-distante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Administration distante
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Administration distante">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-outils-et-principes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Outils et principes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-commandes-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Commandes de base
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-windows-admin-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Windows Admin Center
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-administration-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Administration Active Directory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Administration Active Directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-ad-ds-et-controleurs-de-domaine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 AD DS et contrôleurs de domaine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-installer-ad-ds-et-joindre-un-domaine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Installer AD DS et joindre un domaine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-promouvoir-un-controleur-supplementaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Promouvoir un contrôleur supplémentaire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-controleurs-de-domaine-et-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Contrôleurs de domaine et réplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-erreurs-de-replication-et-partages-essentiels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Erreurs de réplication et partages essentiels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-objets-ad-et-controleur-cible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Objets AD et contrôleur ciblé
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-administration-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Administration DNS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Administration DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-dns-et-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 DNS et Active Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-role-et-zones-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Rôle et zones DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-enregistrements-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Enregistrements DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-tests-de-resolution-et-enregistrements-srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Tests de résolution et enregistrements SRV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-administration-dhcp-et-dhcp-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Administration DHCP et DHCP Failover
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Administration DHCP et DHCP Failover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-role-dhcp-et-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Rôle DHCP et installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-etendues-options-et-baux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Étendues, options et baux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-modes-de-dhcp-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Modes de DHCP Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-creer-une-relation-hot-standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Créer une relation Hot Standby
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-comprendre-les-parametres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 Comprendre les paramètres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-verifier-la-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6 Vérifier la relation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#87-simulation-dindisponibilite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7 Simulation d'indisponibilité
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-gestion-des-roles-fsmo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Gestion des rôles FSMO
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Gestion des rôles FSMO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-pourquoi-cinq-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Pourquoi cinq rôles ?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-identifier-les-detenteurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Identifier les détenteurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-consoles-graphiques-pour-un-transfert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Consoles graphiques pour un transfert
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-transferer-avec-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Transférer avec PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-diagnostic-et-depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Diagnostic et dépannage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Diagnostic et dépannage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-demarche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Démarche
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-commandes-de-diagnostic-par-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Commandes de diagnostic par thème
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-lire-les-journaux-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Lire les journaux Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-évaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Auto-évaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grille-de-competences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grille de compétences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defis-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Défis pratiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lecture-de-ton-resultat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lecture de ton résultat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pour-aller-plus-loin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pour aller plus loin
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Administration Windows Server Core et PowerShell</h1>
+
+<div class="admonition abstract">
+<p class="admonition-title">À propos de ce support</p>
+<p>Support de cours reconstruit à partir du document du formateur. Les commandes tronquées ont été complétées, les tableaux remis en forme, et des notes ont été ajoutées là où le cours est incomplet, ambigu ou demande de la prudence. Les notes <code>&gt; [!note]</code> ne remplacent pas le cours : elles l'expliquent.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Comment réviser avec ce support</p>
+<ol>
+<li>Lis une section, puis ferme-la et refais les commandes sur ta VM.</li>
+<li>Pour chaque commande, prédis ce qu'elle va renvoyer <strong>avant</strong> de l'exécuter.</li>
+<li>Termine par l'<a href="#auto-evaluation">auto-évaluation</a> : elle te dit ce qui est acquis et ce qu'il faut revoir.</li>
+</ol>
+</div>
+<hr />
+<h2 id="sommaire">Sommaire</h2>
+<ol>
+<li><a href="#1-introduction-a-ladministration-windows-server">Introduction à l'administration Windows Server</a></li>
+<li><a href="#2-fondamentaux-de-powershell">Fondamentaux de PowerShell</a></li>
+<li><a href="#3-administration-de-windows-server-core">Administration de Windows Server Core</a></li>
+<li><a href="#4-administration-reseau-et-pare-feu-avec-powershell">Administration réseau et pare-feu</a></li>
+<li><a href="#5-administration-distante">Administration distante</a></li>
+<li><a href="#6-administration-active-directory">Administration Active Directory</a></li>
+<li><a href="#7-administration-dns">Administration DNS</a></li>
+<li><a href="#8-administration-dhcp-et-dhcp-failover">Administration DHCP et DHCP Failover</a></li>
+<li><a href="#9-gestion-des-roles-fsmo">Gestion des rôles FSMO</a></li>
+<li><a href="#10-diagnostic-et-depannage">Diagnostic et dépannage</a></li>
+<li><a href="#auto-evaluation">Auto-évaluation</a></li>
+</ol>
+<hr />
+<h2 id="1-introduction-a-ladministration-windows-server">1. Introduction à l'administration Windows Server</h2>
+<h3 id="11-objectifs-du-cours">1.1 Objectifs du cours</h3>
+<ul>
+<li>Administrer Windows Server en ligne de commande avec PowerShell.</li>
+<li>Installer et exploiter Windows Server Core.</li>
+<li>Rechercher une cmdlet, en comprendre les paramètres et vérifier son résultat.</li>
+<li>Administrer les paramètres système, réseau, services et règles de sécurité.</li>
+<li>Installer et administrer Active Directory, DNS et DHCP.</li>
+<li>Contrôler la réplication AD, une relation DHCP Failover et les rôles FSMO.</li>
+<li>Diagnostiquer des incidents et documenter les opérations.</li>
+</ul>
+<h3 id="12-principaux-outils-dadministration">1.2 Principaux outils d'administration</h3>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>Utilisation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PowerShell</td>
+<td>Administration en ligne de commande et automatisation</td>
+</tr>
+<tr>
+<td>SConfig</td>
+<td>Configuration initiale et mises à jour de Server Core</td>
+</tr>
+<tr>
+<td>Windows Admin Center</td>
+<td>Administration web distante</td>
+</tr>
+<tr>
+<td>RSAT et MMC</td>
+<td>Consoles spécialisées : AD DS, DNS, DHCP, etc.</td>
+</tr>
+<tr>
+<td>Server Manager</td>
+<td>Rôles, fonctionnalités et gestion de serveurs</td>
+</tr>
+<tr>
+<td>CMD et utilitaires</td>
+<td>Commandes historiques : <code>repadmin</code>, <code>dcdiag</code>, <code>netdom</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Quel outil choisir ?</p>
+<p>Il n'y a pas d'outil « meilleur » dans l'absolu. Sur Server Core, il n'y a pas d'interface graphique : SConfig ou PowerShell sont les seules options en local. Pour un serveur à interface, la console graphique reste souvent plus rapide pour explorer, et PowerShell devient préférable dès qu'une tâche se répète ou doit être documentée.</p>
+</div>
+<hr />
+<h2 id="2-fondamentaux-de-powershell">2. Fondamentaux de PowerShell</h2>
+<h3 id="21-syntaxe-dune-cmdlet">2.1 Syntaxe d'une cmdlet</h3>
+<p>PowerShell est à la fois un interpréteur de commandes et un langage de scripts. Les cmdlets suivent la convention <strong>Verbe-Nom</strong> avec des paramètres : <code>Verbe-Nom -Paramètre Valeur</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Exemple</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verbe</td>
+<td><code>Get</code></td>
+<td>Action : obtenir une information</td>
+</tr>
+<tr>
+<td>Nom</td>
+<td><code>Service</code></td>
+<td>Ressource ciblée</td>
+</tr>
+<tr>
+<td>Paramètre</td>
+<td><code>-Name</code></td>
+<td>Option de la commande</td>
+</tr>
+<tr>
+<td>Valeur</td>
+<td><code>Spooler</code></td>
+<td>Donnée transmise au paramètre</td>
+</tr>
+</tbody>
+</table>
+<p>Verbes courants :</p>
+<table>
+<thead>
+<tr>
+<th>Verbe</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get</td>
+<td>Consulter</td>
+</tr>
+<tr>
+<td>New</td>
+<td>Créer</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>Modifier</td>
+</tr>
+<tr>
+<td>Add / Remove</td>
+<td>Ajouter / supprimer</td>
+</tr>
+<tr>
+<td>Install</td>
+<td>Installer</td>
+</tr>
+<tr>
+<td>Enable / Disable</td>
+<td>Activer / désactiver</td>
+</tr>
+<tr>
+<td>Start / Stop / Restart</td>
+<td>Démarrer / arrêter / redémarrer</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>Tester</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Le paramètre <code>-Name</code> est souvent facultatif</p>
+<p><code>Get-Service Spooler</code> fonctionne aussi bien que <code>Get-Service -Name Spooler</code>. Le cours utilise la forme complète, plus lisible et plus sûre dans un script. Pour la liste des verbes reconnus par PowerShell : <code>Get-Verb</code>.</p>
+</div>
+<h3 id="22-rechercher-les-commandes-et-leur-aide">2.2 Rechercher les commandes et leur aide</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Command</span>                    <span class="c"># toutes les commandes</span>
+<span class="nb">Get-Command</span> <span class="n">-Verb</span> <span class="n">Get</span>          <span class="c"># toutes les commandes Get-</span>
+<span class="nb">Get-Command</span> <span class="n">-Noun</span> <span class="n">Service</span>      <span class="c"># toutes les commandes portant sur les services</span>
+<span class="nb">Get-Command</span> <span class="p">*</span><span class="n">Network</span><span class="p">*</span>          <span class="c"># recherche par motif</span>
+<span class="nb">Get-Help</span> <span class="nb">Get-Service</span>           <span class="c"># aide de base</span>
+<span class="nb">Get-Help</span> <span class="nb">Get-Service</span> <span class="n">-Examples</span> <span class="c"># exemples</span>
+<span class="nb">Get-Help</span> <span class="nb">Get-Service</span> <span class="n">-Full</span>     <span class="c"># aide complète</span>
+<span class="nb">Get-Help</span> <span class="nb">Get-Service</span> <span class="n">-Online</span>   <span class="c"># aide sur le site Microsoft (navigateur, Internet requis)</span>
+<span class="nb">Get-Module</span> <span class="n">-ListAvailable</span>      <span class="c"># modules installés</span>
+<span class="nb">Get-Command</span> <span class="n">-Module</span> <span class="n">NetTCPIP</span>   <span class="c"># commandes d'un module</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Mettre l'aide à jour</p>
+<p>Sur une machine qui n'a jamais été mise à jour, <code>Get-Help</code> peut renvoyer une aide vide ou incomplète. <code>Update-Help</code> la télécharge, mais demande un accès Internet. Sur un serveur isolé, lance-la sur une machine connectée, ou dans une VM dont l'accès réseau le permet.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Bonne pratique</p>
+<p>Avant d'exécuter une commande inconnue, lis son aide et ses paramètres. Surtout si elle modifie quelque chose.</p>
+</div>
+<h3 id="23-objets-et-pipeline">2.3 Objets et pipeline</h3>
+<p>Les cmdlets renvoient en général des <strong>objets</strong> : des valeurs structurées avec des propriétés et des méthodes. Le pipeline <code>|</code> transmet ces objets d'une commande à la suivante.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Service</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Status</span>
+<span class="nb">Get-Service</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Objets et texte : le piège des shells classiques</p>
+<p>Dans un shell qui manipule du texte (Bash, par exemple), on découpe la sortie avec <code>cut</code>, <code>awk</code> ou <code>grep</code>. En PowerShell, on demande directement la propriété voulue. <code>Get-Member</code> sert à découvrir les propriétés d'un objet. Ce changement de logique est la difficulté principale du cours pour les personnes venant de Linux.</p>
+</div>
+<h3 id="24-parametres-de-prudence">2.4 Paramètres de prudence</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Utilité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-WhatIf</code></td>
+<td>Simule une modification, si la cmdlet le prend en charge</td>
+</tr>
+<tr>
+<td><code>-Confirm</code></td>
+<td>Demande une confirmation avant d'agir</td>
+</tr>
+<tr>
+<td><code>-Verbose</code></td>
+<td>Affiche davantage de détails</td>
+</tr>
+<tr>
+<td><code>-ErrorAction</code></td>
+<td>Décide quoi faire en cas d'erreur (<code>Stop</code>, <code>Continue</code>, <code>SilentlyContinue</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nb">Remove-Item</span> <span class="n">C</span><span class="p">:\</span><span class="n">Temp</span><span class="p">\</span><span class="n">test</span> <span class="n">-Recurse</span> <span class="n">-WhatIf</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>-WhatIf</code> n'existe pas partout</p>
+<p><code>-WhatIf</code> et <code>-Confirm</code> ne fonctionnent que si la cmdlet les implémente. Si ce n'est pas le cas, PowerShell refuse le paramètre ou ne fait rien de plus. Vérifie avec <code>Get-Help &lt;commande&gt; -Parameter *</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><code>-ErrorAction Stop</code> pour attraper les erreurs</p>
+<p>Beaucoup d'erreurs ne bloquent pas la suite du script par défaut. Avec <code>-ErrorAction Stop</code>, l'erreur devient exceptionnelle et peut être capturée par <code>try { } catch { }</code>. C'est la base de tout script fiable.</p>
+</div>
+<hr />
+<h2 id="3-administration-de-windows-server-core">3. Administration de Windows Server Core</h2>
+<h3 id="31-principe-et-interet">3.1 Principe et intérêt</h3>
+<p>Windows Server Core est une option d'installation de Windows Server <strong>sans bureau graphique classique</strong>. Elle :</p>
+<ul>
+<li>réduit le nombre de composants installés, donc la <strong>surface d'attaque</strong> ;</li>
+<li>limite les mises à jour et les redémarrages liés aux composants inutilisés ;</li>
+<li>facilite l'administration à distance.</li>
+</ul>
+<p>Certains logiciels nécessitant une interface graphique ne sont pas compatibles. Server Core peut héberger AD DS, DNS, DHCP et les services de fichiers.</p>
+<div class="admonition note">
+<p class="admonition-title">Ce que Server Core n'enlève pas</p>
+<p>Server Core ne supprime pas la gestion : il déplace l'administration vers PowerShell, SConfig et les consoles distantes. Un Server Core mal administré (mots de passe faibles, mises à jour oubliées, accès distant non contrôlé) reste vulnérable.</p>
+</div>
+<h3 id="32-sconfig-et-informations-systeme">3.2 SConfig et informations système</h3>
+<p>SConfig est un menu texte pour les tâches de base : nom du serveur, appartenance au domaine, réseau, mises à jour, paramètres de pare-feu et distants.</p>
+<div class="highlight"><pre><span></span><code><span class="n">sconfig</span>
+<span class="nb">Get-ComputerInfo</span>
+<span class="nb">Get-ComputerInfo</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">CsName</span><span class="p">,</span> <span class="n">WindowsProductName</span><span class="p">,</span> <span class="n">OsVersion</span>
+<span class="nb">Get-Process</span>
+<span class="nb">Get-Service</span>
+<span class="nb">Get-Disk</span>
+<span class="nb">Get-Partition</span>
+<span class="nb">Get-Volume</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">SConfig ou PowerShell ?</p>
+<p>SConfig suffit pour la mise en route. Dès qu'une opération doit être répétée, documentée ou automatisée, PowerShell est préférable. Le cours le dit : certaines opérations restent plus adaptées à PowerShell.</p>
+</div>
+<h3 id="33-services-windows">3.3 Services Windows</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Service</span>
+<span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
+<span class="nb">Start-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
+<span class="nb">Stop-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
+<span class="nb">Restart-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Arrêter un service peut en arrêter d'autres</p>
+<p><code>Stop-Service</code> peut échouer si d'autres services en dépendent, ou les arrêter avec lui. Avant d'arrêter un service important (DNS, DHCP, Netlogon), regarde ses dépendances : <code>Get-Service -Name &lt;nom&gt; -DependentServices</code>.</p>
+</div>
+<h3 id="34-mises-a-jour-et-maintenance">3.4 Mises à jour et maintenance</h3>
+<p>Installer les mises à jour applicables, prévoir les redémarrages et vérifier les services après intervention.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-HotFix</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>Get-HotFix</code> n'est pas un inventaire complet</p>
+<p><code>Get-HotFix</code> ne liste pas tous les composants ni toutes les mises à jour. Certaines mises à jour (cumulatives, de composants) n'y apparaissent pas. Pour vérifier l'état réel, utilise aussi l'outil de mise à jour (SConfig) et le journal de Windows Update.</p>
+</div>
+<hr />
+<h2 id="4-administration-reseau-et-pare-feu-avec-powershell">4. Administration réseau et pare-feu avec PowerShell</h2>
+<h3 id="41-consulter-le-reseau">4.1 Consulter le réseau</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-NetAdapter</span>
+<span class="nb">Get-NetIPConfiguration</span>
+<span class="nb">Get-NetIPAddress</span> <span class="n">-AddressFamily</span> <span class="n">IPv4</span>
+<span class="nb">Get-DnsClientServerAddress</span> <span class="n">-AddressFamily</span> <span class="n">IPv4</span>
+</code></pre></div>
+<h3 id="42-configurer-ipv4-et-dns">4.2 Configurer IPv4 et DNS</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">New-NetIPAddress</span> <span class="n">-InterfaceAlias</span> <span class="s1">'&lt;INTERFACE&gt;'</span> <span class="n">-IPAddress</span> <span class="s1">'&lt;ADRESSE_IPV4&gt;'</span> <span class="n">-PrefixLength</span> <span class="n">24</span> <span class="n">-DefaultGateway</span> <span class="s1">'&lt;PASSERELLE&gt;'</span>
+<span class="nb">Set-DnsClientServerAddress</span> <span class="n">-InterfaceAlias</span> <span class="s1">'&lt;INTERFACE&gt;'</span> <span class="n">-ServerAddresses</span> <span class="p">(</span><span class="s1">'&lt;DNS_PRINCIPAL&gt;'</span><span class="p">,</span> <span class="s1">'&lt;DNS_SECONDAIRE&gt;'</span><span class="p">)</span>
+</code></pre></div>
+<p>Les valeurs entre chevrons sont à remplacer, y compris l'alias de l'interface.</p>
+<div class="admonition note">
+<p class="admonition-title">Le paramètre <code>-PrefixLength</code> manque dans l'énoncé</p>
+<p>La version du cours tronque <code>New-NetIPAddress</code>. <code>-PrefixLength 24</code> correspond à un masque <code>255.255.255.0</code>. Sans lui, la commande échoue ou applique un masque inattendu.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Une interface en DHCP refuse une adresse statique</p>
+<p>Si l'interface obtient son adresse par DHCP, <code>New-NetIPAddress</code> renvoie une erreur ou l'adresse est écrasée au renouvellement. Désactive d'abord DHCP :
+<div class="highlight"><pre><span></span><code><span class="nb">Set-NetIPInterface</span> <span class="n">-InterfaceAlias</span> <span class="s1">'&lt;INTERFACE&gt;'</span> <span class="n">-Dhcp</span> <span class="n">Disabled</span>
+</code></pre></div>
+Une passerelle ne doit être définie qu'une seule fois : si la carte en a déjà une, supprime l'ancienne avant d'en ajouter une nouvelle.</p>
+</div>
+<h3 id="43-connectivite-et-resolution">4.3 Connectivité et résolution</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Test-Connection</span> <span class="s1">'&lt;NOM_OU_IP&gt;'</span>
+<span class="nb">Test-NetConnection</span> <span class="s1">'&lt;SERVEUR_DISTANT&gt;'</span> <span class="n">-Port</span> <span class="n">5985</span>
+<span class="nb">Resolve-DnsName</span> <span class="s1">'&lt;NOM_DNS&gt;'</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Ping ne prouve pas tout</p>
+<p><code>Test-Connection</code> utilise ICMP. Un pare-feu peut bloquer ICMP et laisser passer le reste : un échec de ping ne signifie donc pas que le service est indisponible. Pour un service précis, teste le <strong>port</strong> avec <code>Test-NetConnection -Port</code>. Le port 5985 correspond à WinRM en HTTP, 5986 à WinRM en HTTPS.</p>
+</div>
+<h3 id="44-pare-feu-windows">4.4 Pare-feu Windows</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-NetFirewallProfile</span>
+<span class="nb">Get-NetFirewallRule</span>
+<span class="nb">New-NetFirewallRule</span> <span class="n">-DisplayName</span> <span class="s1">'Autoriser ICMPv4'</span> <span class="n">-Direction</span> <span class="n">Inbound</span> <span class="n">-Protocol</span> <span class="n">ICMPv4</span> <span class="n">-Action</span> <span class="n">Allow</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Commande complétée</p>
+<p>Dans le document du cours, la dernière commande est tronquée. Les paramètres <code>-Protocol ICMPv4 -Action Allow</code> complètent l'exemple. Sans <code>-Action Allow</code>, la règle n'est pas une autorisation.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Profils</p>
+<p><code>Get-NetFirewallProfile</code> montre pour chaque profil (Domaine, Privé, Public) si le pare-feu est activé. Une règle appliquée au mauvais profil ne s'active pas quand la machine change de réseau : vérifie le profil réel de la carte avec <code>Get-NetConnectionProfile</code>.</p>
+</div>
+<hr />
+<h2 id="5-administration-distante">5. Administration distante</h2>
+<h3 id="51-outils-et-principes">5.1 Outils et principes</h3>
+<p>PowerShell Remoting permet d'exécuter des commandes sur une cible distante, en général via <strong>WinRM</strong> dans les environnements Windows. RSAT, MMC et Windows Admin Center offrent des interfaces complémentaires.</p>
+<h3 id="52-commandes-de-base">5.2 Commandes de base</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Enable-PSRemoting</span> <span class="n">-Force</span>
+<span class="nb">Get-Service</span> <span class="n">WinRM</span>
+<span class="nb">Test-WSMan</span> <span class="s1">'&lt;SERVEUR_DISTANT&gt;'</span>
+<span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DISTANT&gt;'</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Get-Service</span> <span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Ce que fait <code>Enable-PSRemoting</code></p>
+<p>La commande démarre WinRM, crée un écouteur et ouvre le pare-feu pour la gestion distante. Sur les versions récentes de Windows Server, WinRM est souvent déjà actif : vérifie avant de modifier quoi que ce soit.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Hors domaine, la confiance doit être configurée</p>
+<p>Entre deux machines jointes au même domaine, l'authentification Kerberos suffit. Entre un poste hors domaine et un serveur, il faut configurer les hôtes de confiance (<code>TrustedHosts</code>) et utiliser des identifiants explicites. Pour un serveur qui ne reçoit que des requêtes de son propre domaine, ce cas n'arrive pas.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Le « double saut »</p>
+<p>Si tu lances <code>Invoke-Command</code> depuis un serveur A vers un serveur B, puis que B essaie d'accéder à une ressource C, les identifiants ne suivent pas toujours. C'est la limite dite du « double saut », à connaître dès que tu administres à distance à travers plusieurs machines.</p>
+</div>
+<h3 id="53-windows-admin-center">5.3 Windows Admin Center</h3>
+<p>Windows Admin Center permet d'examiner les ressources système, les services, les événements, les disques, le réseau, les mises à jour et le pare-feu. Il ne remplace pas toutes les consoles RSAT.</p>
+<div class="admonition note">
+<p class="admonition-title">Ce n'est pas une cmdlet</p>
+<p>Windows Admin Center est un outil web installé à part. Il n'apparaît pas dans <code>Get-Command</code>. Il est complémentaire de PowerShell, pas une alternative à lui.</p>
+</div>
+<hr />
+<h2 id="6-administration-active-directory">6. Administration Active Directory</h2>
+<h3 id="61-ad-ds-et-controleurs-de-domaine">6.1 AD DS et contrôleurs de domaine</h3>
+<p>Active Directory Domain Services (AD DS) centralise les identités, groupes, ordinateurs et objets du domaine. Plusieurs contrôleurs de domaine accessibles en écriture possèdent des copies répliquées de l'annuaire et peuvent authentifier les utilisateurs.</p>
+<div class="admonition note">
+<p class="admonition-title">Un rôle FSMO ne fait pas d'un DC le seul authentificateur</p>
+<p>Un contrôleur détenant un rôle FSMO n'est pas le seul à pouvoir authentifier. Les autres DC répondent aussi. Ce n'est pas un point de défaillance unique pour l'authentification, mais certaines opérations (voir section 9) dépendent du détenteur du rôle.</p>
+</div>
+<h3 id="62-installer-ad-ds-et-joindre-un-domaine">6.2 Installer AD DS et joindre un domaine</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-WindowsFeature</span>
+<span class="nb">Get-WindowsFeature</span> <span class="n">AD-Domain-Services</span>
+<span class="nb">Install-WindowsFeature</span> <span class="n">-Name</span> <span class="n">AD-Domain-Services</span> <span class="n">-IncludeManagementTools</span>
+<span class="nb">Add-Computer</span> <span class="n">-DomainName</span> <span class="s1">'&lt;DOMAINE_AD&gt;'</span> <span class="n">-Credential</span> <span class="p">(</span><span class="nb">Get-Credential</span><span class="p">)</span> <span class="n">-Restart</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Installer le rôle ne fait pas un contrôleur de domaine</p>
+<p>Installer AD DS met les fichiers et les outils en place. La <strong>promotion</strong> (section 6.3) transforme réellement le serveur en contrôleur. Ce sont deux étapes distinctes, et la seconde peut échouer même si la première a réussi.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title"><code>Add-Computer</code> et joindre un domaine</p>
+<p>Joindre un domaine (<code>Add-Computer</code>) concerne un <strong>poste ou un serveur membre</strong>. Ce n'est pas la même opération que devenir contrôleur de domaine. Le cours les présente à la suite, mais ne pas les confondre est important pour l'examen.</p>
+</div>
+<h3 id="63-promouvoir-un-controleur-supplementaire">6.3 Promouvoir un contrôleur supplémentaire</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Install-ADDSDomainController</span> <span class="n">-DomainName</span> <span class="s1">'&lt;DOMAINE_AD&gt;'</span> <span class="n">-InstallDns</span> <span class="n">-Credential</span> <span class="p">(</span><span class="nb">Get-Credential</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Commande incomplète dans le cours</p>
+<p>Le cours ne donne que le début de la commande. Une promotion demande en général aussi le <strong>mot de passe DSRM</strong>, qui sera saisi à l'invite, et peut accepter d'autres paramètres : nom de site, contrôleur en lecture seule, catalogue global. Vérifie les options complètes avec <code>Get-Help Install-ADDSDomainController -Full</code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Vérifier avant de promouvoir</p>
+<p>La promotion peut demander le mot de passe DSRM et d'autres paramètres. Avant l'opération, vérifie le nom, le réseau, le DNS, la connectivité et l'état du domaine. Une promotion qui échoue en cours de route laisse un serveur dans un état intermédiaire difficile à nettoyer.</p>
+</div>
+<h3 id="64-controleurs-de-domaine-et-replication">6.4 Contrôleurs de domaine et réplication</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Import-Module</span> <span class="n">ActiveDirectory</span>
+<span class="nb">Get-ADDomainController</span> <span class="n">-Filter</span> <span class="p">*</span>
+<span class="nb">Get-ADDomainController</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">HostName</span><span class="p">,</span> <span class="n">IPv4Address</span><span class="p">,</span> <span class="n">Site</span>
+<span class="n">repadmin</span> <span class="p">/</span><span class="n">replsummary</span>
+<span class="n">repadmin</span> <span class="p">/</span><span class="n">showrepl</span>
+<span class="n">dcdiag</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><code>repadmin</code> et <code>dcdiag</code> ne sont pas des cmdlets</p>
+<p>Ce sont des exécutables Windows qui renvoient du <strong>texte</strong>, pas des objets. Tu peux les lancer depuis PowerShell, mais tu ne peux pas les filtrer avec <code>Where-Object</code> comme une cmdlet. Pour une analyse structurée, préfère les cmdlets <code>*-AD*</code>.</p>
+</div>
+<h3 id="65-erreurs-de-replication-et-partages-essentiels">6.5 Erreurs de réplication et partages essentiels</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-ADReplicationFailure</span> <span class="n">-Target</span> <span class="s1">'&lt;DOMAINE_AD&gt;'</span> <span class="n">-Scope</span> <span class="n">Domain</span>
+<span class="nb">Get-ADReplicationPartnerMetadata</span> <span class="n">-Target</span> <span class="s1">'&lt;DOMAINE_AD&gt;'</span> <span class="n">-Scope</span> <span class="n">Domain</span>
+<span class="nb">Get-SmbShare</span> <span class="n">-Name</span> <span class="n">SYSVOL</span><span class="p">,</span> <span class="n">NETLOGON</span>
+</code></pre></div>
+<ul>
+<li><strong>SYSVOL</strong> contient notamment des fichiers liés aux stratégies de groupe.</li>
+<li><strong>NETLOGON</strong> est un partage utilisé par certaines fonctions du domaine (scripts d'ouverture de session notamment).</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Vérifier après une promotion</p>
+<p>Après une promotion, contrôle la présence de SYSVOL et NETLOGON, puis la réplication. Une absence de SYSVOL sur un DC est un signe de problème de réplication, pas un détail d'affichage.</p>
+</div>
+<h3 id="66-objets-ad-et-controleur-cible">6.6 Objets AD et contrôleur ciblé</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="p">*</span>
+<span class="nb">Get-ADGroup</span> <span class="n">-Filter</span> <span class="p">*</span>
+<span class="nb">Get-ADOrganizationalUnit</span> <span class="n">-Filter</span> <span class="p">*</span>
+<span class="nb">Get-ADUser</span> <span class="n">-Identity</span> <span class="s1">'&lt;IDENTIFIANT_UTILISATEUR&gt;'</span> <span class="n">-Server</span> <span class="s1">'&lt;CONTROLEUR_DOMAINE&gt;'</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Le paramètre <code>-Server</code> est essentiel pour un test de réplication</p>
+<p>Consulter un objet depuis une console ne garantit pas que la réplication est terminée sur <strong>toutes</strong> les répliques. Pour prouver qu'un objet existe sur un DC précis, interroge ce DC avec <code>-Server</code>. Sans ce paramètre, la commande peut répondre à partir d'un autre contrôleur et le test ne prouve rien.</p>
+</div>
+<hr />
+<h2 id="7-administration-dns">7. Administration DNS</h2>
+<h3 id="71-dns-et-active-directory">7.1 DNS et Active Directory</h3>
+<p>DNS traduit les noms et permet de localiser des services. Les enregistrements <strong>SRV</strong> participent à la découverte des contrôleurs de domaine et des services LDAP et Kerberos. Un client ne retrouve pas un DC par son adresse IP, mais par ces enregistrements.</p>
+<div class="admonition note">
+<p class="admonition-title">Pourquoi le DNS est vital pour AD</p>
+<p>Sans DNS fonctionnel, un poste ne peut pas localiser de DC : l'ouverture de session, les stratégies de groupe et l'accès à l'annuaire échouent. C'est pour cela que le DNS d'un domaine doit être redondant comme les DC eux-mêmes.</p>
+</div>
+<h3 id="72-role-et-zones-dns">7.2 Rôle et zones DNS</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-WindowsFeature</span> <span class="n">DNS</span>
+<span class="nb">Get-Service</span> <span class="n">DNS</span>
+<span class="nb">Get-DnsServerZone</span>
+<span class="nb">Get-DnsServerZone</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DNS&gt;'</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Zones intégrées à AD</p>
+<p>Une zone intégrée à AD est stockée dans l'annuaire et se réplique avec lui. Une zone principale classique est stockée dans un fichier. La zone <code>_msdcs</code> regroupe les enregistrements de localisation des DC et se distingue de la zone du domaine.</p>
+</div>
+<h3 id="73-enregistrements-dns">7.3 Enregistrements DNS</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-DnsServerResourceRecord</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DNS&gt;'</span> <span class="n">-ZoneName</span> <span class="s1">'&lt;ZONE&gt;'</span>
+<span class="nb">Get-DnsServerResourceRecord</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DNS&gt;'</span> <span class="n">-ZoneName</span> <span class="s1">'&lt;ZONE&gt;'</span> <span class="n">-RRType</span> <span class="n">SRV</span>
+<span class="nb">Add-DnsServerResourceRecordA</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DNS&gt;'</span> <span class="n">-ZoneName</span> <span class="s1">'&lt;ZONE&gt;'</span> <span class="n">-Name</span> <span class="s1">'&lt;NOM&gt;'</span> <span class="n">-IPv4Address</span> <span class="s1">'&lt;ADRESSE_IP&gt;'</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Ce que tu dois savoir par cœur</p>
+<p>Le type d'enregistrement (<code>A</code> pour un nom vers une IPv4, <code>PTR</code> pour l'inverse, <code>SRV</code> pour un service) et la zone dans laquelle il se trouve. Le reste se retrouve avec <code>Get-Help</code>.</p>
+</div>
+<h3 id="74-tests-de-resolution-et-enregistrements-srv">7.4 Tests de résolution et enregistrements SRV</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="s1">'&lt;NOM_DNS&gt;'</span> <span class="n">-Server</span> <span class="s1">'&lt;ADRESSE_DNS&gt;'</span>
+<span class="nb">Resolve-DnsName</span> <span class="n">-Name</span> <span class="s1">'_ldap._tcp.dc._msdcs.&lt;DOMAINE_AD&gt;'</span> <span class="n">-Type</span> <span class="n">SRV</span> <span class="n">-Server</span> <span class="s1">'&lt;ADRESSE_DNS&gt;'</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Lire un enregistrement SRV</p>
+<p>Un enregistrement SRV contient : la <strong>priorité</strong>, le <strong>poids</strong>, le <strong>port</strong> et la <strong>cible</strong> (le nom du serveur qui offre le service). Pour LDAP, le port est 389 ; pour Kerberos, 88. Un bon résultat renvoie <strong>un enregistrement par contrôleur</strong>.</p>
+</div>
+<hr />
+<h2 id="8-administration-dhcp-et-dhcp-failover">8. Administration DHCP et DHCP Failover</h2>
+<h3 id="81-role-dhcp-et-installation">8.1 Rôle DHCP et installation</h3>
+<p>DHCP distribue notamment des adresses IP, des masques, des passerelles, des serveurs DNS et des suffixes DNS.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Install-WindowsFeature</span> <span class="n">-Name</span> <span class="n">DHCP</span> <span class="n">-IncludeManagementTools</span>
+<span class="nb">Get-WindowsFeature</span> <span class="n">DHCP</span>
+<span class="nb">Get-Service</span> <span class="n">DHCPServer</span>
+<span class="nb">Add-DhcpServerInDC</span> <span class="n">-DnsName</span> <span class="s1">'&lt;FQDN_SERVEUR_DHCP&gt;'</span> <span class="n">-IPAddress</span> <span class="s1">'&lt;ADRESSE_IP&gt;'</span>
+<span class="nb">Get-DhcpServerInDC</span>
+</code></pre></div>
+<p>Un serveur DHCP Windows membre d'un domaine AD doit y être <strong>autorisé</strong> pour distribuer les baux normalement.</p>
+<div class="admonition note">
+<p class="admonition-title">Étape oubliée dans le cours : les groupes de sécurité</p>
+<p>Après l'installation, un serveur DHCP doit généralement passer par la configuration post-déploiement, qui crée les groupes locaux (<em>DHCP Administrators</em>, <em>DHCP Users</em>). Cela se fait avec <code>Add-DhcpServerSecurityGroup</code>, puis un redémarrage du service. L'autorisation dans AD et la création des groupes sont deux choses distinctes.</p>
+</div>
+<h3 id="82-etendues-options-et-baux">8.2 Étendues, options et baux</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-DhcpServerv4Scope</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DHCP&gt;'</span>
+<span class="nb">Get-DhcpServerv4OptionValue</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DHCP&gt;'</span> <span class="n">-ScopeId</span> <span class="s1">'&lt;IDENTIFIANT_ETENDUE&gt;'</span>
+<span class="nb">Get-DhcpServerv4Lease</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DHCP&gt;'</span> <span class="n">-ScopeId</span> <span class="s1">'&lt;IDENTIFIANT_ETENDUE&gt;'</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Options au niveau serveur ou au niveau étendue</p>
+<p>Une option DHCP peut être définie pour tout le serveur ou seulement pour une étendue. Une option d'étendue prime sur une option serveur. Pour un failover, c'est important : seules les informations de l'étendue sont répliquées entre partenaires de manière fiable. Vérifie donc où sont tes options.</p>
+</div>
+<h3 id="83-modes-de-dhcp-failover">8.3 Modes de DHCP Failover</h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Fonctionnement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Load Balance</td>
+<td>Répartition des demandes entre deux partenaires actifs (50/50 par défaut)</td>
+</tr>
+<tr>
+<td>Hot Standby</td>
+<td>Partenaire actif et partenaire de secours</td>
+</tr>
+</tbody>
+</table>
+<p>Le failover DHCP IPv4 permet de synchroniser les baux et de partager le service entre deux serveurs.</p>
+<div class="admonition note">
+<p class="admonition-title">Ce que fait le mode Hot Standby</p>
+<p>En fonctionnement normal, le serveur <strong>actif</strong> répond à tous les clients. Le serveur de <strong>secours</strong> ne répond pas, mais réserve un pourcentage des adresses (la réserve) pour les nouveaux clients si l'actif tombe. Le choix du mode dépend donc de la question : faut-il répartir la charge, ou seulement tenir pendant une panne ?</p>
+</div>
+<h3 id="84-creer-une-relation-hot-standby">8.4 Créer une relation Hot Standby</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Add-DhcpServerv4Failover</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_ACTIF&gt;'</span> <span class="n">-PartnerServer</span> <span class="s1">'&lt;SERVEUR_SECOURS&gt;'</span> <span class="n">-Name</span> <span class="s1">'&lt;NOM_RELATION&gt;'</span> <span class="n">-ScopeId</span> <span class="s1">'&lt;ETENDUE&gt;'</span> <span class="n">-ServerRole</span> <span class="n">Active</span> <span class="n">-ReservePercent</span> <span class="n">10</span> <span class="n">-SharedSecret</span> <span class="s1">'&lt;SECRET&gt;'</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Ne jamais écrire le secret partagé dans un document</p>
+<p>Le secret authentifie les échanges entre les deux serveurs. Il apparaît en clair dans l'historique de la session et dans tout document qui le contient. Dans un labo, c'est acceptable ; ailleurs, il doit être saisi de manière sécurisée ou stocké dans un coffre de secrets.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Le rôle se lit dans l'aide</p>
+<p>Le paramètre <code>-ServerRole</code> désigne le rôle du serveur concerné. La sémantique exacte (serveur local ou partenaire) dépend du contexte : vérifie-la avec <code>Get-Help Add-DhcpServerv4Failover -Full</code> plutôt que de la mémoriser.</p>
+</div>
+<h3 id="85-comprendre-les-parametres">8.5 Comprendre les paramètres</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Sens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-ReservePercent</code></td>
+<td>Réserve d'adresses du partenaire de secours en mode Hot Standby</td>
+</tr>
+<tr>
+<td>MCLT (Maximum Client Lead Time)</td>
+<td>Durée maximale d'avance qu'un serveur peut donner à un bail sans l'accord du partenaire. Valeur par défaut : 1 heure</td>
+</tr>
+<tr>
+<td><code>-SharedSecret</code></td>
+<td>Secret partagé pour authentifier les échanges entre partenaires</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Le MCLT explique les baux courts</p>
+<p>Pendant une panne, le serveur de secours délivre des baux dont la durée ne dépasse pas le MCLT. Quand le serveur principal revient, les deux peuvent se réconcilier sans donner la même adresse à deux machines. C'est le mécanisme qui évite les conflits d'adresses.</p>
+</div>
+<h3 id="86-verifier-la-relation">8.6 Vérifier la relation</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-DhcpServerv4Failover</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DHCP&gt;'</span>
+<span class="nb">Get-DhcpServerv4Failover</span> <span class="n">-ComputerName</span> <span class="s1">'&lt;SERVEUR_DHCP&gt;'</span> <span class="p">|</span> <span class="nb">Format-List</span> <span class="p">*</span>
+</code></pre></div>
+<p>L'état attendu en fonctionnement normal est <strong>Normal</strong>.</p>
+<h3 id="87-simulation-dindisponibilite">8.7 Simulation d'indisponibilité</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Sur le serveur DHCP actif</span>
+<span class="nb">Stop-Service</span> <span class="n">DHCPServer</span>
+
+<span class="c"># Après les vérifications et le test de secours</span>
+<span class="nb">Start-Service</span> <span class="n">DHCPServer</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Arrêter le service, jamais la machine</p>
+<p>Pour simuler une panne DHCP, arrête <strong>uniquement</strong> le service <code>DHCPServer</code>. Arrêter le serveur entier coupe aussi le DNS et l'annuaire, et le test ne montre plus rien de précis. Note l'heure de l'arrêt, puis observe les états de la relation à intervalles réguliers.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Les états d'une relation</p>
+<p>Une relation passe en général de <strong>Normal</strong> à <strong>Communication Interrupted</strong> quand le partenaire ne répond plus, puis à <strong>Partner Down</strong> si le partenaire est déclaré hors service (automatiquement ou par l'administrateur). Le comportement exact dépend du basculement automatique et des délais configurés.</p>
+</div>
+<hr />
+<h2 id="9-gestion-des-roles-fsmo">9. Gestion des rôles FSMO</h2>
+<h3 id="91-pourquoi-cinq-roles">9.1 Pourquoi cinq rôles ?</h3>
+<p>Active Directory est majoritairement <strong>multi-maître</strong> : chaque DC accepte des modifications. Certaines tâches exigent cependant un détenteur unique, pour éviter les conflits. Les rôles <strong>FSMO</strong> (Flexible Single Master Operations) coordonnent ces opérations.</p>
+<table>
+<thead>
+<tr>
+<th>Rôle</th>
+<th>Portée</th>
+<th>Fonction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schema Master</td>
+<td>Forêt</td>
+<td>Modifications du schéma</td>
+</tr>
+<tr>
+<td>Domain Naming Master</td>
+<td>Forêt</td>
+<td>Ajout et suppression des domaines</td>
+</tr>
+<tr>
+<td>RID Master</td>
+<td>Domaine</td>
+<td>Distribution des pools de RID</td>
+</tr>
+<tr>
+<td>PDC Emulator</td>
+<td>Domaine</td>
+<td>Changements de mot de passe, temps, opérations prioritaires</td>
+</tr>
+<tr>
+<td>Infrastructure Master</td>
+<td>Domaine</td>
+<td>Actualisation de certaines références entre domaines</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Mnémotechnique</p>
+<p>Deux rôles sont uniques dans la <strong>forêt</strong> (schéma et nommage des domaines), trois sont uniques <strong>dans chaque domaine</strong> (RID, PDC Emulator, Infrastructure). Un seul DC peut détenir plusieurs rôles.</p>
+</div>
+<h3 id="92-identifier-les-detenteurs">9.2 Identifier les détenteurs</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-ADForest</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">SchemaMaster</span><span class="p">,</span> <span class="n">DomainNamingMaster</span>
+<span class="nb">Get-ADDomain</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">PDCEmulator</span><span class="p">,</span> <span class="n">RIDMaster</span><span class="p">,</span> <span class="n">InfrastructureMaster</span>
+<span class="n">netdom</span> <span class="n">query</span> <span class="n">fsmo</span>
+</code></pre></div>
+<h3 id="93-consoles-graphiques-pour-un-transfert">9.3 Consoles graphiques pour un transfert</h3>
+<table>
+<thead>
+<tr>
+<th>Console</th>
+<th>Rôles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Utilisateurs et ordinateurs Active Directory</td>
+<td>RID, PDC Emulator, Infrastructure Master</td>
+</tr>
+<tr>
+<td>Domaines et approbations Active Directory</td>
+<td>Domain Naming Master</td>
+</tr>
+<tr>
+<td>Schéma Active Directory</td>
+<td>Schema Master</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">La console Schéma n'est pas enregistrée par défaut</p>
+<p>Elle n'apparaît pas dans MMC tant qu'elle n'a pas été enregistrée. Il faut d'abord exécuter <code>regsvr32 schmmgmt.dll</code>, puis ajouter le composant dans MMC. C'est un piège classique en examen.</p>
+</div>
+<h3 id="94-transferer-avec-powershell">9.4 Transférer avec PowerShell</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Move-ADDirectoryServerOperationMasterRole</span> <span class="n">-Identity</span> <span class="s1">'&lt;CONTROLEUR_DESTINATAIRE&gt;'</span> <span class="n">-OperationMasterRole</span> <span class="n">PDCEmulator</span>
+<span class="nb">Get-ADDomainController</span> <span class="n">-Identity</span> <span class="s1">'&lt;CONTROLEUR_DOMAINE&gt;'</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">OperationMasterRoles</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Transfert et saisie : deux situations différentes</p>
+<ul>
+<li><strong>Transfert</strong> : opération planifiée, l'ancien détenteur est accessible et coopère.</li>
+<li><strong>Saisie</strong> (seizure) : récupération forcée quand l'ancien détenteur est définitivement indisponible. C'est une opération destructive pour l'ancien DC.</li>
+</ul>
+<p>Le cours ne montre pas la syntaxe de la saisie. Avec <code>Move-ADDirectoryServerOperationMasterRole</code>, elle passe par le paramètre <code>-Force</code>, à n'utiliser que si l'ancien DC ne reviendra jamais.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Ne jamais réintroduire l'ancien DC tel quel</p>
+<p>Après une saisie, l'ancien contrôleur ne doit pas être remis en service sans nettoyage (métadonnées de réplication). Le réintroduire peut créer des incohérences dans l'annuaire. C'est la précaution que le cours mentionne sous le terme « précautions avant toute réintroduction ».</p>
+</div>
+<hr />
+<h2 id="10-diagnostic-et-depannage">10. Diagnostic et dépannage</h2>
+<h3 id="101-demarche">10.1 Démarche</h3>
+<p>Un diagnostic efficace suit un ordre :</p>
+<ol>
+<li><strong>Préciser le symptôme</strong> : qui est touché, depuis quand, quel message exact ?</li>
+<li><strong>Vérifier la couche basse d'abord</strong> : réseau (IP, passerelle), puis résolution DNS, puis service, puis application.</li>
+<li><strong>Consulter les journaux</strong> avant de modifier quoi que ce soit.</li>
+<li><strong>Changer une seule chose à la fois</strong>, et noter le résultat.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Un bon diagnostic se documente</p>
+<p>Note le symptôme, l'heure, la commande, le résultat et la correction. C'est ce qui sert à la fois pour l'incident suivant et pour l'entretien d'embauche.</p>
+</div>
+<h3 id="102-commandes-de-diagnostic-par-theme">10.2 Commandes de diagnostic par thème</h3>
+<table>
+<thead>
+<tr>
+<th>Domaine</th>
+<th>Commandes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Système</td>
+<td><code>Get-ComputerInfo</code>, <code>Get-Service</code></td>
+</tr>
+<tr>
+<td>Réseau</td>
+<td><code>Get-NetIPConfiguration</code>, <code>Test-Connection</code>, <code>Test-NetConnection</code></td>
+</tr>
+<tr>
+<td>DNS</td>
+<td><code>Resolve-DnsName</code>, <code>Get-DnsServerZone</code></td>
+</tr>
+<tr>
+<td>Contrôleurs et réplication</td>
+<td><code>Get-ADDomainController</code>, <code>dcdiag</code>, <code>repadmin /replsummary</code></td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td><code>Get-DhcpServerv4Scope</code>, <code>Get-DhcpServerv4Lease</code>, <code>Get-DhcpServerv4Failover</code></td>
+</tr>
+<tr>
+<td>FSMO</td>
+<td><code>netdom query fsmo</code></td>
+</tr>
+<tr>
+<td>Journaux</td>
+<td><code>Get-WinEvent</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="103-lire-les-journaux-windows">10.3 Lire les journaux Windows</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-WinEvent</span> <span class="n">-LogName</span> <span class="n">System</span> <span class="n">-MaxEvents</span> <span class="n">20</span>
+<span class="nb">Get-WinEvent</span> <span class="n">-LogName</span> <span class="s1">'Directory Service'</span> <span class="n">-MaxEvents</span> <span class="n">20</span>
+<span class="nb">Get-WinEvent</span> <span class="n">-FilterHashtable</span> <span class="p">@{</span> <span class="n">LogName</span> <span class="p">=</span> <span class="s1">'System'</span><span class="p">;</span> <span class="n">StartTime</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">AddHours</span><span class="p">(-</span><span class="n">1</span><span class="p">)</span> <span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><code>Get-WinEvent</code> plutôt que <code>Get-EventLog</code></p>
+<p><code>Get-EventLog</code> est l'ancienne commande et ne lit pas tous les journaux modernes. <code>Get-WinEvent</code> est la commande à privilégier. Le filtre <code>-FilterHashtable</code> est appliqué par Windows avant l'affichage : il est donc plus rapide qu'un <code>Where-Object</code> sur des milliers d'événements.</p>
+</div>
+<hr />
+<h2 id="auto-evaluation">Auto-évaluation</h2>
+<div class="admonition abstract">
+<p class="admonition-title">Comment t'évaluer</p>
+<p>Pour chaque compétence, choisis le niveau qui te correspond <strong>sans regarder le cours</strong> :</p>
+<ul>
+<li><strong>A</strong> : je le fais seul, sans aide, et je peux expliquer pourquoi.</li>
+<li><strong>B</strong> : je le fais en relisant une commande ou l'aide, mais je comprends le principe.</li>
+<li><strong>C</strong> : je ne le fais pas encore seul, il faut revoir la section.</li>
+</ul>
+<p>Un C n'est pas un échec : c'est la liste de ce qu'il faut revoir.</p>
+</div>
+<h3 id="grille-de-competences">Grille de compétences</h3>
+<table>
+<thead>
+<tr>
+<th>Compétence</th>
+<th>Section</th>
+<th>Niveau (A/B/C)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lire la syntaxe Verbe-Nom et trouver une cmdlet avec <code>Get-Command</code></td>
+<td>2.1, 2.2</td>
+<td>B, j'utilise TLDR</td>
+</tr>
+<tr>
+<td>Lire l'aide et ses exemples avant d'exécuter</td>
+<td>2.2</td>
+<td>A, tldr</td>
+</tr>
+<tr>
+<td>Filtrer, trier et sélectionner des propriétés avec le pipeline</td>
+<td>2.3</td>
+<td>B, habitué à grep, par encore intégré la syntaxe powershell</td>
+</tr>
+<tr>
+<td>Utiliser <code>-WhatIf</code>, <code>-Confirm</code> et <code>-ErrorAction</code></td>
+<td>2.4</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Utiliser SConfig et expliquer ce qu'il ne fait pas</td>
+<td>3.2</td>
+<td>A</td>
+</tr>
+<tr>
+<td>Gérer un service et connaître ses dépendances</td>
+<td>3.3</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Configurer une adresse IPv4 et un DNS en PowerShell</td>
+<td>4.2</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Tester une connectivité avec le bon outil (ping ou port)</td>
+<td>4.3</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Expliquer et ouvrir une règle de pare-feu</td>
+<td>4.4</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Activer le remoting et exécuter une commande à distance</td>
+<td>5.2</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Distinguer installer AD DS, promouvoir un DC et joindre un domaine</td>
+<td>6.2, 6.3</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Vérifier la réplication AD et expliquer SYSVOL et NETLOGON</td>
+<td>6.4, 6.5</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Vérifier qu'un objet existe sur un DC précis avec <code>-Server</code></td>
+<td>6.6</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Lire un enregistrement SRV et expliquer son rôle</td>
+<td>7.4</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Autoriser un serveur DHCP dans AD</td>
+<td>8.1</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Expliquer la différence entre Load Balance et Hot Standby</td>
+<td>8.3</td>
+<td>A</td>
+</tr>
+<tr>
+<td>Créer une relation de failover et vérifier son état</td>
+<td>8.4, 8.6</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Simuler une panne DHCP sans toucher au DC</td>
+<td>8.7</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Nommer les cinq rôles FSMO et leur portée</td>
+<td>9.1</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Identifier les détenteurs de rôles</td>
+<td>9.2</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Distinguer transfert et saisie d'un rôle FSMO</td>
+<td>9.4</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Lire un journal d'événements avec <code>Get-WinEvent</code></td>
+<td>10.3</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Appliquer la démarche de diagnostic (couche basse d'abord)</td>
+<td>10.1</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<h3 id="questions">Questions</h3>
+<p><strong>1. Quelle est la différence entre une cmdlet et un exécutable comme <code>repadmin</code> ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p>Une cmdlet renvoie des <strong>objets</strong> avec des propriétés, qu'on peut filtrer et trier avec le pipeline. Un exécutable comme <code>repadmin</code> ou <code>dcdiag</code> renvoie du <strong>texte</strong>. On peut les lancer depuis PowerShell, mais on ne manipule pas leurs résultats comme des objets.</p>
+</details>
+<p><strong>2. Tu veux savoir si un DHCP est autorisé dans AD. Quelle commande utilises-tu et pourquoi ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p><code>Get-DhcpServerInDC</code>. Un serveur DHCP membre d'un domaine ne distribue pas de baux tant qu'il n'est pas autorisé dans l'annuaire. C'est une protection contre les serveurs DHCP non autorisés.</p>
+</details>
+<p><strong>3. Pourquoi ping ne suffit-il pas pour dire qu'un service est disponible ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p>Un pare-feu peut bloquer ICMP sans bloquer le service, ou l'inverse. Un service réel se teste sur son <strong>port</strong> avec <code>Test-NetConnection -Port</code>. Le ping ne valide que la réponse ICMP.</p>
+</details>
+<p><strong>4. Qu'est-ce qui est répliqué pendant un failover DHCP, et qu'est-ce qui ne l'est pas ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p>Les baux et les paramètres d'étendue sont synchronisés entre les partenaires. Les options définies au niveau du serveur ne sont pas répliquées de manière fiable. C'est pourquoi il faut savoir où sont définies les options.</p>
+</details>
+<p><strong>5. Tu arrêtes le service DHCP sur le serveur actif. Quel est l'état attendu de la relation, et qu'est-ce qui ne doit surtout pas être arrêté ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p>La relation passe en général à <strong>Communication Interrupted</strong>, puis éventuellement à <strong>Partner Down</strong>. Il faut arrêter uniquement le service <code>DHCPServer</code>, jamais la machine : le DNS et l'annuaire doivent continuer de fonctionner pour que le test reste lisible.</p>
+</details>
+<p><strong>6. Un serveur a le rôle PDC Emulator. Son DC tombe définitivement. Que faut-il faire, et quelle précaution prendre ensuite ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p>Il faut <strong>saisir</strong> le rôle sur un autre DC (opération forcée), car le détenteur ne peut plus coopérer. Ensuite, l'ancien DC ne doit pas être réintroduit tel quel dans le domaine : ses métadonnées doivent être nettoyées avant toute remise en service.</p>
+</details>
+<p><strong>7. Pourquoi un enregistrement SRV est-il indispensable pour qu'un client se connecte au domaine ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p>Le client ne cherche pas le DC par son adresse IP. Il interroge le DNS pour trouver un enregistrement SRV (par exemple <code>_ldap._tcp.dc._msdcs</code>) qui indique quel serveur offre le service LDAP ou Kerberos, sur quel port. Sans SRV, le poste ne trouve pas de DC.</p>
+</details>
+<p><strong>8. Tu crées un objet dans AD depuis le DC A. Pour prouver qu'il est répliqué, que dois-tu vérifier et comment ?</strong></p>
+<details class="success">
+<summary>Réponse</summary>
+<p>Il faut interroger explicitement le DC B avec <code>-Server</code>, par exemple <code>Get-ADUser -Identity &lt;nom&gt; -Server &lt;DC_B&gt;</code>. Une simple consultation depuis une console peut répondre à partir du DC A et ne prouve pas la réplication.</p>
+</details>
+<h3 id="defis-pratiques">Défis pratiques</h3>
+<p>Ces exercices se font sur ta VM. Ils valident les sections en les combinant.</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Défi 1 (sections 2 et 3)</strong> : sans aide, liste les services arrêtés, trie-les par nom, et exporte le résultat dans un fichier texte.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Défi 2 (section 4)</strong> : configure une adresse statique sur une seconde carte, vérifie-la, puis remets l'interface en DHCP sans perdre l'accès.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Défi 3 (section 6)</strong> : vérifie la réplication d'un nouvel objet entre deux DC en utilisant <code>-Server</code>, puis supprime l'objet.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Défi 4 (section 8)</strong> : sur une étendue de test, crée une relation de failover, arrête le service actif, et note les états successifs de la relation.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Défi 5 (section 9)</strong> : identifie les cinq détenteurs FSMO de ton domaine et écris, sans regarder, ce que fait chacun.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Défi 6 (section 10)</strong> : provoque une erreur contrôlée (par exemple un service arrêté) et retrouve-la dans les journaux avec <code>Get-WinEvent</code>.</li>
+</ul>
+<h3 id="lecture-de-ton-resultat">Lecture de ton résultat</h3>
+<table>
+<thead>
+<tr>
+<th>Résultat</th>
+<th>Ce que ça signifie</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Majorité de A</td>
+<td>Tu maîtrises le sujet, tu peux enseigner ou aller plus loin</td>
+<td>Passe aux défis, puis à un projet réel</td>
+</tr>
+<tr>
+<td>Mélange de A et B</td>
+<td>Tu comprends les principes, il te manque la pratique</td>
+<td>Refais les défis sans regarder les commandes</td>
+</tr>
+<tr>
+<td>Plusieurs C</td>
+<td>Tu n'as pas encore consolidé la section</td>
+<td>Refais la section, puis reprends les questions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2>
+<ul>
+<li>Transformer chaque section en <strong>script</strong> réutilisable, testé sur une VM propre.</li>
+<li>Ajouter un <strong>aide-mémoire</strong> d'une page avec les verbes, les paramètres de sécurité et les commandes de diagnostic.</li>
+<li>Constituer un <strong>glossaire</strong> (cmdlet, pipeline, FSMO, MCLT, SRV, AGDLP) avec une définition personnelle pour chaque terme.</li>
+<li>Reconstruire un laboratoire complet à partir de zéro, sans notes, et noter ce qui manque.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
