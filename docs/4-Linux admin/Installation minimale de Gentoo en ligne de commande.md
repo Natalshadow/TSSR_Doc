@@ -171,3 +171,21 @@ Retirer l'ISO de la VM avant le redémarrage, sinon le live se relance.
 | Manquie de place disque VM          | Config trop conservatrice | élargir                            |
 | Difficulté de compilation du kernel | Pas compris               | Rajouter des flags de dependencies |
 
+
+
+![](attachments/Pasted%20image%2020261028095753.png)
+![](attachments/Pasted%20image%2020261028101344.png)
+
+
+#### GRUB
+
+Users of GRUB can use either systemd's kernel-install or the traditional Debian installkernel. The [systemd](https://packages.gentoo.org/useflags/systemd)[](https://wiki.gentoo.org/wiki/USE_flag "USE flag") USE flag switches between these implementations. To automatically run grub-mkconfig when installing the kernel, enable the [grub](https://packages.gentoo.org/useflags/grub)[](https://wiki.gentoo.org/wiki/USE_flag "USE flag") [USE flag](https://wiki.gentoo.org/wiki/USE_flag "USE flag").
+
+**Note**  
+GRUB requires kernels to be installed to /boot.
+
+sudo nano **`/etc/portage/package.use/installkernel`**
+
+sys-kernel/installkernel grub
+
+`emerge --ask sys-kernel/installkernel`
